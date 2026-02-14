@@ -1,0 +1,19 @@
+:host {
+    height: 100%;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+    .icon {
+        font-size: 1rem;
+        margin-right: 1rem;
+        cursor: pointer
+    }
+    
+    ::ng-deep .p-badge {
+        width: 15px;
+        min-width: 15px;
+        height: 15px;
+        line-height: 15px;
+    }
+}

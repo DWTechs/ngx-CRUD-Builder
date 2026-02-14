@@ -1,0 +1,49 @@
+<p-card>
+  <ng-template #header>
+    <span>Dashboard</span>
+  </ng-template>
+  <div class="card-content">
+    @for (kpi of kpis; track kpi) {
+      <app-home-card 
+        [title]="kpi.title"
+        [value]="kpi.value"
+        [icon]="kpi.icon"
+        [severity]="kpi.severity"
+        [tooltip]="kpi.tooltip"
+      />
+    }
+  </div>
+</p-card>
+
+<p-card>
+  <ng-template #header>
+    <span>Actions requises</span>
+  </ng-template>
+  <div class="card-content">
+    @for (action of actions; track action) {
+      <app-home-card 
+        [title]="action.title"
+        [value]="action.value"
+        [icon]="action.icon"
+        [route]="action.route"
+        [severity]="action.severity"
+      />
+    }
+  </div>
+</p-card>
+
+<p-card>
+  <ng-template #header>
+    <span>Accès rapide</span>
+  </ng-template>
+  <div class="card-content">
+    @for (shortcut of shortcuts; track shortcut) {
+      <p-button 
+        [routerLink]="shortcut.route"
+        [icon]="shortcut.icon"
+        [label]="shortcut.label"
+        class="shortcut-button"
+      />
+    }
+  </div>
+</p-card>

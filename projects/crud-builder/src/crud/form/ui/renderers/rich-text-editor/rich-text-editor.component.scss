@@ -1,0 +1,53 @@
+:host {
+  display: block;
+  position: relative;
+  height: 100%;
+  width: 100%;
+
+  .html-editor {
+    position: absolute;
+    top: 0;
+    min-height: 100%;
+    width: 100%;
+    z-index: 1;
+    display: none;
+    overflow: auto;
+    border: 1px solid #ccc;
+
+    &:focus-visible {
+      outline: 0;
+    }
+
+    &.displayed {
+      display: block;
+    }
+  }
+
+  .close-html {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+  }
+
+  .editor-wysiwyg {
+    overflow: hidden;
+    width: 100%;
+    display: block;
+
+    ::ng-deep .p-editor-container {
+      height: 100%;
+
+      .p-editor-toolbar, .ql-editor {
+        background: var(--p-inputtext-background);
+      }
+    }
+  }
+}
+
+.html-toggler {
+  padding: 1px 5px !important;
+  height: 20px !important;
+}
