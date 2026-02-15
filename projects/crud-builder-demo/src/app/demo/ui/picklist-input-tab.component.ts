@@ -25,27 +25,27 @@ import { SelectModule } from "primeng/select";
   template: `
     <h3>Configuration</h3>
     <p class="intro-text">
-      Options disponibles pour un champ Picklist (liste de sélection avec transfert)
+      Available options for a Picklist field (selection list with transfer)
     </p>
     
     <div class="demo-controls">
       <div class="demo-control">
-        <label>Label du champ</label>
+        <label>Field Label</label>
         <input pInputText [(ngModel)]="picklistLabel" placeholder="Label" />
       </div>
 
       <div class="demo-control">
-        <label>Largeur</label>
+        <label>Width</label>
         <input pInputText 
-          [(ngModel)]="picklistWidth"  
-          placeholder="Largeur (ex: 300px, 50%)" />
+          [(ngModel)]="picklistWidth" 
+          placeholder="Width (ex: 300px, 50%)" />
       </div>
 
       <div class="demo-control">
-        <label>Texte d'aide</label>
+        <label>Help text</label>
         <input pInputText 
           [(ngModel)]="picklistHelpText" 
-          placeholder="Texte d'aide sous le champ" />
+          placeholder="Help text below the field" />
       </div>
 
       <div class="demo-control">
@@ -62,38 +62,38 @@ import { SelectModule } from "primeng/select";
           placeholder="Label dans controlOptions" />
       </div>
 
-      <!-- Checkboxes pour les options booléennes -->
+      <!-- Checkboxes for boolean options -->
       <div class="checkboxes">
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="picklistRequired"
             binary="true" />
-          <label>Obligatoire</label>
+          <label>Required</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="picklistDisabled"
             binary="true" />
-          <label>Désactivé</label>
+          <label>Disabled</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="picklistHidden"
             binary="true" />
-          <label>Masqué</label>
+          <label>Hidden</label>
         </div>
       </div>
 
       <p-button 
-        label="Appliquer"
+        label="Apply"
         (click)="applyConfig()"
         class="apply-btn" />
     </div>
     
     <div class="live-demo">
-        <h3>Rendu</h3>
+        <h3>Preview</h3>
         <frm-form
           [model]="{}"
           [config]="config()"
@@ -122,7 +122,7 @@ export class PicklistInputTabComponent {
   // Sample data for picklist
   private readonly sampleOptions = [
     { label: "France", value: "FR", icon: "pi pi-flag" },
-    { label: "États-Unis", value: "US", icon: "pi pi-flag" },
+    { label: "United States", value: "US", icon: "pi pi-flag" },
     { label: "Allemagne", value: "DE", icon: "pi pi-flag" },
     { label: "Italie", value: "IT", icon: "pi pi-flag" },
     { label: "Espagne", value: "ES", icon: "pi pi-flag" },
@@ -130,7 +130,7 @@ export class PicklistInputTabComponent {
     { label: "Canada", value: "CA", icon: "pi pi-flag" },
     { label: "Japon", value: "JP", icon: "pi pi-flag" },
     { label: "Australie", value: "AU", icon: "pi pi-flag" },
-    { label: "Brésil", value: "BR", icon: "pi pi-flag" },
+    { label: "Brazil", value: "BR", icon: "pi pi-flag" },
     { label: "Chine", value: "CN", icon: "pi pi-flag" },
     { label: "Inde", value: "IN", icon: "pi pi-flag" },
     { label: "Mexique", value: "MX", icon: "pi pi-flag" },

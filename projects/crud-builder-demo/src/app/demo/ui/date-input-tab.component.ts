@@ -25,27 +25,27 @@ import { SelectModule } from "primeng/select";
   template: `
     <h3>Configuration</h3>
     <p class="intro-text">
-      Options disponibles pour un champ Date
+      Available options for a Date field
     </p>
     
     <div class="demo-controls">
       <div class="demo-control">
-        <label>Label principal</label>
+        <label>Main label</label>
         <input pInputText [(ngModel)]="dateLabel" placeholder="Label" />
       </div>
 
       <div class="demo-control">
-        <label>Largeur</label>
+        <label>Width</label>
         <input pInputText 
           [(ngModel)]="dateWidth"  
-          placeholder="Largeur (ex: 300px, 50%)" />
+          placeholder="Width (ex: 300px, 50%)" />
       </div>
 
       <div class="demo-control">
-        <label>Texte d'aide</label>
+        <label>Help text</label>
         <input pInputText 
           [(ngModel)]="dateHelpText" 
-          placeholder="Texte d'aide sous le champ" />
+          placeholder="Help text below the field" />
       </div>
 
       <div class="demo-control">
@@ -55,71 +55,71 @@ import { SelectModule } from "primeng/select";
           placeholder="Label dans controlOptions" />
       </div>
 
-      <!-- Options spécifiques Date -->
+      <!-- Date specific options -->
       <div class="demo-control">
-        <label>Mode de sélection</label>
+        <label>Selection mode</label>
         <p-select 
           [options]="selectionModeOptions" 
           [(ngModel)]="dateSelectionMode"
           (ngModelChange)="dateShowTime.set(false)"
-          placeholder="Choisir un mode" />
+          placeholder="Choose a mode" />
       </div>
 
       <div class="demo-control">
-        <label>Format de date</label>
+        <label>Date format</label>
         <input pInputText 
           [(ngModel)]="dateFormat" 
           placeholder="Format (ex: dd/mm/yy)" />
       </div>
 
       <div class="demo-control">
-        <label>Largeur de l'overlay</label>
+        <label>Overlay width</label>
         <input pInputText 
           [(ngModel)]="dateOverlayWidth" 
-          placeholder="Largeur overlay (ex: 400px)" />
+          placeholder="Overlay width (ex: 400px)" />
       </div>
 
       <div class="demo-control">
-        <label>Nombre de mois</label>
+        <label>Number of months</label>
         <input pInputText 
           type="number"
           [(ngModel)]="dateNumberOfMonths" 
-          placeholder="Nombre de mois" />
+          placeholder="Number of months" />
       </div>
 
       <div class="demo-control">
-        <label>Nombre max de dates</label>
+        <label>Max number of dates</label>
         <input pInputText 
           type="number"
           [(ngModel)]="dateMaxCount" 
-          placeholder="Nombre max de dates" />
+          placeholder="Max number of dates" />
       </div>
 
       <div class="demo-control">
-        <label>Step heures</label>
+        <label>Hour step</label>
         <input pInputText 
           type="number"
           [(ngModel)]="dateStepHours" 
-          placeholder="Incrément heures" />
+          placeholder="Hour increment" />
       </div>
 
       <div class="demo-control">
-        <label>Step minutes</label>
+        <label>Minute step</label>
         <input pInputText 
           type="number"
           [(ngModel)]="dateStepMinutes" 
-          placeholder="Incrément minutes" />
+          placeholder="Minute increment" />
       </div>
 
       <div class="demo-control">
-        <label>Mode d'affichage</label>
+        <label>Display mode</label>
         <p-select 
           [options]="viewModeOptions" 
           [(ngModel)]="dateViewMode"
-          placeholder="Choisir un mode" />
+          placeholder="Choose a mode" />
       </div>
 
-      <!-- Checkboxes pour les options booléennes -->
+      <!-- Checkboxes for boolean options -->
       <div class="checkboxes">
         <div class="demo-control">
           <p-checkbox 
@@ -127,49 +127,49 @@ import { SelectModule } from "primeng/select";
             binary="true" 
             [disabled]="dateSelectionMode() !== 'single'"
           />
-          <label>Sélection time</label>
+          <label>Time selection</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="dateRequired"
             binary="true" />
-          <label>Obligatoire</label>
+          <label>Required</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="dateDisabled"
             binary="true" />
-          <label>Désactivé</label>
+          <label>Disabled</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="dateHidden"
             binary="true" />
-          <label>Masqué</label>
+          <label>Hidden</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="dateReadonlyInput"
             binary="true" />
-          <label>Input en lecture seule</label>
+          <label>Read-only input</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="dateHideOverlayOnSelect"
             binary="true" />
-          <label>Masquer overlay après sélection</label>
+          <label>Hide overlay after selection</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="dateShowSeconds"
             binary="true" />
-          <label>Afficher les secondes</label>
+          <label>Show seconds</label>
         </div>
 
         <div class="demo-control">
@@ -181,13 +181,13 @@ import { SelectModule } from "primeng/select";
       </div>
 
       <p-button 
-        label="Appliquer"
+        label="Apply"
         (click)="applyConfig()"
         class="apply-btn" />
     </div>
     
     <div class="live-demo">
-        <h3>Rendu</h3>
+        <h3>Preview</h3>
         <frm-form
             [model]="{}"
             [config]="config()"

@@ -1,0 +1,10 @@
+$tabAndHeaderHeight: 150px;
+
+.doc-container {
+    padding: 0 1rem;
+
+    .p-tabpanels {
+        height: calc(100vh - #{$tabAndHeaderHeight});
+        overflow: auto;
+    }
+}

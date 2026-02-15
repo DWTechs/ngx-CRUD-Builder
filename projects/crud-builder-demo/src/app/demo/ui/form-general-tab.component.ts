@@ -2,13 +2,13 @@ import { Component, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
 import { FormFieldInteractionEvent } from "@crud/core/models/form-field-interaction.event";
+import { DEMO_CONF } from "@demo/demo.conf";
 import { FormComponent } from "@form/form/form.component";
 import { LabelStrategy } from "@form/utils/label-strategy.model";
 import { ButtonModule } from "primeng/button";
 import { CheckboxModule } from "primeng/checkbox";
 import { InputTextModule } from "primeng/inputtext";
 import { SelectModule } from "primeng/select";
-import { DEMO_CONF } from "@demo/demo.conf";
 
 interface FormGeneralConfig {
   config: CrudItemOptions[];
@@ -41,7 +41,7 @@ interface FormGeneralConfig {
   template: `
     <h3>Configuration</h3>
     <p class="intro-text">
-        Options disponibles pour un formulaire
+        Available options for a form
     </p>
     
     <div class="demo-controls">
@@ -119,11 +119,11 @@ interface FormGeneralConfig {
           <label>Read-only Mode</label>
         </div>
       </div>
-      <p-button label="Appliquer" (click)="applyConfig()" />
+      <p-button label="Apply" (click)="applyConfig()" />
     </div>
     
     <div class="live-demo">
-        <h3>Rendu</h3>
+        <h3>Preview</h3>
       @if (formConfig(); as config) {
         <frm-form
           [(model)]="config.model"
@@ -152,8 +152,8 @@ export class FormGeneralTabComponent {
   protected readonly selectedLabelStrategy = signal<LabelStrategy>("ifta");
   protected readonly selectedLabelVariant = signal<"on" | "in" | "over">("on");
   protected readonly selectedColumnsCount = signal<1 | 2 | 3>(2);
-  protected readonly selectedSubmitButtonLabel = signal("Enregistrer");
-  protected readonly selectedResetButtonLabel = signal("Réinitialiser");
+  protected readonly selectedSubmitButtonLabel = signal("Save");
+  protected readonly selectedResetButtonLabel = signal("Reset");
   protected readonly selectedShowSubmit = signal(true);
   protected readonly selectedShowReset = signal(true);
   protected readonly selectedShowDebug = signal(false);

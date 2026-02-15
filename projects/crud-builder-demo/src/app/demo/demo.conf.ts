@@ -252,7 +252,7 @@ export const DEMO_CONF: CrudItemOptions[] = [
     controlOptions: {
       width: "100%",
       tableCtrlConfig: {
-        // Configuration du tableau avec en-têtes visibles
+        // Table configuration with visible headers
       },
       tableCtrlColumns: [
         {

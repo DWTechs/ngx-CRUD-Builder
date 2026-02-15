@@ -25,17 +25,17 @@ import { SelectModule } from "primeng/select";
   template: `
     <h3>Configuration</h3>
     <p class="intro-text">
-      Options disponibles pour un champ Rich Text Editor (WYSIWYG - éditeur de texte enrichi)
+      Available options for a Rich Text Editor field (WYSIWYG - rich text editor)
     </p>
     
     <div class="demo-controls">
       <div class="demo-control">
-        <label>Label du champ</label>
+        <label>Field Label</label>
         <input pInputText [(ngModel)]="editorLabel" placeholder="Label" />
       </div>
 
       <div class="demo-control">
-        <label>Hauteur de l'éditeur</label>
+        <label>Editor height</label>
         <input pInputText 
           [(ngModel)]="editorHeight"  
           placeholder="Hauteur (ex: 200px, 300px)" />
@@ -45,14 +45,14 @@ import { SelectModule } from "primeng/select";
         <label>Largeur</label>
         <input pInputText 
           [(ngModel)]="editorWidth"  
-          placeholder="Largeur (ex: 300px, 50%)" />
+          placeholder="Width (ex: 300px, 50%)" />
       </div>
 
       <div class="demo-control">
-        <label>Texte d'aide</label>
+        <label>Help text</label>
         <input pInputText 
           [(ngModel)]="editorHelpText" 
-          placeholder="Texte d'aide sous le champ" />
+          placeholder="Help text below the field" />
       </div>
 
       <div class="demo-control">
@@ -69,45 +69,45 @@ import { SelectModule } from "primeng/select";
           placeholder="Label dans controlOptions" />
       </div>
 
-      <!-- Checkboxes pour les options booléennes -->
+      <!-- Checkboxes for boolean options -->
       <div class="checkboxes">
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="editorRequired"
             binary="true" />
-          <label>Obligatoire</label>
+          <label>Required</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="editorDisabled"
             binary="true" />
-          <label>Désactivé</label>
+          <label>Disabled</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="editorHidden"
             binary="true" />
-          <label>Masqué</label>
+          <label>Hidden</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="editorShowHtmlToggle"
             binary="true" />
-          <label>Afficher bouton HTML</label>
+          <label>Show HTML button</label>
         </div>
       </div>
 
       <p-button 
-        label="Appliquer"
+        label="Apply"
         (click)="applyConfig()"
         class="apply-btn" />
     </div>
     
     <div class="live-demo">
-        <h3>Rendu</h3>
+        <h3>Preview</h3>
         <frm-form
           [model]="{}"
           [config]="config()"

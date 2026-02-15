@@ -25,27 +25,27 @@ import { SelectModule } from "primeng/select";
   template: `
     <h3>Configuration</h3>
     <p class="intro-text">
-      Options disponibles pour un champ Select Button (boutons de sélection)
+      Available options for a Select Button field (selection buttons)
     </p>
     
     <div class="demo-controls">
       <div class="demo-control">
-        <label>Label du champ</label>
+        <label>Field Label</label>
         <input pInputText [(ngModel)]="selectButtonLabel" placeholder="Label" />
       </div>
 
       <div class="demo-control">
-        <label>Largeur</label>
+        <label>Width</label>
         <input pInputText 
-          [(ngModel)]="selectButtonWidth"  
-          placeholder="Largeur (ex: 300px, 50%)" />
+          [(ngModel)]="selectButtonWidth" 
+          placeholder="Width (ex: 300px, 50%)" />
       </div>
 
       <div class="demo-control">
-        <label>Texte d'aide</label>
+        <label>Help text</label>
         <input pInputText 
           [(ngModel)]="selectButtonHelpText" 
-          placeholder="Texte d'aide sous le champ" />
+          placeholder="Help text below the field" />
       </div>
 
       <div class="demo-control">
@@ -62,52 +62,52 @@ import { SelectModule } from "primeng/select";
           placeholder="Label dans controlOptions" />
       </div>
 
-      <!-- Checkboxes pour les options booléennes -->
+      <!-- Checkboxes for boolean options -->
       <div class="checkboxes">
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="selectButtonRequired"
             binary="true" />
-          <label>Obligatoire</label>
+          <label>Required</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="selectButtonDisabled"
             binary="true" />
-          <label>Désactivé</label>
+          <label>Disabled</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="selectButtonHidden"
             binary="true" />
-          <label>Masqué</label>
+          <label>Hidden</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="selectButtonMultiple"
             binary="true" />
-          <label>Sélection multiple</label>
+          <label>Multiple selection</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="selectButtonToggleable"
             binary="true" />
-          <label>Options déselectionables</label>
+          <label>Deselectable options</label>
         </div>
       </div>
 
       <p-button 
-        label="Appliquer"
+        label="Apply"
         (click)="applyConfig()"
         class="apply-btn" />
     </div>
     
     <div class="live-demo">
-        <h3>Rendu</h3>
+        <h3>Preview</h3>
         <frm-form
           [model]="{}"
           [config]="config()"

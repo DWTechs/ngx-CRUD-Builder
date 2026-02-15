@@ -25,12 +25,12 @@ import { SelectModule } from "primeng/select";
   template: `
     <h3>Configuration</h3>
     <p class="intro-text">
-      Options disponibles pour un champ Select (dropdown simple)
+      Available options for a Select field (single dropdown)
     </p>
     
     <div class="demo-controls">
       <div class="demo-control">
-        <label>Label du champ</label>
+        <label>Field Label</label>
         <input pInputText [(ngModel)]="selectLabel" placeholder="Label" />
       </div>
 
@@ -40,26 +40,26 @@ import { SelectModule } from "primeng/select";
       </div>
 
       <div class="demo-control">
-        <label>Icône</label>
+        <label>Icon</label>
         <p-select 
           [options]="iconOptions" 
           [(ngModel)]="selectIcon"
-          placeholder="Choisir une icône"
+          placeholder="Choose an icon"
           [showClear]="true" />
       </div>
 
       <div class="demo-control">
-        <label>Largeur</label>
+        <label>Width</label>
         <input pInputText 
           [(ngModel)]="selectWidth"  
-          placeholder="Largeur (ex: 300px, 50%)" />
+          placeholder="Width (ex: 300px, 50%)" />
       </div>
 
       <div class="demo-control">
-        <label>Texte d'aide</label>
+        <label>Help text</label>
         <input pInputText 
           [(ngModel)]="selectHelpText" 
-          placeholder="Texte d'aide sous le champ" />
+          placeholder="Help text below the field" />
       </div>
 
       <div class="demo-control">
@@ -76,52 +76,52 @@ import { SelectModule } from "primeng/select";
           placeholder="Label dans controlOptions" />
       </div>
 
-      <!-- Checkboxes pour les options booléennes -->
+      <!-- Checkboxes for boolean options -->
       <div class="checkboxes">
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="selectRequired"
             binary="true" />
-          <label>Obligatoire</label>
+          <label>Required</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="selectDisabled"
             binary="true" />
-          <label>Désactivé</label>
+          <label>Disabled</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="selectHidden"
             binary="true" />
-          <label>Masqué</label>
+          <label>Hidden</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="selectClearable"
             binary="true" />
-          <label>Bouton effacer</label>
+          <label>Clear button</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="selectOptionsFilterable"
             binary="true" />
-          <label>Options filtrables</label>
+          <label>Filterable options</label>
         </div>
       </div>
 
       <p-button 
-        label="Appliquer"
+        label="Apply"
         (click)="applyConfig()"
         class="apply-btn" />
     </div>
     
     <div class="live-demo">
-        <h3>Rendu</h3>
+        <h3>Preview</h3>
         <frm-form
           [model]="{}"
           [config]="config()"
@@ -135,7 +135,7 @@ import { SelectModule } from "primeng/select";
 export class SelectInputTabComponent {
   // Configuration signals for Select
   protected readonly selectLabel = signal("Test Select");
-  protected readonly selectPlaceholder = signal("Sélectionnez une option...");
+  protected readonly selectPlaceholder = signal("Select an option...");
   protected readonly selectIcon = signal<string | undefined>(undefined);
   protected readonly selectWidth = signal<string | undefined>(undefined);
   protected readonly selectHelpText = signal<string | undefined>(undefined);
@@ -150,7 +150,7 @@ export class SelectInputTabComponent {
   // Sample data for select
   private readonly sampleOptions = [
     { label: "France", value: "FR" },
-    { label: "États-Unis", value: "US" },
+    { label: "United States", value: "US" },
     { label: "Allemagne", value: "DE" },
     { label: "Italie", value: "IT" },
     { label: "Espagne", value: "ES" },
@@ -158,7 +158,7 @@ export class SelectInputTabComponent {
     { label: "Canada", value: "CA" },
     { label: "Japon", value: "JP" },
     { label: "Australie", value: "AU" },
-    { label: "Brésil", value: "BR" },
+    { label: "Brazil", value: "BR" },
     { label: "Chine", value: "CN" },
     { label: "Inde", value: "IN" },
     { label: "Mexique", value: "MX" },

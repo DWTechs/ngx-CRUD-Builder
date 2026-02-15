@@ -30,12 +30,12 @@ import { SelectModule } from "primeng/select";
   template: `
     <h3>Configuration</h3>
     <p class="intro-text">
-      Options disponibles pour un champ Textarea (zone de texte multiligne)
+      Available options for a Textarea field (multiline text area)
     </p>
     
     <div class="demo-controls">
       <div class="demo-control">
-        <label>Label du champ</label>
+        <label>Field Label</label>
         <input pInputText [(ngModel)]="textareaLabel" placeholder="Label" />
       </div>
 
@@ -45,90 +45,90 @@ import { SelectModule } from "primeng/select";
       </div>
 
       <div class="demo-control">
-        <label>Icône</label>
+        <label>Icon</label>
         <p-select 
           [options]="iconOptions" 
           [(ngModel)]="textareaIcon"
-          placeholder="Choisir une icône"
+          placeholder="Choose an icon"
           [showClear]="true" />
       </div>
 
       <div class="demo-control">
-        <label>Largeur</label>
+        <label>Width</label>
         <input pInputText 
           [(ngModel)]="textareaWidth"  
-          placeholder="Largeur (ex: 300px, 50%)" />
+          placeholder="Width (ex: 300px, 50%)" />
       </div>
 
       <div class="demo-control">
-        <label>Texte d'aide</label>
+        <label>Help text</label>
         <input pInputText 
           [(ngModel)]="textareaHelpText" 
-          placeholder="Texte d'aide sous le champ" />
+          placeholder="Help text below the field" />
       </div>
 
       <div class="demo-control">
         <label>Tooltip</label>
         <input pInputText 
           [(ngModel)]="textareaTooltipLabel" 
-          placeholder="Texte au survol" />
+          placeholder="Hover text" />
       </div>
 
       <div class="demo-control">
         <label>Label control</label>
         <input pInputText 
           [(ngModel)]="textareaControlLabel" 
-          placeholder="Label dans controlOptions" />
+          placeholder="Label in controlOptions" />
       </div>
 
       <div class="demo-control">
-        <label>Longueur min</label>
+        <label>Min Length</label>
         <input pInputText 
           type="number"
           [(ngModel)]="textareaMinLength" 
-          placeholder="Nombre de caractères min" />
+          placeholder="Minimum number of characters" />
       </div>
 
       <div class="demo-control">
-        <label>Longueur max</label>
+        <label>Max Length</label>
         <input pInputText 
           type="number"
           [(ngModel)]="textareaMaxLength" 
-          placeholder="Nombre de caractères max" />
+          placeholder="Maximum number of characters" />
       </div>
 
-      <!-- Checkboxes pour les options booléennes -->
+      <!-- Checkboxes for boolean options -->
       <div class="checkboxes">
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="textareaRequired"
             binary="true" />
-          <label>Obligatoire</label>
+          <label>Required</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="textareaDisabled"
             binary="true" />
-          <label>Désactivé</label>
+          <label>Disabled</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="textareaHidden"
             binary="true" />
-          <label>Masqué</label>
+          <label>Hidden</label>
         </div>
       </div>
 
       <p-button 
-        label="Appliquer"
+        label="Apply"
         (click)="applyConfig()"
         class="apply-btn" />
     </div>
     
     <div class="live-demo">
-        <h3>Rendu</h3>
+        <h3>Preview</h3>
         <frm-form
           [model]="{}"
           [config]="config()"
@@ -142,7 +142,7 @@ import { SelectModule } from "primeng/select";
 export class TextareaInputTabComponent {
   // Configuration signals for Textarea
   protected readonly textareaLabel = signal("Test Textarea");
-  protected readonly textareaPlaceholder = signal("Saisissez votre texte...");
+  protected readonly textareaPlaceholder = signal("Enter your text...");
   protected readonly textareaIcon = signal<string | undefined>(undefined);
   protected readonly textareaWidth = signal<string | undefined>(undefined);
   protected readonly textareaHelpText = signal<string | undefined>(undefined);

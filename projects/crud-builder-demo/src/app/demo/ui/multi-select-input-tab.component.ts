@@ -25,12 +25,12 @@ import { SelectModule } from "primeng/select";
   template: `
     <h3>Configuration</h3>
     <p class="intro-text">
-      Options disponibles pour un champ Multi-Select
+      Available options for a Multi-Select field
     </p>
     
     <div class="demo-controls">
       <div class="demo-control">
-        <label>Label du champ</label>
+        <label>Field Label</label>
         <input pInputText [(ngModel)]="multiSelectLabel" placeholder="Label" />
       </div>
 
@@ -40,26 +40,26 @@ import { SelectModule } from "primeng/select";
       </div>
 
       <div class="demo-control">
-        <label>Icône</label>
+        <label>Icon</label>
         <p-select 
           [options]="iconOptions" 
           [(ngModel)]="multiSelectIcon"
-          placeholder="Choisir une icône"
+          placeholder="Choose an icon"
           [showClear]="true" />
       </div>
 
       <div class="demo-control">
-        <label>Largeur</label>
+        <label>Width</label>
         <input pInputText 
           [(ngModel)]="multiSelectWidth"  
-          placeholder="Largeur (ex: 300px, 50%)" />
+          placeholder="Width (ex: 300px, 50%)" />
       </div>
 
       <div class="demo-control">
-        <label>Texte d'aide</label>
+        <label>Help text</label>
         <input pInputText 
           [(ngModel)]="multiSelectHelpText" 
-          placeholder="Texte d'aide sous le champ" />
+          placeholder="Help text below the field" />
       </div>
 
       <div class="demo-control">
@@ -77,66 +77,66 @@ import { SelectModule } from "primeng/select";
       </div>
 
       <div class="demo-control">
-        <label>Nombre max de labels affichés</label>
+        <label>Maximum number of displayed labels</label>
         <input pInputText 
           type="number"
           [(ngModel)]="multiSelectMaxSelectedLabels" 
           placeholder="ex: 3" />
       </div>
 
-      <!-- Checkboxes pour les options booléennes -->
+      <!-- Checkboxes for boolean options -->
       <div class="checkboxes">
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="multiSelectRequired"
             binary="true" />
-          <label>Obligatoire</label>
+          <label>Required</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="multiSelectDisabled"
             binary="true" />
-          <label>Désactivé</label>
+          <label>Disabled</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="multiSelectHidden"
             binary="true" />
-          <label>Masqué</label>
+          <label>Hidden</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="multiSelectClearable"
             binary="true" />
-          <label>Bouton effacer</label>
+          <label>Clear button</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="multiSelectOptionsFilterable"
             binary="true" />
-          <label>Options filtrables</label>
+          <label>Filterable options</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="multiSelectAllEnabled"
             binary="true" />
-          <label>Option "Tout sélectionner"</label>
+          <label>"Select all" option</label>
         </div>
       </div>
 
       <p-button 
-        label="Appliquer"
+        label="Apply"
         (click)="applyConfig()"
         class="apply-btn" />
     </div>
     
     <div class="live-demo">
-        <h3>Rendu</h3>
+        <h3>Preview</h3>
         <frm-form
           [model]="{}"
           [config]="config()"
@@ -150,7 +150,7 @@ import { SelectModule } from "primeng/select";
 export class MultiSelectInputTabComponent {
   // Configuration signals for Multi-Select
   protected readonly multiSelectLabel = signal("Test Multi-Select");
-  protected readonly multiSelectPlaceholder = signal("Sélectionnez...");
+  protected readonly multiSelectPlaceholder = signal("Select...");
   protected readonly multiSelectIcon = signal<string | undefined>(undefined);
   protected readonly multiSelectWidth = signal<string | undefined>(undefined);
   protected readonly multiSelectHelpText = signal<string | undefined>(
@@ -175,7 +175,7 @@ export class MultiSelectInputTabComponent {
   // Sample data for multi-select
   private readonly sampleOptions = [
     { label: "France", value: "FR" },
-    { label: "États-Unis", value: "US" },
+    { label: "United States", value: "US" },
     { label: "Allemagne", value: "DE" },
     { label: "Italie", value: "IT" },
     { label: "Espagne", value: "ES" },
@@ -183,7 +183,7 @@ export class MultiSelectInputTabComponent {
     { label: "Canada", value: "CA" },
     { label: "Japon", value: "JP" },
     { label: "Australie", value: "AU" },
-    { label: "Brésil", value: "BR" },
+    { label: "Brazil", value: "BR" },
     { label: "Chine", value: "CN" },
     { label: "Inde", value: "IN" },
     { label: "Mexique", value: "MX" },

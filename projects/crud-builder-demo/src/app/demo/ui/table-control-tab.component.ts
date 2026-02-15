@@ -26,37 +26,37 @@ import { SelectModule } from "primeng/select";
     PanelModule,
   ],
   template: `
-    <p-panel header="⚠️ Travaux en cours" [toggleable]="true">
-      <p>Les fonctionnalités suivantes sont en cours de développement :</p>
+    <p-panel header="⚠️ Work in Progress" [toggleable]="true">
+      <p>The following features are under development:</p>
       <ul>
-        <li>Validateurs personnalisés pour les colonnes (pour l'instant, seul 'required' est supporté)</li>
-        <li>Suppression et création de lignes depuis le tableau</li>
+        <li>Custom validators for columns (currently, only 'required' is supported)</li>
+        <li>Deletion and creation of rows from the table</li>
       </ul>
     </p-panel>
 
     <h3>Configuration</h3>
     <p class="intro-text">
-      Options disponibles pour un champ Table Control (tableau éditable avec lignes dynamiques)
+      Available options for a Table Control field (inline editable table)
     </p>
     
     <div class="demo-controls">
       <div class="demo-control">
-        <label>Label du champ</label>
+        <label>Field Label</label>
         <input pInputText [(ngModel)]="tableLabel" placeholder="Label" />
       </div>
 
       <div class="demo-control">
-        <label>Largeur</label>
+        <label>Width</label>
         <input pInputText 
           [(ngModel)]="tableWidth"  
-          placeholder="Largeur (ex: 100%, 800px)" />
+          placeholder="Width (ex: 100%, 800px)" />
       </div>
 
       <div class="demo-control">
-        <label>Texte d'aide</label>
+        <label>Help text</label>
         <input pInputText 
           [(ngModel)]="tableHelpText" 
-          placeholder="Texte d'aide sous le champ" />
+          placeholder="Help text below the field" />
       </div>
 
       <div class="demo-control">
@@ -67,87 +67,87 @@ import { SelectModule } from "primeng/select";
       </div>
 
       <div class="demo-control">
-        <label>Mode d'édition</label>
+        <label>Edition mode</label>
         <p-select 
           [options]="editionModeOptions" 
           [(ngModel)]="editionMode"
-          placeholder="Choisir un mode" />
+          placeholder="Choose a mode" />
       </div>
 
-      <!-- Checkboxes pour les options booléennes -->
+      <!-- Checkboxes for boolean options -->
       <div class="checkboxes">
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="tableRequired"
             binary="true" />
-          <label>Obligatoire</label>
+          <label>Required</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="tableDisabled"
             binary="true" />
-          <label>Désactivé</label>
+          <label>Disabled</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="tableHidden"
             binary="true" />
-          <label>Masqué</label>
+          <label>Hidden</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="isHeaderHidden"
             binary="true" />
-          <label>Masquer l'en-tête</label>
+          <label>Hide header</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="filterable"
             binary="true" />
-          <label>Filtrable</label>
+          <label>Filterable</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="sortable"
             binary="true" />
-          <label>Triable</label>
+          <label>Sortable</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="selectable"
             binary="true" />
-          <label>Sélectionnable</label>
+          <label>Selectable</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="deletable"
             binary="true" />
-          <label>Suppression autorisée</label>
+          <label>Deletion allowed</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="creatable"
             binary="true" />
-          <label>Création autorisée</label>
+          <label>Creation allowed</label>
         </div>
       </div>
 
       <p-button 
-        label="Appliquer"
+        label="Apply"
         (click)="applyConfig()"
         class="apply-btn" />
     </div>
     
     <div class="live-demo">
-        <h3>Rendu</h3>
+        <h3>Preview</h3>
         <frm-form
           [model]="initialModel"
           [config]="config()"

@@ -25,27 +25,27 @@ import { SelectModule } from "primeng/select";
   template: `
     <h3>Configuration</h3>
     <p class="intro-text">
-      Options disponibles pour un champ File Upload
+      Available options for a File Upload field
     </p>
     
     <div class="demo-controls">
       <div class="demo-control">
-        <label>Label du champ</label>
+        <label>Field Label</label>
         <input pInputText [(ngModel)]="fileUploadLabel" placeholder="Label" />
       </div>
 
       <div class="demo-control">
-        <label>Largeur</label>
+        <label>Width</label>
         <input pInputText 
-          [(ngModel)]="fileUploadWidth"  
-          placeholder="Largeur (ex: 300px, 50%)" />
+          [(ngModel)]="fileUploadWidth" 
+          placeholder="Width (ex: 300px, 50%)" />
       </div>
 
       <div class="demo-control">
-        <label>Texte d'aide</label>
+        <label>Help text</label>
         <input pInputText 
           [(ngModel)]="fileUploadHelpText" 
-          placeholder="Texte d'aide sous le champ" />
+          placeholder="Help text below the field" />
       </div>
 
       <div class="demo-control">
@@ -56,19 +56,19 @@ import { SelectModule } from "primeng/select";
       </div>
 
       <div class="demo-control">
-        <label>Label des options de contrôle</label>
+        <label>Control options label</label>
         <input pInputText 
           [(ngModel)]="fileUploadControlLabel" 
           placeholder="Label dans controlOptions" />
       </div>
 
-      <!-- Options spécifiques File Upload -->
+      <!-- File Upload specific options -->
       <div class="demo-control">
-        <label>Type de média</label>
+        <label>Media type</label>
         <p-select 
           [options]="mediaTypeOptions" 
           [(ngModel)]="fileUploadMediaType"
-          placeholder="Choisir un type"
+          placeholder="Choose a type"
           [showClear]="true" />
       </div>
 
@@ -80,27 +80,27 @@ import { SelectModule } from "primeng/select";
           placeholder="ex: 8000000 pour 8MB" />
       </div>
 
-      <!-- Checkboxes pour les options booléennes -->
+      <!-- Checkboxes for boolean options -->
       <div class="checkboxes">
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="fileUploadRequired"
             binary="true" />
-          <label>Obligatoire</label>
+          <label>Required</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="fileUploadDisabled"
             binary="true" />
-          <label>Désactivé</label>
+          <label>Disabled</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="fileUploadHidden"
             binary="true" />
-          <label>Masqué</label>
+          <label>Hidden</label>
         </div>
 
         <div class="demo-control">
@@ -114,18 +114,18 @@ import { SelectModule } from "primeng/select";
           <p-checkbox 
             [(ngModel)]="fileUploadIsPreviewEnabled"
             binary="true" />
-          <label>Activer l'aperçu</label>
+          <label>Enable preview</label>
         </div>
       </div>
 
       <p-button 
-        label="Appliquer"
+        label="Apply"
         (click)="applyConfig()"
         class="apply-btn" />
     </div>
     
     <div class="live-demo">
-        <h3>Rendu</h3>
+        <h3>Preview</h3>
         <frm-form
           [model]="{}"
           [config]="config()"

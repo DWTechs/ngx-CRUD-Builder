@@ -27,154 +27,154 @@ import { SelectModule } from "primeng/select";
   template: `
     <h3>Configuration</h3>
     <p class="intro-text">
-      Options disponibles pour un champ Number Input
+      Available options for a Number Input field
     </p>
     
     <div class="demo-controls">
       <div class="demo-control">
-        <label>Label du champ</label>
+        <label>Field Label</label>
         <input pInputText [(ngModel)]="numberInputLabel" placeholder="Label" />
       </div>
 
       <div class="demo-control">
-        <label>Icône</label>
+        <label>Icon</label>
         <p-select 
           [options]="iconOptions" 
           [(ngModel)]="numberInputIcon"
-          placeholder="Choisir une icône"
+          placeholder="Choose an icon"
           [showClear]="true" />
       </div>
 
       <div class="demo-control">
-        <label>Largeur</label>
+        <label>Width</label>
         <input pInputText 
           [(ngModel)]="numberInputWidth"  
-          placeholder="Largeur (ex: 300px, 50%)" />
+          placeholder="Width (ex: 300px, 50%)" />
       </div>
 
       <div class="demo-control">
         <label>Help Text</label>
         <input pInputText 
           [(ngModel)]="numberInputHelpText" 
-          placeholder="Texte d'aide sous le champ" />
+          placeholder="Help text below the field" />
       </div>
 
       <div class="demo-control">
         <label>Tooltip Label</label>
         <input pInputText 
           [(ngModel)]="numberInputTooltipLabel" 
-          placeholder="Texte au survol" />
+          placeholder="Hover text" />
       </div>
 
       <div class="demo-control">
         <label>Control Options Label</label>
         <input pInputText 
           [(ngModel)]="numberInputControlLabel" 
-          placeholder="Label dans controlOptions" />
+          placeholder="Label in controlOptions" />
       </div>
 
-      <!-- Checkboxes pour les options booléennes -->
+      <!-- Checkboxes for boolean options -->
       <div class="checkboxes">
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="numberInputRequired"
             binary="true" />
-          <label>Obligatoire</label>
+          <label>Required</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="numberInputDisabled"
             binary="true" />
-          <label>Désactivé</label>
+          <label>Disabled</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="numberInputHidden"
             binary="true" />
-          <label>Masqué</label>
+          <label>Hidden</label>
         </div>
       </div>
 
-      <!-- Validation numérique -->
+      <!-- Numeric validation -->
       <div class="demo-control">
-        <label>Valeur minimale (validateur)</label>
+        <label>Minimum value (validator)</label>
         <input pInputText type="number" [(ngModel)]="numberValidatorMin" placeholder="Min" />
       </div>
 
       <div class="demo-control">
-        <label>Valeur maximale (validateur)</label>
+        <label>Maximum value (validator)</label>
         <input pInputText type="number" [(ngModel)]="numberValidatorMax" placeholder="Max" />
       </div>
 
       <div class="demo-control">
-        <label>Valeur minimale (input)</label>
+        <label>Minimum value (input)</label>
         <input pInputText type="number" [(ngModel)]="numberInputMin" placeholder="Min" />
       </div>
 
       <div class="demo-control">
-        <label>Valeur maximale (input)</label>
+        <label>Maximum value (input)</label>
         <input pInputText type="number" [(ngModel)]="numberInputMax" placeholder="Max" />
       </div>
 
       <div class="demo-control">
-        <label>Valeur par défaut</label>
-        <input pInputText type="number" [(ngModel)]="numberInputDefaultValue" placeholder="Valeur par défaut" />
+        <label>Default value</label>
+        <input pInputText type="number" [(ngModel)]="numberInputDefaultValue" placeholder="Default value" />
       </div>
 
       <div class="demo-control">
-        <label>Nombre minimum de décimales</label>
+        <label>Minimum number of decimals</label>
         <input pInputText type="number" [(ngModel)]="numberInputMinFractionDigits" placeholder="Min Fraction Digits" />
       </div>
 
       <div class="demo-control">
-        <label>Nombre maximum de décimales</label>
+        <label>Maximum number of decimals</label>
         <input pInputText type="number" [(ngModel)]="numberInputMaxFractionDigits" placeholder="Max Fraction Digits" />
       </div>
 
       <div class="demo-control">
-        <label>Incrément (step)</label>
+        <label>Increment (step)</label>
         <input pInputText type="number" [(ngModel)]="numberInputStep" placeholder="Step" />
       </div>
 
       <div class="demo-control">
-        <label>Code devise (currency)</label>
+        <label>Currency code (currency)</label>
         <input pInputText [(ngModel)]="numberCurrency" placeholder="USD, EUR, GBP..." />
       </div>
 
-      <!-- Checkboxes pour les nouvelles options booléennes -->
+      <!-- Checkboxes for new boolean options -->
       <div class="checkboxes">
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="areNumberInputButtonsVisible"
             binary="true" />
-          <label>Afficher les boutons +/-</label>
+          <label>Show +/- buttons</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="useNumberGrouping"
             binary="true" />
-          <label>Utiliser le séparateur de milliers</label>
+          <label>Use thousands separator</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="isClearable"
             binary="true" />
-          <label>Bouton effacer</label>
+          <label>Clear button</label>
         </div>
       </div>
 
       <p-button 
-        label="Appliquer"
+        label="Apply"
         (click)="applyConfig()"
         class="apply-btn" />
     </div>
     
     <div class="live-demo">
-        <h3>Rendu</h3>
+        <h3>Preview</h3>
         <frm-form
             [model]="{}"
             [config]="config()"

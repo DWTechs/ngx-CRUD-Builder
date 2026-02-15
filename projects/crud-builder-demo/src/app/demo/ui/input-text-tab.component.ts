@@ -25,12 +25,12 @@ import { SelectModule } from "primeng/select";
   template: `
     <h3>Configuration</h3>
     <p class="intro-text">
-      Options disponibles pour un champ Input Text
+      Available options for an Input Text field
     </p>
     
     <div class="demo-controls">
       <div class="demo-control">
-        <label>Label du champ</label>
+        <label>Field Label</label>
         <input pInputText [(ngModel)]="inputTextLabel" placeholder="Label" />
       </div>
 
@@ -40,90 +40,90 @@ import { SelectModule } from "primeng/select";
       </div>
 
       <div class="demo-control">
-        <label>Icône</label>
+        <label>Icon</label>
         <p-select 
           [options]="iconOptions" 
           [(ngModel)]="inputTextIcon"
-          placeholder="Choisir une icône"
+          placeholder="Choose an icon"
           [showClear]="true" />
       </div>
 
       <div class="demo-control">
-        <label>Largeur</label>
+        <label>Width</label>
         <input pInputText 
           [(ngModel)]="inputTextWidth"  
-          placeholder="Largeur (ex: 300px, 50%)" />
+          placeholder="Width (ex: 300px, 50%)" />
       </div>
 
       <div class="demo-control">
         <label>Help Text</label>
         <input pInputText 
           [(ngModel)]="inputTextHelpText" 
-          placeholder="Texte d'aide sous le champ" />
+          placeholder="Help text below the field" />
       </div>
 
       <div class="demo-control">
         <label>Tooltip Label</label>
         <input pInputText 
           [(ngModel)]="inputTextTooltipLabel" 
-          placeholder="Texte au survol" />
+          placeholder="Hover text" />
       </div>
 
       <div class="demo-control">
         <label>Control Options Label</label>
         <input pInputText 
           [(ngModel)]="inputTextControlLabel" 
-          placeholder="Label dans controlOptions" />
+          placeholder="Label in controlOptions" />
       </div>
 
-      <!-- Checkboxes pour les options booléennes -->
+      <!-- Checkboxes for boolean options -->
       <div class="checkboxes">
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="inputTextRequired"
             binary="true" />
-          <label>Obligatoire</label>
+          <label>Required</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="inputTextDisabled"
             binary="true" />
-          <label>Désactivé</label>
+          <label>Disabled</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="inputTextHidden"
             binary="true" />
-          <label>Masqué</label>
+          <label>Hidden</label>
         </div>
       </div>
 
       <!-- Validation -->
       <div class="demo-control">
-        <label>Longueur minimale</label>
+        <label>Minimum Length</label>
         <input pInputText type="number" [(ngModel)]="inputTextMinLength" placeholder="0" />
       </div>
 
       <div class="demo-control">
-        <label>Longueur maximale</label>
-        <input pInputText type="number" [(ngModel)]="inputTextMaxLength" placeholder="Illimité" />
+        <label>Maximum Length</label>
+        <input pInputText type="number" [(ngModel)]="inputTextMaxLength" placeholder="Unlimited" />
       </div>
 
       <div class="demo-control">
-        <label>Valeur par défaut</label>
-        <input pInputText [(ngModel)]="inputTextDefaultValue" placeholder="Valeur par défaut" />
+        <label>Default Value</label>
+        <input pInputText [(ngModel)]="inputTextDefaultValue" placeholder="Default value" />
       </div>
 
       <p-button 
-        label="Appliquer"
+        label="Apply"
         (click)="applyConfig()"
         class="apply-btn" />
     </div>
     
     <div class="live-demo">
-        <h3>Rendu</h3>
+        <h3>Preview</h3>
         <frm-form
           [model]="{}"
           [config]="config()"

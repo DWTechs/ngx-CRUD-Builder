@@ -28,12 +28,12 @@ import { delay } from "rxjs/operators";
   template: `
     <h3>Configuration</h3>
     <p class="intro-text">
-      Options disponibles pour un champ Autocomplete
+      Available options for an Autocomplete field
     </p>
     
     <div class="demo-controls">
       <div class="demo-control">
-        <label>Label du champ</label>
+        <label>Field Label</label>
         <input pInputText [(ngModel)]="autocompleteLabel" placeholder="Label" />
       </div>
 
@@ -43,26 +43,26 @@ import { delay } from "rxjs/operators";
       </div>
 
       <div class="demo-control">
-        <label>Icône</label>
+        <label>Icon</label>
         <p-select 
           [options]="iconOptions" 
           [(ngModel)]="autocompleteIcon"
-          placeholder="Choisir une icône"
+          placeholder="Choose an icon"
           [showClear]="true" />
       </div>
 
       <div class="demo-control">
-        <label>Largeur</label>
+        <label>Width</label>
         <input pInputText 
-          [(ngModel)]="autocompleteWidth"  
-          placeholder="Largeur (ex: 300px, 50%)" />
+          [(ngModel)]="autocompleteWidth" 
+          placeholder="Width (ex: 300px, 50%)" />
       </div>
 
       <div class="demo-control">
-        <label>Texte d'aide</label>
+        <label>Help text</label>
         <input pInputText 
           [(ngModel)]="autocompleteHelpText" 
-          placeholder="Texte d'aide sous le champ" />
+          placeholder="Help text below the field" />
       </div>
 
       <div class="demo-control">
@@ -73,84 +73,84 @@ import { delay } from "rxjs/operators";
       </div>
 
       <div class="demo-control">
-        <label>Label des options de contrôle</label>
+        <label>Control options label</label>
         <input pInputText 
           [(ngModel)]="autocompleteControlLabel" 
           placeholder="Label dans controlOptions" />
       </div>
 
       <div class="demo-control">
-        <label>Longueur minimale de requête</label>
+        <label>Minimum query length</label>
         <input pInputText 
           type="number"
           [(ngModel)]="autocompleteMinQueryLength" 
-          placeholder="Nombre de caractères min" />
+          placeholder="Minimum number of characters" />
       </div>
 
       <div class="demo-control">
-        <label>Délai (ms)</label>
+        <label>Delay (ms)</label>
         <input pInputText 
           type="number"
           [(ngModel)]="autocompleteDelay" 
-          placeholder="Délai en millisecondes" />
+          placeholder="Delay in milliseconds" />
       </div>
 
       <div class="demo-control">
-        <label>Hauteur du dropdown</label>
+        <label>Dropdown height</label>
         <input pInputText 
           [(ngModel)]="autocompleteScrollHeight" 
           placeholder="ex: 200px, 300px" />
       </div>
 
-      <!-- Checkboxes pour les options booléennes -->
+      <!-- Checkboxes for boolean options -->
       <div class="checkboxes">
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="autocompleteRequired"
             binary="true" />
-          <label>Obligatoire</label>
+          <label>Required</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="autocompleteDisabled"
             binary="true" />
-          <label>Désactivé</label>
+          <label>Disabled</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="autocompleteHidden"
             binary="true" />
-          <label>Masqué</label>
+          <label>Hidden</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="autocompleteClearable"
             binary="true" />
-          <label>Bouton effacer</label>
+          <label>Clear button</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="autocompleteCompleteOnFocusDisabled"
             binary="true" />
-          <label>Désactiver suggestions au focus</label>
+          <label>Disable suggestions on focus</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="autocompleteOptionCreationEnabled"
             binary="true" />
-          <label>Permettre création d'options</label>
+          <label>Allow option creation</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="autocompleteMultiple"
             binary="true" />
-          <label>Sélection multiple</label>
+          <label>Multiple selection</label>
         </div>
 
         <div class="demo-control">
@@ -162,13 +162,13 @@ import { delay } from "rxjs/operators";
       </div>
 
       <p-button 
-        label="Appliquer"
+        label="Apply"
         (click)="applyConfig()"
         class="apply-btn" />
     </div>
     
     <div class="live-demo">
-        <h3>Rendu</h3>
+        <h3>Preview</h3>
         <frm-form
           [model]="{}"
           [config]="config()"
