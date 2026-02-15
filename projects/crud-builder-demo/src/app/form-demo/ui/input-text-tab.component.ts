@@ -24,9 +24,6 @@ import { SelectModule } from "primeng/select";
   ],
   template: `
     <h3>Configuration</h3>
-    <p class="intro-text">
-      Available options for an Input Text field
-    </p>
     
     <div class="demo-controls">
       <div class="demo-control">
@@ -76,6 +73,22 @@ import { SelectModule } from "primeng/select";
           placeholder="Label in controlOptions" />
       </div>
 
+      <!-- Validation -->
+      <div class="demo-control">
+        <label>Minimum Length</label>
+        <input pInputText type="number" [(ngModel)]="inputTextMinLength" placeholder="0" />
+      </div>
+
+      <div class="demo-control">
+        <label>Maximum Length</label>
+        <input pInputText type="number" [(ngModel)]="inputTextMaxLength" placeholder="Unlimited" />
+      </div>
+
+      <div class="demo-control">
+        <label>Default Value</label>
+        <input pInputText [(ngModel)]="inputTextDefaultValue" placeholder="Default value" />
+      </div>
+      
       <!-- Checkboxes for boolean options -->
       <div class="checkboxes">
         <div class="demo-control">
@@ -98,22 +111,6 @@ import { SelectModule } from "primeng/select";
             binary="true" />
           <label>Hidden</label>
         </div>
-      </div>
-
-      <!-- Validation -->
-      <div class="demo-control">
-        <label>Minimum Length</label>
-        <input pInputText type="number" [(ngModel)]="inputTextMinLength" placeholder="0" />
-      </div>
-
-      <div class="demo-control">
-        <label>Maximum Length</label>
-        <input pInputText type="number" [(ngModel)]="inputTextMaxLength" placeholder="Unlimited" />
-      </div>
-
-      <div class="demo-control">
-        <label>Default Value</label>
-        <input pInputText [(ngModel)]="inputTextDefaultValue" placeholder="Default value" />
       </div>
 
       <p-button 

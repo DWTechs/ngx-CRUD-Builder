@@ -27,9 +27,6 @@ import { delay } from "rxjs/operators";
   ],
   template: `
     <h3>Configuration</h3>
-    <p class="intro-text">
-      Available options for an Autocomplete field
-    </p>
     
     <div class="demo-controls">
       <div class="demo-control">

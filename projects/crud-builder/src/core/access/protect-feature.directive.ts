@@ -1,8 +1,8 @@
 import {
-  Directive,
-  ElementRef,
   computed,
+  Directive,
   effect,
+  ElementRef,
   inject,
   input,
 } from "@angular/core";
@@ -22,11 +22,7 @@ export class ProtectFeatureDirective {
   public readonly minimalOperation = input<number | undefined>(undefined);
 
   protected readonly hasAccess = computed(() => {
-    return this.accessControl.userHasAccess(
-      this.protectFeature(),
-      this.minimalOperation(),
-      // this.acAttribute(),
-    );
+    return this.accessControl.userHasAccess();
   });
 
   /**

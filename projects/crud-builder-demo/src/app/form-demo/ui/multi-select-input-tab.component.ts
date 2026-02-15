@@ -9,11 +9,11 @@ import { InputTextModule } from "primeng/inputtext";
 import { SelectModule } from "primeng/select";
 
 /**
- * Component for Select field configuration tab
- * Provides comprehensive testing of all available options for select dropdown fields
+ * Component for Multi-Select field configuration tab
+ * Provides comprehensive testing of all available options for multi-select dropdown fields
  */
 @Component({
-  selector: "frm-select-input-tab",
+  selector: "frm-multi-select-input-tab",
   imports: [
     FormComponent,
     FormsModule,
@@ -24,26 +24,23 @@ import { SelectModule } from "primeng/select";
   ],
   template: `
     <h3>Configuration</h3>
-    <p class="intro-text">
-      Available options for a Select field (single dropdown)
-    </p>
     
     <div class="demo-controls">
       <div class="demo-control">
         <label>Field Label</label>
-        <input pInputText [(ngModel)]="selectLabel" placeholder="Label" />
+        <input pInputText [(ngModel)]="multiSelectLabel" placeholder="Label" />
       </div>
 
       <div class="demo-control">
         <label>Placeholder</label>
-        <input pInputText [(ngModel)]="selectPlaceholder" placeholder="Placeholder" />
+        <input pInputText [(ngModel)]="multiSelectPlaceholder" placeholder="Placeholder" />
       </div>
 
       <div class="demo-control">
         <label>Icon</label>
         <p-select 
           [options]="iconOptions" 
-          [(ngModel)]="selectIcon"
+          [(ngModel)]="multiSelectIcon"
           placeholder="Choose an icon"
           [showClear]="true" />
       </div>
@@ -51,66 +48,81 @@ import { SelectModule } from "primeng/select";
       <div class="demo-control">
         <label>Width</label>
         <input pInputText 
-          [(ngModel)]="selectWidth"  
+          [(ngModel)]="multiSelectWidth"  
           placeholder="Width (ex: 300px, 50%)" />
       </div>
 
       <div class="demo-control">
         <label>Help text</label>
         <input pInputText 
-          [(ngModel)]="selectHelpText" 
+          [(ngModel)]="multiSelectHelpText" 
           placeholder="Help text below the field" />
       </div>
 
       <div class="demo-control">
         <label>Tooltip</label>
         <input pInputText 
-          [(ngModel)]="selectTooltipLabel" 
+          [(ngModel)]="multiSelectTooltipLabel" 
           placeholder="Texte au survol" />
       </div>
 
       <div class="demo-control">
         <label>Label control</label>
         <input pInputText 
-          [(ngModel)]="selectControlLabel" 
+          [(ngModel)]="multiSelectControlLabel" 
           placeholder="Label dans controlOptions" />
+      </div>
+
+      <div class="demo-control">
+        <label>Maximum number of displayed labels</label>
+        <input pInputText 
+          type="number"
+          [(ngModel)]="multiSelectMaxSelectedLabels" 
+          placeholder="ex: 3" />
       </div>
 
       <!-- Checkboxes for boolean options -->
       <div class="checkboxes">
         <div class="demo-control">
           <p-checkbox 
-            [(ngModel)]="selectRequired"
+            [(ngModel)]="multiSelectRequired"
             binary="true" />
           <label>Required</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
-            [(ngModel)]="selectDisabled"
+            [(ngModel)]="multiSelectDisabled"
             binary="true" />
           <label>Disabled</label>
         </div>
         
         <div class="demo-control">
           <p-checkbox 
-            [(ngModel)]="selectHidden"
+            [(ngModel)]="multiSelectHidden"
             binary="true" />
           <label>Hidden</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
-            [(ngModel)]="selectClearable"
+            [(ngModel)]="multiSelectClearable"
             binary="true" />
           <label>Clear button</label>
         </div>
 
         <div class="demo-control">
           <p-checkbox 
-            [(ngModel)]="selectOptionsFilterable"
+            [(ngModel)]="multiSelectOptionsFilterable"
             binary="true" />
           <label>Filterable options</label>
+        </div>
+
+        <div class="demo-control">
+          <p-checkbox 
+            [(ngModel)]="multiSelectAllEnabled"
+            binary="true" />
+          <label>"Select all" option</label>
         </div>
       </div>
 
@@ -132,22 +144,32 @@ import { SelectModule } from "primeng/select";
     </div>
   `,
 })
-export class SelectInputTabComponent {
-  // Configuration signals for Select
-  protected readonly selectLabel = signal("Test Select");
-  protected readonly selectPlaceholder = signal("Select an option...");
-  protected readonly selectIcon = signal<string | undefined>(undefined);
-  protected readonly selectWidth = signal<string | undefined>(undefined);
-  protected readonly selectHelpText = signal<string | undefined>(undefined);
-  protected readonly selectTooltipLabel = signal<string | undefined>(undefined);
-  protected readonly selectControlLabel = signal<string | undefined>(undefined);
-  protected readonly selectRequired = signal(false);
-  protected readonly selectDisabled = signal(false);
-  protected readonly selectHidden = signal(false);
-  protected readonly selectClearable = signal<boolean>(true);
-  protected readonly selectOptionsFilterable = signal<boolean>(true);
+export class MultiSelectInputTabComponent {
+  // Configuration signals for Multi-Select
+  protected readonly multiSelectLabel = signal("Test Multi-Select");
+  protected readonly multiSelectPlaceholder = signal("Select...");
+  protected readonly multiSelectIcon = signal<string | undefined>(undefined);
+  protected readonly multiSelectWidth = signal<string | undefined>(undefined);
+  protected readonly multiSelectHelpText = signal<string | undefined>(
+    undefined,
+  );
+  protected readonly multiSelectTooltipLabel = signal<string | undefined>(
+    undefined,
+  );
+  protected readonly multiSelectControlLabel = signal<string | undefined>(
+    undefined,
+  );
+  protected readonly multiSelectRequired = signal(false);
+  protected readonly multiSelectDisabled = signal(false);
+  protected readonly multiSelectHidden = signal(false);
+  protected readonly multiSelectClearable = signal<boolean>(true);
+  protected readonly multiSelectOptionsFilterable = signal<boolean>(true);
+  protected readonly multiSelectAllEnabled = signal<boolean>(true);
+  protected readonly multiSelectMaxSelectedLabels = signal<number | undefined>(
+    undefined,
+  );
 
-  // Sample data for select
+  // Sample data for multi-select
   private readonly sampleOptions = [
     { label: "France", value: "FR" },
     { label: "United States", value: "US" },
@@ -169,21 +191,23 @@ export class SelectInputTabComponent {
   // Form configuration and reload trigger
   protected readonly config = signal<CrudItemOptions[]>([
     {
-      key: "testSelect",
-      controlType: CONTROL_TYPES.SELECT,
-      label: this.selectLabel(),
+      key: "testMultiSelect",
+      controlType: CONTROL_TYPES.MULTISELECT,
+      label: this.multiSelectLabel(),
       options: this.sampleOptions,
       controlOptions: {
-        disabled: this.selectDisabled(),
-        hidden: this.selectHidden(),
+        disabled: this.multiSelectDisabled(),
+        hidden: this.multiSelectHidden(),
         validators: [],
-        placeholder: this.selectPlaceholder(),
-        inputIcon: this.selectIcon(),
-        helpText: this.selectHelpText(),
-        tooltipLabel: this.selectTooltipLabel(),
-        label: this.selectControlLabel(),
-        isClearable: this.selectClearable(),
-        areOptionsFilterable: this.selectOptionsFilterable(),
+        placeholder: this.multiSelectPlaceholder(),
+        inputIcon: this.multiSelectIcon(),
+        helpText: this.multiSelectHelpText(),
+        tooltipLabel: this.multiSelectTooltipLabel(),
+        label: this.multiSelectControlLabel(),
+        isClearable: this.multiSelectClearable(),
+        areOptionsFilterable: this.multiSelectOptionsFilterable(),
+        isSelectAllEnabled: this.multiSelectAllEnabled(),
+        maxSelectedLabels: this.multiSelectMaxSelectedLabels(),
       },
     },
   ]);
@@ -192,42 +216,44 @@ export class SelectInputTabComponent {
   // Icon options for dropdown
   protected readonly iconOptions = [
     { label: "List", value: "pi pi-list" },
-    { label: "Check", value: "pi pi-check" },
+    { label: "Check Square", value: "pi pi-check-square" },
     { label: "Users", value: "pi pi-users" },
-    { label: "User", value: "pi pi-user" },
     { label: "Tag", value: "pi pi-tag" },
+    { label: "Tags", value: "pi pi-tags" },
     { label: "Globe", value: "pi pi-globe" },
     { label: "Map Marker", value: "pi pi-map-marker" },
     { label: "Building", value: "pi pi-building" },
   ];
 
   /**
-   * Apply the current Select configuration to generate the form
+   * Apply the current Multi-Select configuration to generate the form
    */
   protected applyConfig(): void {
     const validators = [];
 
     // Add required validator if needed
-    if (this.selectRequired()) {
+    if (this.multiSelectRequired()) {
       validators.push(Validators.required);
     }
 
     const fieldConfig: CrudItemOptions = {
-      key: "testSelect",
-      controlType: CONTROL_TYPES.SELECT,
-      label: this.selectLabel(),
+      key: "testMultiSelect",
+      controlType: CONTROL_TYPES.MULTISELECT,
+      label: this.multiSelectLabel(),
       options: this.sampleOptions,
       controlOptions: {
-        disabled: this.selectDisabled(),
-        hidden: this.selectHidden(),
+        disabled: this.multiSelectDisabled(),
+        hidden: this.multiSelectHidden(),
         validators: validators.length > 0 ? validators : undefined,
-        placeholder: this.selectPlaceholder(),
-        inputIcon: this.selectIcon(),
-        helpText: this.selectHelpText(),
-        tooltipLabel: this.selectTooltipLabel(),
-        label: this.selectControlLabel(),
-        isClearable: this.selectClearable(),
-        areOptionsFilterable: this.selectOptionsFilterable(),
+        placeholder: this.multiSelectPlaceholder(),
+        inputIcon: this.multiSelectIcon(),
+        helpText: this.multiSelectHelpText(),
+        tooltipLabel: this.multiSelectTooltipLabel(),
+        label: this.multiSelectControlLabel(),
+        isClearable: this.multiSelectClearable(),
+        areOptionsFilterable: this.multiSelectOptionsFilterable(),
+        isSelectAllEnabled: this.multiSelectAllEnabled(),
+        maxSelectedLabels: this.multiSelectMaxSelectedLabels(),
       },
     };
 

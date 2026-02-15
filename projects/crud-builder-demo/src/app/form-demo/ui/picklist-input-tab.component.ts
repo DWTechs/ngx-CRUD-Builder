@@ -24,10 +24,6 @@ import { SelectModule } from "primeng/select";
   ],
   template: `
     <h3>Configuration</h3>
-    <p class="intro-text">
-      Available options for a Picklist field (selection list with transfer)
-    </p>
-    
     <div class="demo-controls">
       <div class="demo-control">
         <label>Field Label</label>

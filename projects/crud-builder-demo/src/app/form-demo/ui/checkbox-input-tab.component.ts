@@ -25,9 +25,6 @@ import { SelectModule } from "primeng/select";
   ],
   template: `
     <h3>Configuration</h3>
-    <p class="intro-text">
-      Available options for a Checkbox field
-    </p>
     
     <div class="demo-controls">
       <div class="demo-control">
@@ -36,10 +33,10 @@ import { SelectModule } from "primeng/select";
       </div>
 
       <div class="demo-control">
-        <label>Width</label>
+        <label>Largeur</label>
         <input pInputText 
           [(ngModel)]="checkboxWidth"  
-          placeholder="Width (ex: 300px, 50%)" />
+          placeholder="Largeur (ex: 300px, 50%)" />
       </div>
 
       <div class="demo-control">
@@ -85,6 +82,7 @@ import { SelectModule } from "primeng/select";
             binary="true" />
           <label>Hidden</label>
         </div>
+      </div>
 
       <p-button 
         label="Apply"
@@ -92,7 +90,7 @@ import { SelectModule } from "primeng/select";
         class="apply-btn" />
     </div>
     
-</div>
+
 
     <div class="live-demo">
         <h3>Preview</h3>

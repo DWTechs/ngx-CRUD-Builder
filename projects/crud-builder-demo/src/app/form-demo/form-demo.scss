@@ -2,11 +2,11 @@ $tabAndHeaderHeight: 150px;
 
 // css mixin for card
 @mixin card {
-    padding: 1rem;
+    padding: 0.5rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 0.5rem;
     background-color: var(--primary-bg-color-light);
-    margin: 1rem 0;
+    margin: 0.5rem 0;
 }
 
 .form-demo-container {
@@ -16,14 +16,25 @@ $tabAndHeaderHeight: 150px;
         height: calc(100vh - #{$tabAndHeaderHeight});
         overflow: auto;
     }
+
+    h3 {
+        margin-top: 0;
+    }
 }
 
 .demo-controls {
     @include card;
-    display: flex;
-    align-items: flex-end;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
-    flex-wrap: wrap;
+    align-content: start;
+    background-color: var(--electric-violet);
+
+    > p-button {
+        grid-column: 1 / -1;
+        justify-self: end;
+        margin-top: auto;
+    }
 
     .demo-control {
         display: flex;
@@ -32,6 +43,7 @@ $tabAndHeaderHeight: 150px;
     }
 
     .checkboxes {
+        grid-column: 1 / -1;
         display: flex;
         flex-wrap: wrap;
         gap: 0.5rem;

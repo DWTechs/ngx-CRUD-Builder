@@ -2,13 +2,13 @@ import { Component, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
 import { FormFieldInteractionEvent } from "@crud/core/models/form-field-interaction.event";
-import { DEMO_CONF } from "@demo/demo.conf";
 import { FormComponent } from "@form/form/form.component";
 import { LabelStrategy } from "@form/utils/label-strategy.model";
 import { ButtonModule } from "primeng/button";
 import { CheckboxModule } from "primeng/checkbox";
 import { InputTextModule } from "primeng/inputtext";
 import { SelectModule } from "primeng/select";
+import { DEMO_CONF } from "../demo.conf";
 
 interface FormGeneralConfig {
   config: CrudItemOptions[];
@@ -40,9 +40,6 @@ interface FormGeneralConfig {
   ],
   template: `
     <h3>Configuration</h3>
-    <p class="intro-text">
-        Available options for a form
-    </p>
     
     <div class="demo-controls">
       <div class="demo-control">

@@ -1,10 +1,18 @@
 <main class="main">
   <div class="content">
     <div class="header-container">
-      <h2 class="angular-logo" routerLink="/">Form Builder</h2>
-      <button class="doc-button" routerLink="/doc">
-        📚 Documentation
-      </button>
+      <h1 class="logo">CRUD Builder</h1>
+      <nav class="nav-buttons">
+        <button class="nav-button" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          📝 Form Demo
+        </button>
+        <button class="nav-button" routerLink="/table" routerLinkActive="active">
+          📊 Table Demo
+        </button>
+        <button class="nav-button" routerLink="/doc" routerLinkActive="active">
+          📚 Documentation
+        </button>
+      </nav>
     </div>
   </div>
 </main>

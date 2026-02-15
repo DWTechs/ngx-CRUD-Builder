@@ -29,9 +29,6 @@ import { SelectModule } from "primeng/select";
   ],
   template: `
     <h3>Configuration</h3>
-    <p class="intro-text">
-      Available options for a Textarea field (multiline text area)
-    </p>
     
     <div class="demo-controls">
       <div class="demo-control">

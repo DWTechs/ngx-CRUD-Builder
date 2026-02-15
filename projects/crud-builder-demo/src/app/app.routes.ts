@@ -3,17 +3,14 @@ import { Routes } from "@angular/router";
 export const routes: Routes = [
   {
     path: "",
-    loadChildren: () =>
-      import("./demo/form-demo.routes").then((m) => m.FORM_DEMO_ROUTES),
-    title: "Démo formulaires",
-    data: {
-      breadcrumb: $localize`:@@FormDemo_formDemoNav:Démo`,
-    },
+    loadComponent: () =>
+      import("./form-demo/form-demo").then((m) => m.FormDemo),
+    title: "Form Builder - Demo",
   },
   {
     path: "doc",
     loadComponent: () =>
       import("./doc/doc.component").then((m) => m.DocComponent),
-    title: "Documentation",
+    title: "Form Builder - Documentation",
   },
 ];

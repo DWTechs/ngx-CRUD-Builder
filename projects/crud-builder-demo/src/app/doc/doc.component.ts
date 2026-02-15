@@ -1,9 +1,9 @@
 import { Component, ViewEncapsulation } from "@angular/core";
 import { TabsModule } from "primeng/tabs";
-import { ExampleFormTabComponent } from "./tabs/form-tab.component";
-import { InstallationTabComponent } from "./tabs/installation-tab.component";
-import { PresentationTabComponent } from "./tabs/presentation-tab.component";
-import { ExampleTableTabComponent } from "./tabs/table-tab.component";
+import { ExampleFormTabComponent } from "./ui/form-tab.component";
+import { InstallationTabComponent } from "./ui/installation-tab.component";
+import { PresentationTabComponent } from "./ui/presentation-tab.component";
+import { ExampleTableTabComponent } from "./ui/table-tab.component";
 
 @Component({
   selector: "app-doc",

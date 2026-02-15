@@ -35,9 +35,6 @@ import { SelectModule } from "primeng/select";
     </p-panel>
 
     <h3>Configuration</h3>
-    <p class="intro-text">
-      Available options for a Table Control field (inline editable table)
-    </p>
     
     <div class="demo-controls">
       <div class="demo-control">

@@ -26,9 +26,6 @@ import { SelectModule } from "primeng/select";
   ],
   template: `
     <h3>Configuration</h3>
-    <p class="intro-text">
-      Available options for a Number Input field
-    </p>
     
     <div class="demo-controls">
       <div class="demo-control">
@@ -71,30 +68,6 @@ import { SelectModule } from "primeng/select";
         <input pInputText 
           [(ngModel)]="numberInputControlLabel" 
           placeholder="Label in controlOptions" />
-      </div>
-
-      <!-- Checkboxes for boolean options -->
-      <div class="checkboxes">
-        <div class="demo-control">
-          <p-checkbox 
-            [(ngModel)]="numberInputRequired"
-            binary="true" />
-          <label>Required</label>
-        </div>
-        
-        <div class="demo-control">
-          <p-checkbox 
-            [(ngModel)]="numberInputDisabled"
-            binary="true" />
-          <label>Disabled</label>
-        </div>
-        
-        <div class="demo-control">
-          <p-checkbox 
-            [(ngModel)]="numberInputHidden"
-            binary="true" />
-          <label>Hidden</label>
-        </div>
       </div>
 
       <!-- Numeric validation -->
@@ -145,6 +118,27 @@ import { SelectModule } from "primeng/select";
 
       <!-- Checkboxes for new boolean options -->
       <div class="checkboxes">
+        <div class="demo-control">
+          <p-checkbox 
+            [(ngModel)]="numberInputRequired"
+            binary="true" />
+          <label>Required</label>
+        </div>
+        
+        <div class="demo-control">
+          <p-checkbox 
+            [(ngModel)]="numberInputDisabled"
+            binary="true" />
+          <label>Disabled</label>
+        </div>
+        
+        <div class="demo-control">
+          <p-checkbox 
+            [(ngModel)]="numberInputHidden"
+            binary="true" />
+          <label>Hidden</label>
+        </div>
+
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="areNumberInputButtonsVisible"

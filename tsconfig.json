@@ -10,7 +10,7 @@
       "@form/*": ["./projects/crud-builder/src/crud/form/*"],
       "@table/*": ["./projects/crud-builder/src/crud/table/*"],
       "@core/*": ["./projects/crud-builder/src/core/*"],
-      "@demo/*": ["./projects/crud-builder-demo/src/app/demo/*"]
+      "@demo/*": ["./projects/crud-builder-demo/src/app/form-demo/*"]
     },
     "strict": true,
     "noImplicitOverride": true,

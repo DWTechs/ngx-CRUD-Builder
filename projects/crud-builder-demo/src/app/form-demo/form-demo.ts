@@ -1,20 +1,20 @@
 import { Component, ViewEncapsulation } from "@angular/core";
-import { AutocompleteInputTabComponent } from "@demo/ui/autocomplete-input-tab.component";
-import { FileUploadTabComponent } from "@demo/ui/file-upload-tab.component";
-import { MultiSelectInputTabComponent } from "@demo/ui/multi-select-input-tab.component";
-import { PicklistInputTabComponent } from "@demo/ui/picklist-input-tab.component";
-import { RadioGroupInputTabComponent } from "@demo/ui/radiogroup-input-tab.component";
-import { RichTextEditorTabComponent } from "@demo/ui/rich-text-editor-tab.component";
-import { SelectButtonInputTabComponent } from "@demo/ui/select-button-input-tab.component";
-import { SelectInputTabComponent } from "@demo/ui/select-input-tab.component";
-import { TableControlTabComponent } from "@demo/ui/table-control-tab.component";
-import { TextareaInputTabComponent } from "@demo/ui/textarea-input-tab.component";
 import { TabsModule } from "primeng/tabs";
+import { AutocompleteInputTabComponent } from "./ui/autocomplete-input-tab.component";
 import { CheckboxInputTabComponent } from "./ui/checkbox-input-tab.component";
 import { DateInputTabComponent } from "./ui/date-input-tab.component";
+import { FileUploadTabComponent } from "./ui/file-upload-tab.component";
 import { FormGeneralTabComponent } from "./ui/form-general-tab.component";
 import { InputTextTabComponent } from "./ui/input-text-tab.component";
+import { MultiSelectInputTabComponent } from "./ui/multi-select-input-tab.component";
 import { NumberInputTabComponent } from "./ui/number-input-tab.component";
+import { PicklistInputTabComponent } from "./ui/picklist-input-tab.component";
+import { RadioGroupInputTabComponent } from "./ui/radiogroup-input-tab.component";
+import { RichTextEditorTabComponent } from "./ui/rich-text-editor-tab.component";
+import { SelectButtonInputTabComponent } from "./ui/select-button-input-tab.component";
+import { SelectInputTabComponent } from "./ui/select-input-tab.component";
+import { TableControlTabComponent } from "./ui/table-control-tab.component";
+import { TextareaInputTabComponent } from "./ui/textarea-input-tab.component";
 
 /**
  * Main demo component that orchestrates all form demonstration tabs
