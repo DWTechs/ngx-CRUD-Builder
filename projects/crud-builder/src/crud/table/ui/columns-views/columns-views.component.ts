@@ -2,20 +2,17 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  DestroyRef,
   inject,
   input,
   output,
 } from "@angular/core";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { FormsModule } from "@angular/forms";
-import { ConfirmationDialogService } from "@core/ui/confirmation-dialog/confirmation-dialog.service";
 import { TableConfig } from "@table/data-access/table-config.model";
+import { ConfirmationService } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { InputTextModule } from "primeng/inputtext";
 import { ListboxModule } from "primeng/listbox";
 import { RadioButtonModule } from "primeng/radiobutton";
-import { filter } from "rxjs";
 
 const deleteConfirmationMessage = $localize`:@@Table_ColumnsViews_DeleteConfirmationMessage:Êtes-vous sûr de vouloir supprimer cette vue ?`;
 
@@ -33,10 +30,7 @@ const deleteConfirmationMessage = $localize`:@@Table_ColumnsViews_DeleteConfirma
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnsViewsComponent {
-  private readonly confirmationDialogService = inject(
-    ConfirmationDialogService,
-  );
-  private readonly destroyRef = inject(DestroyRef);
+  private readonly confirmationService = inject(ConfirmationService);
 
   public readonly views = input.required<TableConfig[]>();
 
@@ -61,12 +55,10 @@ export class ColumnsViewsComponent {
     if (!viewId) {
       return;
     }
-    this.confirmationDialogService
-      .confirm(deleteConfirmationMessage)
-      .pipe(filter(Boolean), takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => {
-        this.deleteView.emit(viewId);
-      });
+    this.confirmationService.confirm({
+      message: deleteConfirmationMessage,
+      accept: () => this.deleteView.emit(viewId),
+    });
   }
 
   public showNewViewField(): void {

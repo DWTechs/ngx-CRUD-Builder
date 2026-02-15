@@ -1,11 +1,9 @@
 import { InjectionToken } from "@angular/core";
-import { MenuItem } from "primeng/api";
 
 export interface AppConfig {
   title: string;
   appKey: string;
   storageKeys: { [key: string]: string };
-  sidenavItems: MenuItem[];
   apiPrefix: string;
 }
 
@@ -13,7 +11,6 @@ const defaultValue: AppConfig = {
   title: "",
   appKey: "",
   storageKeys: {},
-  sidenavItems: [],
   apiPrefix: "/api/",
 };
 
