@@ -4,10 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "build:demo": "ng build crud-builder-demo --configuration production --base-href /crud-builder/",
+    "build": "ng build --project crud-builder-demo",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "npx firebase deploy"
   },
   "prettier": {
     "printWidth": 100,
@@ -50,6 +50,7 @@
     "@angular/cli": "^21.1.4",
     "@angular/compiler-cli": "^21.1.0",
     "@biomejs/biome": "^2.3.15",
+    "firebase-tools": "^15.6.0",
     "jsdom": "^27.1.0",
     "ng-packagr": "^21.1.0",
     "typescript": "~5.9.2",
