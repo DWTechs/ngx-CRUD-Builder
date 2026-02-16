@@ -1,59 +1,93 @@
-# CrudBuilder
+# Crud builder
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.4.
+A comprehensive Angular library for building dynamic forms and data tables with minimal configuration. CRUD Builder provides a declarative approach to creating complex CRUD interfaces, eliminating boilerplate code while maintaining full flexibility and type safety.
 
-## Development server
+**[View Live Demo](#)** <!-- TODO: Add demo URL -->
 
-To start a local development server, run:
+---
+
+## Crud builder library
+
+CRUD Builder transforms configuration objects into fully functional forms and tables, handling validation, data binding, CRUD operations, and UI rendering automatically.
+
+### Features
+
+**Dynamic form generation**
+- 15+ input types: text, number, email, date, select, multi-select, autocomplete, checkbox, radio, file upload, and more
+- Automatic form validation with built-in and custom validators
+- Conditional field visibility and disabled states
+- Nested form groups and form arrays
+- File upload with preview and multiple file support
+
+**Advanced data tables**
+- Sortable and filterable columns with basic and advanced filter modes
+- Pagination with customizable page sizes
+- Lazy loading for large datasets
+- Row selection and bulk operations
+- Column visibility management with user preferences
+- Resizable and reorderable columns
+- Excel and CSV export capabilities
+- Context menu support
+- Deep linking to specific items via URL parameters
+
+**CRUD operations**
+- Automatic HTTP call integration
+- Create, read, update, and delete functionality
+- Optimistic UI updates with error handling
+- Archive/restore capabilities
+- History tracking for auditing
+
+**Customization**
+- Custom row styles based on data
+- Custom action templates
+- Configurable dialog sizes and dimensions
+- Access control integration
+- Localization support
+
+---
+
+## The demo application
+
+The demo application showcases all features of the CRUD Builder library through interactive examples. It includes a form builder demo and a comprehensive table demo with live configuration controls.
+
+**[Access the Live Demo](#)** <!-- TODO: Add demo URL -->
+
+### Running the demo
+
+To run the demo locally:
 
 ```bash
+# Clone the repository
+git clone <repository-url>
+cd crud-builder
+
+# Install dependencies
+npm install
+
+# Start the development server
 ng serve
+
+# Navigate to http://localhost:4200
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+The demo will automatically reload when you make changes to the source files.
 
-## Code scaffolding
+### Demo features
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+**Form demo** (`/`)
+- Interactive form builder with live preview
+- Configure form columns, validation modes, and field visibility
+- Test all input types and validation scenarios
+- Real-time form state monitoring
 
-```bash
-ng generate component component-name
-```
+**Table demo** (`/table`)
+- Comprehensive table configuration playground
+- Toggle 20+ table features in real-time
+- Test pagination, sorting, and filtering
+- Experiment with dialog sizes and export options
+- Mock CRUD operations with simulated API delays
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+**Documentation** (`/doc`)
+- Detailed configuration options reference
+- Code examples and usage patterns
+- Best practices and common patterns
