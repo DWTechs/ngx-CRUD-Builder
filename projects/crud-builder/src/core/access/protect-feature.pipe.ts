@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform, inject } from "@angular/core";
+import { inject, Pipe, PipeTransform } from "@angular/core";
 import { AccessLevelsService } from "@core/access/access-levels.service";
 
 @Pipe({
@@ -11,6 +11,6 @@ export class ProtectFeaturePipe implements PipeTransform {
     functionalityKey: string | undefined,
     operation: number | undefined,
   ): boolean {
-    return this.accessControl.userHasAccess(functionalityKey, operation);
+    return this.accessControl.userHasAccess();
   }
 }

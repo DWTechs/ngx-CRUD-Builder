@@ -8,6 +8,12 @@ export const routes: Routes = [
     title: "Form Builder - Demo",
   },
   {
+    path: "table",
+    loadComponent: () =>
+      import("./table-demo/table-demo").then((m) => m.TableDemo),
+    title: "Table Builder - Demo",
+  },
+  {
     path: "doc",
     loadComponent: () =>
       import("./doc/doc.component").then((m) => m.DocComponent),

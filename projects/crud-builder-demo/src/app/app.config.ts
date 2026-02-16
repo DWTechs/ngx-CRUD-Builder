@@ -1,3 +1,5 @@
+import { registerLocaleData } from "@angular/common";
+import localeFr from "@angular/common/locales/fr";
 import {
   ApplicationConfig,
   LOCALE_ID,
@@ -11,7 +13,7 @@ import {
 } from "@crud/form/utils/form.injection-token";
 import { definePreset } from "@primeuix/themes";
 import Aura from "@primeuix/themes/aura";
-import { MessageService } from "primeng/api";
+import { ConfirmationService, MessageService } from "primeng/api";
 import { providePrimeNG } from "primeng/config";
 import { routes } from "./app.routes";
 
@@ -64,8 +66,11 @@ export const appConfig: ApplicationConfig = {
       },
     }),
     MessageService,
+    ConfirmationService,
     { provide: LOCALE_ID, useValue: "fr" },
     { provide: APP_CONFIG, useValue: CONFIG },
     { provide: APP_FORM_CONFIG, useValue: FORM_CONFIG },
   ],
 };
+
+registerLocaleData(localeFr, "fr");

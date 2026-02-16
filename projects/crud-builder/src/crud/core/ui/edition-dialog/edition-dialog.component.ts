@@ -83,7 +83,7 @@ export class EditionDialogComponent<TData extends CrudItemBase> {
   public readonly isReadonly = input(false);
 
   /** Controls dialog visibility state */
-  public readonly isVisible = model(false);
+  public readonly isVisible = input(false);
 
   /** Whether deletion action requires additional protection */
   public readonly protectDeletion = input(false);

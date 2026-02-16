@@ -1,10 +1,11 @@
 <p-dialog
-  [(visible)]="isVisible"
+  [visible]="isVisible()"
   [style]="{width: calculatedWidth(), height: height()}"
   [header]="dialogTitle()"
   [modal]="true"
   [maximizable]="true"
   styleClass="p-fluid"
+  (visibleChange)="$event ? false : onHide()"
   (onHide)="onHide()"
   appendTo="body">
 

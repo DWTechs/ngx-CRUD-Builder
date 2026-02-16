@@ -47,7 +47,7 @@
           "builder": "@angular/build:application",
           "options": {
             "browser": "projects/crud-builder-demo/src/main.ts",
-            "tsConfig": "projects/crud-builder-demo/tsconfig.app.json",            
+            "tsConfig": "projects/crud-builder-demo/tsconfig.app.json",
             "polyfills": ["@angular/localize/init"],
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -57,7 +57,8 @@
               }
             ],
             "styles": [
-              "projects/crud-builder-demo/src/styles.scss"
+              "projects/crud-builder-demo/src/styles.scss",
+              "node_modules/primeicons/primeicons.css"
             ]
           },
           "configurations": {
