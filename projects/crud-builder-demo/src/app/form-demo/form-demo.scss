@@ -1,10 +1,10 @@
-$tabAndHeaderHeight: 150px;
+$tabAndHeaderHeight: 160px;
 
 // css mixin for card
 @mixin card {
     padding: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 0.5rem;
+    padding-bottom: 1.5rem;
+    // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: var(--primary-bg-color-light);
     margin: 0.5rem 0;
 }
@@ -28,7 +28,8 @@ $tabAndHeaderHeight: 150px;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
     align-content: start;
-    background-color: var(--electric-violet);
+    border-bottom: 2px solid var(--p-content-border-color);
+    // background-color: var(--electric-violet);
 
     > p-button {
         grid-column: 1 / -1;
