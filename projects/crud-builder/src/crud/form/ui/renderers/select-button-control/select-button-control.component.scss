@@ -1,3 +1,9 @@
 .p-selectbutton {
     width: 100%;
+    border: 1px solid var(--p-inputtext-border-color);
+
+    .p-togglebutton {
+        padding: 1px var(--p-togglebutton-padding);
+        flex: 1;
+    }
 }
