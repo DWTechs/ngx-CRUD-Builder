@@ -18,7 +18,7 @@
   [contextMenu]="isContextMenuEnabled() ? cm : null"
   [stateStorage]="stateStorage()"
   [stateKey]="entityId() + '-table-state'"
-  [resizableColumns]="true" 
+  [resizableColumns]="areColumnsResizable()" 
   columnResizeMode="expand"
   [(selection)]="selectedEntries"
   [(contextMenuSelection)]="rightClickedEntry"
@@ -50,7 +50,6 @@
         <th [pSortableColumnDisabled]="!sortable() || !col.sortable"
           [pSortableColumn]="col.key"
           pResizableColumn
-          [pResizableColumnDisabled]="!areColumnsResizable()"
           [title]="col.label"
           [style.width]="col.defaultWidth | colWidth"
           [style.max-width]="col.defaultWidth | colWidth"

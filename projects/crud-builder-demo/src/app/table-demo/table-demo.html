@@ -1,0 +1,217 @@
+<div class="table-demo-container">
+  <h2>Table Configuration Demo</h2>
+  
+  <div class="demo-controls">
+    <div class="demo-control">
+      <label>Entity Label</label>
+      <input 
+        pInputText 
+        [(ngModel)]="tempEntityLabel"
+        placeholder="e.g., User, Customer" />
+    </div>
+
+    <div class="demo-control">
+      <label>Table Title</label>
+      <input 
+        pInputText 
+        [(ngModel)]="tempTableTitle"
+        placeholder="e.g., Users, Customers" />
+    </div>
+
+    <div class="demo-control">
+      <label>Edition Dialog Size</label>
+      <p-select 
+        [options]="dialogSizeOptions" 
+        [(ngModel)]="tempDialogSize"
+        placeholder="Select size" 
+      />
+    </div>
+
+    <div class="demo-control">
+      <label>Dialog Width</label>
+      <input 
+        pInputText 
+        [(ngModel)]="tempDialogWidth"
+        placeholder="e.g., 50vw, 800px" />
+    </div>
+
+    <div class="demo-control">
+      <label>Dialog Height</label>
+      <input 
+        pInputText 
+        [(ngModel)]="tempDialogHeight"
+        placeholder="e.g., 80vh, 600px" />
+    </div>
+
+    <div class="demo-control">
+      <label>Filter Level</label>
+      <p-select 
+        [options]="filterLevelOptions" 
+        [(ngModel)]="tempFilterLevel"
+        placeholder="Select filter level" 
+      />
+    </div>
+
+    <div class="demo-control">
+      <label>Excel Export Mode</label>
+      <p-select 
+        [options]="excelExportModeOptions" 
+        [(ngModel)]="tempExcelExportMode"
+        placeholder="Select mode" 
+      />
+    </div>
+
+    <div class="demo-control">
+      <label>State Storage</label>
+      <p-select 
+        [options]="stateStorageOptions" 
+        [(ngModel)]="tempStateStorage"
+        placeholder="Select storage" 
+      />
+    </div>
+
+    <div class="checkboxes">
+      <div class="demo-control">
+        <p-checkbox 
+          [(ngModel)]="tempFilterable"
+          binary="true" />
+        <label>Filterable</label>
+      </div>
+      
+      <div class="demo-control">
+        <p-checkbox 
+          [(ngModel)]="tempSortable"
+          binary="true" />
+        <label>Sortable</label>
+      </div>
+      
+      <div class="demo-control">
+        <p-checkbox 
+          [(ngModel)]="tempClickableRows"
+          binary="true" />
+        <label>Clickable Rows</label>
+      </div>
+      
+      <div class="demo-control">
+        <p-checkbox 
+          [(ngModel)]="tempShowPagination"
+          binary="true" />
+        <label>Show Pagination</label>
+      </div>
+
+      <div class="demo-control">
+        <p-checkbox 
+          [(ngModel)]="tempShowColumnSelection"
+          binary="true" />
+        <label>Column Selection</label>
+      </div>
+
+      <div class="demo-control">
+        <p-checkbox 
+          [(ngModel)]="tempIsCsvExportEnabled"
+          binary="true" />
+        <label>CSV Export</label>
+      </div>
+
+      <div class="demo-control">
+        <p-checkbox 
+          [(ngModel)]="tempIsExcelExportEnabled"
+          binary="true" />
+        <label>Excel Export</label>
+      </div>
+
+      <div class="demo-control">
+        <p-checkbox 
+          [(ngModel)]="tempAreColumnsConfigurable"
+          binary="true" />
+        <label>Configurable Columns</label>
+      </div>
+
+      <div class="demo-control">
+        <p-checkbox 
+          [(ngModel)]="tempAreColumnsResizable"
+          binary="true" />
+        <label>Resizable Columns</label>
+      </div>
+
+      <div class="demo-control">
+        <p-checkbox 
+          [(ngModel)]="tempSelectable"
+          binary="true" />
+        <label>Selectable Rows</label>
+      </div>
+
+      <div class="demo-control">
+        <p-checkbox 
+          [(ngModel)]="tempLazy"
+          binary="true" />
+        <label>Lazy Loading</label>
+      </div>
+
+      <div class="demo-control">
+        <p-checkbox 
+          [(ngModel)]="tempIsContextMenuEnabled"
+          binary="true" />
+        <label>Context Menu</label>
+      </div>
+
+      <div class="demo-control">
+        <p-checkbox 
+          [(ngModel)]="tempIsDefaultEditionDisabled"
+          binary="true" />
+        <label>Disable Default Edition</label>
+      </div>
+
+      <div class="demo-control">
+        <p-checkbox 
+          [(ngModel)]="tempIsPreferencesModeEnabled"
+          binary="true" />
+        <label>Preferences Mode</label>
+      </div>
+
+      <div class="demo-control">
+        <p-checkbox 
+          [(ngModel)]="tempCanAccessItemFromUrl"
+          binary="true" />
+        <label>URL Item Access</label>
+      </div>
+    </div>
+
+    <p-button label="Apply" (click)="applyConfig()" />
+  </div>
+
+  <div class="live-demo">
+    <h3>Preview</h3>
+    @if (tableConfig()) {
+      <tbl-table
+        [config]="tableConfig()!"
+        [entityId]="'demo-user'"
+        [entityLabel]="entityLabel()"
+        [tableTitle]="tableTitle()"
+        [entityFactory]="mockService.entityFactory"
+        [httpCalls]="mockService.httpCalls"
+        [filterable]="filterable()"
+        [filterLevel]="filterLevel()"
+        [sortable]="sortable()"
+        [clickableRows]="clickableRows()"
+        [paginator]="showPagination()"
+        [isCsvExportEnabled]="isCsvExportEnabled()"
+        [isExcelExportEnabled]="isExcelExportEnabled()"
+        [excelExportMode]="excelExportMode()"
+        [areColumnsConfigurable]="areColumnsConfigurable()"
+        [areColumnsResizable]="areColumnsResizable()"
+        [editionDialogSize]="selectedDialogSize()"
+        [editionDialogWidth]="dialogWidth() || undefined"
+        [editionDialogHeight]="dialogHeight() || undefined"
+        [selectable]="selectable()"
+        [lazy]="lazy()"
+        [isContextMenuEnabled]="isContextMenuEnabled()"
+        [isDefaultEditionDisabled]="isDefaultEditionDisabled()"
+        [isPreferencesModeEnabled]="isPreferencesModeEnabled()"
+        [canAccessItemFromUrl]="canAccessItemFromUrl()"
+        [stateStorage]="stateStorage()"
+        [forceReload]="forceReload()"
+      />
+    }
+  </div>
+</div>
