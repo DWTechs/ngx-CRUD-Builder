@@ -14,9 +14,15 @@
     }
 }
 <ng-template #labelContentTemplate>
+    @let isCheckbox = config().controlType === 'checkbox';
+    <!-- Empty element to align correctly checkboxes -->
+    @if (isCheckbox) {
+        <span>&nbsp;</span>
+    }
+    <!-- Label -->
     <label [for]="config().key" 
         [class.mandatory-control]="isRequired()"
-        [class.checkbox-label]="config().controlType === 'checkbox'">
+        [class.checkbox-label]="isCheckbox">
         {{ label() }}                  
         @if (options().tooltipLabel) {
             <frm-field-tooltip

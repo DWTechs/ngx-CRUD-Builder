@@ -57,9 +57,6 @@ export class LabelWrapperComponent {
   });
 
   protected readonly label = computed(() => {
-    // if (this.config().controlType === CONTROL_TYPES.CHECKBOX) {
-    //   return "";
-    // }
     return this.options().label ?? this.config().label ?? "";
   });
 

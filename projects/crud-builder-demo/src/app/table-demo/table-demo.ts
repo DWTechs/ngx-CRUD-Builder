@@ -30,7 +30,7 @@ export class TableDemo {
   // Temporary values for controls (before applying)
   protected tempEntityLabel = "User";
   protected tempTableTitle = "Users";
-  protected tempDialogSize: "xs" | "s" | "m" | "l" = "s";
+  protected tempDialogSize: "xs" | "s" | "m" | "l" = "m";
   protected tempDialogWidth = "";
   protected tempDialogHeight = "";
   protected tempFilterable = true;
