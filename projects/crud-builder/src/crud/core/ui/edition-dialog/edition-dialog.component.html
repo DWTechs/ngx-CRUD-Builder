@@ -23,77 +23,70 @@
       />
 
       @if (features().getHistory) {
-        <p-accordion class="accordion">
-          @if (history$ | async; as historyData) {
-          <p-accordion-panel>
-            <p-accordion-header>
-                <span i18n="@@EditionDialog_HistoryHeader">
-                  Historique
-                </span>
-                &nbsp;
-                <span>({{historyData.total}})</span>
-              </p-accordion-header>
-              <p-accordion-content>
-                <shared-history
-                  [data]="historyData"
-                  [config]="config()"
-                  (selected)="onHistorySelect($event)"
-                />
-              </p-accordion-content>
-            </p-accordion-panel>
-          }
-        </p-accordion>
-      }
-
-      @if (features().archive && protectDeletion() && !isCreation()) {
-        <p-accordion class="accordion deletion-container">
-          <p-accordion-panel>
-            <p-accordion-header>
-              <span i18n="@@EditionDialog_ProtectedZoneHeader">
-                Zone protégée
+        @let historyData = history$ | async;
+        @if (historyData) {
+          <p-card>
+            <ng-template #header>
+              <span i18n="@@EditionDialog_HistoryCardHeader">
+                Historique des modifications ({{ historyData.total }})
               </span>
-            </p-accordion-header>
-            <p-accordion-content>
-              <div class="flex-row">
-                <p-checkbox #archiveCheckbox 
-                  [binary]="true"
-                  label="Archiver" 
-                  i18n-label="@@EditionDialog_ArchiveLabel"
-                />
-                <button pButton
-                  pRipple
-                  label="Archiver"
-                  i18n-label="@@EditionDialog_ArchiveButton"
-                  icon="pi pi-trash"
-                  class="p-button-danger delete-button"
-                  (click)="onDelete()"
-                  [disabled]="!archiveCheckbox.checked">
-                </button>
-              </div>
-            </p-accordion-content>
-          </p-accordion-panel>
-        </p-accordion>
+            </ng-template>
+            <shared-history
+              [data]="historyData"
+              [config]="config()"
+              (selected)="onHistorySelect($event)"
+            />
+          </p-card>
+        }
       }
     </div>
   </ng-template>
 
   <ng-template pTemplate="footer">
-    <crd-crud-button
-      type="cancel"
-      [label]="closeButtonLabel()"
-      icon="pi pi-times"
-      [disabled]="isLoading()"
-      (click)="onHide()"
-    />
-    @if (canInteract()) {
-      <crd-crud-button
-        type="validate"
-        icon="pi pi-check"
-        [protectFeature]="functionalityKey()"
-        [minimalOperation]="2"
-        [disabled]="isLoading() || invalidForm"
-        (click)="onSave()"
-      />
-    }
+    <div class="dialog-actions-container">
+      <div class="left-actions">
+        <crd-crud-button
+          type="cancel"
+          [label]="closeButtonLabel()"
+          icon="pi pi-times"
+          [disabled]="isLoading()"
+          (click)="onHide()"
+        />
+        @if (isArchiveBtnDisplayed()) {
+          <crd-crud-button
+            type="delete"
+            i18n-label="@@EditionDialog_ArchiveButton"
+            label="Archiver"
+            icon="pi pi-trash"
+            [functionalityKey]="functionalityKey()"
+            [disabled]="isLoading()"
+            (click)="onArchive()"
+          />
+        }
+        @if (isRestoreBtnDisplayed()) {
+          <crd-crud-button
+            type="restore"
+            icon="pi pi-bolt"
+            [functionalityKey]="functionalityKey()"
+            [disabled]="isLoading()"
+            (click)="onRestore()"
+          />
+        }
+      </div>
+
+      <div class="right-actions">
+        @if (canInteract()) {
+          <crd-crud-button
+            type="validate"
+            icon="pi pi-check"
+            [protectFeature]="functionalityKey()"
+            [minimalOperation]="2"
+            [disabled]="isLoading() || invalidForm"
+            (click)="onSave()"
+          />
+        }
+      </div>
+
+    </div>
   </ng-template>
 </p-dialog>

@@ -180,10 +180,6 @@ editionDialogWidth: "90vw"
 **Type:** `string` | **Default:** `""`  
 **Description:** Custom title for the edition dialog.
 
-#### `protectDeletion`
-**Type:** `boolean` | **Default:** `false`  
-**Description:** Adds a "danger zone" section to the edition dialog.
-
 ### Access Control & Navigation
 
 #### `functionalityKey`

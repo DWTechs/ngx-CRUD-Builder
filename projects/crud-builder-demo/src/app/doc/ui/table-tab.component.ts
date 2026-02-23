@@ -154,10 +154,6 @@ editionDialogWidth: "90vw"</code></pre>
       <p><strong>Type:</strong> <code>string</code> | <strong>Default:</strong> <code>""</code></p>
       <p><strong>Description:</strong> Custom title for the edition dialog.</p>
 
-      <h4><code>protectDeletion</code></h4>
-      <p><strong>Type:</strong> <code>boolean</code> | <strong>Default:</strong> <code>false</code></p>
-      <p><strong>Description:</strong> Adds a "danger zone" section to the edition dialog.</p>
-
       <h3>Access Control & Navigation</h3>
 
       <h4><code>functionalityKey</code></h4>

@@ -6,6 +6,7 @@ export type ButtonType =
   | "validate"
   | "cancel"
   | "delete"
+  | "restore"
   | "edit"
   | "simple-icon";
 
@@ -24,7 +25,7 @@ export class CrudButtonComponent {
   /** Is the button loading */
   public readonly loading = input(false);
   /** Functionality key,. If not provided, the button will always be visible */
-  public readonly functionalityKey = input<string>();
+  public readonly functionalityKey = input<string | undefined>();
   /** Label of the button, if not provide, the default label will be used */
   public readonly label = input("");
   /** Icons */

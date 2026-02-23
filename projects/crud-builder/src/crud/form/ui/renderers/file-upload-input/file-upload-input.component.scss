@@ -15,8 +15,11 @@ input[type="file"] {
   cursor: pointer;
   text-align: center;
   width: 100%;
-  background-color: var(--p-inputtext-background);
   border-radius: 6px;
+
+  &:not(.p-disabled) {
+    background-color: var(--p-inputtext-background);
+  }
 
   p {
     margin: 0;

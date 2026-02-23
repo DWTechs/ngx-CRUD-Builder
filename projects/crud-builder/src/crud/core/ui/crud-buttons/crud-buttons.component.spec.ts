@@ -90,6 +90,15 @@ describe("CrudButtonComponent", () => {
       expect(button?.textContent?.trim()).toBe("Supprimer");
     });
 
+    it("should render restore button with correct text", () => {
+      fixture.componentInstance.type = "restore";
+      fixture.detectChanges();
+
+      const button = getPButton("restore");
+      expect(button).toBeTruthy();
+      expect(button?.textContent?.trim()).toBe("Restaurer");
+    });
+
     it("should render edit button with correct text", () => {
       fixture.componentInstance.type = "edit";
       fixture.detectChanges();

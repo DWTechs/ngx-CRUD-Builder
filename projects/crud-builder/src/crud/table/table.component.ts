@@ -67,6 +67,7 @@ import { ColumnsManagementDialogComponent } from "./ui/columns-management-dialog
     TableColumnsStorage,
     TableStateService,
     ExportService,
+    ConfirmationService,
   ],
   imports: [
     TableToolbarComponent,
@@ -283,13 +284,6 @@ export class TableComponent<TData extends CrudItemBase>
   public readonly paginator = input(true);
 
   /**
-   * Adds a "danger zone" section to the edition dialog with delete functionality.
-   * When enabled, shows a separate section at the bottom of edit forms with delete button.
-   * Provides visual separation and additional confirmation for destructive actions.
-   */
-  public readonly protectDeletion = input<boolean>(false);
-
-  /**
    * Enables row selection with checkboxes for bulk operations.
    * When enabled, adds a checkbox column allowing users to select multiple rows.
    * Selected rows are available via selectedEntries property for bulk actions.
@@ -480,6 +474,13 @@ export class TableComponent<TData extends CrudItemBase>
     this.handleArchive([editedEntry.id]);
   }
 
+  public onEditedEntryRestore(editedEntry: TData | null): void {
+    if (!editedEntry || !editedEntry?.id) {
+      return;
+    }
+    this.handleRestore([editedEntry.id]);
+  }
+
   public onEditedEntryEdit(entry: TData | null): void {
     if (!entry) {
       return;
@@ -583,6 +584,7 @@ export class TableComponent<TData extends CrudItemBase>
       return;
     }
     this.editedEntry = { ...rowData };
+    this.isReadonly.set(false);
     this.isEntryEditionDialogDisplayed.set(true);
     this.appendIdToUrl(rowData.id);
   }
@@ -647,25 +649,41 @@ export class TableComponent<TData extends CrudItemBase>
   }
 
   private handleArchive(ids: number[]) {
+    const count = ids.length;
+    const message =
+      count === 1
+        ? $localize`:@@Table_DeleteConfirmationMessageSingle:Etes-vous sûr de vouloir archiver cet élément ?`
+        : $localize`:@@Table_DeleteConfirmationMessageMultiple:Etes-vous sûr de vouloir archiver ces ${count} éléments ?`;
+    const acceptFn = () => {
+      this.loader.archive(ids).subscribe(() => {
+        this.hideEditionDialog();
+      });
+    };
+    this.confirm(message, acceptFn);
+  }
+
+  private handleRestore(ids: number[]) {
+    const count = ids.length;
+    const message =
+      count === 1
+        ? $localize`:@@Table_RestoreConfirmationMessageSingle:Etes-vous sûr de vouloir restaurer cet élément ?`
+        : $localize`:@@Table_RestoreConfirmationMessageMultiple:Etes-vous sûr de vouloir restaurer ces ${count} éléments ?`;
+    const acceptFn = () => {
+      this.loader.restore(ids).subscribe(() => {
+        this.hideEditionDialog();
+      });
+    };
+    this.confirm(message, acceptFn);
+  }
+
+  private confirm(message: string, acceptFn: () => void): void {
     this.confirmationService.confirm({
-      message: $localize`:@@Table_DeleteConfirmationMessage:Etes-vous sûr de vouloir archiver cet élément ?`,
-      header: "Confirmation",
+      message,
+      header: $localize`:@@Table_ConfirmationHeader:Confirmation`,
       icon: "pi pi-info-circle",
-      rejectLabel: "Annuler",
-      rejectButtonProps: {
-        label: "Annuler",
-        severity: "secondary",
-        outlined: true,
-      },
-      acceptButtonProps: {
-        label: "Archiver",
-        severity: "danger",
-      },
-      accept: () => {
-        this.loader.archive(ids).subscribe(() => {
-          this.hideEditionDialog();
-        });
-      },
+      rejectLabel: $localize`:@@Table_ConfirmationCancel:Annuler`,
+      acceptLabel: $localize`:@@Table_ConfirmationConfirm:Confirmer`,
+      accept: acceptFn,
     });
   }
 }

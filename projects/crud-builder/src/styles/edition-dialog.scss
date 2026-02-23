@@ -1,0 +1,11 @@
+html,
+body {
+    --p-dialog-footer-padding: 0.5rem;  
+
+    .dialog-actions-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.5rem;
+        width: 100%;
+    }
+}

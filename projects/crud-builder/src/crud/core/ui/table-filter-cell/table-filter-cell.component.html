@@ -64,22 +64,13 @@
     }
 
     @if (col().type === 'number') {
-      <p-columnFilter [field]="col().key"
-        matchMode="between"
-        display="menu"
+      <p-columnFilter type="numeric" [field]="col().key" display="menu" 
         [showMatchModes]="false"
         [showOperator]="false"
         [showAddButton]="false"
         [showClearButton]="false"
-        [showApplyButton]="false">
-        <ng-template pTemplate="filter" let-filter="filterCallback">
-            <p-slider [ngModel]="numberRange" [range]="true" [max]="200" [step]="1" (onSlideEnd)="filter($event.values)"></p-slider>
-            <div class="flex-space">
-                <span>{{ numberRange[0] }}</span>
-                <span>{{ numberRange[1] }}</span>
-            </div>
-        </ng-template>
-      </p-columnFilter>
+        [showApplyButton]="false"
+      />
     }
   }
   @default {

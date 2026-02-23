@@ -57,6 +57,7 @@
               }
             ],
             "styles": [
+              "projects/crud-builder/src/styles/edition-dialog.scss",
               "projects/crud-builder-demo/src/styles.scss",
               "node_modules/primeicons/primeicons.css"
             ]

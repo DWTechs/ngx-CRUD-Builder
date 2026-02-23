@@ -160,18 +160,6 @@ getHistory: (id: number) => {
 functionalityKey: 42 // Maps to specific functionality in access control system
 ```
 
-#### `protectDeletion`
-**Type:** `boolean` | **Default:** `false`  
-**Description:** Whether deletion action requires additional protection.
-
-```typescript
-// Standard deletion
-protectDeletion: false
-
-// Protected deletion (requires confirmation)
-protectDeletion: true
-```
-
 ### Model Inputs
 
 #### `editedEntry` (required, model)

@@ -138,11 +138,13 @@ export class CrudLoader<TData extends CrudItemBase> {
     );
   }
 
-  public restore(args: number[]) {
+  public restore(args: number[]): Observable<null> {
     if (!this.httpCalls.restore) {
-      return;
+      return of(null);
     }
-    return this.httpCalls.restore(args).pipe(switchMap(() => this.get()));
+    return this.httpCalls
+      .restore(args)
+      .pipe(switchMap(() => this.get().pipe(map(() => null))));
   }
 
   public get(): Observable<RowsAndCount<TData>> {

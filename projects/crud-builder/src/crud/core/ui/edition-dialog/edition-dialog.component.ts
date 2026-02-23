@@ -6,6 +6,7 @@ import {
   model,
   output,
   signal,
+  ViewEncapsulation,
 } from "@angular/core";
 import { toObservable } from "@angular/core/rxjs-interop";
 import { ValidatorFn } from "@angular/forms";
@@ -19,9 +20,9 @@ import { HistorizedData } from "@crud/core/ui/history/history.model";
 import { NO_ROWS_AND_COUNT } from "@crud/core/utils/crud-service/no-rows";
 import { CrudFeatures } from "@crud/core/utils/table/crud-loader.class";
 import { FormComponent } from "@crud/form/form/form.component";
-import { AccordionModule } from "primeng/accordion";
 import { SharedModule } from "primeng/api";
 import { ButtonModule } from "primeng/button";
+import { CardModule } from "primeng/card";
 import { CheckboxModule } from "primeng/checkbox";
 import { DialogModule } from "primeng/dialog";
 import { distinctUntilChanged, filter, Observable, of, switchMap } from "rxjs";
@@ -34,7 +35,7 @@ import { distinctUntilChanged, filter, Observable, of, switchMap } from "rxjs";
     DialogModule,
     SharedModule,
     FormComponent,
-    AccordionModule,
+    CardModule,
     HistoryComponent,
     CheckboxModule,
     ButtonModule,
@@ -43,6 +44,7 @@ import { distinctUntilChanged, filter, Observable, of, switchMap } from "rxjs";
     ProtectFeaturePipe,
     CrudButtonComponent,
   ],
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditionDialogComponent<TData extends CrudItemBase> {
   // Inputs
@@ -53,7 +55,7 @@ export class EditionDialogComponent<TData extends CrudItemBase> {
   public readonly features = input<CrudFeatures>({} as CrudFeatures);
 
   /** Unique identifier for functionality access control */
-  public readonly functionalityKey = input<string>();
+  public readonly functionalityKey = input<string | undefined>();
 
   /** Function to retrieve history data for an entry by ID */
   public readonly getHistory =
@@ -85,9 +87,6 @@ export class EditionDialogComponent<TData extends CrudItemBase> {
   /** Controls dialog visibility state */
   public readonly isVisible = input(false);
 
-  /** Whether deletion action requires additional protection */
-  public readonly protectDeletion = input(false);
-
   /** Dialog width (CSS value) */
   public readonly width = input<string | undefined>(undefined);
 
@@ -108,6 +107,9 @@ export class EditionDialogComponent<TData extends CrudItemBase> {
   // Outputs
   /** Emitted when entry is archived/deleted */
   public readonly archived = output<TData | null>();
+
+  /** Emitted when entry is restored */
+  public readonly restored = output<TData | null>();
 
   /** Emitted when entry is edited (value changes) */
   public readonly edited = output<TData | null>();
@@ -188,6 +190,28 @@ export class EditionDialogComponent<TData extends CrudItemBase> {
     return `${action} - ${this.entityLabel()}`;
   });
 
+  private readonly canArchiveRestore = computed(() => {
+    if (!this.canInteract()) return false;
+    if (this.isCreation()) return false;
+    return true;
+  });
+
+  public readonly isArchiveBtnDisplayed = computed(() => {
+    return (
+      this.features().archive &&
+      this.canArchiveRestore() &&
+      !this.editedEntry()?.archived
+    );
+  });
+
+  public readonly isRestoreBtnDisplayed = computed(() => {
+    return (
+      this.features().restore &&
+      this.canArchiveRestore() &&
+      this.editedEntry()?.archived
+    );
+  });
+
   /** Observable stream of history data for the current entry */
   public readonly history$ = toObservable(this.editedEntryId).pipe(
     distinctUntilChanged(),
@@ -203,12 +227,14 @@ export class EditionDialogComponent<TData extends CrudItemBase> {
 
   /** Whether the save button should be displayed based on form state and permissions */
   public readonly canInteract = computed(() => {
-    const isCreation = this.isCreation();
-    const isUpdateEnabled = this.features().update;
-    const isFormReadonly = this.config().every(
+    if (this.isReadonly()) return false;
+    if (this.isCreation()) return true;
+    if (!this.features().update) return false;
+
+    const areAllFieldsReadonly = this.config().every(
       (ctrl) => ctrl.controlOptions?.disabled || ctrl.controlOptions?.hidden,
     );
-    return isCreation || (isUpdateEnabled && !isFormReadonly);
+    return !areAllFieldsReadonly;
   });
 
   public readonly closeButtonLabel = computed(() => {
@@ -265,7 +291,11 @@ export class EditionDialogComponent<TData extends CrudItemBase> {
   /**
    * Handles delete/archive action and emits the current entry
    */
-  public onDelete() {
+  public onArchive() {
+    this.archived.emit(this.editedEntry());
+  }
+
+  public onRestore() {
     this.archived.emit(this.editedEntry());
   }
 }

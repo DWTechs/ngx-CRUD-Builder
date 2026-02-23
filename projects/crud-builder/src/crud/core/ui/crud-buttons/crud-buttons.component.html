@@ -41,6 +41,20 @@
             data-testid="delete-button"
         />
     }
+    @case ("restore") {
+        <p-button pRipple
+            outlined
+            [protectFeature]="functionalityKey()"
+            [label]="label() ? label() : 'Restaurer'"
+            [disabled]="disabled()"
+            [severity]="severity() ? severity() : 'primary'"
+            [loading]="loading()"
+            [icon]="icon() ? icon() : ''"
+            [minimalOperation]="3"
+            (onClick)="clicked.emit()"
+            data-testid="restore-button"
+        />
+    }
     @case ("edit") {
         <p-button pRipple
             [outlined]="true"

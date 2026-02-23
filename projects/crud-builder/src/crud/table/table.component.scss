@@ -2,13 +2,15 @@ tbl-table {
   height: 100%;
   display: block;
   position: relative;
-
+  --p-datatable-body-cell-padding: 0.25rem;
+  --p-datatable-header-cell-padding: 0.25rem;
 
   .table-progress-bar {
     position: absolute;
     bottom: 0;
     z-index: 3;
     width: 100%;
+    height: 4px;
   }
 
   .p-button-text,

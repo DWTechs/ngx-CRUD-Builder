@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  ViewEncapsulation,
+} from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { isNil } from "@dwtechs/checkard";
 import { FormFieldBaseComponent } from "@form/ui/renderers/form-field-base.component";
@@ -9,6 +14,8 @@ import { SelectButtonModule } from "primeng/selectbutton";
   templateUrl: "./select-button-control.component.html",
   imports: [SelectButtonModule, ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  styleUrls: ["./select-button-control.component.scss"],
 })
 export class SelectButtonControlComponent extends FormFieldBaseComponent {
   public readonly unselectable = computed(() => {

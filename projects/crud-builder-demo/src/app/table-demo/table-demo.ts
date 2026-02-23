@@ -2,6 +2,7 @@ import { Component, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CrudItemBase } from "@crud/core/models/crud-item-base.class";
 import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
+import { HistorizedData } from "@crud/core/ui/history/history.model";
 import { Calls } from "@crud/core/utils/crud-service/crud.model";
 import { TableComponent } from "@table/table.component";
 import { ButtonModule } from "primeng/button";
@@ -195,13 +196,6 @@ interface DemoUser extends CrudItemBase {
 
           <div class="demo-control">
             <p-checkbox 
-              [(ngModel)]="tempProtectDeletion"
-              binary="true" />
-            <label>Protect Deletion</label>
-          </div>
-
-          <div class="demo-control">
-            <p-checkbox 
               [(ngModel)]="tempIsContextMenuEnabled"
               binary="true" />
             <label>Context Menu</label>
@@ -257,7 +251,6 @@ interface DemoUser extends CrudItemBase {
             [editionDialogHeight]="dialogHeight() || undefined"
             [selectable]="selectable()"
             [lazy]="lazy()"
-            [protectDeletion]="protectDeletion()"
             [isContextMenuEnabled]="isContextMenuEnabled()"
             [isDefaultEditionDisabled]="isDefaultEditionDisabled()"
             [isPreferencesModeEnabled]="isPreferencesModeEnabled()"
@@ -290,7 +283,6 @@ export class TableDemo {
   protected tempAreColumnsResizable = true;
   protected tempSelectable = false;
   protected tempLazy = true;
-  protected tempProtectDeletion = false;
   protected tempIsContextMenuEnabled = false;
   protected tempIsDefaultEditionDisabled = false;
   protected tempIsPreferencesModeEnabled = false;
@@ -300,7 +292,7 @@ export class TableDemo {
   // Applied configuration signals (used by the table)
   protected readonly entityLabel = signal("User");
   protected readonly tableTitle = signal("Users");
-  protected readonly selectedDialogSize = signal<"xs" | "s" | "m" | "l">("s");
+  protected readonly selectedDialogSize = signal<"xs" | "s" | "m" | "l">("m");
   protected readonly dialogWidth = signal("");
   protected readonly dialogHeight = signal("");
   protected readonly filterable = signal(true);
@@ -316,7 +308,6 @@ export class TableDemo {
   protected readonly areColumnsResizable = signal(true);
   protected readonly selectable = signal(false);
   protected readonly lazy = signal(true);
-  protected readonly protectDeletion = signal(false);
   protected readonly isContextMenuEnabled = signal(false);
   protected readonly isDefaultEditionDisabled = signal(false);
   protected readonly isPreferencesModeEnabled = signal(false);
@@ -494,6 +485,85 @@ export class TableDemo {
 
       return of(null).pipe(delay(300));
     },
+    getHistory: (_id: number) => {
+      const user = this.mockUsers.find((u) => u.id === _id);
+      if (!user) {
+        return of({ rows: [], total: 0 }).pipe(delay(300));
+      }
+
+      // Create a realistic history with multiple versions showing changes over time
+      // Note: Array should be ordered from newest to oldest (descending timestamp)
+      const now = Date.now();
+      const oneDay = 24 * 60 * 60 * 1000;
+      const oneWeek = 7 * oneDay;
+      const oneMonth = 30 * oneDay;
+
+      const mockedHistory: HistorizedData<DemoUser>[] = [
+        // Current version (most recent)
+        {
+          old_val: { ...user },
+          tstamp: now,
+          who: "admin@example.com",
+        },
+        // Previous version - salary and subscription changed
+        {
+          old_val: {
+            ...user,
+            salary: (user.salary || 50000) - 5000,
+            subscription: user.subscription === "premium" ? "basic" : "premium",
+          },
+          tstamp: now - oneWeek,
+          who: "hr.manager@example.com",
+        },
+        // Older version - email and city changed
+        {
+          old_val: {
+            ...user,
+            salary: (user.salary || 50000) - 5000,
+            subscription: user.subscription === "premium" ? "basic" : "premium",
+            email: user.email.replace("@example.com", ".old@example.com"),
+            city: user.city === "paris" ? "lyon" : "paris",
+          },
+          tstamp: now - oneMonth,
+          who: user.name.toLowerCase().replace(" ", ".") + "@example.com",
+        },
+        // Even older - active status and languages changed
+        {
+          old_val: {
+            ...user,
+            salary: (user.salary || 50000) - 10000,
+            subscription: "basic",
+            email: user.email.replace("@example.com", ".old@example.com"),
+            city: user.city === "paris" ? "lyon" : "paris",
+            active: !user.active,
+            languages: user.languages?.slice(0, 1) || ["en"],
+          },
+          tstamp: now - 2 * oneMonth,
+          who: "system@example.com",
+        },
+        // Initial creation
+        {
+          old_val: {
+            ...user,
+            salary: (user.salary || 50000) - 15000,
+            subscription: "basic",
+            email: user.email.replace("@example.com", ".old@example.com"),
+            city: user.city === "paris" ? "lyon" : "paris",
+            active: false,
+            languages: ["en"],
+            description: "",
+          },
+          tstamp: now - 3 * oneMonth,
+          who: "admin@example.com",
+        },
+      ];
+
+      console.log({ mockedHistory });
+
+      return of({ rows: mockedHistory, total: mockedHistory.length }).pipe(
+        delay(300),
+      );
+    },
   };
 
   /**
@@ -518,7 +588,6 @@ export class TableDemo {
     this.areColumnsResizable.set(this.tempAreColumnsResizable);
     this.selectable.set(this.tempSelectable);
     this.lazy.set(this.tempLazy);
-    this.protectDeletion.set(this.tempProtectDeletion);
     this.isContextMenuEnabled.set(this.tempIsContextMenuEnabled);
     this.isDefaultEditionDisabled.set(this.tempIsDefaultEditionDisabled);
     this.isPreferencesModeEnabled.set(this.tempIsPreferencesModeEnabled);
