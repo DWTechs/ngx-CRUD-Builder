@@ -52,6 +52,11 @@ export const DEMO_CONF: CrudItemOptions[] = [
       inputIcon: "pi pi-euro",
       validators: [min(0)],
     },
+    conditions: {
+      controlOptions: {
+        hidden: ({ model }) => model.age < 18, // Hide salary field if age is less than 18
+      },
+    },
   },
 
   // TEXTAREA
@@ -104,6 +109,14 @@ export const DEMO_CONF: CrudItemOptions[] = [
       { label: "Spanish", value: "es" },
       { label: "Italian", value: "it" },
     ],
+    conditions: {
+      controlOptions: {
+        validators: ({ model }) => {
+          const euCountries = ["FR", "DE", "ES", "IT"];
+          return euCountries.includes(model.country) ? [required] : [];
+        },
+      },
+    },
   },
 
   // AUTOCOMPLETE
@@ -195,6 +208,16 @@ export const DEMO_CONF: CrudItemOptions[] = [
     controlOptions: {
       validators: [minlength(50)],
       width: "100%",
+    },
+    conditions: {
+      controlOptions: {
+        validators: ({ model }) => {
+          const isPremium = ["premium", "enterprise"].includes(
+            model.subscription,
+          );
+          return isPremium ? [required, minlength(50)] : [minlength(50)];
+        },
+      },
     },
   },
 
@@ -299,6 +322,11 @@ export const DEMO_CONF: CrudItemOptions[] = [
           },
         },
       ],
+    },
+    conditions: {
+      controlOptions: {
+        hidden: ({ model }) => !model.age || model.age < 18,
+      },
     },
   },
 ];

@@ -7,8 +7,9 @@ import { LabelStrategy } from "@form/utils/label-strategy.model";
 import { ButtonModule } from "primeng/button";
 import { CheckboxModule } from "primeng/checkbox";
 import { InputTextModule } from "primeng/inputtext";
+import { PanelModule } from "primeng/panel";
 import { SelectModule } from "primeng/select";
-import { DEMO_CONF } from "../demo.conf";
+import { DEMO_CONF } from "../../demo.conf";
 
 interface FormGeneralConfig {
   config: CrudItemOptions[];
@@ -37,6 +38,7 @@ interface FormGeneralConfig {
     SelectModule,
     CheckboxModule,
     InputTextModule,
+    PanelModule,
   ],
   template: `
     <div class="config-panel">
@@ -119,8 +121,20 @@ interface FormGeneralConfig {
         </div>
         <p-button label="Apply" (click)="applyConfig()" />
       </div>
+      
+    <p-panel header="ℹ️ Dynamic Conditions Demo">
+      <p>This form showcases several dynamic conditions that change field behavior based on user input:</p>
+      <ul>
+        <li><strong>Salary:</strong> Hidden if age &lt; 18</li>
+        <li><strong>Work Experience:</strong> Hidden if age &lt; 18</li>
+        <li><strong>Biography:</strong> Required if subscription is Premium or Enterprise</li>
+        <li><strong>Languages:</strong> Required if country is in the EU (FR, DE, ES, IT)</li>
+      </ul>
+      <p>Try changing the age, subscription, or country fields to see these conditions in action!</p>
+    </p-panel>
     </div>
-    
+  
+
     <div class="live-demo">
         <h3>Preview</h3>
       @if (formConfig(); as config) {

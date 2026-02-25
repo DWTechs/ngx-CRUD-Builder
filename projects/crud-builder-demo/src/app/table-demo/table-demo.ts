@@ -6,7 +6,7 @@ import { ButtonModule } from "primeng/button";
 import { CheckboxModule } from "primeng/checkbox";
 import { InputTextModule } from "primeng/inputtext";
 import { SelectModule } from "primeng/select";
-import { DEMO_CONF } from "../form-demo/demo.conf";
+import { DEMO_CONF } from "../demo.conf";
 import { TableDemoMockService } from "./table-demo-mock.service";
 
 /**
