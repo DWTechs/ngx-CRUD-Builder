@@ -15,13 +15,11 @@ import { SelectButtonInputTabComponent } from "./ui/select-button-input-tab.comp
 import { SelectInputTabComponent } from "./ui/select-input-tab.component";
 import { TableControlTabComponent } from "./ui/table-control-tab.component";
 import { TextareaInputTabComponent } from "./ui/textarea-input-tab.component";
-
-/**
- * Main demo component that orchestrates all form demonstration tabs
- * Provides a clean interface to test different form configurations and field types
- */
 @Component({
   selector: "frm-demo",
+  templateUrl: "./form-demo.html",
+  styleUrls: ["./form-demo.scss"],
+  encapsulation: ViewEncapsulation.None,
   imports: [
     TabsModule,
     FormGeneralTabComponent,
@@ -40,91 +38,5 @@ import { TextareaInputTabComponent } from "./ui/textarea-input-tab.component";
     RichTextEditorTabComponent,
     TableControlTabComponent,
   ],
-  styleUrls: ["./form-demo.scss"],
-  encapsulation: ViewEncapsulation.None,
-  template: `
-    <div class="form-demo-container">
-      <p-tabs value="0">
-        <p-tablist>
-          <p-tab value="0">Form</p-tab>
-          <p-tab value="1">Text input</p-tab>
-          <p-tab value="2">Number input</p-tab>
-          <p-tab value="3">Checkbox</p-tab>
-          <p-tab value="4">Date</p-tab>
-          <p-tab value="5">Autocomplete</p-tab>
-          <p-tab value="6">File Upload</p-tab>
-          <p-tab value="7">Multi-Select</p-tab>
-          <p-tab value="8">Select</p-tab>
-          <p-tab value="9">Picklist</p-tab>
-          <p-tab value="10">Radio Group</p-tab>
-          <p-tab value="11">Select Button</p-tab>
-          <p-tab value="12">Textarea</p-tab>
-          <p-tab value="13">Rich Text Editor</p-tab>
-          <p-tab value="14">Table Control</p-tab>
-        </p-tablist>
-        <p-tabpanels>
-          <p-tabpanel value="0">
-            <frm-form-general-tab />
-          </p-tabpanel>
-          
-          <p-tabpanel value="1">
-            <frm-input-text-tab />
-          </p-tabpanel>
-
-          <p-tabpanel value="2">
-            <frm-number-input-tab />
-          </p-tabpanel>
-
-          <p-tabpanel value="3">
-            <frm-checkbox-input-tab />
-          </p-tabpanel>
-
-          <p-tabpanel value="4">
-            <frm-date-input-tab />
-          </p-tabpanel>
-
-          <p-tabpanel value="5">
-            <frm-autocomplete-input-tab />
-          </p-tabpanel>
-
-          <p-tabpanel value="6">
-            <frm-file-upload-tab />
-          </p-tabpanel>
-
-          <p-tabpanel value="7">
-            <frm-multi-select-input-tab />
-          </p-tabpanel>
-
-          <p-tabpanel value="8">
-            <frm-select-input-tab />
-          </p-tabpanel>
-          
-          <p-tabpanel value="9">
-            <frm-picklist-input-tab />
-          </p-tabpanel>
-
-          <p-tabpanel value="10">
-            <frm-radiogroup-input-tab />
-          </p-tabpanel>
-          
-          <p-tabpanel value="11">
-            <frm-select-button-input-tab />
-          </p-tabpanel>
-
-          <p-tabpanel value="12">
-            <frm-textarea-input-tab />
-          </p-tabpanel>
-
-          <p-tabpanel value="13">
-            <frm-rich-text-editor-tab />
-          </p-tabpanel>
-
-          <p-tabpanel value="14">
-            <frm-table-control-tab />
-          </p-tabpanel>
-        </p-tabpanels>
-      </p-tabs>
-    </div>
-  `,
 })
 export class FormDemo {}

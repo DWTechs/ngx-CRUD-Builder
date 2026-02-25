@@ -3,9 +3,6 @@ $tabAndHeaderHeight: 160px;
 // css mixin for card
 @mixin card {
     padding: 0.5rem;
-    padding-bottom: 1.5rem;
-    // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: var(--primary-bg-color-light);
     margin: 0.5rem 0;
 }
 
@@ -18,43 +15,54 @@ $tabAndHeaderHeight: 160px;
     }
 
     h3 {
-        margin-top: 0;
+        margin-top: 0.5rem;
+        margin-left: 0.5rem;
     }
 }
 
-.demo-controls {
-    @include card;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    align-content: start;
-    border-bottom: 2px solid var(--p-content-border-color);
-    // background-color: var(--electric-violet);
+.config-panel {
+    background-color: var(--p-form-field-background);
+    padding: 0.5rem;
+    border-radius: 12px;
+    margin: 0 0.5rem;
 
-    > p-button {
-        grid-column: 1 / -1;
-        justify-self: end;
-        margin-top: auto;
-    }
+    .demo-controls {
+        @include card;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        align-content: start;
 
-    .demo-control {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
+        > p-button {
+            grid-column: 1 / -1;
+            justify-self: center;
+            margin-top: auto;
 
-    .checkboxes {
-        grid-column: 1 / -1;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
+            button {
+                width: 300px;
+            }
+        }
 
         .demo-control {
-            flex-direction: row;
-            align-items: center
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .checkboxes {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+
+            .demo-control {
+                flex-direction: row;
+                align-items: center
+            }
         }
     }
 }
+
 
 .live-demo {
     @include card;

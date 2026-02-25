@@ -23,9 +23,10 @@ import { SelectModule } from "primeng/select";
     InputTextModule,
   ],
   template: `
-    <h3>Configuration</h3>
-    
-    <div class="demo-controls">
+    <div class="config-panel">
+      <h3>Configuration</h3>
+      
+      <div class="demo-controls">
       <div class="demo-control">
         <label>Field Label</label>
         <input pInputText [(ngModel)]="inputTextLabel" placeholder="Label" />
@@ -117,6 +118,7 @@ import { SelectModule } from "primeng/select";
         label="Apply"
         (click)="applyConfig()"
         class="apply-btn" />
+      </div>
     </div>
     
     <div class="live-demo">

@@ -26,142 +26,144 @@ import { delay } from "rxjs/operators";
     InputTextModule,
   ],
   template: `
-    <h3>Configuration</h3>
-    
-    <div class="demo-controls">
-      <div class="demo-control">
-        <label>Field Label</label>
-        <input pInputText [(ngModel)]="autocompleteLabel" placeholder="Label" />
-      </div>
-
-      <div class="demo-control">
-        <label>Placeholder</label>
-        <input pInputText [(ngModel)]="autocompletePlaceholder" placeholder="Placeholder" />
-      </div>
-
-      <div class="demo-control">
-        <label>Icon</label>
-        <p-select 
-          [options]="iconOptions" 
-          [(ngModel)]="autocompleteIcon"
-          placeholder="Choose an icon"
-          [showClear]="true" />
-      </div>
-
-      <div class="demo-control">
-        <label>Width</label>
-        <input pInputText 
-          [(ngModel)]="autocompleteWidth" 
-          placeholder="Width (ex: 300px, 50%)" />
-      </div>
-
-      <div class="demo-control">
-        <label>Help text</label>
-        <input pInputText 
-          [(ngModel)]="autocompleteHelpText" 
-          placeholder="Help text below the field" />
-      </div>
-
-      <div class="demo-control">
-        <label>Tooltip</label>
-        <input pInputText 
-          [(ngModel)]="autocompleteTooltipLabel" 
-          placeholder="Texte au survol" />
-      </div>
-
-      <div class="demo-control">
-        <label>Control options label</label>
-        <input pInputText 
-          [(ngModel)]="autocompleteControlLabel" 
-          placeholder="Label dans controlOptions" />
-      </div>
-
-      <div class="demo-control">
-        <label>Minimum query length</label>
-        <input pInputText 
-          type="number"
-          [(ngModel)]="autocompleteMinQueryLength" 
-          placeholder="Minimum number of characters" />
-      </div>
-
-      <div class="demo-control">
-        <label>Delay (ms)</label>
-        <input pInputText 
-          type="number"
-          [(ngModel)]="autocompleteDelay" 
-          placeholder="Delay in milliseconds" />
-      </div>
-
-      <div class="demo-control">
-        <label>Dropdown height</label>
-        <input pInputText 
-          [(ngModel)]="autocompleteScrollHeight" 
-          placeholder="ex: 200px, 300px" />
-      </div>
-
-      <!-- Checkboxes for boolean options -->
-      <div class="checkboxes">
+    <div class="config-panel">
+      <h3>Configuration</h3>
+      
+      <div class="demo-controls">
         <div class="demo-control">
-          <p-checkbox 
-            [(ngModel)]="autocompleteRequired"
-            binary="true" />
-          <label>Required</label>
-        </div>
-        
-        <div class="demo-control">
-          <p-checkbox 
-            [(ngModel)]="autocompleteDisabled"
-            binary="true" />
-          <label>Disabled</label>
-        </div>
-        
-        <div class="demo-control">
-          <p-checkbox 
-            [(ngModel)]="autocompleteHidden"
-            binary="true" />
-          <label>Hidden</label>
+          <label>Field Label</label>
+          <input pInputText [(ngModel)]="autocompleteLabel" placeholder="Label" />
         </div>
 
         <div class="demo-control">
-          <p-checkbox 
-            [(ngModel)]="autocompleteClearable"
-            binary="true" />
-          <label>Clear button</label>
+          <label>Placeholder</label>
+          <input pInputText [(ngModel)]="autocompletePlaceholder" placeholder="Placeholder" />
         </div>
 
         <div class="demo-control">
-          <p-checkbox 
-            [(ngModel)]="autocompleteCompleteOnFocusDisabled"
-            binary="true" />
-          <label>Disable suggestions on focus</label>
+          <label>Icon</label>
+          <p-select 
+            [options]="iconOptions" 
+            [(ngModel)]="autocompleteIcon"
+            placeholder="Choose an icon"
+            [showClear]="true" />
         </div>
 
         <div class="demo-control">
-          <p-checkbox 
-            [(ngModel)]="autocompleteOptionCreationEnabled"
-            binary="true" />
-          <label>Allow option creation</label>
+          <label>Width</label>
+          <input pInputText 
+            [(ngModel)]="autocompleteWidth" 
+            placeholder="Width (ex: 300px, 50%)" />
         </div>
 
         <div class="demo-control">
-          <p-checkbox 
-            [(ngModel)]="autocompleteMultiple"
-            binary="true" />
-          <label>Multiple selection</label>
+          <label>Help text</label>
+          <input pInputText 
+            [(ngModel)]="autocompleteHelpText" 
+            placeholder="Help text below the field" />
         </div>
 
         <div class="demo-control">
-          <p-checkbox 
-            [(ngModel)]="autocompleteDropdown"
-            binary="true" />
-          <label>Afficher bouton dropdown</label>
+          <label>Tooltip</label>
+          <input pInputText 
+            [(ngModel)]="autocompleteTooltipLabel" 
+            placeholder="Texte au survol" />
         </div>
+
+        <div class="demo-control">
+          <label>Control options label</label>
+          <input pInputText 
+            [(ngModel)]="autocompleteControlLabel" 
+            placeholder="Label dans controlOptions" />
+        </div>
+
+        <div class="demo-control">
+          <label>Minimum query length</label>
+          <input pInputText 
+            type="number"
+            [(ngModel)]="autocompleteMinQueryLength" 
+            placeholder="Minimum number of characters" />
+        </div>
+
+        <div class="demo-control">
+          <label>Delay (ms)</label>
+          <input pInputText 
+            type="number"
+            [(ngModel)]="autocompleteDelay" 
+            placeholder="Delay in milliseconds" />
+        </div>
+
+        <div class="demo-control">
+          <label>Dropdown height</label>
+          <input pInputText 
+            [(ngModel)]="autocompleteScrollHeight" 
+            placeholder="ex: 200px, 300px" />
+        </div>
+
+        <!-- Checkboxes for boolean options -->
+        <div class="checkboxes">
+          <div class="demo-control">
+            <p-checkbox 
+              [(ngModel)]="autocompleteRequired"
+              binary="true" />
+            <label>Required</label>
+          </div>
+          
+          <div class="demo-control">
+            <p-checkbox 
+              [(ngModel)]="autocompleteDisabled"
+              binary="true" />
+            <label>Disabled</label>
+          </div>
+          
+          <div class="demo-control">
+            <p-checkbox 
+              [(ngModel)]="autocompleteHidden"
+              binary="true" />
+            <label>Hidden</label>
+          </div>
+
+          <div class="demo-control">
+            <p-checkbox 
+              [(ngModel)]="autocompleteClearable"
+              binary="true" />
+            <label>Clear button</label>
+          </div>
+
+          <div class="demo-control">
+            <p-checkbox 
+              [(ngModel)]="autocompleteCompleteOnFocusDisabled"
+              binary="true" />
+            <label>Disable suggestions on focus</label>
+          </div>
+
+          <div class="demo-control">
+            <p-checkbox 
+              [(ngModel)]="autocompleteOptionCreationEnabled"
+              binary="true" />
+            <label>Allow option creation</label>
+          </div>
+
+          <div class="demo-control">
+            <p-checkbox 
+              [(ngModel)]="autocompleteMultiple"
+              binary="true" />
+            <label>Multiple selection</label>
+          </div>
+
+          <div class="demo-control">
+            <p-checkbox 
+              [(ngModel)]="autocompleteDropdown"
+              binary="true" />
+            <label>Afficher bouton dropdown</label>
+          </div>
+        </div>
+
+        <p-button 
+          label="Apply"
+          (click)="applyConfig()"
+          class="apply-btn" />
       </div>
-
-      <p-button 
-        label="Apply"
-        (click)="applyConfig()"
-        class="apply-btn" />
     </div>
     
     <div class="live-demo">

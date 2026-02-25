@@ -39,84 +39,86 @@ interface FormGeneralConfig {
     InputTextModule,
   ],
   template: `
-    <h3>Configuration</h3>
-    
-    <div class="demo-controls">
-      <div class="demo-control">
-        <label>Label Strategy</label>
-        <p-select 
-          [options]="labelStrategies" 
-          [(ngModel)]="selectedLabelStrategy"
-          placeholder="labelStrategy" 
-        />
-      </div>
-
-      @if (selectedLabelStrategy() === 'float') {
+    <div class="config-panel">
+      <h3>Configuration</h3>
+      
+      <div class="demo-controls">
         <div class="demo-control">
-          <label>Label Variant</label>
+          <label>Label Strategy</label>
           <p-select 
-            [options]="labelVariants" 
-            [(ngModel)]="selectedLabelVariant"
-            placeholder="labelVariant" 
+            [options]="labelStrategies" 
+            [(ngModel)]="selectedLabelStrategy"
+            placeholder="labelStrategy" 
           />
         </div>
-      }
-      
-      <div class="demo-control">
-        <label>Columns count</label>
-        <p-select 
-          [options]="columnsCountOptions" 
-          [(ngModel)]="selectedColumnsCount"
-          placeholder="columnsCount" 
-        />
-      </div>
 
-      <div class="demo-control">
-        <label>Submit Button Label</label>
-        <input 
-          pInputText 
-          [(ngModel)]="selectedSubmitButtonLabel"
-          placeholder="Submit button label" />
-      </div>
-      
-      <div class="demo-control">
-        <label>Reset Button Label</label>
-        <input 
-          pInputText 
-          [(ngModel)]="selectedResetButtonLabel"
-          placeholder="Reset button label" />
-      </div>
+        @if (selectedLabelStrategy() === 'float') {
+          <div class="demo-control">
+            <label>Label Variant</label>
+            <p-select 
+              [options]="labelVariants" 
+              [(ngModel)]="selectedLabelVariant"
+              placeholder="labelVariant" 
+            />
+          </div>
+        }
+        
+        <div class="demo-control">
+          <label>Columns count</label>
+          <p-select 
+            [options]="columnsCountOptions" 
+            [(ngModel)]="selectedColumnsCount"
+            placeholder="columnsCount" 
+          />
+        </div>
 
-      <div class="checkboxes">            
         <div class="demo-control">
-          <p-checkbox 
-            [(ngModel)]="selectedShowSubmit"
-            binary="true" />
-          <label>Show Submit Button</label>
+          <label>Submit Button Label</label>
+          <input 
+            pInputText 
+            [(ngModel)]="selectedSubmitButtonLabel"
+            placeholder="Submit button label" />
         </div>
         
         <div class="demo-control">
-          <p-checkbox 
-            [(ngModel)]="selectedShowReset"
-            binary="true" />
-          <label>Show Reset Button</label>
+          <label>Reset Button Label</label>
+          <input 
+            pInputText 
+            [(ngModel)]="selectedResetButtonLabel"
+            placeholder="Reset button label" />
         </div>
-        
-        <div class="demo-control">
-          <p-checkbox 
-            [(ngModel)]="selectedShowDebug"
-            binary="true" />
-          <label>Show Debug Panel</label>
+
+        <div class="checkboxes">            
+          <div class="demo-control">
+            <p-checkbox 
+              [(ngModel)]="selectedShowSubmit"
+              binary="true" />
+            <label>Show Submit Button</label>
+          </div>
+          
+          <div class="demo-control">
+            <p-checkbox 
+              [(ngModel)]="selectedShowReset"
+              binary="true" />
+            <label>Show Reset Button</label>
+          </div>
+          
+          <div class="demo-control">
+            <p-checkbox 
+              [(ngModel)]="selectedShowDebug"
+              binary="true" />
+            <label>Show Debug Panel</label>
+          </div>
+          
+          <div class="demo-control">
+            <p-checkbox 
+              [(ngModel)]="selectedIsReadonly"
+              binary="true" />
+            <label>Read-only Mode</label>
+          </div>
         </div>
-        
-        <div class="demo-control">
-          <p-checkbox 
-            [(ngModel)]="selectedIsReadonly"
-            binary="true" />
-          <label>Read-only Mode</label>
-        </div>
+        <p-button label="Apply" (click)="applyConfig()" />
       </div>
-      <p-button label="Apply" (click)="applyConfig()" />
     </div>
     
     <div class="live-demo">
