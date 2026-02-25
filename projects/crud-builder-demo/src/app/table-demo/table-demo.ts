@@ -1,4 +1,4 @@
-import { Component, signal } from "@angular/core";
+import { Component, signal, ViewEncapsulation } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
 import { TableComponent } from "@table/table.component";
@@ -24,6 +24,7 @@ import { TableDemoMockService } from "./table-demo-mock.service";
   ],
   styleUrls: ["./table-demo.scss"],
   templateUrl: "./table-demo.html",
+  encapsulation: ViewEncapsulation.None,
 })
 export class TableDemo {
   constructor(protected readonly mockService: TableDemoMockService) {}

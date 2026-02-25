@@ -26,6 +26,16 @@ $tabAndHeaderHeight: 160px;
     border-radius: 12px;
     margin: 0 0.5rem;
 
+    p-button {
+        grid-column: 1 / -1;
+        justify-self: center;
+        margin-top: auto;
+
+        button {
+            width: 300px;
+        }
+    }
+
     .demo-controls {
         @include card;
         display: grid;
@@ -33,15 +43,7 @@ $tabAndHeaderHeight: 160px;
         gap: 1rem;
         align-content: start;
 
-        > p-button {
-            grid-column: 1 / -1;
-            justify-self: center;
-            margin-top: auto;
 
-            button {
-                width: 300px;
-            }
-        }
 
         .demo-control {
             display: flex;
