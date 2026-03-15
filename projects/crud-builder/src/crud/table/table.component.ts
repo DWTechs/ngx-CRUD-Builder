@@ -30,6 +30,7 @@ import { CrudLoader } from "@crud/core/utils/table/crud-loader.class";
 import { ExcelExportMode } from "@crud/core/utils/table/export-mode.model";
 import { FilterLevel } from "@crud/core/utils/table/filter-level.model";
 import { TableStateService } from "@crud/core/utils/table/table-state.service";
+import { LabelStrategy } from "@crud/form/utils/label-strategy.model";
 import { ColumnResizeEvent } from "@crud/table/utils/views/table-config.model";
 import { isArray } from "@dwtechs/checkard";
 import { FileInfo } from "@form/ui/renderers/file-upload-input/file-info.class";
@@ -105,6 +106,9 @@ export class TableComponent<TData extends CrudItemBase>
    */
   public readonly areColumnsConfigurable = input(true);
 
+  /** Determines whether table columns can be resized by the user */
+  public readonly areColumnsResizable = input(true);
+
   /**
    * Enables deep linking to specific items by adding their ID to the URL query parameters.
    * When enabled, editing an item will add ?id=123 to the URL, allowing direct access to the edition dialog.
@@ -126,6 +130,14 @@ export class TableComponent<TData extends CrudItemBase>
    * This is the core configuration that drives both table display and form generation.
    */
   public readonly config = input.required<CrudItemOptions[]>();
+
+  /**
+   * Custom template for actions in the table's action column.
+   * Allows injection of custom buttons or controls
+   * The template receives the current row data as context, enabling dynamic action visibility.
+   * Actions are displayed in place of the standard CRUD actions (edit, delete) in the actions column.
+   */
+  public readonly customActionsTemplate = input<TemplateRef<unknown>>();
 
   /**
    * Applies conditional CSS styles to table rows based on row data.
@@ -268,6 +280,14 @@ export class TableComponent<TData extends CrudItemBase>
    */
   public readonly isPreferencesModeEnabled = input(false);
 
+  /** Strategy for generating labels for form controls */
+  public readonly labelStrategy = input<LabelStrategy>("ifta");
+
+  /** Variant for the label strategy. Will be applied for float labels */
+  public readonly labelStrategyVariant = input<
+    "on" | "in" | "over" | undefined
+  >("on");
+
   /**
    * Enables lazy loading mode for large datasets.
    * When true, data is loaded on-demand as user scrolls, sorts, or filters.
@@ -277,11 +297,37 @@ export class TableComponent<TData extends CrudItemBase>
   public readonly lazy = input<boolean>(true);
 
   /**
+   * Sets the height of the area outside the table (e.g. toolbar, paginator) to allow proper calculation of scrollable area.
+   * Accepts any valid CSS height value (px, %, vh, etc.).
+   * When not set, defaults to 200px to fit most screens.
+   * Adjust this value based on your layout and available screen space.
+   * @default "200px"
+   * @example "400px"
+   * @example "50vh"
+   */
+  public readonly outsideTableHeight = input<string>("200px");
+
+  /**
    * Enables pagination controls at the bottom of the table.
    * When enabled, shows page numbers, page size selector, and navigation controls.
    * Helps manage large datasets by splitting them into manageable pages.
    */
   public readonly paginator = input(true);
+
+  /**
+   * Number of rows to display per page when pagination is enabled.
+   * Should be a positive integer. Common values are 10, 25, 50, etc.
+   * Affects how many rows are shown at once and how pagination behaves.
+   */
+  public readonly rows = input<number>(10);
+
+  /**
+   * Options for page size selection in the pagination controls.
+   * Should be an array of positive integers representing page size options.
+   * The first value is usually the default page size.
+   * Allows users to choose how many rows they want to see per page.
+   */
+  public readonly rowsPerPageOptions = input<number[]>([10, 25, 50]);
 
   /**
    * Enables row selection with checkboxes for bulk operations.
@@ -298,21 +344,6 @@ export class TableComponent<TData extends CrudItemBase>
   public readonly sortable = input(true);
 
   /**
-   * Display title shown at the top of the table component.
-   * Usually plural form of the entity name, appears in the table header/toolbar.
-   * Helps users understand what data they're viewing and provides context.
-   */
-  public readonly tableTitle = input.required<string>();
-
-  /**
-   * Custom template for actions in the table's action column.
-   * Allows injection of custom buttons or controls
-   * The template receives the current row data as context, enabling dynamic action visibility.
-   * Actions are displayed in place of the standard CRUD actions (edit, delete) in the actions column.
-   */
-  public readonly customActionsTemplate = input<TemplateRef<unknown>>();
-
-  /**
    * Specifies where to store table state (filters, sorting, pagination).
    * Can be "local" for localStorage or "session" for sessionStorage.
    * Persists user preferences across sessions or tabs based on selection.
@@ -320,8 +351,12 @@ export class TableComponent<TData extends CrudItemBase>
    */
   public readonly stateStorage = input<"local" | "session">("session");
 
-  /** Determines whether table columns can be resized by the user */
-  public readonly areColumnsResizable = input(true);
+  /**
+   * Display title shown at the top of the table component.
+   * Usually plural form of the entity name, appears in the table header/toolbar.
+   * Helps users understand what data they're viewing and provides context.
+   */
+  public readonly tableTitle = input.required<string>();
 
   // Outputs
   public readonly editionDialogClosed = output<TData | null>();

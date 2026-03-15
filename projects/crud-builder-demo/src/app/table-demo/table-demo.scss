@@ -1,1 +1,6 @@
 @use "../form-demo/form-demo.scss";
+
+.table-demo-container {
+    max-height: calc(100vh - 100px);
+    overflow: auto;
+}

@@ -91,10 +91,9 @@ export class TableRegularComponent<TData> {
   public readonly entityId = input.required<string>();
   public readonly stateStorage = input.required<"local" | "session">();
   public readonly areColumnsResizable = input.required<boolean>();
-
-  public rightClickedEntry: TData | null = null;
-
-  public readonly contextMenuItems = computed(() => buildContextMenu(this));
+  public readonly rows = input.required<number>();
+  public readonly rowsPerPageOptions = input.required<number[]>();
+  public readonly outsideTableHeight = input.required<string>();
 
   readonly selectedEntriesChange = output<TData[]>();
   readonly lazyLoaded = output<TableLazyLoadEvent>();
@@ -112,6 +111,13 @@ export class TableRegularComponent<TData> {
   public readonly visibleColumns = computed(() =>
     this.columns().filter((col) => col.isVisible),
   );
+
+  public readonly contextMenuItems = computed(() => buildContextMenu(this));
+  public rightClickedEntry: TData | null = null;
+
+  public readonly scrollHeight = computed(() => {
+    return `calc(100vh - ${this.outsideTableHeight()})`;
+  });
 
   // Handle sorting manually to be able to synchronize with stateStorage
   readonly sortEffect = effect(() => {

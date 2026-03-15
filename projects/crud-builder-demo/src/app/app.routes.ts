@@ -1,4 +1,6 @@
+import { inject } from "@angular/core";
 import { Routes } from "@angular/router";
+import { RequestsService } from "./full-example/data-access/requests.service";
 
 export const routes: Routes = [
   {
@@ -18,5 +20,21 @@ export const routes: Routes = [
     loadComponent: () =>
       import("./doc/doc.component").then((m) => m.DocComponent),
     title: "Form Builder - Documentation",
+  },
+  {
+    path: "full-example",
+    loadComponent: () =>
+      import("./full-example/features/requests").then(
+        (m) => m.RequestsComponent,
+      ),
+    title: $localize`:@@ToolsNav_Requests:Demandes`,
+    resolve: {
+      types: () => inject(RequestsService).getTypes(),
+      osOptions: () => inject(RequestsService).getOsOptions(),
+      accessoryTypes: () => inject(RequestsService).getAccessoryTypes(),
+    },
+    data: {
+      breadcrumb: $localize`:@@ToolsNav_Requests:Demandes`,
+    },
   },
 ];

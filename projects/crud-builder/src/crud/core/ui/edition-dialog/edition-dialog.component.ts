@@ -20,6 +20,7 @@ import { HistorizedData } from "@crud/core/ui/history/history.model";
 import { NO_ROWS_AND_COUNT } from "@crud/core/utils/crud-service/no-rows";
 import { CrudFeatures } from "@crud/core/utils/table/crud-loader.class";
 import { FormComponent } from "@crud/form/form/form.component";
+import { LabelStrategy } from "@crud/form/utils/label-strategy.model";
 import { SharedModule } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
@@ -99,6 +100,14 @@ export class EditionDialogComponent<TData extends CrudItemBase> {
 
   /** Is something loading */
   public readonly isLoading = input(false);
+
+  /** Strategy for generating labels for form controls */
+  public readonly labelStrategy = input<LabelStrategy>("ifta");
+
+  /** Variant for the label strategy. Will be applied for float labels */
+  public readonly labelStrategyVariant = input<
+    "on" | "in" | "over" | undefined
+  >("on");
 
   // Model inputs
   /** The data object being edited (two-way binding) */

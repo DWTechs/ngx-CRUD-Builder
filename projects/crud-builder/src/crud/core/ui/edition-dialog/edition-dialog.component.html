@@ -18,6 +18,8 @@
         [isReadonly]="isReadonly() || !(functionalityKey() | hasAccess:2)"
         [forceReload]="forceReloadTime()"
         [columnsCount]="formColumnsCount()"
+        [labelStrategy]="labelStrategy()"
+        [labelStrategyVariant]="labelStrategyVariant()"
         (modelChange)="onFormChanged($event)"
         (validityChange)="onValidityChange($event)"
       />
