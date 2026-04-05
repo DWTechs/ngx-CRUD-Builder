@@ -423,6 +423,7 @@ export class TableComponent<TData extends CrudItemBase>
     this.state.setStaticInformation({
       lazy: this.lazy(),
       entityLabel: this.entityLabel(),
+      excelExportMode: this.excelExportMode(),
     });
 
     if (this.lazy()) {
@@ -459,6 +460,7 @@ export class TableComponent<TData extends CrudItemBase>
 
   // Public methods
   public applyViews(newViews: ExtendedTableConfig[]): void {
+    // TODO: fix, do not work without view system enabled
     this.columnsStorage.updateMany(newViews).subscribe(() => {
       this.hideColumnsConfigDialog();
     });

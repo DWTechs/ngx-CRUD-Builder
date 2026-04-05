@@ -1,3 +1,4 @@
+import { ArchiveInfo } from "@crud/core/utils/confs/archived-config";
 import { ItRequest } from "./request.model";
 
 //"laptop" | "screen" | "smartphone" | "accessory"
@@ -40,8 +41,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "Préférence pour un modèle avec un processeur i7 ou supérieur",
     isValidated: false,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 2,
@@ -56,8 +57,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "",
     isValidated: true,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 3,
@@ -72,8 +73,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "Modèle 256GB minimum",
     isValidated: true,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 4,
@@ -88,8 +89,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "",
     isValidated: true,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 5,
@@ -104,8 +105,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "M3 Max avec 32GB RAM",
     isValidated: false,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 6,
@@ -120,8 +121,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "Préférence pour les switchs Brown",
     isValidated: false,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 7,
@@ -137,8 +138,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "",
     isValidated: true,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 8,
@@ -153,8 +154,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "Calibrage colorimétrique requis",
     isValidated: false,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 9,
@@ -169,8 +170,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "Compatible Mac et PC",
     isValidated: true,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 10,
@@ -185,8 +186,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "",
     isValidated: true,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 11,
@@ -202,8 +203,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "",
     isValidated: true,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 12,
@@ -218,8 +219,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "RTX 4070 minimum",
     isValidated: false,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 13,
@@ -234,8 +235,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "",
     isValidated: false,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 14,
@@ -250,8 +251,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "Espace colorimétrique large requis",
     isValidated: true,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 15,
@@ -266,6 +267,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "Pour MacBook 16 pouces",
     isValidated: true,
+
+    ...new ArchiveInfo(),
     archived: true,
     archivedAt: new Date("2026-02-20"),
   },
@@ -282,8 +285,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "Avec stylet inclus",
     isValidated: false,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 17,
@@ -298,8 +301,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "",
     isValidated: false,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 18,
@@ -314,8 +317,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "",
     isValidated: true,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 19,
@@ -330,8 +333,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "Configuration multi-fenêtres nécessaire",
     isValidated: false,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 20,
@@ -346,8 +349,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "Configuration AMD Ryzen",
     isValidated: false,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 21,
@@ -362,8 +365,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "24000mAh avec USB-C PD",
     isValidated: true,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 22,
@@ -378,8 +381,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "",
     isValidated: true,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 23,
@@ -394,8 +397,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "Couleur platine",
     isValidated: false,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 24,
@@ -410,8 +413,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "",
     isValidated: true,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 25,
@@ -426,6 +429,7 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "128GB suffisant",
     isValidated: true,
+    ...new ArchiveInfo(),
     archived: true,
     archivedAt: new Date("2026-03-01"),
   },
@@ -442,8 +446,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "Version rétroéclairée",
     isValidated: false,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 27,
@@ -458,8 +462,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "Ryzen 7 suffisant",
     isValidated: true,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 28,
@@ -474,8 +478,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "",
     isValidated: true,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 29,
@@ -490,8 +494,8 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "",
     isValidated: false,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
   {
     id: 30,
@@ -506,7 +510,7 @@ export const itRequests: ItRequest[] = [
     attachment: "",
     comments: "",
     isValidated: false,
-    archived: false,
-    archivedAt: null,
+
+    ...new ArchiveInfo(),
   },
 ];

@@ -84,6 +84,24 @@ export class ColumnsManagementDialogComponent {
     this.editedViews.set(views);
   }
 
+  public onCreateView(name: string): void {
+    const newView: ExtendedTableConfig = {
+      id: Date.now(),
+      name,
+      isActive: true,
+      isDefault: false,
+      columns: this.activeView().columns,
+      conf: this.activeView().conf,
+      component: this.activeView().component,
+    };
+    const currentViews = this.editedViews().map((v) => ({
+      ...v,
+      isActive: false,
+    }));
+    this.editedViews.update(() => [...currentViews, newView]);
+    this.isViewCreation.set(false);
+  }
+
   public onSaved(): void {
     this.setColumnsInView(this.activeView().id as number, this.localColumns());
     this.saved.emit(this.editedViews());

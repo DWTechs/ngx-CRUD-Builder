@@ -9,21 +9,13 @@ import { hasCacheable } from "@crud/core/utils/offline/cacheable.utils";
 import { TableStateService } from "@crud/core/utils/table/table-state.service";
 import { FileInfo } from "@form/ui/renderers/file-upload-input/file-info.class";
 import { TableLazyLoadEvent } from "primeng/table";
-import {
-  catchError,
-  delay,
-  map,
-  Observable,
-  of,
-  switchMap,
-  tap,
-  throwError,
-} from "rxjs";
+import { catchError, delay, map, Observable, of, tap, throwError } from "rxjs";
 
 type LocalUpdatePayload =
   | { value: CrudItemBase; feature: "update" }
   | { value: CrudItemBase; feature: "create" }
-  | { value: number[]; feature: "archive" };
+  | { value: number[]; feature: "archive" }
+  | { value: number[]; feature: "restore" };
 
 export class CrudFeatures {
   create = false;
@@ -142,9 +134,15 @@ export class CrudLoader<TData extends CrudItemBase> {
     if (!this.httpCalls.restore) {
       return of(null);
     }
-    return this.httpCalls
-      .restore(args)
-      .pipe(switchMap(() => this.get().pipe(map(() => null))));
+    this.loadingService.start();
+    return this.httpCalls.restore(args).pipe(
+      tap(() => this.loadingService.stop()),
+      this.handleLocalData({ value: args, feature: "restore" }),
+      catchError((err) => {
+        this.loadingService.stop();
+        return throwError(() => err);
+      }),
+    );
   }
 
   public get(): Observable<RowsAndCount<TData>> {
@@ -239,6 +237,17 @@ export class CrudLoader<TData extends CrudItemBase> {
             total = total - 1;
           }
           return !isFound;
+        });
+        break;
+      }
+      case "restore": {
+        rows = rows.map((r) => {
+          const isFound = value.some((val) => val === r.id);
+          if (isFound) {
+            total = total + 1;
+            return { ...r, archived: false };
+          }
+          return r;
         });
         break;
       }

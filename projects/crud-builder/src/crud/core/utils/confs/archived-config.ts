@@ -2,6 +2,12 @@ import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
 import { StrictCrudItemOptions } from "@crud/core/models/crud-item-options.model";
 
 export class ArchiveInfo {
+  updatedAt: Date | null = null;
+  updaterId: number | null = null;
+  updaterName: string | null = null;
+  createdAt: Date | null = null;
+  creatorId: number | null = null;
+  creatorName: string | null = null;
   archived = false;
   archivedAt: Date | null = null;
 }
@@ -10,16 +16,16 @@ export const ARCHIVED_CONFIG: StrictCrudItemOptions<ArchiveInfo>[] = [
   {
     key: "archived",
     controlType: CONTROL_TYPES.CHECKBOX,
-    label: $localize`:@@Shared_ArchivedComment:Désactivé`,
+    label: $localize`:@@Shared_ArchivedComment:Archivé`,
     columnOptions: {
       isSoftHidden: true,
       customCellRenderer: (cellValue) => {
         return cellValue
-          ? '<span class="red">Désactivé</span>'
+          ? '<span class="red">Archivé</span>'
           : '<span class="green">Actif</span>';
       },
       tooltip: (cellValue) => {
-        return cellValue ? "Désactivé" : "Actif";
+        return cellValue ? "Archivé" : "Actif";
       },
     },
     controlOptions: {
@@ -29,7 +35,7 @@ export const ARCHIVED_CONFIG: StrictCrudItemOptions<ArchiveInfo>[] = [
   {
     key: "archivedAt",
     controlType: CONTROL_TYPES.DATE,
-    label: $localize`:@@Shared_ArchivedAtComment:Désactivé le`,
+    label: $localize`:@@Shared_ArchivedAtComment:Archivé le`,
     columnOptions: {
       isSoftHidden: true,
     },

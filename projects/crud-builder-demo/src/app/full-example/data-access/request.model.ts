@@ -1,4 +1,5 @@
 import { CrudItemBase } from "@crud/core/models/crud-item-base.class";
+import { ArchiveInfo } from "@crud/core/utils/confs/archived-config";
 
 export type RequestType = "laptop" | "screen" | "smartphone" | "accessory";
 export type RequestOs = "windows" | "macOS" | "linux" | "ios" | "android";
@@ -37,6 +38,5 @@ export const itRequestFactory: () => ItRequest = () => ({
   attachment: "",
   comments: "",
   isValidated: false,
-  archived: false,
-  archivedAt: null,
+  ...new ArchiveInfo(),
 });

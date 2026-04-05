@@ -1,6 +1,7 @@
 import { AbstractControl } from "@angular/forms";
 import { ActivatedRouteSnapshot } from "@angular/router";
 import { StrictCrudItemOptions } from "@crud/core/models/crud-item-options.model";
+import { ARCHIVED_CONFIG } from "@crud/core/utils/confs/archived-config";
 import { getDifferenceInDays } from "@crud/core/utils/dates/dates.utils";
 import {
   max,
@@ -178,5 +179,6 @@ export const REQUEST_CONF: (
         minWidth: "100%",
       },
     },
+    ...ARCHIVED_CONFIG,
   ];
 };

@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { CrudItemBase } from "@crud/core/models/crud-item-base.class";
 import { HistorizedData } from "@crud/core/ui/history/history.model";
+import { ArchiveInfo } from "@crud/core/utils/confs/archived-config";
 import { Calls } from "@crud/core/utils/crud-service/crud.model";
 import { of } from "rxjs";
 import { delay } from "rxjs/operators";
@@ -43,8 +44,7 @@ export class TableDemoMockService {
       gender: "F",
       subscription: "premium",
       active: true,
-      archived: false,
-      archivedAt: null,
+      ...new ArchiveInfo(),
     },
     {
       id: 2,
@@ -60,8 +60,7 @@ export class TableDemoMockService {
       gender: "M",
       subscription: "premium",
       active: true,
-      archived: false,
-      archivedAt: null,
+      ...new ArchiveInfo(),
     },
     {
       id: 3,
@@ -77,8 +76,7 @@ export class TableDemoMockService {
       gender: "M",
       subscription: "basic",
       active: false,
-      archived: false,
-      archivedAt: null,
+      ...new ArchiveInfo(),
     },
     {
       id: 4,
@@ -94,8 +92,7 @@ export class TableDemoMockService {
       gender: "F",
       subscription: "premium",
       active: true,
-      archived: false,
-      archivedAt: null,
+      ...new ArchiveInfo(),
     },
     {
       id: 5,
@@ -111,8 +108,7 @@ export class TableDemoMockService {
       gender: "M",
       subscription: "basic",
       active: true,
-      archived: false,
-      archivedAt: null,
+      ...new ArchiveInfo(),
     },
   ];
 
@@ -125,8 +121,7 @@ export class TableDemoMockService {
     email: "",
     age: 18,
     active: true,
-    archived: false,
-    archivedAt: null,
+    ...new ArchiveInfo(),
   });
 
   /**

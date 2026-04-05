@@ -1,5 +1,12 @@
 import { NgTemplateOutlet } from "@angular/common";
-import { Component, inject, input, linkedSignal, OnInit } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  linkedSignal,
+  OnInit,
+} from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
 import {
@@ -32,6 +39,7 @@ import { Table, TableModule } from "primeng/table";
     InputTextModule,
     SliderModule,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableFilterCellComponent implements OnInit {
   private readonly filterService = inject(FilterService);

@@ -93,6 +93,7 @@ export class TableColumnsStorage {
     const defaultView = views.find((view) => view.isDefault);
     if (!this.isViewSystemEnabled() && defaultView) {
       this.localTableColumnsStorage.set(componentId, defaultView.columns);
+      return of(views);
     }
     const userViews = views.filter((view) => !view.isDefault);
     return this.preferencesService

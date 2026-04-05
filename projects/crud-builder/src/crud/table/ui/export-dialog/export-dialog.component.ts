@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   computed,
   inject,
@@ -30,6 +31,7 @@ import { SelectButtonModule } from "primeng/selectbutton";
     ButtonModule,
     RippleModule,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExportDialogComponent {
   private readonly loadingService = inject(TableLoadingService);
