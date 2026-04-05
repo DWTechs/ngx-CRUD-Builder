@@ -23,6 +23,18 @@ export interface Repository<T> {
 
 export type Calls<T> = Partial<Repository<T>>;
 
+/**
+ * Permissions object to restrict which write operations are available.
+ * Read operations (get, getById, getAll, getHistory...) are always preserved.
+ * Set a permission to `false` to remove the corresponding call.
+ */
+export interface CallsPermissions {
+  canCreate?: boolean;
+  canUpdate?: boolean;
+  canArchive?: boolean;
+  canRestore?: boolean;
+}
+
 export interface FileOperationConfig<T> {
   filePropertyKey?: string;
   apiSuffix?: string;

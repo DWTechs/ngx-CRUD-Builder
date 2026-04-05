@@ -1,5 +1,4 @@
 import { Component, computed, input, model, output } from "@angular/core";
-import { ProtectFeatureDirective } from "@core/access/protect-feature.directive";
 import { CrudItemBase } from "@crud/core/models/crud-item-base.class";
 import { CrudFeatures } from "@crud/core/utils/table/crud-loader.class";
 import { TableColumn } from "@crud/core/utils/table/table-column.model";
@@ -19,7 +18,6 @@ import { ToolbarModule } from "primeng/toolbar";
     ToolbarModule,
     SharedModule,
     ButtonModule,
-    ProtectFeatureDirective,
     FileUploadModule,
     ExportDialogComponent,
     ButtonGroupModule,
@@ -30,7 +28,6 @@ export class TableToolbarComponent<TData extends CrudItemBase> {
   public readonly features = input.required<CrudFeatures>();
   public readonly selectable = input.required<boolean>();
   public readonly areColumnsConfigurable = input.required<boolean>();
-  public readonly functionalityKey = input.required<string | undefined>();
   public readonly tableTitle = input.required<string>();
   public readonly cols = input.required<TableColumn[]>();
   public readonly isExcelExportEnabled = input.required<boolean>();

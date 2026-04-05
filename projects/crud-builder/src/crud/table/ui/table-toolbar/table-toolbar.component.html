@@ -9,16 +9,12 @@
         <button
           pButton
           pRipple
-          [protectFeature]="functionalityKey()"
-          [minimalOperation]="3"
           icon="pi pi-plus"
           (click)="onNew()">
         </button>
       }
       @if (isExportEnabled()) {
         <button pButton pRipple
-          [protectFeature]="functionalityKey()"
-          [minimalOperation]="1"
           title="Exporter les données"
           [icon]="isExportingData() ? 'pi pi-spinner pi-spin' :'pi pi-download'"
           (click)="isExportDialogVisible.set(true)"
@@ -29,8 +25,6 @@
         <button
           pButton
           pRipple
-          [protectFeature]="functionalityKey()"
-          [minimalOperation]="3"
           icon="pi pi-trash"
           (click)="onDeleteMultiple()"
           [disabled]="!selectedEntries() || !selectedEntries().length">

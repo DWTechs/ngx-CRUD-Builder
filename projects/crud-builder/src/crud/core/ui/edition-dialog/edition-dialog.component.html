@@ -15,7 +15,7 @@
         [config]="config()"
         [model]="editedEntry()"
         [groupValidator]="groupValidator()"
-        [isReadonly]="isReadonly() || !(functionalityKey() | hasAccess:2)"
+        [isReadonly]="isReadonly()"
         [forceReload]="forceReloadTime()"
         [columnsCount]="formColumnsCount()"
         [labelStrategy]="labelStrategy()"
@@ -60,7 +60,6 @@
             i18n-label="@@EditionDialog_ArchiveButton"
             label="Archiver"
             icon="pi pi-trash"
-            [functionalityKey]="functionalityKey()"
             [disabled]="isLoading()"
             (click)="onArchive()"
           />
@@ -69,7 +68,6 @@
           <crd-crud-button
             type="restore"
             icon="pi pi-bolt"
-            [functionalityKey]="functionalityKey()"
             [disabled]="isLoading()"
             (click)="onRestore()"
           />
@@ -81,8 +79,6 @@
           <crd-crud-button
             type="validate"
             icon="pi pi-check"
-            [protectFeature]="functionalityKey()"
-            [minimalOperation]="2"
             [disabled]="isLoading() || invalidForm"
             (click)="onSave()"
           />

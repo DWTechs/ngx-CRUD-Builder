@@ -67,7 +67,6 @@ export class TableRegularComponent<TData> {
   public readonly clickableRows = input.required<boolean>();
   public readonly lazy = input.required<boolean>();
   public readonly features = input.required<CrudFeatures>();
-  public readonly functionalityKey = input.required<string | undefined>();
   public readonly selectedEntries = model.required<TData[]>();
   public readonly filterable = input.required<boolean>();
   public readonly defaultFilters = input.required({

@@ -1,5 +1,4 @@
 import { Component, input, output } from "@angular/core";
-import { ProtectFeatureDirective } from "@core/access/protect-feature.directive";
 import { CrudFeatures } from "@crud/core/utils/table/crud-loader.class";
 import { ButtonModule } from "primeng/button";
 import { TooltipModule } from "primeng/tooltip";
@@ -8,11 +7,10 @@ import { TooltipModule } from "primeng/tooltip";
   selector: "tbl-table-actions-cell",
   templateUrl: "./table-actions-cell.component.html",
   styleUrls: ["./table-actions-cell.component.scss"],
-  imports: [ButtonModule, ProtectFeatureDirective, TooltipModule],
+  imports: [ButtonModule, TooltipModule],
 })
 export class TableActionsCellComponent {
   readonly features = input.required<CrudFeatures>();
-  public readonly functionalityKey = input<string>();
 
   readonly editClicked = output();
   readonly deleteClicked = output();

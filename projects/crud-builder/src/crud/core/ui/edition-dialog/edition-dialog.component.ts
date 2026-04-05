@@ -10,8 +10,6 @@ import {
 } from "@angular/core";
 import { toObservable } from "@angular/core/rxjs-interop";
 import { ValidatorFn } from "@angular/forms";
-import { ProtectFeatureDirective } from "@core/access/protect-feature.directive";
-import { ProtectFeaturePipe } from "@core/access/protect-feature.pipe";
 import { CrudItemBase } from "@crud/core/models/crud-item-base.class";
 import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
 import { CrudButtonComponent } from "@crud/core/ui/crud-buttons/crud-buttons.component";
@@ -40,9 +38,7 @@ import { distinctUntilChanged, filter, Observable, of, switchMap } from "rxjs";
     HistoryComponent,
     CheckboxModule,
     ButtonModule,
-    ProtectFeatureDirective,
     AsyncPipe,
-    ProtectFeaturePipe,
     CrudButtonComponent,
   ],
   encapsulation: ViewEncapsulation.None,
@@ -54,9 +50,6 @@ export class EditionDialogComponent<TData extends CrudItemBase> {
 
   /** CRUD features configuration that defines available operations */
   public readonly features = input<CrudFeatures>({} as CrudFeatures);
-
-  /** Unique identifier for functionality access control */
-  public readonly functionalityKey = input<string | undefined>();
 
   /** Function to retrieve history data for an entry by ID */
   public readonly getHistory =

@@ -1,5 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+} from "@angular/core";
 import { ConfigHelper } from "@crud/core/utils/crud-service/config.helper";
+import { filterCalls } from "@crud/core/utils/crud-service/filter-calls";
 import { TableComponent } from "@crud/table/table.component";
 import { RequestsService } from "../data-access/requests.service";
 
@@ -11,7 +17,7 @@ import { RequestsService } from "../data-access/requests.service";
   template: `
     <tbl-table 
         [config]="config"
-        [httpCalls]="httpCalls"
+        [httpCalls]="httpCalls()"
         [groupValidator]="groupValidator"
         [entityFactory]="entityFactory"
         [entityId]="table.key"
@@ -47,7 +53,15 @@ export class RequestsComponent {
 
   public readonly groupValidator = this.requestsService.groupValidator;
 
-  public readonly httpCalls = this.requestsService.httpCalls;
+  // Replace the permission signals with your actual ACL service
+  public readonly httpCalls = computed(() =>
+    filterCalls(this.requestsService.httpCalls, {
+      canCreate: true, // e.g. this.acls.canWrite()
+      canUpdate: true, // e.g. this.acls.canWrite()
+      canArchive: false, // e.g. this.acls.canArchive()
+      canRestore: false, // e.g. this.acls.canRestore()
+    }),
+  );
 
   public readonly table = {
     label: "Demandes IT",

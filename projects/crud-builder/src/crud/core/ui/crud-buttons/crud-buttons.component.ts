@@ -1,5 +1,4 @@
 import { Component, input, output } from "@angular/core";
-import { ProtectFeatureDirective } from "@core/access/protect-feature.directive";
 import { ButtonModule, ButtonSeverity } from "primeng/button";
 
 export type ButtonType =
@@ -12,7 +11,7 @@ export type ButtonType =
 
 @Component({
   standalone: true,
-  imports: [ButtonModule, ProtectFeatureDirective],
+  imports: [ButtonModule],
   selector: "crd-crud-button",
   templateUrl: "./crud-buttons.component.html",
   host: { style: "margin: 0 0.25rem" },
@@ -24,8 +23,6 @@ export class CrudButtonComponent {
   public readonly disabled = input(false);
   /** Is the button loading */
   public readonly loading = input(false);
-  /** Functionality key,. If not provided, the button will always be visible */
-  public readonly functionalityKey = input<string | undefined>();
   /** Label of the button, if not provide, the default label will be used */
   public readonly label = input("");
   /** Icons */

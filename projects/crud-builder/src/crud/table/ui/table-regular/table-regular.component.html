@@ -134,7 +134,6 @@
           } @else {
             <tbl-table-actions-cell
               [features]="features()"
-              [functionalityKey]="functionalityKey()"
               (viewClicked)="onActionClick(rowData, 'read')"
               (editClicked)="onActionClick(rowData, 'write')"
               (deleteClicked)="archived.emit(rowData.id)"

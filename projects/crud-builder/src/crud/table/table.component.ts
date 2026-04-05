@@ -223,13 +223,6 @@ export class TableComponent<TData extends CrudItemBase>
   public readonly forceReload = input<number>();
 
   /**
-   * Links the table to a specific functionality for access control.
-   * Used by AccessLevelsService to determine if user can edit, delete, etc.
-   * Should match the functionality ID defined in your access control system.
-   */
-  public readonly functionalityKey = input<string | undefined>();
-
-  /**
    * Custom validator function applied to the entire form group in edition dialog.
    * Receives the FormGroup and returns validation errors object or null.
    * Useful for cross-field validation, business rules, or complex validation logic.
