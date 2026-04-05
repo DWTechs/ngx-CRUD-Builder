@@ -460,7 +460,6 @@ export class TableComponent<TData extends CrudItemBase>
 
   // Public methods
   public applyViews(newViews: ExtendedTableConfig[]): void {
-    // TODO: fix, do not work without view system enabled
     this.columnsStorage.updateMany(newViews).subscribe(() => {
       this.hideColumnsConfigDialog();
     });

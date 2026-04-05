@@ -60,7 +60,7 @@ export class RequestsComponent {
     canAccessItemFromUrl: false,
     filterLevel: "advanced" as const,
     editionDialogSize: "m" as const,
-    rows: 10,
+    rows: 20,
     rowsPerPageOptions: [10, 25, 50],
     outsideTableHeight: "200px",
   };
