@@ -35,6 +35,7 @@ export const routes: Routes = [
     },
     data: {
       breadcrumb: $localize`:@@ToolsNav_Requests:Demandes`,
+      // functionalityKey: "requests",
     },
   },
 ];

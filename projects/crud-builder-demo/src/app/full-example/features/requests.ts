@@ -4,6 +4,8 @@ import {
   computed,
   inject,
 } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { ACL_ADAPTER } from "@crud/core/utils/crud-service/acl-adapter";
 import { ConfigHelper } from "@crud/core/utils/crud-service/config.helper";
 import { filterCalls } from "@crud/core/utils/crud-service/filter-calls";
 import { TableComponent } from "@crud/table/table.component";
@@ -46,21 +48,19 @@ import { RequestsService } from "../data-access/requests.service";
 export class RequestsComponent {
   private readonly requestsService = inject(RequestsService);
   private readonly configHelper = inject(ConfigHelper<RequestsService>);
+  private readonly acls = inject(ACL_ADAPTER);
+  private readonly functionalityKey = inject(ActivatedRoute).snapshot.data
+    .functionalityKey as string;
 
   public readonly config = this.configHelper.getConfig(this.requestsService);
-
   public readonly entityFactory = this.requestsService.entityFactory;
-
   public readonly groupValidator = this.requestsService.groupValidator;
 
-  // Replace the permission signals with your actual ACL service
   public readonly httpCalls = computed(() =>
-    filterCalls(this.requestsService.httpCalls, {
-      canCreate: true, // e.g. this.acls.canWrite()
-      canUpdate: true, // e.g. this.acls.canWrite()
-      canArchive: false, // e.g. this.acls.canArchive()
-      canRestore: false, // e.g. this.acls.canRestore()
-    }),
+    filterCalls(
+      this.requestsService.httpCalls,
+      this.acls.permissionsFor(this.functionalityKey),
+    ),
   );
 
   public readonly table = {

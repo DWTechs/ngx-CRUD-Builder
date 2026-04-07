@@ -7,6 +7,7 @@ import {
 } from "@angular/core";
 import { provideRouter } from "@angular/router";
 import { APP_CONFIG, AppConfig } from "@core/app-config/app-config.token";
+import { ACL_ADAPTER } from "@crud/core/utils/crud-service/acl-adapter";
 import {
   APP_FORM_CONFIG,
   FormTokenData,
@@ -16,6 +17,7 @@ import Aura from "@primeuix/themes/aura";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { providePrimeNG } from "primeng/config";
 import { routes } from "./app.routes";
+import { AclService } from "./full-example/data-access/acl.service";
 
 const TITLE = "Form Builder";
 const APP_KEY = "form_builder";
@@ -69,6 +71,7 @@ export const appConfig: ApplicationConfig = {
     ConfirmationService,
     { provide: LOCALE_ID, useValue: "fr" },
     { provide: APP_CONFIG, useValue: CONFIG },
+    { provide: ACL_ADAPTER, useExisting: AclService },
     { provide: APP_FORM_CONFIG, useValue: FORM_CONFIG },
   ],
 };
