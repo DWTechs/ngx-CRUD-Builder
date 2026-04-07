@@ -6,10 +6,10 @@ import {
   UntypedFormGroup,
   ValidatorFn,
 } from "@angular/forms";
-import { ControlOptions } from "@crud/core/models/control-options.model";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
+import { ControlOptions } from "../core/models/control-options.model";
+import { CrudItemOptions } from "../core/models/crud-item-options.model";
 import { isArray, isNil } from "@dwtechs/checkard";
-import { GroupValidatorFn } from "@form/utils/group-validator.model";
+import { GroupValidatorFn } from "./utils/group-validator.model";
 
 @Injectable({ providedIn: "root" })
 export class FormBuilderService {

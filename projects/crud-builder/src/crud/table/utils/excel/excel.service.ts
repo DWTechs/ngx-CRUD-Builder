@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
-import { ExcelParams } from "@crud/core/models/excel.model";
+import { ExcelParams } from "../../../core/models/excel.model";
 import {
   formatDate,
   isValidDateString,
-} from "@crud/core/utils/dates/dates.utils";
-import { CellTextContent } from "@crud/core/utils/table/cell-text-content.class";
+} from "../../../core/utils/dates/dates.utils";
+import { CellTextContent } from "../../../core/utils/table/cell-text-content.class";
 import * as ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 import { catchError, from, map, of, tap } from "rxjs";

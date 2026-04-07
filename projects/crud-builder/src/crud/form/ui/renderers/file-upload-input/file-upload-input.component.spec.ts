@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { provideAnimations } from "@angular/platform-browser/animations";
-import { SnackbarService } from "@core/utils/snackbar/snackbar.service";
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { DownloadService } from "@crud/core/utils/download/download.service";
-import { FileInfo } from "@form/ui/renderers/file-upload-input/file-info.class";
+import { SnackbarService } from "../../../../../core/utils/snackbar/snackbar.service";
+import { CONTROL_TYPES } from "../../../../core/models/control-type.model";
+import { CrudItemOptions } from "../../../../core/models/crud-item-options.model";
+import { DownloadService } from "../../../../core/utils/download/download.service";
+import { FileInfo } from "./file-info.class";
 import { of } from "rxjs";
 import { FileUploadInputComponent } from "./file-upload-input.component";
 

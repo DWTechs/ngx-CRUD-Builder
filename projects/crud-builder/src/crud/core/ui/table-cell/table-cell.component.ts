@@ -5,15 +5,15 @@ import {
   computed,
   input,
 } from "@angular/core";
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { CheckboxCellRendererComponent } from "@crud/core/ui/table-cell/cell-renderers/checkbox-renderer";
-import { DateCellRendererComponent } from "@crud/core/ui/table-cell/cell-renderers/date-renderer";
-import { FilesCellRendererComponent } from "@crud/core/ui/table-cell/cell-renderers/files-renderer";
-import { GroupCellRendererComponent } from "@crud/core/ui/table-cell/cell-renderers/group-renderer";
-import { MultiselectCellRendererComponent } from "@crud/core/ui/table-cell/cell-renderers/multiselect-renderer";
-import { SelectCellRendererComponent } from "@crud/core/ui/table-cell/cell-renderers/select-renderer";
-import { WysiwygCellRendererComponent } from "@crud/core/ui/table-cell/cell-renderers/wysiwyg-renderer";
+import { CONTROL_TYPES } from "../../models/control-type.model";
+import { CrudItemOptions } from "../../models/crud-item-options.model";
+import { CheckboxCellRendererComponent } from "./cell-renderers/checkbox-renderer";
+import { DateCellRendererComponent } from "./cell-renderers/date-renderer";
+import { FilesCellRendererComponent } from "./cell-renderers/files-renderer";
+import { GroupCellRendererComponent } from "./cell-renderers/group-renderer";
+import { MultiselectCellRendererComponent } from "./cell-renderers/multiselect-renderer";
+import { SelectCellRendererComponent } from "./cell-renderers/select-renderer";
+import { WysiwygCellRendererComponent } from "./cell-renderers/wysiwyg-renderer";
 
 @Component({
   selector: "tbl-table-cell",

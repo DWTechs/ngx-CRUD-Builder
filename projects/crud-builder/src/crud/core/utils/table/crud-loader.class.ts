@@ -1,13 +1,13 @@
 import { computed, inject, signal } from "@angular/core";
-import { CrudItemBase } from "@crud/core/models/crud-item-base.class";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { Calls, Repository } from "@crud/core/utils/crud-service/crud.model";
-import { Rows, RowsAndCount } from "@crud/core/utils/crud-service/dto.model";
-import { NO_ROWS_AND_COUNT } from "@crud/core/utils/crud-service/no-rows";
-import { TableLoadingService } from "@crud/core/utils/loading/table-loading.service";
-import { hasCacheable } from "@crud/core/utils/offline/cacheable.utils";
-import { TableStateService } from "@crud/core/utils/table/table-state.service";
-import { FileInfo } from "@form/ui/renderers/file-upload-input/file-info.class";
+import { CrudItemBase } from "../../models/crud-item-base.class";
+import { CrudItemOptions } from "../../models/crud-item-options.model";
+import { Calls, Repository } from "../crud-service/crud.model";
+import { Rows, RowsAndCount } from "../crud-service/dto.model";
+import { NO_ROWS_AND_COUNT } from "../crud-service/no-rows";
+import { TableLoadingService } from "../loading/table-loading.service";
+import { hasCacheable } from "../offline/cacheable.utils";
+import { TableStateService } from "./table-state.service";
+import { FileInfo } from "../../../form/ui/renderers/file-upload-input/file-info.class";
 import { TableLazyLoadEvent } from "primeng/table";
 import { catchError, delay, map, Observable, of, tap, throwError } from "rxjs";
 

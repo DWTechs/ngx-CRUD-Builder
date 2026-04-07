@@ -18,46 +18,43 @@ import {
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { ValidatorFn } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
-import { CrudItemBase } from "@crud/core/models/crud-item-base.class";
-import { CrudItemFactory } from "@crud/core/models/crud-item-factory.model";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { EditionDialogComponent } from "@crud/core/ui/edition-dialog/edition-dialog.component";
-import { isEqual } from "@crud/core/utils/arrays/is-equal.utils";
-import { Calls } from "@crud/core/utils/crud-service/crud.model";
-import { TableLoadingService } from "@crud/core/utils/loading/table-loading.service";
-import { CrudLoader } from "@crud/core/utils/table/crud-loader.class";
-import { ExcelExportMode } from "@crud/core/utils/table/export-mode.model";
-import { FilterLevel } from "@crud/core/utils/table/filter-level.model";
-import { TableStateService } from "@crud/core/utils/table/table-state.service";
-import { LabelStrategy } from "@crud/form/utils/label-strategy.model";
-import { ColumnResizeEvent } from "@crud/table/utils/views/table-config.model";
 import { isArray } from "@dwtechs/checkard";
-import { FileInfo } from "@form/ui/renderers/file-upload-input/file-info.class";
-import { ExtendedTableConfig } from "@table/data-access/table-config.model";
-import { TableRegularComponent } from "@table/ui/table-regular/table-regular.component";
-import { TableToolbarComponent } from "@table/ui/table-toolbar/table-toolbar.component";
-import {
-  ExportOptions,
-  ExportService,
-} from "@table/utils/excel/export.service";
-import { cleanFilters } from "@table/utils/filters/clean-filters.utils";
-import {
-  applyDefaultFilters,
-  getFilters,
-} from "@table/utils/filters/primeng-filters.builder";
-import {
-  applyDefaultSort,
-  getDefaultSort,
-} from "@table/utils/sort/primeng-sort.builder";
-import { TableColumnsStorage } from "@table/utils/views/table-columns.storage";
 import { ConfirmationService, MessageService, SharedModule } from "primeng/api";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { ProgressBarModule } from "primeng/progressbar";
 import { TableLazyLoadEvent, TableModule } from "primeng/table";
 import { ToastModule } from "primeng/toast";
 import { debounceTime, map, Subject, switchMap } from "rxjs";
+import { CONTROL_TYPES } from "../core/models/control-type.model";
+import { CrudItemBase } from "../core/models/crud-item-base.class";
+import { CrudItemFactory } from "../core/models/crud-item-factory.model";
+import { CrudItemOptions } from "../core/models/crud-item-options.model";
+import { EditionDialogComponent } from "../core/ui/edition-dialog/edition-dialog.component";
+import { isEqual } from "../core/utils/arrays/is-equal.utils";
+import { Calls } from "../core/utils/crud-service/crud.model";
+import { TableLoadingService } from "../core/utils/loading/table-loading.service";
+import { CrudLoader } from "../core/utils/table/crud-loader.class";
+import { ExcelExportMode } from "../core/utils/table/export-mode.model";
+import { FilterLevel } from "../core/utils/table/filter-level.model";
+import { TableStateService } from "../core/utils/table/table-state.service";
+import { FileInfo } from "../form/ui/renderers/file-upload-input/file-info.class";
+import { LabelStrategy } from "../form/utils/label-strategy.model";
+import { ExtendedTableConfig } from "./data-access/table-config.model";
 import { ColumnsManagementDialogComponent } from "./ui/columns-management-dialog/columns-management-dialog.component";
+import { TableRegularComponent } from "./ui/table-regular/table-regular.component";
+import { TableToolbarComponent } from "./ui/table-toolbar/table-toolbar.component";
+import { ExportOptions, ExportService } from "./utils/excel/export.service";
+import { cleanFilters } from "./utils/filters/clean-filters.utils";
+import {
+  applyDefaultFilters,
+  getFilters,
+} from "./utils/filters/primeng-filters.builder";
+import {
+  applyDefaultSort,
+  getDefaultSort,
+} from "./utils/sort/primeng-sort.builder";
+import { TableColumnsStorage } from "./utils/views/table-columns.storage";
+import { ColumnResizeEvent } from "./utils/views/table-config.model";
 
 @Component({
   selector: "tbl-table",

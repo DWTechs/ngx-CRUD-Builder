@@ -1,5 +1,5 @@
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
-import { StrictCrudItemOptions } from "@crud/core/models/crud-item-options.model";
+import { CONTROL_TYPES } from "../../models/control-type.model";
+import { StrictCrudItemOptions } from "../../models/crud-item-options.model";
 
 export class ArchiveInfo {
   updatedAt: Date | null = null;

@@ -6,10 +6,10 @@ import {
   input,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
-import { INPUT_TYPES } from "@crud/core/models/input-type.model";
-import { DATE_FORMAT_CALENDAR } from "@crud/core/utils/dates/dates.utils";
-import { TableColumn } from "@crud/core/utils/table/table-column.model";
+import { CONTROL_TYPES } from "../../models/control-type.model";
+import { INPUT_TYPES } from "../../models/input-type.model";
+import { DATE_FORMAT_CALENDAR } from "../../utils/dates/dates.utils";
+import { TableColumn } from "../../utils/table/table-column.model";
 import { DatePickerModule } from "primeng/datepicker";
 import { MultiSelectModule } from "primeng/multiselect";
 import { TableModule } from "primeng/table";

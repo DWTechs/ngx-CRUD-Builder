@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { provideAnimations } from "@angular/platform-browser/animations";
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { FormFieldInteractionEvent } from "@crud/core/models/form-field-interaction.event";
+import { CONTROL_TYPES } from "../../../../core/models/control-type.model";
+import { CrudItemOptions } from "../../../../core/models/crud-item-options.model";
+import { FormFieldInteractionEvent } from "../../../../core/models/form-field-interaction.event";
 import { InputTextControlComponent } from "./inputtext-control.component";
 
 describe("InputTextControlComponent", () => {

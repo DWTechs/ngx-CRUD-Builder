@@ -6,7 +6,7 @@ import {
   viewChild,
 } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
-import { FormFieldBaseComponent } from "@form/ui/renderers/form-field-base.component";
+import { FormFieldBaseComponent } from "../form-field-base.component";
 import { SelectItem } from "primeng/api";
 import { AutoComplete, AutoCompleteModule } from "primeng/autocomplete";
 import {

@@ -1,6 +1,6 @@
 import { Injectable, inject } from "@angular/core";
 import { ActivatedRoute, ActivatedRouteSnapshot } from "@angular/router";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
+import { CrudItemOptions } from "../../models/crud-item-options.model";
 
 /**
  * Generic helper class to build entity configuration with resolved route data

@@ -8,15 +8,15 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
-import { CrudItemBase } from "@crud/core/models/crud-item-base.class";
-import { TableCellComponent } from "@crud/core/ui/table-cell/table-cell.component";
-import { TableFilterCellComponent } from "@crud/core/ui/table-filter-cell/table-filter-cell.component";
-import { crudItemToColumn } from "@crud/core/utils/table/crud-item-to-column";
-import { TableColumn } from "@crud/core/utils/table/table-column.model";
-import { HasValidatorPipe } from "@crud/form/ui/renderers/table-control/has-validator.pipe";
+import { CONTROL_TYPES } from "../../../../core/models/control-type.model";
+import { CrudItemBase } from "../../../../core/models/crud-item-base.class";
+import { TableCellComponent } from "../../../../core/ui/table-cell/table-cell.component";
+import { TableFilterCellComponent } from "../../../../core/ui/table-filter-cell/table-filter-cell.component";
+import { crudItemToColumn } from "../../../../core/utils/table/crud-item-to-column";
+import { TableColumn } from "../../../../core/utils/table/table-column.model";
+import { HasValidatorPipe } from "./has-validator.pipe";
 import { isArray } from "@dwtechs/checkard";
-import { FormFieldBaseComponent } from "@form/ui/renderers/form-field-base.component";
+import { FormFieldBaseComponent } from "../form-field-base.component";
 import { ButtonModule } from "primeng/button";
 import { InputNumberModule } from "primeng/inputnumber";
 import { InputTextModule } from "primeng/inputtext";

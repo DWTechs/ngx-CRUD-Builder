@@ -1,5 +1,5 @@
-import { ColumnOptions } from "@crud/core/models/column-options.model";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
+import { ColumnOptions } from "../../models/column-options.model";
+import { CrudItemOptions } from "../../models/crud-item-options.model";
 
 type TableColumnBase = CrudItemOptions & ColumnOptions;
 export interface TableColumn extends TableColumnBase {

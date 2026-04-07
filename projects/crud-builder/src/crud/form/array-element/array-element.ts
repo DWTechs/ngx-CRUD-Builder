@@ -13,11 +13,11 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from "@angular/forms";
-import { ControlOptions } from "@crud/core/models/control-options.model";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { FormBuilderService } from "@form/form-builder.service";
-import { FormErrorMessage } from "@form/ui/field-error-message/field-error-message";
-import { FormFieldRenderer } from "@form/ui/field-renderer/field-renderer";
+import { ControlOptions } from "../../core/models/control-options.model";
+import { CrudItemOptions } from "../../core/models/crud-item-options.model";
+import { FormBuilderService } from "../form-builder.service";
+import { FormErrorMessage } from "../ui/field-error-message/field-error-message";
+import { FormFieldRenderer } from "../ui/field-renderer/field-renderer";
 import { ButtonModule } from "primeng/button";
 
 @Component({

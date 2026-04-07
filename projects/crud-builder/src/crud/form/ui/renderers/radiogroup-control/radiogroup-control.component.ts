@@ -4,7 +4,7 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { FormFieldBaseComponent } from "@form/ui/renderers/form-field-base.component";
+import { FormFieldBaseComponent } from "../form-field-base.component";
 import { SharedModule } from "primeng/api";
 import { RadioButtonClickEvent, RadioButtonModule } from "primeng/radiobutton";
 

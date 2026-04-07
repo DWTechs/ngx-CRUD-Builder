@@ -1,5 +1,5 @@
 import { InjectionToken } from "@angular/core";
-import { CallsPermissions } from "@crud/core/utils/crud-service/crud.model";
+import { CallsPermissions } from "./crud.model";
 
 /**
  * Contract that any ACL adapter must fulfill to integrate with `filterCalls`.

@@ -1,5 +1,5 @@
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { TableColumn } from "@crud/core/utils/table/table-column.model";
+import { CrudItemOptions } from "../../models/crud-item-options.model";
+import { TableColumn } from "./table-column.model";
 
 /**
  * Converts a CRUD item configuration into a table column configuration.

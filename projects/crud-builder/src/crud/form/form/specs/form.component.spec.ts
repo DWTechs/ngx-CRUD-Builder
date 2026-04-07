@@ -1,5 +1,5 @@
 import { ComponentFixture } from "@angular/core/testing";
-import { FormComponent } from "@form/form/form.component";
+import { FormComponent } from "../form.component";
 import {
   setupFormTest,
   TestWrapperComponent,

@@ -1,5 +1,5 @@
 import { Component, input, output } from "@angular/core";
-import { CrudFeatures } from "@crud/core/utils/table/crud-loader.class";
+import { CrudFeatures } from "../../../core/utils/table/crud-loader.class";
 import { ButtonModule } from "primeng/button";
 import { TooltipModule } from "primeng/tooltip";
 

@@ -28,27 +28,27 @@ import {
 import {
   ControlActionResult,
   ControlOptions,
-} from "@crud/core/models/control-options.model";
+} from "../../core/models/control-options.model";
 import {
   ConditionFn,
   ControlOptionsCondition,
   CrudItemOptions,
-} from "@crud/core/models/crud-item-options.model";
-import { FormFieldInteractionEvent } from "@crud/core/models/form-field-interaction.event";
-import { CrudButtonComponent } from "@crud/core/ui/crud-buttons/crud-buttons.component";
-import { isEqual } from "@crud/core/utils/arrays/is-equal.utils";
-import { supplant } from "@crud/core/utils/supplant/supplant.utils";
+} from "../../core/models/crud-item-options.model";
+import { FormFieldInteractionEvent } from "../../core/models/form-field-interaction.event";
+import { CrudButtonComponent } from "../../core/ui/crud-buttons/crud-buttons.component";
+import { isEqual } from "../../core/utils/arrays/is-equal.utils";
+import { supplant } from "../../core/utils/supplant/supplant.utils";
 import { isArray, isFunction, isNil } from "@dwtechs/checkard";
-import { FormArrayElement } from "@form/array-element/array-element";
-import { FormSimpleElement } from "@form/simple-element/simple-element";
-import { FormGroupByKeyPipe } from "@form/utils/form-group.pipe";
-import { FullJsonPipe } from "@form/utils/full-json.pipe";
+import { FormArrayElement } from "../array-element/array-element";
+import { FormSimpleElement } from "../simple-element/simple-element";
+import { FormGroupByKeyPipe } from "../utils/form-group.pipe";
+import { FullJsonPipe } from "../utils/full-json.pipe";
 import {
   GroupValidatorFn,
   TypedValidationErrors,
-} from "@form/utils/group-validator.model";
-import { LabelStrategy } from "@form/utils/label-strategy.model";
-import { ToControlPipe } from "@form/utils/to-control.pipe";
+} from "../utils/group-validator.model";
+import { LabelStrategy } from "../utils/label-strategy.model";
+import { ToControlPipe } from "../utils/to-control.pipe";
 import { PanelModule } from "primeng/panel";
 import { ProgressSpinnerModule } from "primeng/progressspinner";
 import { debounceTime, distinctUntilChanged, Subscription } from "rxjs";

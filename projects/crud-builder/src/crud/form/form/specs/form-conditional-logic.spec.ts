@@ -1,7 +1,7 @@
 import { ComponentFixture } from "@angular/core/testing";
 import { AbstractControl, FormArray } from "@angular/forms";
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
-import { FormComponent } from "@form/form/form.component";
+import { CONTROL_TYPES } from "../../../core/models/control-type.model";
+import { FormComponent } from "../form.component";
 import {
   createCheckboxConfig,
   createGroupConfig,
@@ -10,7 +10,7 @@ import {
   setupFormTest,
   TestWrapperComponent,
   waitForDebounce,
-} from "@form/form/specs/form.component.spec-helpers";
+} from "./form.component.spec-helpers";
 
 describe("FormComponent - Conditional Logic", () => {
   let fixture: ComponentFixture<TestWrapperComponent>;

@@ -6,7 +6,7 @@ import {
 } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { isNil } from "@dwtechs/checkard";
-import { FormFieldBaseComponent } from "@form/ui/renderers/form-field-base.component";
+import { FormFieldBaseComponent } from "../form-field-base.component";
 import { SelectButtonModule } from "primeng/selectbutton";
 
 @Component({

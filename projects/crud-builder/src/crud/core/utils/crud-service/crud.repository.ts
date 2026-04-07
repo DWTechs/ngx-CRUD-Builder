@@ -1,17 +1,17 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { APP_CONFIG } from "@core/app-config/app-config.token";
-import { HistorizedData } from "@crud/core/ui/history/history.model";
+import { APP_CONFIG } from "../../../../core/app-config/app-config.token";
+import { HistorizedData } from "../../ui/history/history.model";
 import {
   CrudRepositoryConfig,
   FileOperationConfig,
   Repository,
-} from "@crud/core/utils/crud-service/crud.model";
-import { Rows, RowsAndCount } from "@crud/core/utils/crud-service/dto.model";
+} from "./crud.model";
+import { Rows, RowsAndCount } from "./dto.model";
 import {
   NO_ROWS,
   NO_ROWS_AND_COUNT,
-} from "@crud/core/utils/crud-service/no-rows";
+} from "./no-rows";
 import { isArray } from "@dwtechs/checkard";
 import { TableLazyLoadEvent } from "primeng/table";
 import { catchError, map, Observable, of, shareReplay, tap } from "rxjs";

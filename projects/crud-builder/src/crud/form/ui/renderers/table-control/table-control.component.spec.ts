@@ -2,11 +2,11 @@ import { WritableSignal } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormControl, ReactiveFormsModule, Validators } from "@angular/forms";
 import { provideAnimations } from "@angular/platform-browser/animations";
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
-import { CrudItemBase } from "@crud/core/models/crud-item-base.class";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { FormFieldInteractionEvent } from "@crud/core/models/form-field-interaction.event";
-import { INPUT_TYPES } from "@crud/core/models/input-type.model";
+import { CONTROL_TYPES } from "../../../../core/models/control-type.model";
+import { CrudItemBase } from "../../../../core/models/crud-item-base.class";
+import { CrudItemOptions } from "../../../../core/models/crud-item-options.model";
+import { FormFieldInteractionEvent } from "../../../../core/models/form-field-interaction.event";
+import { INPUT_TYPES } from "../../../../core/models/input-type.model";
 import { TableControlComponent } from "./table-control.component";
 
 interface TestWorkExperience extends CrudItemBase {

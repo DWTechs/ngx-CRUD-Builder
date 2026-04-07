@@ -7,15 +7,15 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { ControlOptions } from "@crud/core/models/control-options.model";
+import { ControlOptions } from "../../../core/models/control-options.model";
 import {
   CONTROL_TYPES,
   ControlType,
-} from "@crud/core/models/control-type.model";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { FormFieldTooltip } from "@form/ui/field-tooltip/field-tooltip";
-import { required, requiredTrue } from "@form/utils/common.validators";
-import { LabelStrategy } from "@form/utils/label-strategy.model";
+} from "../../../core/models/control-type.model";
+import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
+import { FormFieldTooltip } from "../field-tooltip/field-tooltip";
+import { required, requiredTrue } from "../../utils/common.validators";
+import { LabelStrategy } from "../../utils/label-strategy.model";
 import { FloatLabelModule } from "primeng/floatlabel";
 import { IconFieldModule } from "primeng/iconfield";
 import { IftaLabelModule } from "primeng/iftalabel";

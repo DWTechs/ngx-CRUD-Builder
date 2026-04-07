@@ -7,14 +7,14 @@ import {
   output,
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { ControlOptions } from "@crud/core/models/control-options.model";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
+import { ControlOptions } from "../../../core/models/control-options.model";
+import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
 import {
   FormFieldInteraction,
   FormFieldInteractionEvent,
-} from "@crud/core/models/form-field-interaction.event";
+} from "../../../core/models/form-field-interaction.event";
 import { isArray } from "@dwtechs/checkard";
-import { required, requiredTrue } from "@form/utils/common.validators";
+import { required, requiredTrue } from "../../utils/common.validators";
 import { SelectItem } from "primeng/api";
 
 @Component({

@@ -3,9 +3,9 @@ import { SafeHtml } from "@angular/platform-browser";
 import {
   CONTROL_TYPES,
   ControlType,
-} from "@crud/core/models/control-type.model";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { canBeDate, DATE_FORMAT } from "@crud/core/utils/dates/dates.utils";
+} from "../../models/control-type.model";
+import { CrudItemOptions } from "../../models/crud-item-options.model";
+import { canBeDate, DATE_FORMAT } from "../dates/dates.utils";
 import { isArray, isNil, isObject, isString } from "@dwtechs/checkard";
 
 export class CellTextContent {

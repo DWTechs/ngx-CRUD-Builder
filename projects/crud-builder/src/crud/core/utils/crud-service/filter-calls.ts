@@ -1,7 +1,7 @@
 import {
   Calls,
   CallsPermissions,
-} from "@crud/core/utils/crud-service/crud.model";
+} from "./crud.model";
 
 /**
  * Filters a Calls object based on a permissions object.

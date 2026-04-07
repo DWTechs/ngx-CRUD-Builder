@@ -6,10 +6,10 @@ import {
   ReactiveFormsModule,
 } from "@angular/forms";
 import { provideAnimations } from "@angular/platform-browser/animations";
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { FormBuilderService } from "@form/form-builder.service";
-import { required } from "@form/utils/common.validators";
+import { CONTROL_TYPES } from "../../core/models/control-type.model";
+import { CrudItemOptions } from "../../core/models/crud-item-options.model";
+import { FormBuilderService } from "../form-builder.service";
+import { required } from "../utils/common.validators";
 import { FormArrayElement } from "./array-element";
 
 describe("FormArrayElement", () => {

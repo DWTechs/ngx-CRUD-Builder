@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { provideAnimations } from "@angular/platform-browser/animations";
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { FormFieldInteractionEvent } from "@crud/core/models/form-field-interaction.event";
-import { INPUT_TYPES } from "@crud/core/models/input-type.model";
+import { CONTROL_TYPES } from "../../../../core/models/control-type.model";
+import { CrudItemOptions } from "../../../../core/models/crud-item-options.model";
+import { FormFieldInteractionEvent } from "../../../../core/models/form-field-interaction.event";
+import { INPUT_TYPES } from "../../../../core/models/input-type.model";
 import { InputNumberControlComponent } from "./inputnumber-control.component";
 
 describe("InputNumberControlComponent", () => {

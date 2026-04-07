@@ -1,4 +1,4 @@
-import { CrudItemBase } from "@crud/core/models/crud-item-base.class";
+import { CrudItemBase } from "../../models/crud-item-base.class";
 import { isArray, isDate, isNil } from "@dwtechs/checkard";
 
 export class DocumentFormDataMapper {

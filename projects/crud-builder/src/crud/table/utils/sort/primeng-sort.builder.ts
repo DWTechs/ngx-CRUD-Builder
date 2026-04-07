@@ -1,4 +1,4 @@
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
+import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
 
 export function getDefaultSort(items: CrudItemOptions[]): {
   field: string;

@@ -1,9 +1,9 @@
 import { Type } from "@angular/core";
 import { AsyncValidatorFn, ValidatorFn } from "@angular/forms";
-import { ControlArrayConfig } from "@crud/core/models/control-array-config.model";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { FormFieldInteractionEvent } from "@crud/core/models/form-field-interaction.event";
-import { TableCtrlConfig } from "@form/ui/renderers/table-control/table-control-config.model";
+import { ControlArrayConfig } from "./control-array-config.model";
+import { CrudItemOptions } from "./crud-item-options.model";
+import { FormFieldInteractionEvent } from "./form-field-interaction.event";
+import { TableCtrlConfig } from "../../form/ui/renderers/table-control/table-control-config.model";
 import { SelectItem } from "primeng/api";
 import { Observable } from "rxjs";
 

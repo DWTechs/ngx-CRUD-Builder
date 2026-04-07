@@ -1,15 +1,15 @@
 import { HttpClient } from "@angular/common/http";
 import { computed, inject, Injectable, signal } from "@angular/core";
-import { ExcelParams } from "@crud/core/models/excel.model";
-import { Repository } from "@crud/core/utils/crud-service/crud.model";
-import { NO_ROWS_AND_COUNT } from "@crud/core/utils/crud-service/no-rows";
-import { CellTextContent } from "@crud/core/utils/table/cell-text-content.class";
-import { TableColumn } from "@crud/core/utils/table/table-column.model";
-import { TableStateService } from "@crud/core/utils/table/table-state.service";
+import { ExcelParams } from "../../../core/models/excel.model";
+import { Repository } from "../../../core/utils/crud-service/crud.model";
+import { NO_ROWS_AND_COUNT } from "../../../core/utils/crud-service/no-rows";
+import { CellTextContent } from "../../../core/utils/table/cell-text-content.class";
+import { TableColumn } from "../../../core/utils/table/table-column.model";
+import { TableStateService } from "../../../core/utils/table/table-state.service";
 import { Export } from "@dwtechs/csvx";
-import { ExcelService } from "@table/utils/excel/excel.service";
-import { LocationInterceptorService } from "@table/utils/excel/location-interceptor.service";
-import { TableColumnsStorage } from "@table/utils/views/table-columns.storage";
+import { ExcelService } from "./excel.service";
+import { LocationInterceptorService } from "./location-interceptor.service";
+import { TableColumnsStorage } from "../views/table-columns.storage";
 import saveAs from "file-saver";
 import {
   catchError,

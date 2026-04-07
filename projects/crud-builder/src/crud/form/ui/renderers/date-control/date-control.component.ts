@@ -6,9 +6,9 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { DATE_FORMAT_CALENDAR } from "@crud/core/utils/dates/dates.utils";
+import { DATE_FORMAT_CALENDAR } from "../../../../core/utils/dates/dates.utils";
 import { isArray } from "@dwtechs/checkard";
-import { FormFieldBaseComponent } from "@form/ui/renderers/form-field-base.component";
+import { FormFieldBaseComponent } from "../form-field-base.component";
 import { SharedModule } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { DatePickerModule } from "primeng/datepicker";

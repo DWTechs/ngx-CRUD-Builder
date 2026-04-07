@@ -1,4 +1,4 @@
-import { Rows, RowsAndCount } from "@crud/core/utils/crud-service/dto.model";
+import { Rows, RowsAndCount } from "./dto.model";
 
 export const NO_ROWS_AND_COUNT: RowsAndCount<any> = {
   rows: [],

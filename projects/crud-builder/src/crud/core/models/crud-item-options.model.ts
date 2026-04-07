@@ -1,8 +1,8 @@
-import { ColumnOptions } from "@crud/core/models/column-options.model";
-import { ControlOptions } from "@crud/core/models/control-options.model";
-import { ControlType } from "@crud/core/models/control-type.model";
-import { InputType } from "@crud/core/models/input-type.model";
-import { FileInfo } from "@form/ui/renderers/file-upload-input/file-info.class";
+import { ColumnOptions } from "./column-options.model";
+import { ControlOptions } from "./control-options.model";
+import { ControlType } from "./control-type.model";
+import { InputType } from "./input-type.model";
+import { FileInfo } from "../../form/ui/renderers/file-upload-input/file-info.class";
 import { SelectItem } from "primeng/api";
 
 /**

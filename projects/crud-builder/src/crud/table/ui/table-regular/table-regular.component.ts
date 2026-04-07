@@ -11,20 +11,20 @@ import {
   signal,
   viewChild,
 } from "@angular/core";
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
-import { TableCellComponent } from "@crud/core/ui/table-cell/table-cell.component";
-import { TableFilterCellPrimeComponent } from "@crud/core/ui/table-filter-cell-prime/table-filter-cell-prime.component";
-import { TableFilterCellComponent } from "@crud/core/ui/table-filter-cell/table-filter-cell.component";
-import { CrudFeatures } from "@crud/core/utils/table/crud-loader.class";
-import { FilterLevel } from "@crud/core/utils/table/filter-level.model";
-import { TableColumn } from "@crud/core/utils/table/table-column.model";
-import { ColumnResizeEvent } from "@crud/table/utils/views/table-config.model";
-import { TableActionsCellComponent } from "@table/ui/table-actions-cell/table-actions-cell.component";
-import { TableCellTooltipComponent } from "@table/ui/table-cell-tooltip/table-cell-tooltip.component";
-import { ColWidthPipe } from "@table/ui/table-regular/col-width.pipe";
-import { buildContextMenu } from "@table/ui/table-regular/context-menu.builder";
-import { FirstRowPipe } from "@table/utils/pipes/first-row.pipe";
-import { LastRowPipe } from "@table/utils/pipes/last-row.pipe";
+import { CONTROL_TYPES } from "../../../core/models/control-type.model";
+import { TableCellComponent } from "../../../core/ui/table-cell/table-cell.component";
+import { TableFilterCellPrimeComponent } from "../../../core/ui/table-filter-cell-prime/table-filter-cell-prime.component";
+import { TableFilterCellComponent } from "../../../core/ui/table-filter-cell/table-filter-cell.component";
+import { CrudFeatures } from "../../../core/utils/table/crud-loader.class";
+import { FilterLevel } from "../../../core/utils/table/filter-level.model";
+import { TableColumn } from "../../../core/utils/table/table-column.model";
+import { ColumnResizeEvent } from "../../utils/views/table-config.model";
+import { TableActionsCellComponent } from "../table-actions-cell/table-actions-cell.component";
+import { TableCellTooltipComponent } from "../table-cell-tooltip/table-cell-tooltip.component";
+import { ColWidthPipe } from "./col-width.pipe";
+import { buildContextMenu } from "./context-menu.builder";
+import { FirstRowPipe } from "../../utils/pipes/first-row.pipe";
+import { LastRowPipe } from "../../utils/pipes/last-row.pipe";
 import { FilterMetadata } from "primeng/api";
 import { ContextMenuModule } from "primeng/contextmenu";
 import {

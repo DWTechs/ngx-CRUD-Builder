@@ -8,16 +8,16 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { ControlOptions } from "@crud/core/models/control-options.model";
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { FormFieldInteractionEvent } from "@crud/core/models/form-field-interaction.event";
-import { required } from "@crud/form/utils/common.validators";
+import { ControlOptions } from "../../core/models/control-options.model";
+import { CONTROL_TYPES } from "../../core/models/control-type.model";
+import { CrudItemOptions } from "../../core/models/crud-item-options.model";
+import { FormFieldInteractionEvent } from "../../core/models/form-field-interaction.event";
+import { required } from "../utils/common.validators";
 import { isNil } from "@dwtechs/checkard";
-import { FormErrorMessage } from "@form/ui/field-error-message/field-error-message";
-import { FormFieldRenderer } from "@form/ui/field-renderer/field-renderer";
-import { LabelWrapperComponent } from "@form/ui/label-wrapper/label-wrapper";
-import { LabelStrategy } from "@form/utils/label-strategy.model";
+import { FormErrorMessage } from "../ui/field-error-message/field-error-message";
+import { FormFieldRenderer } from "../ui/field-renderer/field-renderer";
+import { LabelWrapperComponent } from "../ui/label-wrapper/label-wrapper";
+import { LabelStrategy } from "../utils/label-strategy.model";
 import { SharedModule } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { CheckboxModule } from "primeng/checkbox";

@@ -1,4 +1,4 @@
-import { TableRegularComponent } from "@table/ui/table-regular/table-regular.component";
+import { TableRegularComponent } from "./table-regular.component";
 import { MenuItem } from "primeng/api";
 
 export function buildContextMenu<TData>(

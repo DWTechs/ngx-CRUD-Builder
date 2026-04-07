@@ -4,7 +4,7 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
-import { FormFieldBaseComponent } from "@form/ui/renderers/form-field-base.component";
+import { FormFieldBaseComponent } from "../form-field-base.component";
 import { IftaLabelModule } from "primeng/iftalabel";
 import { MultiSelectModule } from "primeng/multiselect";
 

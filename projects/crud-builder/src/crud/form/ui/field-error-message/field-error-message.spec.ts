@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormControl } from "@angular/forms";
-import { BASE_FORM_ERROR_MESSAGES } from "@form/utils/form-error-messages";
-import { APP_FORM_CONFIG } from "@form/utils/form.injection-token";
+import { BASE_FORM_ERROR_MESSAGES } from "../../utils/form-error-messages";
+import { APP_FORM_CONFIG } from "../../utils/form.injection-token";
 import { FormErrorMessage } from "./field-error-message";
 
 describe("FormErrorMessage", () => {

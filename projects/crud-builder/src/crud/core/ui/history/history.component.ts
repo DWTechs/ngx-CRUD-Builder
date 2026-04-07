@@ -6,9 +6,9 @@ import {
   output,
   ViewEncapsulation,
 } from "@angular/core";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { isEqual } from "@crud/core/utils/arrays/is-equal.utils";
-import { DATE_FORMAT } from "@crud/core/utils/dates/dates.utils";
+import { CrudItemOptions } from "../../models/crud-item-options.model";
+import { isEqual } from "../../utils/arrays/is-equal.utils";
+import { DATE_FORMAT } from "../../utils/dates/dates.utils";
 import { SharedModule } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { TableModule } from "primeng/table";

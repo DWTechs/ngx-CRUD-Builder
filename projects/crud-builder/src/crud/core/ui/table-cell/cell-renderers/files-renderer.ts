@@ -5,8 +5,8 @@ import {
   inject,
   input,
 } from "@angular/core";
-import { APP_CONFIG } from "@core/app-config/app-config.token";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
+import { APP_CONFIG } from "../../../../../core/app-config/app-config.token";
+import { CrudItemOptions } from "../../../models/crud-item-options.model";
 import { isArray } from "@dwtechs/checkard";
 
 @Component({

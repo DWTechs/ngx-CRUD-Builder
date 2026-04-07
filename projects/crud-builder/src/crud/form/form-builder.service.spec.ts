@@ -1,8 +1,8 @@
 import { TestBed } from "@angular/core/testing";
 import { AbstractControl, Validators } from "@angular/forms";
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { TypedValidationErrors } from "@form/utils/group-validator.model";
+import { CONTROL_TYPES } from "../core/models/control-type.model";
+import { CrudItemOptions } from "../core/models/crud-item-options.model";
+import { TypedValidationErrors } from "./utils/group-validator.model";
 import { FormBuilderService } from "./form-builder.service";
 
 describe("FormBuilderService", () => {

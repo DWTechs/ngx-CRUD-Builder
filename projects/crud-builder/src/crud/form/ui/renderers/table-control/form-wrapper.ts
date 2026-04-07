@@ -1,8 +1,8 @@
 import { Component, inject } from "@angular/core";
 import { ValidatorFn } from "@angular/forms";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { CrudButtonComponent } from "@crud/core/ui/crud-buttons/crud-buttons.component";
-import { FormComponent } from "@crud/form/form/form.component";
+import { CrudItemOptions } from "../../../../core/models/crud-item-options.model";
+import { CrudButtonComponent } from "../../../../core/ui/crud-buttons/crud-buttons.component";
+import { FormComponent } from "../../../form/form.component";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
 
 interface DialogData {

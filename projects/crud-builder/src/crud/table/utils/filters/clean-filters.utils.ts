@@ -1,4 +1,4 @@
-import { getDateRangeWithoutTime } from "@crud/core/utils/dates/dates.utils";
+import { getDateRangeWithoutTime } from "../../../core/utils/dates/dates.utils";
 import { isArray } from "@dwtechs/checkard";
 import { FilterMetadata } from "primeng/api";
 import { TableLazyLoadEvent } from "primeng/table";

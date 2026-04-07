@@ -1,6 +1,6 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { SnackbarService } from "@core/utils/snackbar/snackbar.service";
+import { SnackbarService } from "../../../../core/utils/snackbar/snackbar.service";
 import saveAs from "file-saver";
 import { delay, retry, tap } from "rxjs";
 

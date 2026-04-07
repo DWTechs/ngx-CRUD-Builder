@@ -5,11 +5,11 @@ import {
   inject,
   linkedSignal,
 } from "@angular/core";
-import { SnackbarService } from "@core/utils/snackbar/snackbar.service";
-import { DownloadService } from "@crud/core/utils/download/download.service";
-import { FileInfo } from "@form/ui/renderers/file-upload-input/file-info.class";
-import { FileNamePipe } from "@form/ui/renderers/file-upload-input/file-name.pipe";
-import { FormFieldBaseComponent } from "@form/ui/renderers/form-field-base.component";
+import { SnackbarService } from "../../../../../core/utils/snackbar/snackbar.service";
+import { DownloadService } from "../../../../core/utils/download/download.service";
+import { FileInfo } from "./file-info.class";
+import { FileNamePipe } from "./file-name.pipe";
+import { FormFieldBaseComponent } from "../form-field-base.component";
 import { ButtonModule } from "primeng/button";
 import { DividerModule } from "primeng/divider";
 import { TooltipModule } from "primeng/tooltip";

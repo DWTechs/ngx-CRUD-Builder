@@ -1,6 +1,6 @@
 import { computed, Injectable, signal } from "@angular/core";
-import { RowsAndCount } from "@crud/core/utils/crud-service/dto.model";
-import { ExcelExportMode } from "@crud/core/utils/table/export-mode.model";
+import { RowsAndCount } from "../crud-service/dto.model";
+import { ExcelExportMode } from "./export-mode.model";
 import { TableLazyLoadEvent } from "primeng/table";
 
 export interface TableState<TData> {

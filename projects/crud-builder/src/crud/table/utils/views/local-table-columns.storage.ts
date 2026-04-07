@@ -1,9 +1,9 @@
 import { Injectable, inject } from "@angular/core";
-import { APP_CONFIG } from "@core/app-config/app-config.token";
-import { LocalStorageService } from "@core/utils/local-storage/local-storage.service";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { TableColumn } from "@crud/core/utils/table/table-column.model";
-import { ColumnConfig } from "@table/data-access/table-config.model";
+import { APP_CONFIG } from "../../../../core/app-config/app-config.token";
+import { LocalStorageService } from "../../../../core/utils/local-storage/local-storage.service";
+import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
+import { TableColumn } from "../../../core/utils/table/table-column.model";
+import { ColumnConfig } from "../../data-access/table-config.model";
 
 type TablesConfigs = Record<string, ColumnConfig[]>;
 

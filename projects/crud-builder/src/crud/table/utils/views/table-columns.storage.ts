@@ -1,16 +1,16 @@
 import { inject, Injectable, signal } from "@angular/core";
 import { takeUntilDestroyed, toObservable } from "@angular/core/rxjs-interop";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { crudItemToColumn } from "@crud/core/utils/table/crud-item-to-column";
-import { TableColumn } from "@crud/core/utils/table/table-column.model";
-import { ColumnResizeEvent } from "@crud/table/utils/views/table-config.model";
+import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
+import { crudItemToColumn } from "../../../core/utils/table/crud-item-to-column";
+import { TableColumn } from "../../../core/utils/table/table-column.model";
+import { ColumnResizeEvent } from "./table-config.model";
 import {
   ColumnConfig,
   ExtendedTableConfig,
   TableConfig,
-} from "@table/data-access/table-config.model";
-import { TableConfigService } from "@table/data-access/table-config.service";
-import { LocalTableColumnsStorage } from "@table/utils/views/local-table-columns.storage";
+} from "../../data-access/table-config.model";
+import { TableConfigService } from "../../data-access/table-config.service";
+import { LocalTableColumnsStorage } from "./local-table-columns.storage";
 import {
   combineLatest,
   filter,

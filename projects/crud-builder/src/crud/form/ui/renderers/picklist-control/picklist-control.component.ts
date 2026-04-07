@@ -6,8 +6,8 @@ import {
   signal,
   viewChild,
 } from "@angular/core";
-import { isEqual } from "@crud/core/utils/arrays/is-equal.utils";
-import { FormFieldBaseComponent } from "@form/ui/renderers/form-field-base.component";
+import { isEqual } from "../../../../core/utils/arrays/is-equal.utils";
+import { FormFieldBaseComponent } from "../form-field-base.component";
 import { SelectItem } from "primeng/api";
 import { PickList, PickListModule } from "primeng/picklist";
 

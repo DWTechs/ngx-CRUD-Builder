@@ -7,7 +7,7 @@ import {
   output,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { TableConfig } from "@table/data-access/table-config.model";
+import { TableConfig } from "../../data-access/table-config.model";
 import { ConfirmationService } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { InputTextModule } from "primeng/inputtext";

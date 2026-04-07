@@ -1,9 +1,9 @@
 import { Component, computed, input, model, output } from "@angular/core";
-import { CrudItemBase } from "@crud/core/models/crud-item-base.class";
-import { CrudFeatures } from "@crud/core/utils/table/crud-loader.class";
-import { TableColumn } from "@crud/core/utils/table/table-column.model";
-import { ExportDialogComponent } from "@table/ui/export-dialog/export-dialog.component";
-import { ExportOptions } from "@table/utils/excel/export.service";
+import { CrudItemBase } from "../../../core/models/crud-item-base.class";
+import { CrudFeatures } from "../../../core/utils/table/crud-loader.class";
+import { TableColumn } from "../../../core/utils/table/table-column.model";
+import { ExportDialogComponent } from "../export-dialog/export-dialog.component";
+import { ExportOptions } from "../../utils/excel/export.service";
 import { SharedModule } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { ButtonGroupModule } from "primeng/buttongroup";

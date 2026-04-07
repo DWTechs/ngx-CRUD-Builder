@@ -1,6 +1,6 @@
 import { Type } from "@angular/core";
 import { SafeHtml } from "@angular/platform-browser";
-import { ControlType } from "@crud/core/models/control-type.model";
+import { ControlType } from "./control-type.model";
 import { FilterMetadata } from "primeng/api";
 
 export class ColumnOptions {

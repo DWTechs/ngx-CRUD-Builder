@@ -1,6 +1,6 @@
-import { ExcelParams } from "@crud/core/models/excel.model";
-import { HistorizedData } from "@crud/core/ui/history/history.model";
-import { Rows, RowsAndCount } from "@crud/core/utils/crud-service/dto.model";
+import { ExcelParams } from "../../models/excel.model";
+import { HistorizedData } from "../../ui/history/history.model";
+import { Rows, RowsAndCount } from "./dto.model";
 import { TableLazyLoadEvent } from "primeng/table";
 import { Observable } from "rxjs";
 

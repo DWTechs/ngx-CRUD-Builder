@@ -2,9 +2,9 @@ import { Component } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { ReactiveFormsModule } from "@angular/forms";
 import { provideAnimations } from "@angular/platform-browser/animations";
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { FormComponent } from "@form/form/form.component";
+import { CONTROL_TYPES } from "../../../core/models/control-type.model";
+import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
+import { FormComponent } from "../form.component";
 import { FormBuilderService } from "../../form-builder.service";
 
 /**

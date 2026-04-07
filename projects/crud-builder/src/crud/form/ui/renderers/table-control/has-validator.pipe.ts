@@ -1,6 +1,6 @@
 import { Pipe } from "@angular/core";
 import { ValidatorFn } from "@angular/forms";
-import { required } from "@crud/form/utils/common.validators";
+import { required } from "../../../utils/common.validators";
 
 /**
  * Map of validator names to their corresponding ValidatorFn

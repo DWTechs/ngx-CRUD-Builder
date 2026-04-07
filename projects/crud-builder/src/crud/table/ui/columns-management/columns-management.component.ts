@@ -9,8 +9,8 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { TableColumn } from "@crud/core/utils/table/table-column.model";
-import { ExtendedTableConfig } from "@table/data-access/table-config.model";
+import { TableColumn } from "../../../core/utils/table/table-column.model";
+import { ExtendedTableConfig } from "../../data-access/table-config.model";
 import { ListboxModule } from "primeng/listbox";
 
 @Component({

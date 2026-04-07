@@ -1,7 +1,7 @@
 import { ComponentFixture } from "@angular/core/testing";
 import { FormArray, FormControl } from "@angular/forms";
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
-import { FormComponent } from "@form/form/form.component";
+import { CONTROL_TYPES } from "../../../core/models/control-type.model";
+import { FormComponent } from "../form.component";
 import {
   createFormArrayConfig,
   createGroupConfig,

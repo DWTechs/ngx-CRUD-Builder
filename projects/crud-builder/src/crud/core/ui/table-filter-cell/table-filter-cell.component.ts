@@ -8,13 +8,13 @@ import {
   OnInit,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
+import { CONTROL_TYPES } from "../../models/control-type.model";
 import {
   DATE_FORMAT_CALENDAR,
   getMidnightTimeStamp,
-} from "@crud/core/utils/dates/dates.utils";
-import { FilterLevel } from "@crud/core/utils/table/filter-level.model";
-import { TableColumn } from "@crud/core/utils/table/table-column.model";
+} from "../../utils/dates/dates.utils";
+import { FilterLevel } from "../../utils/table/filter-level.model";
+import { TableColumn } from "../../utils/table/table-column.model";
 import { isArray } from "@dwtechs/checkard";
 import { FilterService, SharedModule } from "primeng/api";
 import { DatePickerModule } from "primeng/datepicker";

@@ -1,5 +1,5 @@
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { FilterLevel } from "@crud/core/utils/table/filter-level.model";
+import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
+import { FilterLevel } from "../../../core/utils/table/filter-level.model";
 import { isArray, isNil } from "@dwtechs/checkard";
 import { TableLazyLoadEvent } from "primeng/table";
 

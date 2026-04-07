@@ -10,10 +10,10 @@ import {
   signal,
   ViewEncapsulation,
 } from "@angular/core";
-import { TableColumn } from "@crud/core/utils/table/table-column.model";
-import { ExtendedTableConfig } from "@table/data-access/table-config.model";
-import { ColumnsManagementComponent } from "@table/ui/columns-management/columns-management.component";
-import { ColumnsViewsComponent } from "@table/ui/columns-views/columns-views.component";
+import { TableColumn } from "../../../core/utils/table/table-column.model";
+import { ExtendedTableConfig } from "../../data-access/table-config.model";
+import { ColumnsManagementComponent } from "../columns-management/columns-management.component";
+import { ColumnsViewsComponent } from "../columns-views/columns-views.component";
 import { ButtonModule } from "primeng/button";
 import { DialogModule } from "primeng/dialog";
 

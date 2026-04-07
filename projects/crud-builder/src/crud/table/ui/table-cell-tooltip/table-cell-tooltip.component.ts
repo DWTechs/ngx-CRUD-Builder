@@ -4,8 +4,8 @@ import {
   computed,
   input,
 } from "@angular/core";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { CellTextContent } from "@crud/core/utils/table/cell-text-content.class";
+import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
+import { CellTextContent } from "../../../core/utils/table/cell-text-content.class";
 
 @Component({
   selector: "tbl-table-cell-tooltip",

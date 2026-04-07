@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { APP_CONFIG } from "@core/app-config/app-config.token";
-import { Rows, RowsAndCount } from "@crud/core/utils/crud-service/dto.model";
-import { TableConfig } from "@table/data-access/table-config.model";
+import { APP_CONFIG } from "../../../core/app-config/app-config.token";
+import { Rows, RowsAndCount } from "../../core/utils/crud-service/dto.model";
+import { TableConfig } from "./table-config.model";
 import { catchError, map, Observable, of } from "rxjs";
 
 @Injectable({ providedIn: "root" })

@@ -2,10 +2,10 @@ import { Component } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormControl, ReactiveFormsModule, Validators } from "@angular/forms";
 import { provideAnimations } from "@angular/platform-browser/animations";
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { required } from "@form/utils/common.validators";
-import { LabelStrategy } from "@form/utils/label-strategy.model";
+import { CONTROL_TYPES } from "../../../core/models/control-type.model";
+import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
+import { required } from "../../utils/common.validators";
+import { LabelStrategy } from "../../utils/label-strategy.model";
 import { LabelWrapperComponent } from "./label-wrapper";
 
 /**

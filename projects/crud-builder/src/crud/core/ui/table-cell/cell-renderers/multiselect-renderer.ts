@@ -4,7 +4,7 @@ import {
   computed,
   input,
 } from "@angular/core";
-import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
+import { CrudItemOptions } from "../../../models/crud-item-options.model";
 import { isArray } from "@dwtechs/checkard";
 import { SelectItem } from "primeng/api";
 

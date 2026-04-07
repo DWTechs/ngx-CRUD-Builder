@@ -1,4 +1,4 @@
-import { TableColumn } from "@crud/core/utils/table/table-column.model";
+import { TableColumn } from "../../core/utils/table/table-column.model";
 
 export class TableConfig {
   id: number | null = null;

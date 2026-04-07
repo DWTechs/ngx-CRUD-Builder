@@ -8,9 +8,9 @@ import {
   Signal,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { TableLoadingService } from "@crud/core/utils/loading/table-loading.service";
-import { TableColumn } from "@crud/core/utils/table/table-column.model";
-import { ExportOptions } from "@table/utils/excel/export.service";
+import { TableLoadingService } from "../../../core/utils/loading/table-loading.service";
+import { TableColumn } from "../../../core/utils/table/table-column.model";
+import { ExportOptions } from "../../utils/excel/export.service";
 import { SelectItem, SharedModule } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";

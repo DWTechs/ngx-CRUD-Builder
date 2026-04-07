@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
-import { FormFieldBaseComponent } from "@form/ui/renderers/form-field-base.component";
+import { FormFieldBaseComponent } from "../form-field-base.component";
 import { ButtonModule } from "primeng/button";
 import { Editor, EditorModule } from "primeng/editor";
 

@@ -1,7 +1,7 @@
 import { ComponentFixture } from "@angular/core/testing";
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
-import { FormFieldInteractionEvent } from "@crud/core/models/form-field-interaction.event";
-import { FormComponent } from "@form/form/form.component";
+import { CONTROL_TYPES } from "../../../core/models/control-type.model";
+import { FormFieldInteractionEvent } from "../../../core/models/form-field-interaction.event";
+import { FormComponent } from "../form.component";
 import {
   createInputConfig,
   createInteractionEvent,

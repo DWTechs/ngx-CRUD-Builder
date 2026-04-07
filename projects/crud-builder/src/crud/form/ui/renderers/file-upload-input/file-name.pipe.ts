@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { FileInfo } from "@form/ui/renderers/file-upload-input/file-info.class";
+import { FileInfo } from "./file-info.class";
 
 @Pipe({
   name: "fileName",

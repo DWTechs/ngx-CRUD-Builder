@@ -1,6 +1,6 @@
 import { DatePipe } from "@angular/common";
 import { Component, computed, input } from "@angular/core";
-import { DATE_FORMAT } from "@crud/core/utils/dates/dates.utils";
+import { DATE_FORMAT } from "../../../utils/dates/dates.utils";
 
 @Component({
   selector: "tbl-date-cell-renderer",
