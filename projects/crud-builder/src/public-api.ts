@@ -21,6 +21,7 @@ export * from "./crud/core/models/input-type.model";
 export * from "./crud/core/ui/crud-buttons/crud-buttons.component";
 // --- CRUD: UI components (public-facing) ---
 export * from "./crud/core/ui/edition-dialog/edition-dialog.component";
+export * from "./crud/core/ui/history/history-mapper.token";
 export * from "./crud/core/ui/history/history.component";
 export * from "./crud/core/ui/history/history.model";
 // --- CRUD: shared utilities ---

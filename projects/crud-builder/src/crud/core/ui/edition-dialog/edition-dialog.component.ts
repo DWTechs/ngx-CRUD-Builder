@@ -16,7 +16,14 @@ import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
 import { CheckboxModule } from "primeng/checkbox";
 import { DialogModule } from "primeng/dialog";
-import { distinctUntilChanged, filter, Observable, of, switchMap } from "rxjs";
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  Observable,
+  of,
+  switchMap,
+} from "rxjs";
 import { FormComponent } from "../../../form/form/form.component";
 import { LabelStrategy } from "../../../form/utils/label-strategy.model";
 import { CrudItemBase } from "../../models/crud-item-base.class";
@@ -25,6 +32,7 @@ import { NO_ROWS_AND_COUNT } from "../../utils/crud-service/no-rows";
 import { CRUD_LABELS } from "../../utils/i18n/crud-labels.token";
 import { CrudFeatures } from "../../utils/table/crud-loader.class";
 import { CrudButtonComponent } from "../crud-buttons/crud-buttons.component";
+import { HISTORY_MAPPER } from "../history/history-mapper.token";
 import { HistoryComponent } from "../history/history.component";
 import { HistorizedData } from "../history/history.model";
 
@@ -47,6 +55,9 @@ import { HistorizedData } from "../history/history.model";
 })
 export class EditionDialogComponent<TData extends CrudItemBase> {
   protected readonly labels = inject(CRUD_LABELS);
+  private readonly globalHistoryMapper = inject(HISTORY_MAPPER, {
+    optional: true,
+  });
   // Inputs
   /** Configuration array that defines the structure and behavior of form fields */
   public readonly config = input<CrudItemOptions[]>([]);
@@ -57,11 +68,15 @@ export class EditionDialogComponent<TData extends CrudItemBase> {
   /** Function to retrieve history data for an entry by ID */
   public readonly getHistory =
     input<
-      (id: number) => Observable<{
-        rows: HistorizedData<TData>[];
-        total: number | undefined;
-      }>
+      (id: number) => Observable<{ rows: unknown[]; total: number | undefined }>
     >();
+
+  /**
+   * Optional mapper to transform raw history rows from the API into `HistorizedData<TData>`.
+   * Use this when the API response shape differs from the expected `HistorizedData` contract.
+   */
+  public readonly historyMapper =
+    input<(raw: unknown) => HistorizedData<TData>>();
 
   /** Custom validator applied to the entire form group */
   public readonly groupValidator = input<ValidatorFn>();
@@ -224,7 +239,21 @@ export class EditionDialogComponent<TData extends CrudItemBase> {
     switchMap((id) => {
       const getHistory = this.getHistory();
       if (this.features().getHistory && getHistory) {
-        return getHistory(id);
+        return getHistory(id).pipe(
+          map(({ rows, total }) => {
+            const mapper =
+              this.historyMapper() ??
+              (this.globalHistoryMapper as
+                | ((raw: unknown) => HistorizedData<TData>)
+                | null);
+            return {
+              rows: mapper
+                ? rows.map(mapper)
+                : (rows as HistorizedData<TData>[]),
+              total,
+            };
+          }),
+        );
       }
       return of(NO_ROWS_AND_COUNT);
     }),

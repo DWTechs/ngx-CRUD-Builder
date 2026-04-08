@@ -1,8 +1,7 @@
-import { ExcelParams } from "../../models/excel.model";
-import { HistorizedData } from "../../ui/history/history.model";
-import { Rows, RowsAndCount } from "./dto.model";
 import { TableLazyLoadEvent } from "primeng/table";
 import { Observable } from "rxjs";
+import { ExcelParams } from "../../models/excel.model";
+import { Rows, RowsAndCount } from "./dto.model";
 
 type CrudGetParams = TableLazyLoadEvent & {
   excel?: ExcelParams;
@@ -18,7 +17,7 @@ export interface Repository<T> {
   archive: (args: number[]) => Observable<null>;
   updateFiles: (files: File[], id: number) => Observable<Rows<T>>;
   restore: (args: number[]) => Observable<null>;
-  getHistory: (id: number) => Observable<RowsAndCount<HistorizedData<T>>>;
+  getHistory: (id: number) => Observable<RowsAndCount<unknown>>;
 }
 
 export type Calls<T> = Partial<Repository<T>>;

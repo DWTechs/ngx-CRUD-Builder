@@ -137,8 +137,8 @@ groupValidator: (group: AbstractControl) => {
 ### History and Permissions
 
 #### `getHistory`
-**Type:** `(id: number) => Observable<{rows: HistorizedData<TData>[], total: number}>` | **Default:** `undefined`  
-**Description:** Function to retrieve history data for an entry by ID.
+**Type:** `(id: number) => Observable<{rows: unknown[], total: number}>` | **Default:** `undefined`  
+**Description:** Function to retrieve history data for an entry by ID. The rows can be raw/unknown when used together with `HISTORY_MAPPER` or `historyMapper`.
 
 ```typescript
 getHistory: (id: number) => {
@@ -149,6 +149,61 @@ getHistory: (id: number) => {
     }))
   );
 }
+```
+
+#### `historyMapper`
+**Type:** `(raw: unknown) => HistorizedData<TData>` | **Default:** `undefined`  
+**Description:** Per-component mapper to transform raw API history rows into the `HistorizedData<TData>` shape. Takes precedence over the global `HISTORY_MAPPER` token.
+
+For app-wide configuration, prefer providing the `HISTORY_MAPPER` injection token in `app.config.ts` (see below).
+
+```typescript
+// In the host component
+historyMapper = (raw: unknown): HistorizedData<User> => {
+  const r = raw as { timestamp: string; action: string; consumerId: number; consumerName: string; data: User };
+  return {
+    tstamp: r.timestamp,
+    operation: r.action,
+    updaterId: r.consumerId,
+    updaterName: r.consumerName,
+    val: r.data,
+    table_name: 'users',
+  };
+};
+```
+
+#### Global mapper — `HISTORY_MAPPER` token
+**Type:** `InjectionToken<(raw: unknown) => HistorizedData<unknown>>`  
+**Description:** Provide this token once in `app.config.ts` to define a global history mapper for all dialogs in the application. The `historyMapper` input overrides this token when both are defined.
+
+```typescript
+// app.config.ts
+import { HISTORY_MAPPER } from '@crud/core/ui/history/history-mapper.token';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    {
+      provide: HISTORY_MAPPER,
+      useValue: (raw: unknown): HistorizedData<unknown> => {
+        const r = raw as {
+          timestamp: string;
+          action: string;
+          consumerId: number;
+          consumerName: string;
+          data: unknown;
+        };
+        return {
+          tstamp: r.timestamp,
+          operation: r.action,
+          updaterId: r.consumerId,
+          updaterName: r.consumerName,
+          val: r.data,
+          table_name: 'unknown',
+        };
+      },
+    },
+  ],
+};
 ```
 
 #### `functionalityKey`

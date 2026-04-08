@@ -7,6 +7,8 @@ import {
 } from "@angular/core";
 import { provideRouter } from "@angular/router";
 import { APP_CONFIG, AppConfig } from "@core/app-config/app-config.token";
+import { HISTORY_MAPPER } from "@crud/core/ui/history/history-mapper.token";
+import { HistorizedData } from "@crud/core/ui/history/history.model";
 import { ACL_ADAPTER } from "@crud/core/utils/crud-service/acl-adapter";
 import {
   APP_FORM_CONFIG,
@@ -18,6 +20,7 @@ import { ConfirmationService, MessageService } from "primeng/api";
 import { providePrimeNG } from "primeng/config";
 import { routes } from "./app.routes";
 import { AclService } from "./full-example/data-access/acl.service";
+import { RawHistoryRow } from "./table-demo/table-demo-mock.service";
 
 const TITLE = "Form Builder";
 const APP_KEY = "form_builder";
@@ -73,6 +76,20 @@ export const appConfig: ApplicationConfig = {
     { provide: APP_CONFIG, useValue: CONFIG },
     { provide: ACL_ADAPTER, useExisting: AclService },
     { provide: APP_FORM_CONFIG, useValue: FORM_CONFIG },
+    {
+      provide: HISTORY_MAPPER,
+      useValue: (raw: unknown): HistorizedData<unknown> => {
+        const r = raw as RawHistoryRow<unknown>;
+        return {
+          tstamp: r.timestamp,
+          operation: r.action,
+          updaterId: r.consumerId,
+          updaterName: r.consumerName,
+          val: r.data,
+          table_name: "users",
+        };
+      },
+    },
   ],
 };
 

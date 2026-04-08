@@ -1,10 +1,21 @@
 import { Injectable } from "@angular/core";
 import { CrudItemBase } from "@crud/core/models/crud-item-base.class";
-import { HistorizedData } from "@crud/core/ui/history/history.model";
 import { ArchiveInfo } from "@crud/core/utils/confs/archived-config";
 import { Calls } from "@crud/core/utils/crud-service/crud.model";
 import { of } from "rxjs";
 import { delay } from "rxjs/operators";
+
+/**
+ * Raw shape returned by the mock API — intentionally different from HistorizedData
+ * to demonstrate the HISTORY_MAPPER token.
+ */
+export interface RawHistoryRow<T> {
+  timestamp: string;
+  action: string;
+  consumerId: number;
+  consumerName: string;
+  data: T;
+}
 
 export interface DemoUser extends CrudItemBase {
   id: number;
@@ -169,48 +180,47 @@ export class TableDemoMockService {
       const oneWeek = 7 * 24 * 60 * 60 * 1000;
       const oneMonth = 30 * 24 * 60 * 60 * 1000;
 
-      const mockedHistory: HistorizedData<DemoUser>[] = [
+      // Raw shape from the mock API — field names differ from HistorizedData
+      // (mapped via the HISTORY_MAPPER token provided in app.config.ts)
+      const mockedHistory: RawHistoryRow<DemoUser>[] = [
         // Current version (most recent)
         {
-          val: { ...user },
-          tstamp: new Date(now).toISOString(),
-          table_name: "users",
-          operation: "UPDATE",
-          updaterId: 1,
-          updaterName: "admin@example.com",
+          data: { ...user },
+          timestamp: new Date(now).toISOString(),
+          action: "UPDATE",
+          consumerId: 1,
+          consumerName: "admin@example.com",
         },
         // Previous version - salary and subscription changed
         {
-          val: {
+          data: {
             ...user,
             salary: (user.salary || 50000) - 5000,
             subscription: user.subscription === "premium" ? "basic" : "premium",
           },
-          tstamp: new Date(now - oneWeek).toISOString(),
-          table_name: "users",
-          operation: "UPDATE",
-          updaterId: 2,
-          updaterName: "hr.manager@example.com",
+          timestamp: new Date(now - oneWeek).toISOString(),
+          action: "UPDATE",
+          consumerId: 2,
+          consumerName: "hr.manager@example.com",
         },
         // Older version - email and city changed
         {
-          val: {
+          data: {
             ...user,
             salary: (user.salary || 50000) - 5000,
             subscription: user.subscription === "premium" ? "basic" : "premium",
             email: user.email.replace("@example.com", ".old@example.com"),
             city: user.city === "paris" ? "lyon" : "paris",
           },
-          tstamp: new Date(now - oneMonth).toISOString(),
-          table_name: "users",
-          operation: "UPDATE",
-          updaterId: user.id,
-          updaterName:
+          timestamp: new Date(now - oneMonth).toISOString(),
+          action: "UPDATE",
+          consumerId: user.id,
+          consumerName:
             user.name.toLowerCase().replace(" ", ".") + "@example.com",
         },
         // Even older - active status and languages changed
         {
-          val: {
+          data: {
             ...user,
             salary: (user.salary || 50000) - 10000,
             subscription: "basic",
@@ -219,15 +229,14 @@ export class TableDemoMockService {
             active: !user.active,
             languages: user.languages?.slice(0, 1) || ["en"],
           },
-          tstamp: new Date(now - 2 * oneMonth).toISOString(),
-          table_name: "users",
-          operation: "UPDATE",
-          updaterId: 0,
-          updaterName: "system@example.com",
+          timestamp: new Date(now - 2 * oneMonth).toISOString(),
+          action: "UPDATE",
+          consumerId: 0,
+          consumerName: "system@example.com",
         },
         // Initial creation
         {
-          val: {
+          data: {
             ...user,
             salary: (user.salary || 50000) - 15000,
             subscription: "basic",
@@ -237,15 +246,12 @@ export class TableDemoMockService {
             languages: ["en"],
             description: "",
           },
-          tstamp: new Date(now - 3 * oneMonth).toISOString(),
-          table_name: "users",
-          operation: "CREATE",
-          updaterId: 1,
-          updaterName: "admin@example.com",
+          timestamp: new Date(now - 3 * oneMonth).toISOString(),
+          action: "CREATE",
+          consumerId: 1,
+          consumerName: "admin@example.com",
         },
       ];
-
-      console.log({ mockedHistory });
 
       return of({ rows: mockedHistory, total: mockedHistory.length }).pipe(
         delay(300),
