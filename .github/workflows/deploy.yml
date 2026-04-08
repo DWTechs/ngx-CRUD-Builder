@@ -23,7 +23,7 @@ jobs:
         run: npm ci
 
       - name: Run library tests
-        run: npm run test:lib
+        run: npm run test
 
       - name: Build website
         run: npm run build:demo
