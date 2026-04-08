@@ -1,14 +1,13 @@
 <p-dialog [visible]="visible()"
   [style]="{width: '450px'}"
-  i18n-header="@@exportDialogHeaderTitle"
-  header="Exporter les données"
+  [header]="labels.exportDialog.header"
   [modal]="true"
   styleClass="p-fluid"
   (visibleChange)="$event ? false : onHide()"
   (onHide)="onHide()">
   <ng-template pTemplate="content">
     <div class="container">
-      <span class="label" i18n="@@exportDialogChooseFormat">Choisir le format</span>
+      <span class="label">{{ labels.exportDialog.chooseFormat }}</span>
       <p-selectButton
         [options]="formats()"
         [(ngModel)]="format"
@@ -18,7 +17,7 @@
     </div>
 
     <div class="container">
-      <span class="label" i18n="@@exportDialogChooseData">Quelles données ?</span>
+      <span class="label">{{ labels.exportDialog.chooseData }}</span>
       <p-selectButton
         [options]="selectionOptions"
         [(ngModel)]="selection"
@@ -31,8 +30,7 @@
   <ng-template pTemplate="footer">
     <button pButton
       pRipple
-      i18n-label="@@exportDialogCancelButton"
-      label="Annuler"
+      [label]="labels.exportDialog.cancel"
       icon="pi pi-times"
       class="p-button-text"
       (click)="onHide()">
@@ -40,8 +38,7 @@
 
     <button pButton
       pRipple
-      i18n-label="@@exportDialogExportButton"
-      label="Exporter"
+      [label]="labels.exportDialog.export"
       icon="pi pi-check"
       class="p-button-success"
       [loading]="isLoading()"      

@@ -13,7 +13,11 @@
   [filters]="defaultFilters()"
   [showCurrentPageReport]="data().length > 0"
   i18n-currentPageReportTemplate="@@Table_CurrentPageReportTemplate"
-  currentPageReportTemplate="De {{dataTable | firstRow:lastUpdateTime()}} à {{dataTable | lastRow:totalCount():lastUpdateTime() }} sur {{totalCount()}} élément(s)"
+  [currentPageReportTemplate]="labels.tableRegular.currentPageReport(
+    (dataTable | firstRow:lastUpdateTime()).toString(),
+    (dataTable | lastRow:totalCount():lastUpdateTime()).toString(),
+    totalCount().toString()
+  )"
   [lazy]="lazy()"
   [contextMenu]="isContextMenuEnabled() ? cm : null"
   [stateStorage]="stateStorage()"

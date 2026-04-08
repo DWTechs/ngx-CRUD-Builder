@@ -33,7 +33,7 @@
       }
     }
     @empty {
-      <p class="empty-form" i18n="@@Form_NoConfiguredField">Aucun champ disponible</p>
+      <p class="empty-form">{{ labels.form.noFields }}</p>
     }
   </div>
   @if (formErrors) {
@@ -46,7 +46,7 @@
     @if (showReset()) {
       <crd-crud-button 
         type="cancel"
-        [label]="resetButtonLabel()!" 
+        [label]="resetButtonLabel() ?? labels.form.reset" 
         (click)="onReset()" 
         [disabled]="formGroup.pristine ?? true"
       />
@@ -54,7 +54,7 @@
     @if (showSubmit()) {
       <crd-crud-button 
         type="validate"
-        [label]="submitButtonLabel()!" 
+        [label]="submitButtonLabel() ?? labels.form.submit" 
         (click)="onSubmit()" 
         [disabled]="formGroup.invalid ?? true" 
       />

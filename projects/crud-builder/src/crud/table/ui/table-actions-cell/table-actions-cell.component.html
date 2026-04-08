@@ -4,7 +4,7 @@
     pRipple
     icon="pi pi-pencil"
     class="p-button-sm p-button-rounded p-button-text"
-    title="Editer"
+    [title]="labels.tableActions.edit"
     (click)="onEdit()">
   </button>
 }
@@ -13,7 +13,7 @@
     pButton
     pRipple icon="pi pi-trash"
     class="p-button-sm p-button-rounded p-button-text p-button-danger"
-    title="Supprimer"
+    [title]="labels.tableActions.delete"
     (click)="onDelete()">
   </button>
 }

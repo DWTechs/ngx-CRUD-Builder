@@ -16,8 +16,7 @@
         @if (tableCtrlConfig().isCreationEnabled) {
             <p-button 
                 icon="pi pi-plus" 
-                label="Ajouter" 
-                i18n-label="@@TableControl_AddButton" 
+                [label]="labels.tableControl.add" 
                 (onClick)="onAddNewRow()" 
             />
         }
@@ -25,8 +24,7 @@
             <p-button [outlined]="true" 
                 severity="danger" 
                 icon="pi pi-trash" 
-                i18n-label="@@TableControl_DeleteButton"
-                label="Supprimer" 
+                [label]="labels.tableControl.delete" 
                 [disabled]="!selectedRows().length"
                 (onClick)="onDeleteRows()"
             />
@@ -36,8 +34,7 @@
     <ng-template pTemplate="emptymessage">
         <tr>
             <td [attr.colspan]="columns().length"
-                i18n="No Data Message|Message when table has no data@@Table_NoData">
-                Aucune donnée
+                >{{ labels.tableControl.noData }}
             </td>
         </tr>
     </ng-template>
@@ -64,9 +61,8 @@
                     </th>
                 }
                 @if (editionMode() === "row") {
-                    <th scope="col"
-                        i18n="@@Table_EditColumnHeader">
-                        Actions
+                    <th scope="col">
+                        {{ labels.tableControl.actionsColumnHeader }}
                     </th>
                 }
             </tr>
@@ -155,8 +151,7 @@
                                         <ng-template #footer>
                                             <div class="multiselect-footer">
                                                 <p-button 
-                                                    label="Valider" 
-                                                    i18n-label="@@Table_Multiselect_ValidateButton"
+                                                    [label]="labels.tableControl.multiselectValidate"
                                                     icon="pi pi-check"
                                                     (onClick)="saveMultiselectValue(multiselect.value, col.key, index)"
                                                 />
@@ -165,8 +160,7 @@
                                         <ng-template #dropdownicon>
                                             @if (rowIndexWithUnsavedChanges() === index) {
                                                 <i class="pi pi-info-circle"
-                                                    pTooltip="Pensez à valider vos modifications" 
-                                                    i18n-tooltip="@@TableMultiselect_ReminderUnsavedChangesTooltip">
+                                                    [pTooltip]="labels.tableControl.multiselectUnsavedChanges">
                                                 </i>
                                             }
                                         </ng-template>

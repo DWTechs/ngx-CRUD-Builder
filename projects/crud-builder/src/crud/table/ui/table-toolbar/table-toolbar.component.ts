@@ -1,14 +1,22 @@
-import { Component, computed, input, model, output } from "@angular/core";
-import { CrudItemBase } from "../../../core/models/crud-item-base.class";
-import { CrudFeatures } from "../../../core/utils/table/crud-loader.class";
-import { TableColumn } from "../../../core/utils/table/table-column.model";
-import { ExportDialogComponent } from "../export-dialog/export-dialog.component";
-import { ExportOptions } from "../../utils/excel/export.service";
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  model,
+  output,
+} from "@angular/core";
 import { SharedModule } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { ButtonGroupModule } from "primeng/buttongroup";
 import { FileUploadModule } from "primeng/fileupload";
 import { ToolbarModule } from "primeng/toolbar";
+import { CrudItemBase } from "../../../core/models/crud-item-base.class";
+import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
+import { CrudFeatures } from "../../../core/utils/table/crud-loader.class";
+import { TableColumn } from "../../../core/utils/table/table-column.model";
+import { ExportOptions } from "../../utils/excel/export.service";
+import { ExportDialogComponent } from "../export-dialog/export-dialog.component";
 
 @Component({
   selector: "tbl-table-toolbar",
@@ -24,6 +32,7 @@ import { ToolbarModule } from "primeng/toolbar";
   ],
 })
 export class TableToolbarComponent<TData extends CrudItemBase> {
+  protected readonly labels = inject(CRUD_LABELS);
   public readonly selectedEntries = input.required<TData[]>();
   public readonly features = input.required<CrudFeatures>();
   public readonly selectable = input.required<boolean>();

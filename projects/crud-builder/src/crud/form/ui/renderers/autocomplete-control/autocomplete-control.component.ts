@@ -3,10 +3,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   viewChild,
 } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
-import { FormFieldBaseComponent } from "../form-field-base.component";
 import { SelectItem } from "primeng/api";
 import { AutoComplete, AutoCompleteModule } from "primeng/autocomplete";
 import {
@@ -18,15 +18,17 @@ import {
   switchMap,
   tap,
 } from "rxjs";
+import { CRUD_LABELS } from "../../../../core/utils/i18n/crud-labels.token";
+import { FormFieldBaseComponent } from "../form-field-base.component";
 
-const newOption = (query: string) => [
+const newOption = (query: string, subLabel: string) => [
   {
     value: query,
     label: query,
     extraData: {
       customLabelDisplay: {
         mainLabel: query,
-        subLabel: $localize`:@@Shared_NewAutocompleteOption:(nouveau)`,
+        subLabel,
       },
     },
   },
@@ -39,6 +41,7 @@ const newOption = (query: string) => [
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteControlComponent extends FormFieldBaseComponent {
+  private readonly labels = inject(CRUD_LABELS);
   private readonly autocomplete = viewChild(AutoComplete);
 
   public readonly isCompleteOnFocusDisabled = computed(
@@ -67,7 +70,7 @@ export class AutocompleteControlComponent extends FormFieldBaseComponent {
       map((options) => {
         const query = this.autocompleteQuery$.getValue();
         if (this.isOptionCreationEnabled() && !options.length && query.trim()) {
-          return newOption(query);
+          return newOption(query, this.labels.autocomplete.newOption);
         }
         return this.getActiveSuggestionsOnly(options);
       }),

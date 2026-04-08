@@ -5,26 +5,13 @@ import {
   TemplateRef,
   computed,
   effect,
+  inject,
   input,
   model,
   output,
   signal,
   viewChild,
 } from "@angular/core";
-import { CONTROL_TYPES } from "../../../core/models/control-type.model";
-import { TableCellComponent } from "../../../core/ui/table-cell/table-cell.component";
-import { TableFilterCellPrimeComponent } from "../../../core/ui/table-filter-cell-prime/table-filter-cell-prime.component";
-import { TableFilterCellComponent } from "../../../core/ui/table-filter-cell/table-filter-cell.component";
-import { CrudFeatures } from "../../../core/utils/table/crud-loader.class";
-import { FilterLevel } from "../../../core/utils/table/filter-level.model";
-import { TableColumn } from "../../../core/utils/table/table-column.model";
-import { ColumnResizeEvent } from "../../utils/views/table-config.model";
-import { TableActionsCellComponent } from "../table-actions-cell/table-actions-cell.component";
-import { TableCellTooltipComponent } from "../table-cell-tooltip/table-cell-tooltip.component";
-import { ColWidthPipe } from "./col-width.pipe";
-import { buildContextMenu } from "./context-menu.builder";
-import { FirstRowPipe } from "../../utils/pipes/first-row.pipe";
-import { LastRowPipe } from "../../utils/pipes/last-row.pipe";
 import { FilterMetadata } from "primeng/api";
 import { ContextMenuModule } from "primeng/contextmenu";
 import {
@@ -34,6 +21,21 @@ import {
   TableModule,
 } from "primeng/table";
 import { Tooltip } from "primeng/tooltip";
+import { CONTROL_TYPES } from "../../../core/models/control-type.model";
+import { TableCellComponent } from "../../../core/ui/table-cell/table-cell.component";
+import { TableFilterCellPrimeComponent } from "../../../core/ui/table-filter-cell-prime/table-filter-cell-prime.component";
+import { TableFilterCellComponent } from "../../../core/ui/table-filter-cell/table-filter-cell.component";
+import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
+import { CrudFeatures } from "../../../core/utils/table/crud-loader.class";
+import { FilterLevel } from "../../../core/utils/table/filter-level.model";
+import { TableColumn } from "../../../core/utils/table/table-column.model";
+import { FirstRowPipe } from "../../utils/pipes/first-row.pipe";
+import { LastRowPipe } from "../../utils/pipes/last-row.pipe";
+import { ColumnResizeEvent } from "../../utils/views/table-config.model";
+import { TableActionsCellComponent } from "../table-actions-cell/table-actions-cell.component";
+import { TableCellTooltipComponent } from "../table-cell-tooltip/table-cell-tooltip.component";
+import { ColWidthPipe } from "./col-width.pipe";
+import { buildContextMenu } from "./context-menu.builder";
 
 @Component({
   selector: "tbl-table-regular",
@@ -56,6 +58,7 @@ import { Tooltip } from "primeng/tooltip";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableRegularComponent<TData> {
+  protected readonly labels = inject(CRUD_LABELS);
   public readonly dataTable = viewChild(Table);
 
   // TODO: rows number could be computed to take all the screen height

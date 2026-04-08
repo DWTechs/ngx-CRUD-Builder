@@ -15,7 +15,7 @@
       }
       @if (isExportEnabled()) {
         <button pButton pRipple
-          title="Exporter les données"
+          [title]="labels.toolbar.export"
           [icon]="isExportingData() ? 'pi pi-spinner pi-spin' :'pi pi-download'"
           (click)="isExportDialogVisible.set(true)"
           [disabled]="isExportingData()">
@@ -34,14 +34,14 @@
         <button pButton pRipple
           icon="pi pi-cog"
           (click)="manageColumns()"
-          title="Configurer les colonnes">
+          [title]="labels.toolbar.configureColumns">
         </button>
       }
 
       <button pButton pRipple
         icon="pi pi-refresh"
         (click)="refreshDataClicked.emit()"
-        title="Rafraîchir les données">
+        [title]="labels.toolbar.refresh">
       </button>
     </p-buttonGroup>
   </ng-template>

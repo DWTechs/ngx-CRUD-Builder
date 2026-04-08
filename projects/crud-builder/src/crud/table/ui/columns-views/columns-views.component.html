@@ -1,8 +1,7 @@
 <div class="view-header">
-  <h3 i18n="@@Table_ColumnsManagementDialogViewsTitle">Vues</h3>
+  <h3>{{ labels.columnsViews.title }}</h3>
   <p-button
-    label="Ajouter"
-    i18n-label="@@Table_ColumnsViewsAddViewButton"
+    [label]="labels.columnsViews.add"
     icon="pi pi-plus"
     [disabled]="isNewFieldDisplayed"
     (click)="showNewViewField()"
@@ -23,7 +22,7 @@
             @if (!isDefaultView) {
               <p-button
                   icon="pi pi-trash"
-                  title="Supprimer"
+                  [title]="labels.columnsViews.delete"
                   [text]="true"
                   (click)="onDeleteView($event, view.id)"
               />
@@ -42,14 +41,14 @@
         <p-button
             class="validate-view-button"
             icon="pi pi-check"
-            title="Valider"
+            [title]="labels.columnsViews.validate"
             [text]="true"
             (click)="submitNewView(name.value)"
         />
         <p-button
             class="delete-view-button"
             icon="pi pi-times"
-            title="Annuler"
+            [title]="labels.columnsViews.cancel"
             [text]="true"
             (click)="hideNewViewField()"
         />

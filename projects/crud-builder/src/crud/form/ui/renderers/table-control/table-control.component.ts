@@ -3,20 +3,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   linkedSignal,
   signal,
   ViewEncapsulation,
 } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { CONTROL_TYPES } from "../../../../core/models/control-type.model";
-import { CrudItemBase } from "../../../../core/models/crud-item-base.class";
-import { TableCellComponent } from "../../../../core/ui/table-cell/table-cell.component";
-import { TableFilterCellComponent } from "../../../../core/ui/table-filter-cell/table-filter-cell.component";
-import { crudItemToColumn } from "../../../../core/utils/table/crud-item-to-column";
-import { TableColumn } from "../../../../core/utils/table/table-column.model";
-import { HasValidatorPipe } from "./has-validator.pipe";
 import { isArray } from "@dwtechs/checkard";
-import { FormFieldBaseComponent } from "../form-field-base.component";
 import { ButtonModule } from "primeng/button";
 import { InputNumberModule } from "primeng/inputnumber";
 import { InputTextModule } from "primeng/inputtext";
@@ -24,6 +17,15 @@ import { MultiSelect } from "primeng/multiselect";
 import { SelectModule } from "primeng/select";
 import { TableModule } from "primeng/table";
 import { TooltipModule } from "primeng/tooltip";
+import { CONTROL_TYPES } from "../../../../core/models/control-type.model";
+import { CrudItemBase } from "../../../../core/models/crud-item-base.class";
+import { TableCellComponent } from "../../../../core/ui/table-cell/table-cell.component";
+import { TableFilterCellComponent } from "../../../../core/ui/table-filter-cell/table-filter-cell.component";
+import { CRUD_LABELS } from "../../../../core/utils/i18n/crud-labels.token";
+import { crudItemToColumn } from "../../../../core/utils/table/crud-item-to-column";
+import { TableColumn } from "../../../../core/utils/table/table-column.model";
+import { FormFieldBaseComponent } from "../form-field-base.component";
+import { HasValidatorPipe } from "./has-validator.pipe";
 
 @Component({
   selector: "frm-table-control",
@@ -53,6 +55,7 @@ import { TooltipModule } from "primeng/tooltip";
 export class TableControlComponent<
   T extends CrudItemBase,
 > extends FormFieldBaseComponent {
+  protected readonly labels = inject(CRUD_LABELS);
   public readonly value = linkedSignal<T[]>(() => {
     const controlValue = this.control().value;
     if (!isArray<T>(controlValue)) {

@@ -2,16 +2,18 @@ import { DatePipe } from "@angular/common";
 import {
   Component,
   computed,
+  inject,
   input,
   output,
   ViewEncapsulation,
 } from "@angular/core";
-import { CrudItemOptions } from "../../models/crud-item-options.model";
-import { isEqual } from "../../utils/arrays/is-equal.utils";
-import { DATE_FORMAT } from "../../utils/dates/dates.utils";
 import { SharedModule } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { TableModule } from "primeng/table";
+import { CrudItemOptions } from "../../models/crud-item-options.model";
+import { isEqual } from "../../utils/arrays/is-equal.utils";
+import { DATE_FORMAT } from "../../utils/dates/dates.utils";
+import { CRUD_LABELS } from "../../utils/i18n/crud-labels.token";
 import { FullHistoryRow, HistorizedData } from "./history.model";
 
 @Component({
@@ -22,6 +24,7 @@ import { FullHistoryRow, HistorizedData } from "./history.model";
   encapsulation: ViewEncapsulation.None,
 })
 export class HistoryComponent<TData> {
+  protected readonly labels = inject(CRUD_LABELS);
   public readonly data = input.required<{
     rows: HistorizedData<TData>[];
     total: number;

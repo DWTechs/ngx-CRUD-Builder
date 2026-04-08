@@ -3,13 +3,15 @@ import {
   Component,
   computed,
   effect,
+  inject,
   signal,
   viewChild,
 } from "@angular/core";
-import { isEqual } from "../../../../core/utils/arrays/is-equal.utils";
-import { FormFieldBaseComponent } from "../form-field-base.component";
 import { SelectItem } from "primeng/api";
 import { PickList, PickListModule } from "primeng/picklist";
+import { isEqual } from "../../../../core/utils/arrays/is-equal.utils";
+import { CRUD_LABELS } from "../../../../core/utils/i18n/crud-labels.token";
+import { FormFieldBaseComponent } from "../form-field-base.component";
 
 @Component({
   selector: "frm-picklist-control",
@@ -19,11 +21,10 @@ import { PickList, PickListModule } from "primeng/picklist";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PicklistControlComponent extends FormFieldBaseComponent {
+  protected readonly labels = inject(CRUD_LABELS);
   public readonly picklist = viewChild<PickList>("picklist");
 
   public readonly allOptions = computed(() => this.config().options ?? []);
-
-  //The sources and targets are used to populate the picklist
   public readonly sources = signal<SelectItem[]>([]);
   public readonly targets = signal<SelectItem[]>([]);
 

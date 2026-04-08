@@ -29,8 +29,8 @@
         @if (historyData) {
           <p-card>
             <ng-template #header>
-              <span i18n="@@EditionDialog_HistoryCardHeader">
-                Historique des modifications ({{ historyData.total }})
+              <span>
+                {{ labels.editionDialog.historyHeader }} ({{ historyData.total }})
               </span>
             </ng-template>
             <shared-history
@@ -57,8 +57,7 @@
         @if (isArchiveBtnDisplayed()) {
           <crd-crud-button
             type="delete"
-            i18n-label="@@EditionDialog_ArchiveButton"
-            label="Archiver"
+            [label]="labels.editionDialog.archive"
             icon="pi pi-trash"
             [disabled]="isLoading()"
             (click)="onArchive()"

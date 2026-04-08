@@ -3,16 +3,18 @@ import {
   Component,
   computed,
   effect,
+  inject,
   ViewEncapsulation,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { DATE_FORMAT_CALENDAR } from "../../../../core/utils/dates/dates.utils";
 import { isArray } from "@dwtechs/checkard";
-import { FormFieldBaseComponent } from "../form-field-base.component";
 import { SharedModule } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { DatePickerModule } from "primeng/datepicker";
 import { DividerModule } from "primeng/divider";
+import { DATE_FORMAT_CALENDAR } from "../../../../core/utils/dates/dates.utils";
+import { CRUD_LABELS } from "../../../../core/utils/i18n/crud-labels.token";
+import { FormFieldBaseComponent } from "../form-field-base.component";
 
 @Component({
   selector: "frm-date-control",
@@ -29,6 +31,7 @@ import { DividerModule } from "primeng/divider";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateControlComponent extends FormFieldBaseComponent {
+  protected readonly labels = inject(CRUD_LABELS);
   readonly setDateEffect = effect(() => {
     const _trigger = this.syncValueInc(); // trigger effect on syncValueInc change
     const value = this.control().value;

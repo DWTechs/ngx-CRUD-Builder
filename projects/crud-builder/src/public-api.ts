@@ -39,14 +39,14 @@ export * from "./crud/core/utils/crud-service/no-rows";
 export * from "./crud/core/utils/dates/dates.utils";
 export * from "./crud/core/utils/download/download.service";
 export * from "./crud/core/utils/download/form-data.mapper";
+export * from "./crud/core/utils/i18n/crud-labels.token";
 export * from "./crud/core/utils/offline/offline.service";
 export * from "./crud/core/utils/table/export-mode.model";
 export * from "./crud/core/utils/table/filter-level.model";
 export * from "./crud/core/utils/table/table-column.model";
-
+export * from "./crud/form/form/form.component";
 // --- Form: main entry points ---
 export * from "./crud/form/form-builder.service";
-export * from "./crud/form/form/form.component";
 
 // --- Form: file upload ---
 export * from "./crud/form/ui/renderers/file-upload-input/file-info.class";

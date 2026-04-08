@@ -7,12 +7,13 @@ import {
   output,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { TableConfig } from "../../data-access/table-config.model";
 import { ConfirmationService } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { InputTextModule } from "primeng/inputtext";
 import { ListboxModule } from "primeng/listbox";
 import { RadioButtonModule } from "primeng/radiobutton";
+import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
+import { TableConfig } from "../../data-access/table-config.model";
 
 const deleteConfirmationMessage = $localize`:@@Table_ColumnsViews_DeleteConfirmationMessage:Êtes-vous sûr de vouloir supprimer cette vue ?`;
 
@@ -31,6 +32,7 @@ const deleteConfirmationMessage = $localize`:@@Table_ColumnsViews_DeleteConfirma
 })
 export class ColumnsViewsComponent {
   private readonly confirmationService = inject(ConfirmationService);
+  protected readonly labels = inject(CRUD_LABELS);
 
   public readonly views = input.required<TableConfig[]>();
 

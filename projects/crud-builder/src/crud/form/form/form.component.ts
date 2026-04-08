@@ -25,6 +25,10 @@ import {
   ReactiveFormsModule,
   ValidatorFn,
 } from "@angular/forms";
+import { isArray, isFunction, isNil } from "@dwtechs/checkard";
+import { PanelModule } from "primeng/panel";
+import { ProgressSpinnerModule } from "primeng/progressspinner";
+import { debounceTime, distinctUntilChanged, Subscription } from "rxjs";
 import {
   ControlActionResult,
   ControlOptions,
@@ -37,9 +41,10 @@ import {
 import { FormFieldInteractionEvent } from "../../core/models/form-field-interaction.event";
 import { CrudButtonComponent } from "../../core/ui/crud-buttons/crud-buttons.component";
 import { isEqual } from "../../core/utils/arrays/is-equal.utils";
+import { CRUD_LABELS } from "../../core/utils/i18n/crud-labels.token";
 import { supplant } from "../../core/utils/supplant/supplant.utils";
-import { isArray, isFunction, isNil } from "@dwtechs/checkard";
 import { FormArrayElement } from "../array-element/array-element";
+import { FormBuilderService } from "../form-builder.service";
 import { FormSimpleElement } from "../simple-element/simple-element";
 import { FormGroupByKeyPipe } from "../utils/form-group.pipe";
 import { FullJsonPipe } from "../utils/full-json.pipe";
@@ -49,10 +54,6 @@ import {
 } from "../utils/group-validator.model";
 import { LabelStrategy } from "../utils/label-strategy.model";
 import { ToControlPipe } from "../utils/to-control.pipe";
-import { PanelModule } from "primeng/panel";
-import { ProgressSpinnerModule } from "primeng/progressspinner";
-import { debounceTime, distinctUntilChanged, Subscription } from "rxjs";
-import { FormBuilderService } from "../form-builder.service";
 
 export const FOUR_COLUMN_WIDTH = "25%";
 export const THREE_COLUMN_WIDTH = "33.333%";
@@ -87,6 +88,7 @@ export class FormComponent<
   // Injected services
   private readonly dynamicFormService = inject(FormBuilderService);
   private readonly destroyRef = inject(DestroyRef);
+  protected readonly labels = inject(CRUD_LABELS);
 
   // Inputs
   /** Defines the number of columns for form layout */
@@ -119,9 +121,7 @@ export class FormComponent<
   public readonly model = model.required<any>();
 
   /** Custom label for the reset button */
-  public readonly resetButtonLabel = input<string | undefined>(
-    $localize`:@@form.reset:Réinitialiser`,
-  );
+  public readonly resetButtonLabel = input<string | undefined>(undefined);
 
   /** Shows debug information including form values and validation state */
   public readonly showDebug = input<boolean | undefined>(false);
@@ -133,9 +133,7 @@ export class FormComponent<
   public readonly showSubmit = input<boolean | undefined>(false);
 
   /** Custom label for the submit button */
-  public readonly submitButtonLabel = input<string | undefined>(
-    $localize`:@@form.submit:Valider`,
-  );
+  public readonly submitButtonLabel = input<string | undefined>(undefined);
 
   // Outputs
   /** Emitted when user interacts with form fields */

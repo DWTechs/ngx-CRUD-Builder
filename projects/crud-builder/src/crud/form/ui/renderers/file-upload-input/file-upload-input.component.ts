@@ -5,14 +5,15 @@ import {
   inject,
   linkedSignal,
 } from "@angular/core";
-import { SnackbarService } from "../../../../../core/utils/snackbar/snackbar.service";
-import { DownloadService } from "../../../../core/utils/download/download.service";
-import { FileInfo } from "./file-info.class";
-import { FileNamePipe } from "./file-name.pipe";
-import { FormFieldBaseComponent } from "../form-field-base.component";
 import { ButtonModule } from "primeng/button";
 import { DividerModule } from "primeng/divider";
 import { TooltipModule } from "primeng/tooltip";
+import { SnackbarService } from "../../../../../core/utils/snackbar/snackbar.service";
+import { DownloadService } from "../../../../core/utils/download/download.service";
+import { CRUD_LABELS } from "../../../../core/utils/i18n/crud-labels.token";
+import { FormFieldBaseComponent } from "../form-field-base.component";
+import { FileInfo } from "./file-info.class";
+import { FileNamePipe } from "./file-name.pipe";
 
 @Component({
   selector: "frm-file-upload-input",
@@ -24,6 +25,7 @@ import { TooltipModule } from "primeng/tooltip";
 export class FileUploadInputComponent extends FormFieldBaseComponent {
   private readonly dlService = inject(DownloadService);
   private readonly snackbarService = inject(SnackbarService);
+  protected readonly labels = inject(CRUD_LABELS);
 
   private readonly isImage = computed(
     () =>
@@ -142,7 +144,10 @@ export class FileUploadInputComponent extends FormFieldBaseComponent {
       const file = filesList[i];
       const maxFileSize = this.options().maxFileSize;
       if (maxFileSize && file.size > maxFileSize) {
-        const message = $localize`:@@FileUpload_MaxFileSizeExceeded:Le fichier "${file.name}" dépasse la taille maximale autorisée de ${maxFileSize} octets.`;
+        const message = this.labels.fileUpload.maxFileSizeExceeded(
+          file.name,
+          maxFileSize,
+        );
         this.snackbarService.displayError(message);
         this.control().setErrors({ maxFileSize: true }); // does not work
         this.control().markAsTouched();

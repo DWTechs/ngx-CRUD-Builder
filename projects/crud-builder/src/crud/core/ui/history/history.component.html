@@ -5,8 +5,8 @@
     <ng-template #header>
       <tr>
         <th class="first-col"></th>
-        <th>Mis à jour le</th>
-        <th>Mis à jour par</th>
+          <th>{{ labels.history.updatedAt }}</th>
+        <th>{{ labels.history.updatedBy }}</th>
         <th></th>
       </tr>
     </ng-template>
@@ -27,7 +27,7 @@
           <p-button type="button" pRipple
             class="action-button"
             icon="pi pi-history"
-            title="Restaurer"
+            [title]="labels.history.restore"
             (click)="showVersion(entry)"
           />
         </td>
@@ -40,9 +40,9 @@
             <ng-template #header>
               <tr>
                 <th class="first-col"></th>
-                <th>Propriété</th>
-                <th>Valeur</th>
-                <th>Ancienne valeur</th>
+                <th>{{ labels.history.property }}</th>
+                <th>{{ labels.history.value }}</th>
+                <th>{{ labels.history.previousValue }}</th>
               </tr>
             </ng-template>
             <ng-template #body let-row>

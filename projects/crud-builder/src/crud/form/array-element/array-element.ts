@@ -13,12 +13,13 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from "@angular/forms";
+import { ButtonModule } from "primeng/button";
 import { ControlOptions } from "../../core/models/control-options.model";
 import { CrudItemOptions } from "../../core/models/crud-item-options.model";
+import { CRUD_LABELS } from "../../core/utils/i18n/crud-labels.token";
 import { FormBuilderService } from "../form-builder.service";
 import { FormErrorMessage } from "../ui/field-error-message/field-error-message";
 import { FormFieldRenderer } from "../ui/field-renderer/field-renderer";
-import { ButtonModule } from "primeng/button";
 
 @Component({
   selector: "frm-array-element",
@@ -34,6 +35,7 @@ import { ButtonModule } from "primeng/button";
 })
 export class FormArrayElement {
   private readonly formService = inject(FormBuilderService);
+  protected readonly labels = inject(CRUD_LABELS);
 
   @HostBinding("class") get classes(): string {
     return this.parentControlOptions().hidden ? "display-none" : "";

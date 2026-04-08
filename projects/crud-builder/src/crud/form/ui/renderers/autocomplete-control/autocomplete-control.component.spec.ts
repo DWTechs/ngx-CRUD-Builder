@@ -154,92 +154,85 @@ describe("AutocompleteControlComponent", () => {
    * ========================================
    */
   describe("User Interactions & Events", () => {
-    it("should emit fieldInteraction on select", (done) => {
+    it("should emit fieldInteraction on select", () => {
       fixture.detectChanges();
 
       component.fieldInteraction.subscribe(
         (event: FormFieldInteractionEvent) => {
           expect(event.interactionType).toBe("select");
           expect(event.key).toBe("testAutocomplete");
-          done();
         },
       );
 
       component.emitInteractionEvent("select");
     });
 
-    it("should emit fieldInteraction on keyup", (done) => {
+    it("should emit fieldInteraction on keyup", () => {
       fixture.detectChanges();
 
       component.fieldInteraction.subscribe(
         (event: FormFieldInteractionEvent) => {
           expect(event.interactionType).toBe("keyup");
-          done();
         },
       );
 
       component.emitInteractionEvent("keyup");
     });
 
-    it("should emit fieldInteraction on focus", (done) => {
+    it("should emit fieldInteraction on focus", () => {
       fixture.detectChanges();
 
       component.fieldInteraction.subscribe(
         (event: FormFieldInteractionEvent) => {
           expect(event.interactionType).toBe("focus");
-          done();
         },
       );
 
       component.emitInteractionEvent("focus");
     });
 
-    it("should emit fieldInteraction on blur", (done) => {
+    it("should emit fieldInteraction on blur", () => {
       fixture.detectChanges();
 
       component.fieldInteraction.subscribe(
         (event: FormFieldInteractionEvent) => {
           expect(event.interactionType).toBe("blur");
-          done();
         },
       );
 
       component.emitInteractionEvent("blur");
     });
 
-    it("should emit fieldInteraction on clear", (done) => {
+    it("should emit fieldInteraction on clear", () => {
       fixture.detectChanges();
 
       component.fieldInteraction.subscribe(
         (event: FormFieldInteractionEvent) => {
           expect(event.interactionType).toBe("clear");
-          done();
         },
       );
 
       component.emitInteractionEvent("clear");
     });
 
-    it("should emit fieldInteraction on panel open", (done) => {
+    it("should emit fieldInteraction on panel open", () => {
       fixture.detectChanges();
 
       component.fieldInteraction.subscribe(
         (event: FormFieldInteractionEvent) => {
           expect(event.interactionType).toBe("panelOpen");
-          done();
         },
       );
 
       component.emitInteractionEvent("panelOpen");
     });
 
-    it("should emit fieldInteraction on panel close", (done) => {
+    it("should emit fieldInteraction on panel close", () => {
       fixture.detectChanges();
 
       component.fieldInteraction.subscribe(
         (event: FormFieldInteractionEvent) => {
           expect(event.interactionType).toBe("panelClose");
-          done();
         },
       );
 
@@ -253,7 +246,7 @@ describe("AutocompleteControlComponent", () => {
    * ========================================
    */
   describe("Autocomplete-Specific Features", () => {
-    it("should filter suggestions based on query", (done) => {
+    it("should filter suggestions based on query", () => {
       fixture.detectChanges();
 
       component.handleOnAutocomplete("option 1");
@@ -261,29 +254,26 @@ describe("AutocompleteControlComponent", () => {
       component.autocompleteSuggestions$.subscribe((suggestions) => {
         expect(suggestions.length).toBe(1);
         expect(suggestions[0].label).toBe("Option 1");
-        done();
       });
     });
 
-    it("should return all options for empty query", (done) => {
+    it("should return all options for empty query", () => {
       fixture.detectChanges();
 
       component.handleOnAutocomplete("");
 
       component.autocompleteSuggestions$.subscribe((suggestions) => {
         expect(suggestions.length).toBe(3);
-        done();
       });
     });
 
-    it("should handle case-insensitive search", (done) => {
+    it("should handle case-insensitive search", () => {
       fixture.detectChanges();
 
       component.handleOnAutocomplete("OPTION");
 
       component.autocompleteSuggestions$.subscribe((suggestions) => {
         expect(suggestions.length).toBe(3);
-        done();
       });
     });
 
@@ -301,7 +291,7 @@ describe("AutocompleteControlComponent", () => {
       expect(component.isCompleteOnFocusDisabled()).toBe(true);
     });
 
-    it("should create new option when enabled and no matches", (done) => {
+    it("should create new option when enabled and no matches", () => {
       const config = createDefaultConfig();
       config.controlOptions = { isOptionCreationEnabled: true };
       fixture.componentRef.setInput("config", config);
@@ -313,22 +303,20 @@ describe("AutocompleteControlComponent", () => {
         expect(suggestions.length).toBe(1);
         expect(suggestions[0].value).toBe("new item");
         expect(suggestions[0].label).toBe("new item");
-        done();
       });
     });
 
-    it("should not create new option when disabled", (done) => {
+    it("should not create new option when disabled", () => {
       fixture.detectChanges();
 
       component.handleOnAutocomplete("new item");
 
       component.autocompleteSuggestions$.subscribe((suggestions) => {
         expect(suggestions.length).toBe(0);
-        done();
       });
     });
 
-    it("should handle custom search function", (done) => {
+    it("should handle custom search function", () => {
       const config = createDefaultConfig();
       config.controlOptions = {
         searchOptionsFn: () =>
@@ -342,11 +330,10 @@ describe("AutocompleteControlComponent", () => {
       component.autocompleteSuggestions$.subscribe((suggestions) => {
         expect(suggestions.length).toBe(1);
         expect(suggestions[0].label).toBe("Custom Result");
-        done();
       });
     });
 
-    it("should filter out disabled options", (done) => {
+    it("should filter out disabled options", () => {
       const config = createDefaultConfig();
       config.options = [
         { label: "Option 1", value: "opt1" },
@@ -361,11 +348,10 @@ describe("AutocompleteControlComponent", () => {
       component.autocompleteSuggestions$.subscribe((suggestions) => {
         expect(suggestions.length).toBe(2);
         expect(suggestions.find((s) => s.value === "opt2")).toBeUndefined();
-        done();
       });
     });
 
-    it("should keep selected option even if disabled", (done) => {
+    it("should keep selected option even if disabled", () => {
       const config = createDefaultConfig();
       config.options = [
         { label: "Option 1", value: "opt1" },
@@ -383,7 +369,6 @@ describe("AutocompleteControlComponent", () => {
         expect(suggestions.length).toBe(3);
         expect(suggestions[0].value).toBe("opt2");
         expect(suggestions[0].disabled).toBe(true);
-        done();
       });
     });
   });
@@ -439,7 +424,7 @@ describe("AutocompleteControlComponent", () => {
    * ========================================
    */
   describe("Edge Cases & Error Handling", () => {
-    it("should handle empty options array", (done) => {
+    it("should handle empty options array", () => {
       const config = createDefaultConfig();
       config.options = [];
       fixture.componentRef.setInput("config", config);
@@ -449,7 +434,6 @@ describe("AutocompleteControlComponent", () => {
 
       component.autocompleteSuggestions$.subscribe((suggestions) => {
         expect(suggestions.length).toBe(0);
-        done();
       });
     });
 
@@ -462,7 +446,7 @@ describe("AutocompleteControlComponent", () => {
       expect(component.selectOptions()).toEqual([]);
     });
 
-    it("should handle search function errors gracefully", (done) => {
+    it("should handle search function errors gracefully", () => {
       const config = createDefaultConfig();
       config.controlOptions = {
         searchOptionsFn: () => throwError(() => new Error("Search error")),
@@ -474,11 +458,10 @@ describe("AutocompleteControlComponent", () => {
 
       component.autocompleteSuggestions$.subscribe((suggestions) => {
         expect(suggestions).toEqual([]);
-        done();
       });
     });
 
-    it("should handle whitespace-only query with option creation", (done) => {
+    it("should handle whitespace-only query with option creation", () => {
       const config = createDefaultConfig();
       config.controlOptions = { isOptionCreationEnabled: true };
       fixture.componentRef.setInput("config", config);
@@ -488,7 +471,6 @@ describe("AutocompleteControlComponent", () => {
 
       component.autocompleteSuggestions$.subscribe((suggestions) => {
         expect(suggestions.length).toBe(0);
-        done();
       });
     });
   });

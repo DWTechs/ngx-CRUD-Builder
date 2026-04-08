@@ -3,12 +3,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  inject,
   ViewChild,
 } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
-import { FormFieldBaseComponent } from "../form-field-base.component";
 import { ButtonModule } from "primeng/button";
 import { Editor, EditorModule } from "primeng/editor";
+import { CRUD_LABELS } from "../../../../core/utils/i18n/crud-labels.token";
+import { FormFieldBaseComponent } from "../form-field-base.component";
 
 @Component({
   selector: "frm-rich-text-editor",
@@ -18,6 +20,7 @@ import { Editor, EditorModule } from "primeng/editor";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RichTextEditorComponent extends FormFieldBaseComponent {
+  protected readonly labels = inject(CRUD_LABELS);
   @ViewChild("editorComponent") editorComponent!: Editor;
   @ViewChild("htmlEditor") htmlEditor!: ElementRef;
 

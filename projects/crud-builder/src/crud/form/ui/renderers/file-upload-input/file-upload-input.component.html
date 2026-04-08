@@ -24,7 +24,7 @@
         [rounded]="true"
         [outlined]="true"
         [disabled]="!canAddMore()"
-        pTooltip="Choisir un fichier"
+        [pTooltip]="labels.fileUpload.chooseFile"
       />
       <p-button
         (onClick)="clearAll(fileInput)"
@@ -51,14 +51,13 @@
     @let hasFiles = localFiles() && localFiles().length > 0;     
     @if (!hasFiles) {
       <i class="pi pi-cloud-upload upload-icon"></i>
-      <p i18n="@@SharedForm_DragDropFileLabel">
-        Glissez-déposez vos fichiers ici, ou cliquez pour sélectionner
+      <p>
+        {{ labels.fileUpload.dragDropLabel }}
       </p>
     } @else {
       <div class="uploaded-files-container">
-        <div class="container-title"
-          i18n="@@SharedForm_UploadedFilesTitle">
-          Fichiers téléchargés
+        <div class="container-title">
+          {{ labels.fileUpload.uploadedFilesTitle }}
         </div>
         @for (file of localFiles(); track file; let i = $index) {
           <div class="file-row">
@@ -104,9 +103,9 @@
   }
   <p class="small">
     @if (canAddMore()) {
-      Vous pouvez ajouter plusieurs fichiers.
+      {{ labels.fileUpload.canAddMore }}
     } @else {
-      Vous ne pouvez ajouter qu'un seul fichier. Veuillez supprimer le fichier actuel pour en ajouter un nouveau.
+      {{ labels.fileUpload.cannotAddMore }}
     }
   </p>
 </ng-template>

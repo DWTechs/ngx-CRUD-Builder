@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
   linkedSignal,
   model,
@@ -10,12 +11,13 @@ import {
   signal,
   ViewEncapsulation,
 } from "@angular/core";
+import { ButtonModule } from "primeng/button";
+import { DialogModule } from "primeng/dialog";
+import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
 import { TableColumn } from "../../../core/utils/table/table-column.model";
 import { ExtendedTableConfig } from "../../data-access/table-config.model";
 import { ColumnsManagementComponent } from "../columns-management/columns-management.component";
 import { ColumnsViewsComponent } from "../columns-views/columns-views.component";
-import { ButtonModule } from "primeng/button";
-import { DialogModule } from "primeng/dialog";
 
 @Component({
   selector: "tbl-columns-management-dialog",
@@ -31,6 +33,7 @@ import { DialogModule } from "primeng/dialog";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnsManagementDialogComponent {
+  protected readonly labels = inject(CRUD_LABELS);
   public readonly views = input.required<ExtendedTableConfig[]>();
   public readonly isPreferencesModeEnabled = input.required<boolean>();
   public readonly visible = model(false);

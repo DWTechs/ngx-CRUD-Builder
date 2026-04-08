@@ -1,7 +1,6 @@
 <p-dialog
   [(visible)]="visible"
-  i18n-header="@@Table_ColumnsManagementDialogHeader"
-  header="Gestion des colonnes"
+  [header]="labels.columnsDialog.header"
   [modal]="false"
   [focusOnShow]="false"
   [maximizable]="true"
@@ -38,16 +37,14 @@
     <p-button
       pRipple
       severity="secondary"
-      label="Annuler"
-      i18n-label="@@Table_ColumnsManagementDialogCancelButton"
+      [label]="labels.columnsDialog.cancel"
       icon="pi pi-times"
       (click)="onCancel()"
     />
     <p-button
       pRipple
       severity="primary"
-      label="Valider"
-      i18n-label="@@Table_ColumnsManagementDialogSaveButton"
+      [label]="labels.columnsDialog.save"
       icon="pi pi-check"
       [disabled]="isViewCreation()"
       (click)="onSaved()"

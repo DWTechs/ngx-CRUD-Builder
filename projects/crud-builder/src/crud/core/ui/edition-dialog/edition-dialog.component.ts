@@ -2,6 +2,7 @@ import { AsyncPipe } from "@angular/common";
 import {
   Component,
   computed,
+  inject,
   input,
   model,
   output,
@@ -10,21 +11,22 @@ import {
 } from "@angular/core";
 import { toObservable } from "@angular/core/rxjs-interop";
 import { ValidatorFn } from "@angular/forms";
-import { CrudItemBase } from "../../models/crud-item-base.class";
-import { CrudItemOptions } from "../../models/crud-item-options.model";
-import { CrudButtonComponent } from "../crud-buttons/crud-buttons.component";
-import { HistoryComponent } from "../history/history.component";
-import { HistorizedData } from "../history/history.model";
-import { NO_ROWS_AND_COUNT } from "../../utils/crud-service/no-rows";
-import { CrudFeatures } from "../../utils/table/crud-loader.class";
-import { FormComponent } from "../../../form/form/form.component";
-import { LabelStrategy } from "../../../form/utils/label-strategy.model";
 import { SharedModule } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
 import { CheckboxModule } from "primeng/checkbox";
 import { DialogModule } from "primeng/dialog";
 import { distinctUntilChanged, filter, Observable, of, switchMap } from "rxjs";
+import { FormComponent } from "../../../form/form/form.component";
+import { LabelStrategy } from "../../../form/utils/label-strategy.model";
+import { CrudItemBase } from "../../models/crud-item-base.class";
+import { CrudItemOptions } from "../../models/crud-item-options.model";
+import { NO_ROWS_AND_COUNT } from "../../utils/crud-service/no-rows";
+import { CRUD_LABELS } from "../../utils/i18n/crud-labels.token";
+import { CrudFeatures } from "../../utils/table/crud-loader.class";
+import { CrudButtonComponent } from "../crud-buttons/crud-buttons.component";
+import { HistoryComponent } from "../history/history.component";
+import { HistorizedData } from "../history/history.model";
 
 @Component({
   selector: "crd-edition-dialog",
@@ -44,6 +46,7 @@ import { distinctUntilChanged, filter, Observable, of, switchMap } from "rxjs";
   encapsulation: ViewEncapsulation.None,
 })
 export class EditionDialogComponent<TData extends CrudItemBase> {
+  protected readonly labels = inject(CRUD_LABELS);
   // Inputs
   /** Configuration array that defines the structure and behavior of form fields */
   public readonly config = input<CrudItemOptions[]>([]);
@@ -183,11 +186,11 @@ export class EditionDialogComponent<TData extends CrudItemBase> {
     }
     let action: string;
     if (this.isCreation()) {
-      action = $localize`:@@EditionDialog_Creation:Création`;
+      action = this.labels.editionDialog.modeCreate;
     } else if (this.isReadonly()) {
-      action = $localize`:@@EditionDialog_Consultation:Consultation`;
+      action = this.labels.editionDialog.modeConsult;
     } else {
-      action = $localize`:@@EditionDialog_Edition:Édition`;
+      action = this.labels.editionDialog.modeEdit;
     }
     return `${action} - ${this.entityLabel()}`;
   });
@@ -241,8 +244,8 @@ export class EditionDialogComponent<TData extends CrudItemBase> {
 
   public readonly closeButtonLabel = computed(() => {
     return this.canInteract()
-      ? $localize`:@@EditionDialog_CloseButtonCancel:Annuler`
-      : $localize`:@@EditionDialog_CloseButtonClose:Fermer`;
+      ? this.labels.editionDialog.cancel
+      : this.labels.editionDialog.close;
   });
 
   // Public methods
