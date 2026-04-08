@@ -15,8 +15,6 @@ import { RadioButtonModule } from "primeng/radiobutton";
 import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
 import { TableConfig } from "../../data-access/table-config.model";
 
-const deleteConfirmationMessage = $localize`:@@Table_ColumnsViews_DeleteConfirmationMessage:Êtes-vous sûr de vouloir supprimer cette vue ?`;
-
 @Component({
   selector: "tbl-columns-views",
   templateUrl: "./columns-views.component.html",
@@ -58,7 +56,7 @@ export class ColumnsViewsComponent {
       return;
     }
     this.confirmationService.confirm({
-      message: deleteConfirmationMessage,
+      message: this.labels.columnsViews.deleteConfirmation,
       accept: () => this.deleteView.emit(viewId),
     });
   }

@@ -106,13 +106,21 @@ describe("PicklistControlComponent", () => {
     it("should set source header", () => {
       fixture.detectChanges();
       const picklist = fixture.nativeElement.querySelector("p-picklist");
-      expect(picklist.getAttribute("sourceheader")).toBe("Disponibles");
+      expect(
+        picklist.querySelector(
+          ".p-picklist-source-list-container .p-listbox-header div",
+        ).textContent,
+      ).toBe("Disponibles");
     });
 
     it("should set target header", () => {
       fixture.detectChanges();
       const picklist = fixture.nativeElement.querySelector("p-picklist");
-      expect(picklist.getAttribute("targetheader")).toBe("Choix");
+      expect(
+        picklist.querySelector(
+          ".p-picklist-target-list-container .p-listbox-header div",
+        ).textContent,
+      ).toBe("Choix");
     });
   });
 
@@ -175,40 +183,37 @@ describe("PicklistControlComponent", () => {
    * ========================================
    */
   describe("User Interactions & Events", () => {
-    it("should emit fieldInteraction on value change", (done) => {
+    it("should emit fieldInteraction on value change", async () => {
       fixture.detectChanges();
 
       component.fieldInteraction.subscribe(
         (event: FormFieldInteractionEvent) => {
           expect(event.interactionType).toBe("valueChange");
           expect(event.key).toBe("testPicklist");
-          done();
         },
       );
 
       component.emitInteractionEvent("valueChange");
     });
 
-    it("should emit fieldInteraction on focus", (done) => {
+    it("should emit fieldInteraction on focus", async () => {
       fixture.detectChanges();
 
       component.fieldInteraction.subscribe(
         (event: FormFieldInteractionEvent) => {
           expect(event.interactionType).toBe("focus");
-          done();
         },
       );
 
       component.emitInteractionEvent("focus");
     });
 
-    it("should emit fieldInteraction on blur", (done) => {
+    it("should emit fieldInteraction on blur", async () => {
       fixture.detectChanges();
 
       component.fieldInteraction.subscribe(
         (event: FormFieldInteractionEvent) => {
           expect(event.interactionType).toBe("blur");
-          done();
         },
       );
 

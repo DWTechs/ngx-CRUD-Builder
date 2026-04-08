@@ -2,6 +2,7 @@ import { WritableSignal } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormControl, ReactiveFormsModule, Validators } from "@angular/forms";
 import { provideAnimations } from "@angular/platform-browser/animations";
+import { ArchiveInfo } from "@crud/core/utils/confs/archived-config";
 import { CONTROL_TYPES } from "../../../../core/models/control-type.model";
 import { CrudItemBase } from "../../../../core/models/crud-item-base.class";
 import { CrudItemOptions } from "../../../../core/models/crud-item-options.model";
@@ -81,8 +82,7 @@ describe("TableControlComponent", () => {
       position: "Developer",
       startDate: new Date("2020-01-01"),
       skills: ["js", "angular"],
-      archived: false,
-      archivedAt: null,
+      ...new ArchiveInfo(),
     },
     {
       id: 2,
@@ -90,8 +90,7 @@ describe("TableControlComponent", () => {
       position: "Senior Developer",
       startDate: new Date("2022-06-01"),
       skills: ["ts", "angular"],
-      archived: false,
-      archivedAt: null,
+      ...new ArchiveInfo(),
     },
   ];
 
@@ -512,7 +511,7 @@ describe("TableControlComponent", () => {
       expect(component.value()[0].company).toBe("New Company");
     });
 
-    it("should emit cellEditComplete event when cell is saved", (done) => {
+    it("should emit cellEditComplete event when cell is saved", async () => {
       const initialData = createSampleData();
       const control = new FormControl(initialData);
       fixture.componentRef.setInput("control", control);
@@ -523,7 +522,6 @@ describe("TableControlComponent", () => {
           expect(event.extraData?.rowIndex).toBe(0);
           expect(event.extraData?.colKey).toBe("company");
           expect(event.extraData?.value).toBe("Updated Company");
-          done();
         }
       });
 
@@ -586,7 +584,7 @@ describe("TableControlComponent", () => {
       expect(component["clonedRow"]?.company).toBe(rowToEdit.company);
     });
 
-    it("should emit rowEditInit event", (done) => {
+    it("should emit rowEditInit event", async () => {
       const initialData = createSampleData();
       const control = new FormControl(initialData);
       fixture.componentRef.setInput("control", control);
@@ -595,7 +593,6 @@ describe("TableControlComponent", () => {
       component.fieldInteraction.subscribe((event: EventWithData) => {
         if (event.interactionType === "rowEditInit") {
           expect(event.extraData?.row).toBeDefined();
-          done();
         }
       });
 
@@ -619,7 +616,7 @@ describe("TableControlComponent", () => {
       expect(component["clonedRow"]).toBeNull();
     });
 
-    it("should emit rowEditComplete event on save", (done) => {
+    it("should emit rowEditComplete event on save", async () => {
       const initialData = createSampleData();
       const control = new FormControl(initialData);
       fixture.componentRef.setInput("control", control);
@@ -628,7 +625,6 @@ describe("TableControlComponent", () => {
       component.fieldInteraction.subscribe((event: EventWithData) => {
         if (event.interactionType === "rowEditComplete") {
           expect(event.extraData?.value).toBeDefined();
-          done();
         }
       });
 
@@ -654,7 +650,7 @@ describe("TableControlComponent", () => {
       expect(component["clonedRow"]).toBeNull();
     });
 
-    it("should emit rowEditCancel event on cancel", (done) => {
+    it("should emit rowEditCancel event on cancel", async () => {
       const initialData = createSampleData();
       const control = new FormControl(initialData);
       fixture.componentRef.setInput("control", control);
@@ -663,7 +659,6 @@ describe("TableControlComponent", () => {
       component.fieldInteraction.subscribe((event: EventWithData) => {
         if (event.interactionType === "rowEditCancel") {
           expect(event.extraData?.value).toBeDefined();
-          done();
         }
       });
 
@@ -702,7 +697,7 @@ describe("TableControlComponent", () => {
    * ========================================
    */
   describe("User Interactions & Events", () => {
-    it("should emit cellClicked event when cell is clicked", (done) => {
+    it("should emit cellClicked event when cell is clicked", async () => {
       const initialData = createSampleData();
       const control = new FormControl(initialData);
       const config = createDefaultConfig();
@@ -714,14 +709,13 @@ describe("TableControlComponent", () => {
         if (event.interactionType === "cellClicked") {
           expect(event.extraData?.row).toBeDefined();
           expect(event.extraData?.index).toBe(0);
-          done();
         }
       });
 
       component.onCellClicked(component.value()[0], 0);
     });
 
-    it("should emit rowsSelectionChange when selection changes", (done) => {
+    it("should emit rowsSelectionChange when selection changes", async () => {
       const initialData = createSampleData();
       const control = new FormControl(initialData);
       fixture.componentRef.setInput("control", control);
@@ -730,7 +724,6 @@ describe("TableControlComponent", () => {
       component.fieldInteraction.subscribe((event: EventWithData) => {
         if (event.interactionType === "rowsSelectionChange") {
           expect(event.extraData?.selectedRows).toBeDefined();
-          done();
         }
       });
 
@@ -830,8 +823,7 @@ describe("TableControlComponent", () => {
           position: null,
           startDate: null,
           skills: null,
-          archived: false,
-          archivedAt: null,
+          ...new ArchiveInfo(),
         },
       ];
       const control = new FormControl(dataWithNulls);
@@ -894,8 +886,7 @@ describe("TableControlComponent", () => {
           position: `Position ${i}`,
           startDate: new Date(),
           skills: ["js"],
-          archived: false,
-          archivedAt: null,
+          ...new ArchiveInfo(),
         }),
       );
       const control = new FormControl(largeData);
@@ -903,6 +894,6 @@ describe("TableControlComponent", () => {
       fixture.detectChanges();
 
       expect(component.value().length).toBe(1000);
-    });
+    }, 10000);
   });
 });

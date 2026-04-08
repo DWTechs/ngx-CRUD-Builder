@@ -51,13 +51,10 @@ export class ExportDialogComponent {
     { label: "Excel", value: "xls", disabled: !this.isExcelExportEnabled() },
   ]);
 
-  public readonly selectionOptions: SelectItem[] = [
-    { label: $localize`:@@exportDialog_AllData:Tout`, value: "all" },
-    {
-      label: $localize`:@@exportDialog_CurrentSelection:Sélection`,
-      value: "filtered",
-    },
-  ];
+  public readonly selectionOptions: Signal<SelectItem[]> = computed(() => [
+    { label: this.labels.exportDialog.all, value: "all" },
+    { label: this.labels.exportDialog.selection, value: "filtered" },
+  ]);
 
   public format: "csv" | "xls" = "csv";
   public selection: "all" | "filtered" = "all";

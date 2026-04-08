@@ -19,7 +19,7 @@
     <div class="container">
       <span class="label">{{ labels.exportDialog.chooseData }}</span>
       <p-selectButton
-        [options]="selectionOptions"
+        [options]="selectionOptions()"
         [(ngModel)]="selection"
         optionLabel="label"
         optionValue="value"

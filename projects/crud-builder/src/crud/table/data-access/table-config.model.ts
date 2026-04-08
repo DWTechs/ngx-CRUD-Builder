@@ -8,10 +8,7 @@ export class TableConfig {
   isDefault = false;
   isActive = false;
 
-  constructor(
-    component: string,
-    name: string = $localize`:@@Table_DefaultViewName:Default`,
-  ) {
+  constructor(component: string, name = "Default") {
     this.component = component;
     this.name = name;
     this.isActive = true;

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, signal } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { FormFieldTooltip } from "./field-tooltip";
@@ -7,12 +7,12 @@ import { FormFieldTooltip } from "./field-tooltip";
  * Test wrapper component
  */
 @Component({
-  template: ` <frm-field-tooltip [value]="tooltipValue" /> `,
+  template: ` <frm-field-tooltip [value]="tooltipValue()" /> `,
   standalone: true,
   imports: [FormFieldTooltip],
 })
 class TestWrapperComponent {
-  tooltipValue: string | undefined = "Test tooltip";
+  tooltipValue = signal<string | undefined>("Test tooltip");
 }
 
 describe("FormFieldTooltip", () => {
@@ -53,7 +53,7 @@ describe("FormFieldTooltip", () => {
 
   describe("Tooltip Content", () => {
     it("should display tooltip with string value", () => {
-      component.tooltipValue = "This is a tooltip";
+      component.tooltipValue.set("This is a tooltip");
       fixture.detectChanges();
 
       const tooltipComponent =
@@ -62,7 +62,7 @@ describe("FormFieldTooltip", () => {
     });
 
     it("should handle empty string value", () => {
-      component.tooltipValue = "";
+      component.tooltipValue.set("");
       fixture.detectChanges();
 
       const tooltipComponent =
@@ -71,7 +71,7 @@ describe("FormFieldTooltip", () => {
     });
 
     it("should handle undefined value", () => {
-      component.tooltipValue = undefined;
+      component.tooltipValue.set(undefined);
       fixture.detectChanges();
 
       const tooltipComponent =
@@ -80,7 +80,7 @@ describe("FormFieldTooltip", () => {
     });
 
     it("should render HTML content in tooltip", () => {
-      component.tooltipValue = "<strong>Bold text</strong>";
+      component.tooltipValue.set("<strong>Bold text</strong>");
       fixture.detectChanges();
 
       const tooltipComponent =
@@ -89,7 +89,7 @@ describe("FormFieldTooltip", () => {
     });
 
     it("should handle multiline text", () => {
-      component.tooltipValue = "Line 1<br>Line 2<br>Line 3";
+      component.tooltipValue.set("Line 1<br>Line 2<br>Line 3");
       fixture.detectChanges();
 
       const tooltipComponent =
@@ -100,7 +100,7 @@ describe("FormFieldTooltip", () => {
     });
 
     it("should handle special characters", () => {
-      component.tooltipValue = "Special: & < > \" '";
+      component.tooltipValue.set("Special: & < > \" '");
       fixture.detectChanges();
 
       const tooltipComponent =
@@ -109,8 +109,9 @@ describe("FormFieldTooltip", () => {
     });
 
     it("should handle long text", () => {
-      component.tooltipValue =
-        "This is a very long tooltip text that should be displayed properly without any issues regardless of its length.";
+      component.tooltipValue.set(
+        "This is a very long tooltip text that should be displayed properly without any issues regardless of its length.",
+      );
       fixture.detectChanges();
 
       const tooltipComponent =
@@ -121,13 +122,13 @@ describe("FormFieldTooltip", () => {
 
   describe("Value Changes", () => {
     it("should update when value changes", () => {
-      component.tooltipValue = "Initial value";
+      component.tooltipValue.set("Initial value");
       fixture.detectChanges();
 
       let tooltipComponent = fixture.debugElement.children[0].componentInstance;
       expect(tooltipComponent.value()).toBe("Initial value");
 
-      component.tooltipValue = "Updated value";
+      component.tooltipValue.set("Updated value");
       fixture.detectChanges();
 
       tooltipComponent = fixture.debugElement.children[0].componentInstance;
@@ -135,13 +136,13 @@ describe("FormFieldTooltip", () => {
     });
 
     it("should update from undefined to string", () => {
-      component.tooltipValue = undefined;
+      component.tooltipValue.set(undefined);
       fixture.detectChanges();
 
       let tooltipComponent = fixture.debugElement.children[0].componentInstance;
       expect(tooltipComponent.value()).toBeUndefined();
 
-      component.tooltipValue = "Now has value";
+      component.tooltipValue.set("Now has value");
       fixture.detectChanges();
 
       tooltipComponent = fixture.debugElement.children[0].componentInstance;
@@ -149,13 +150,13 @@ describe("FormFieldTooltip", () => {
     });
 
     it("should update from string to undefined", () => {
-      component.tooltipValue = "Has value";
+      component.tooltipValue.set("Has value");
       fixture.detectChanges();
 
       let tooltipComponent = fixture.debugElement.children[0].componentInstance;
       expect(tooltipComponent.value()).toBe("Has value");
 
-      component.tooltipValue = undefined;
+      component.tooltipValue.set(undefined);
       fixture.detectChanges();
 
       tooltipComponent = fixture.debugElement.children[0].componentInstance;
@@ -172,7 +173,7 @@ describe("FormFieldTooltip", () => {
     });
 
     it("should render span with innerHTML binding inside template", () => {
-      component.tooltipValue = "Template content";
+      component.tooltipValue.set("Template content");
       fixture.detectChanges();
 
       // Template content is rendered by PrimeNG tooltip directive
@@ -184,14 +185,14 @@ describe("FormFieldTooltip", () => {
 
   describe("Edge Cases", () => {
     it("should handle null value safely", () => {
-      component.tooltipValue = null as any;
+      component.tooltipValue.set(null as any);
       fixture.detectChanges();
 
       expect(() => fixture.detectChanges()).not.toThrow();
     });
 
     it("should handle numeric string", () => {
-      component.tooltipValue = "12345";
+      component.tooltipValue.set("12345");
       fixture.detectChanges();
 
       const tooltipComponent =
@@ -200,7 +201,7 @@ describe("FormFieldTooltip", () => {
     });
 
     it("should handle whitespace-only string", () => {
-      component.tooltipValue = "   ";
+      component.tooltipValue.set("   ");
       fixture.detectChanges();
 
       const tooltipComponent =
@@ -209,7 +210,7 @@ describe("FormFieldTooltip", () => {
     });
 
     it("should handle string with only HTML tags", () => {
-      component.tooltipValue = "<br><br>";
+      component.tooltipValue.set("<br><br>");
       fixture.detectChanges();
 
       const tooltipComponent =
@@ -218,7 +219,7 @@ describe("FormFieldTooltip", () => {
     });
 
     it("should handle Unicode characters", () => {
-      component.tooltipValue = "Unicode: 🎉 ñ é ü";
+      component.tooltipValue.set("Unicode: 🎉 ñ é ü");
       fixture.detectChanges();
 
       const tooltipComponent =
@@ -240,10 +241,10 @@ describe("FormFieldTooltip", () => {
     });
 
     it("should update on input signal change", () => {
-      component.tooltipValue = "First";
+      component.tooltipValue.set("First");
       fixture.detectChanges();
 
-      component.tooltipValue = "Second";
+      component.tooltipValue.set("Second");
       fixture.detectChanges();
 
       const tooltipComponent =

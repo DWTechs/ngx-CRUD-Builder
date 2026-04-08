@@ -1,18 +1,18 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { SnackbarService } from "../../../../core/utils/snackbar/snackbar.service";
 import saveAs from "file-saver";
 import { delay, retry, tap } from "rxjs";
+import { SnackbarService } from "../../../../core/utils/snackbar/snackbar.service";
+import { CRUD_LABELS } from "../i18n/crud-labels.token";
 
 const delayBetweenTries = 2000;
 const maxRetry = 5;
-
-const noPrintingInfoMessage = $localize`:@@Download_PrintingErrorMessage:Le fichier n'est pas un PDF, l'impression n'est pas disponible. Il sera téléchargé à la place.`;
 
 @Injectable({ providedIn: "root" })
 export class DownloadService {
   private readonly http = inject(HttpClient);
   private readonly snackbarService = inject(SnackbarService);
+  private readonly labels = inject(CRUD_LABELS);
 
   /**
    * Downloads a blob as a file or opens it in a print module for PDFs.
@@ -42,7 +42,7 @@ export class DownloadService {
         this.openPrintModule(blob);
         return;
       }
-      this.snackbarService.displayInfo(noPrintingInfoMessage);
+      this.snackbarService.displayInfo(this.labels.download.noPdfPrintWarning);
     }
     // Otherwise, download the file
     saveAs(blob, fileName);

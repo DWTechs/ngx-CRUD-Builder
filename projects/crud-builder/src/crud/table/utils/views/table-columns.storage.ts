@@ -1,16 +1,5 @@
 import { inject, Injectable, signal } from "@angular/core";
 import { takeUntilDestroyed, toObservable } from "@angular/core/rxjs-interop";
-import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
-import { crudItemToColumn } from "../../../core/utils/table/crud-item-to-column";
-import { TableColumn } from "../../../core/utils/table/table-column.model";
-import { ColumnResizeEvent } from "./table-config.model";
-import {
-  ColumnConfig,
-  ExtendedTableConfig,
-  TableConfig,
-} from "../../data-access/table-config.model";
-import { TableConfigService } from "../../data-access/table-config.service";
-import { LocalTableColumnsStorage } from "./local-table-columns.storage";
 import {
   combineLatest,
   filter,
@@ -20,11 +9,24 @@ import {
   switchMap,
   tap,
 } from "rxjs";
+import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
+import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
+import { crudItemToColumn } from "../../../core/utils/table/crud-item-to-column";
+import { TableColumn } from "../../../core/utils/table/table-column.model";
+import {
+  ColumnConfig,
+  ExtendedTableConfig,
+  TableConfig,
+} from "../../data-access/table-config.model";
+import { TableConfigService } from "../../data-access/table-config.service";
+import { LocalTableColumnsStorage } from "./local-table-columns.storage";
+import { ColumnResizeEvent } from "./table-config.model";
 
 @Injectable()
 export class TableColumnsStorage {
   private readonly preferencesService = inject(TableConfigService);
   private readonly localTableColumnsStorage = inject(LocalTableColumnsStorage);
+  private readonly labels = inject(CRUD_LABELS);
 
   /**
    * When the service is init, we need to get the views
@@ -163,7 +165,7 @@ export class TableColumnsStorage {
       });
     // Build default view
     const defaultView: ExtendedTableConfig = {
-      ...new TableConfig(componentId),
+      ...new TableConfig(componentId, this.labels.table.defaultViewName),
       columns: defaultColumns,
       isDefault: true,
       isActive: !userViews.length,

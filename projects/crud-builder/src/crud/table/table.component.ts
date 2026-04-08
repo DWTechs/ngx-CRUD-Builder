@@ -32,6 +32,7 @@ import { CrudItemOptions } from "../core/models/crud-item-options.model";
 import { EditionDialogComponent } from "../core/ui/edition-dialog/edition-dialog.component";
 import { isEqual } from "../core/utils/arrays/is-equal.utils";
 import { Calls } from "../core/utils/crud-service/crud.model";
+import { CRUD_LABELS } from "../core/utils/i18n/crud-labels.token";
 import { TableLoadingService } from "../core/utils/loading/table-loading.service";
 import { CrudLoader } from "../core/utils/table/crud-loader.class";
 import { ExcelExportMode } from "../core/utils/table/export-mode.model";
@@ -94,6 +95,7 @@ export class TableComponent<TData extends CrudItemBase>
   private readonly state = inject(TableStateService);
   private readonly columnsStorage = inject(TableColumnsStorage);
   private readonly messageService = inject(MessageService);
+  private readonly labels = inject(CRUD_LABELS);
 
   // Inputs
   /**
@@ -547,8 +549,8 @@ export class TableComponent<TData extends CrudItemBase>
         if (!success) {
           this.messageService.add({
             severity: "error",
-            summary: $localize`:@@Table_ExportFailed:Echec de l'export`,
-            detail: $localize`:@@Table_ExportFailedDetail:Une erreur est survenue lors de l'export des données.`,
+            summary: this.labels.table.exportFailedTitle,
+            detail: this.labels.table.exportFailedDetail,
           });
         }
       });
@@ -678,8 +680,8 @@ export class TableComponent<TData extends CrudItemBase>
     const count = ids.length;
     const message =
       count === 1
-        ? $localize`:@@Table_DeleteConfirmationMessageSingle:Etes-vous sûr de vouloir archiver cet élément ?`
-        : $localize`:@@Table_DeleteConfirmationMessageMultiple:Etes-vous sûr de vouloir archiver ces ${count} éléments ?`;
+        ? this.labels.table.deleteConfirmationSingle
+        : this.labels.table.deleteConfirmationMultiple(count);
     const acceptFn = () => {
       this.loader.archive(ids).subscribe(() => {
         this.hideEditionDialog();
@@ -692,8 +694,8 @@ export class TableComponent<TData extends CrudItemBase>
     const count = ids.length;
     const message =
       count === 1
-        ? $localize`:@@Table_RestoreConfirmationMessageSingle:Etes-vous sûr de vouloir restaurer cet élément ?`
-        : $localize`:@@Table_RestoreConfirmationMessageMultiple:Etes-vous sûr de vouloir restaurer ces ${count} éléments ?`;
+        ? this.labels.table.restoreConfirmationSingle
+        : this.labels.table.restoreConfirmationMultiple(count);
     const acceptFn = () => {
       this.loader.restore(ids).subscribe(() => {
         this.hideEditionDialog();
@@ -705,10 +707,10 @@ export class TableComponent<TData extends CrudItemBase>
   private confirm(message: string, acceptFn: () => void): void {
     this.confirmationService.confirm({
       message,
-      header: $localize`:@@Table_ConfirmationHeader:Confirmation`,
+      header: this.labels.table.confirmationHeader,
       icon: "pi pi-info-circle",
-      rejectLabel: $localize`:@@Table_ConfirmationCancel:Annuler`,
-      acceptLabel: $localize`:@@Table_ConfirmationConfirm:Confirmer`,
+      rejectLabel: this.labels.table.confirmationCancel,
+      acceptLabel: this.labels.table.confirmationConfirm,
       accept: acceptFn,
     });
   }

@@ -1,19 +1,20 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { provideAnimations } from "@angular/platform-browser/animations";
+import { of } from "rxjs";
+import type { MockedObject } from "vitest";
 import { SnackbarService } from "../../../../../core/utils/snackbar/snackbar.service";
 import { CONTROL_TYPES } from "../../../../core/models/control-type.model";
 import { CrudItemOptions } from "../../../../core/models/crud-item-options.model";
 import { DownloadService } from "../../../../core/utils/download/download.service";
 import { FileInfo } from "./file-info.class";
-import { of } from "rxjs";
 import { FileUploadInputComponent } from "./file-upload-input.component";
 
 describe("FileUploadInputComponent", () => {
   let component: FileUploadInputComponent;
   let fixture: ComponentFixture<FileUploadInputComponent>;
-  let mockSnackbarService: jasmine.SpyObj<SnackbarService>;
-  let mockDownloadService: jasmine.SpyObj<DownloadService>;
+  let mockSnackbarService: MockedObject<SnackbarService>;
+  let mockDownloadService: MockedObject<DownloadService>;
 
   const createDefaultConfig = (): CrudItemOptions => ({
     key: "testFile",
@@ -22,14 +23,14 @@ describe("FileUploadInputComponent", () => {
   });
 
   beforeEach(async () => {
-    mockSnackbarService = jasmine.createSpyObj("SnackbarService", [
-      "displayError",
-      "displaySuccess",
-    ]);
-    mockDownloadService = jasmine.createSpyObj("DownloadService", [
-      "tryDownloadFile",
-    ]);
-    mockDownloadService.tryDownloadFile.and.returnValue(of(new Blob()));
+    mockSnackbarService = {
+      displayError: vi.fn().mockName("SnackbarService.displayError"),
+      displaySuccess: vi.fn().mockName("SnackbarService.displaySuccess"),
+    } as MockedObject<SnackbarService>;
+    mockDownloadService = {
+      tryDownloadFile: vi.fn().mockName("DownloadService.tryDownloadFile"),
+    } as MockedObject<DownloadService>;
+    mockDownloadService.tryDownloadFile.mockReturnValue(of(new Blob()));
 
     await TestBed.configureTestingModule({
       imports: [FileUploadInputComponent, ReactiveFormsModule],
@@ -309,7 +310,7 @@ describe("FileUploadInputComponent", () => {
   describe("User Interactions & Events", () => {
     it("should emit uploadFile event on file upload", async () => {
       fixture.detectChanges();
-      spyOn(component, "emitInteractionEvent");
+      vi.spyOn(component, "emitInteractionEvent");
 
       const file = new File(["test"], "test.txt", { type: "text/plain" });
       const fileInput = document.createElement("input");
@@ -323,13 +324,13 @@ describe("FileUploadInputComponent", () => {
 
       expect(component.emitInteractionEvent).toHaveBeenCalledWith(
         "uploadFile",
-        jasmine.any(Array),
+        expect.any(Array),
       );
     });
 
     it("should emit clearFile event on file removal", () => {
       fixture.detectChanges();
-      spyOn(component, "emitInteractionEvent");
+      vi.spyOn(component, "emitInteractionEvent");
 
       const fileInfo = new FileInfo({
         type: "local",
@@ -351,7 +352,7 @@ describe("FileUploadInputComponent", () => {
 
     it("should emit clearAllFiles event on clear all", () => {
       fixture.detectChanges();
-      spyOn(component, "emitInteractionEvent");
+      vi.spyOn(component, "emitInteractionEvent");
 
       const fileInput = document.createElement("input");
       fileInput.type = "file";
@@ -391,7 +392,7 @@ describe("FileUploadInputComponent", () => {
   describe("Drag & Drop", () => {
     it("should set isDraggedOver on drag over", () => {
       const event = new DragEvent("dragover");
-      spyOn(event, "preventDefault");
+      vi.spyOn(event, "preventDefault");
 
       component.onDragOver(event);
 
@@ -401,7 +402,7 @@ describe("FileUploadInputComponent", () => {
 
     it("should reset isDraggedOver on drag leave", () => {
       const event = new DragEvent("dragleave");
-      spyOn(event, "preventDefault");
+      vi.spyOn(event, "preventDefault");
 
       component.isDraggedOver = true;
       component.onDragLeave(event);
@@ -427,7 +428,7 @@ describe("FileUploadInputComponent", () => {
         value: dataTransfer,
         writable: false,
       });
-      spyOn(event, "preventDefault");
+      vi.spyOn(event, "preventDefault");
 
       component.onDrop(event, fileInput);
       // Since onDrop doesn't await onFileUploaded, we need to manually call it with await
@@ -440,7 +441,7 @@ describe("FileUploadInputComponent", () => {
 
     it("should prevent default on drag events", () => {
       const event = new DragEvent("dragover");
-      spyOn(event, "preventDefault");
+      vi.spyOn(event, "preventDefault");
 
       component.prevent(event);
 
@@ -527,8 +528,8 @@ describe("FileUploadInputComponent", () => {
         src: "data:text/plain;base64,Y29udGVudA==",
       });
 
-      spyOn(window.URL, "createObjectURL").and.returnValue("blob:url");
-      spyOn(window.URL, "revokeObjectURL");
+      vi.spyOn(window.URL, "createObjectURL").mockReturnValue("blob:url");
+      vi.spyOn(window.URL, "revokeObjectURL");
 
       component.onDownload(fileInfo);
 

@@ -18,6 +18,8 @@ export interface CrudLabels {
     header: string;
     chooseFormat: string;
     chooseData: string;
+    all: string;
+    selection: string;
     cancel: string;
     export: string;
   };
@@ -32,6 +34,7 @@ export interface CrudLabels {
     delete: string;
     validate: string;
     cancel: string;
+    deleteConfirmation: string;
   };
   tableActions: {
     edit: string;
@@ -125,6 +128,21 @@ export interface CrudLabels {
   tableRegular: {
     currentPageReport: (first: string, last: string, total: string) => string;
   };
+  table: {
+    exportFailedTitle: string;
+    exportFailedDetail: string;
+    deleteConfirmationSingle: string;
+    deleteConfirmationMultiple: (count: number) => string;
+    restoreConfirmationSingle: string;
+    restoreConfirmationMultiple: (count: number) => string;
+    confirmationHeader: string;
+    confirmationCancel: string;
+    confirmationConfirm: string;
+    defaultViewName: string;
+  };
+  download: {
+    noPdfPrintWarning: string;
+  };
 }
 
 export const DEFAULT_CRUD_LABELS: CrudLabels = {
@@ -137,6 +155,8 @@ export const DEFAULT_CRUD_LABELS: CrudLabels = {
     header: "Exporter les données",
     chooseFormat: "Choisir le format",
     chooseData: "Quelles données ?",
+    all: "Tout",
+    selection: "Sélection",
     cancel: "Annuler",
     export: "Exporter",
   },
@@ -151,6 +171,7 @@ export const DEFAULT_CRUD_LABELS: CrudLabels = {
     delete: "Supprimer",
     validate: "Valider",
     cancel: "Annuler",
+    deleteConfirmation: "Êtes-vous sûr de vouloir supprimer cette vue ?",
   },
   tableActions: {
     edit: "Editer",
@@ -250,6 +271,25 @@ export const DEFAULT_CRUD_LABELS: CrudLabels = {
   tableRegular: {
     currentPageReport: (first, last, total) =>
       `De ${first} à ${last} sur ${total} élément(s)`,
+  },
+  table: {
+    exportFailedTitle: "Echec de l'export",
+    exportFailedDetail: "Une erreur est survenue lors de l'export des données.",
+    deleteConfirmationSingle: "Etes-vous sûr de vouloir archiver cet élément ?",
+    deleteConfirmationMultiple: (count) =>
+      `Etes-vous sûr de vouloir archiver ces ${count} éléments ?`,
+    restoreConfirmationSingle:
+      "Etes-vous sûr de vouloir restaurer cet élément ?",
+    restoreConfirmationMultiple: (count) =>
+      `Etes-vous sûr de vouloir restaurer ces ${count} éléments ?`,
+    confirmationHeader: "Confirmation",
+    confirmationCancel: "Annuler",
+    confirmationConfirm: "Confirmer",
+    defaultViewName: "Default",
+  },
+  download: {
+    noPdfPrintWarning:
+      "Le fichier n'est pas un PDF, l'impression n'est pas disponible. Il sera téléchargé à la place.",
   },
 };
 

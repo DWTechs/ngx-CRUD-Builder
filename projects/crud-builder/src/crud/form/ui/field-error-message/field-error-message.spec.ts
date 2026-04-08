@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormControl } from "@angular/forms";
-import { BASE_FORM_ERROR_MESSAGES } from "../../utils/form-error-messages";
+import { DEFAULT_CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
 import { APP_FORM_CONFIG } from "../../utils/form.injection-token";
 import { FormErrorMessage } from "./field-error-message";
 
@@ -40,7 +40,9 @@ describe("FormErrorMessage", () => {
       fixture.componentRef.setInput("controlErrors", errors);
       fixture.detectChanges();
 
-      expect(component.errorMessage()).toBe(BASE_FORM_ERROR_MESSAGES.required);
+      expect(component.errorMessage()).toBe(
+        DEFAULT_CRUD_LABELS.validators.required,
+      );
     });
 
     it("should display email invalid error message", () => {
@@ -49,7 +51,7 @@ describe("FormErrorMessage", () => {
       fixture.detectChanges();
 
       expect(component.errorMessage()).toBe(
-        BASE_FORM_ERROR_MESSAGES.emailInvalid,
+        DEFAULT_CRUD_LABELS.validators.emailInvalid,
       );
     });
 
@@ -96,7 +98,7 @@ describe("FormErrorMessage", () => {
 
       const message = component.errorMessage();
       // The first error key is used (Object.keys returns in insertion order)
-      expect(message).toBe(BASE_FORM_ERROR_MESSAGES.required);
+      expect(message).toBe(DEFAULT_CRUD_LABELS.validators.required);
     });
 
     it("should display default message for unknown error key", () => {
@@ -104,7 +106,9 @@ describe("FormErrorMessage", () => {
       fixture.componentRef.setInput("controlErrors", errors);
       fixture.detectChanges();
 
-      expect(component.errorMessage()).toBe(BASE_FORM_ERROR_MESSAGES["*"]);
+      expect(component.errorMessage()).toBe(
+        DEFAULT_CRUD_LABELS.validators.invalid,
+      );
     });
 
     it("should display pattern error message with expected value", () => {
@@ -164,7 +168,7 @@ describe("FormErrorMessage", () => {
         fixture.nativeElement.querySelector("small");
       expect(smallElement).toBeTruthy();
       expect(smallElement.textContent?.trim()).toBe(
-        BASE_FORM_ERROR_MESSAGES.required,
+        DEFAULT_CRUD_LABELS.validators.required,
       );
     });
 
@@ -186,7 +190,7 @@ describe("FormErrorMessage", () => {
       const smallElement: HTMLElement =
         fixture.nativeElement.querySelector("small");
       expect(smallElement.getAttribute("title")).toBe(
-        BASE_FORM_ERROR_MESSAGES.required,
+        DEFAULT_CRUD_LABELS.validators.required,
       );
     });
 
@@ -198,7 +202,7 @@ describe("FormErrorMessage", () => {
       let smallElement: HTMLElement =
         fixture.nativeElement.querySelector("small");
       expect(smallElement.textContent?.trim()).toBe(
-        BASE_FORM_ERROR_MESSAGES.required,
+        DEFAULT_CRUD_LABELS.validators.required,
       );
 
       const errors2 = { emailInvalid: true };
@@ -207,7 +211,7 @@ describe("FormErrorMessage", () => {
 
       smallElement = fixture.nativeElement.querySelector("small");
       expect(smallElement.textContent?.trim()).toBe(
-        BASE_FORM_ERROR_MESSAGES.emailInvalid,
+        DEFAULT_CRUD_LABELS.validators.emailInvalid,
       );
     });
   });
@@ -220,7 +224,9 @@ describe("FormErrorMessage", () => {
       fixture.componentRef.setInput("controlErrors", control.errors);
       fixture.detectChanges();
 
-      expect(component.errorMessage()).toBe(BASE_FORM_ERROR_MESSAGES.required);
+      expect(component.errorMessage()).toBe(
+        DEFAULT_CRUD_LABELS.validators.required,
+      );
     });
 
     it("should handle null errors from FormControl", () => {

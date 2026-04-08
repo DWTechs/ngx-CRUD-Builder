@@ -1239,6 +1239,123 @@ controlOptions: {
 </frm-form>
 ```
 
+## Internationalisation (i18n)
+
+All UI labels in the form component and its sub-controls (validators, date picker, file upload, etc.) are driven by the `CRUD_LABELS` injection token. The library ships with French defaults, but every string can be overridden at the application level without touching library code.
+
+### Setup
+
+Use `provideCrudLabels()` in your `ApplicationConfig` (or any component/route providers array) and pass only the sections you want to override — the rest falls back to the French defaults.
+
+```typescript
+// app.config.ts
+import { provideCrudLabels } from '@altengroup/crud-builder';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideCrudLabels({
+      form: {
+        reset: 'Clear',
+        submit: 'Save',
+        noFields: 'No fields available',
+      },
+      validators: {
+        required: 'This field is required',
+        emailInvalid: 'Invalid email address',
+        minlength: 'Too short ({requiredLength} characters minimum)',
+        maxlength: 'Too long ({requiredLength} characters maximum)',
+        min: 'Value must be ≥ {min}',
+        max: 'Value must be ≤ {max}',
+        invalid: 'Invalid value',
+        unknownValue: 'Please select one of the suggested values',
+        maxFileSize: 'File exceeds the maximum allowed size',
+      },
+    }),
+  ],
+};
+```
+
+### Translatable sections for the form
+
+| Section | Keys | Usage |
+|---|---|---|
+| `form` | `reset`, `submit`, `noFields` | Form action buttons and empty state |
+| `validators` | `required`, `invalid`, `emailInvalid`, `minlength`, `maxlength`, `min`, `max`, `unknownValue`, `maxFileSize` | Validation error messages |
+| `patterns` | `nameWithDashes`, `lettersWithSpaces`, `lettersWithoutSpaces`, `alphanumericalWithSpaces`, `alphanumerical`, `onlyCaps`, `integer`, `phoneNumber`, `withExtension` | Pattern validation messages |
+| `arrayElement` | `delete` | Delete button label in array sub-forms |
+| `dateControl` | `close`, `clear`, `today`, `validate` | Date picker overlay buttons |
+| `richTextEditor` | `editHtml` | Rich text editor action label |
+| `fileUpload` | `chooseFile`, `dragDropLabel`, `uploadedFilesTitle`, `canAddMore`, `cannotAddMore`, `maxFileSizeExceeded(fileName, maxFileSize)` | File upload control labels |
+| `autocomplete` | `newOption` | Label for the "create new option" entry |
+| `picklist` | `sourceHeader`, `targetHeader` | Picklist column headers |
+| `tableControl` | `add`, `delete`, `noData`, `actionsColumnHeader`, `multiselectValidate`, `multiselectUnsavedChanges` | Inline table control inside forms |
+
+### English override example
+
+```typescript
+provideCrudLabels({
+  form: {
+    reset: 'Reset',
+    submit: 'Submit',
+    noFields: 'No fields available',
+  },
+  validators: {
+    required: 'This field is required',
+    invalid: 'Invalid value',
+    unknownValue: 'Please select a suggested value',
+    emailInvalid: 'Invalid email address',
+    minlength: 'Minimum {requiredLength} characters required',
+    maxlength: 'Maximum {requiredLength} characters allowed',
+    max: 'Must be ≤ {max}',
+    min: 'Must be ≥ {min}',
+    maxFileSize: 'File size exceeds the limit',
+  },
+  patterns: {
+    nameWithDashes: 'Allowed: letters, spaces and hyphens',
+    lettersWithSpaces: 'Allowed: letters and spaces',
+    lettersWithoutSpaces: 'Allowed: letters only',
+    alphanumericalWithSpaces: 'Allowed: letters, digits and spaces',
+    alphanumerical: 'Allowed: letters and digits',
+    onlyCaps: 'Allowed: uppercase letters and digits',
+    integer: 'An integer is required',
+    phoneNumber: 'Invalid phone number format',
+    withExtension: 'A file extension is required',
+  },
+  arrayElement: { delete: 'Remove' },
+  dateControl: {
+    close: 'Close',
+    clear: 'Clear',
+    today: 'Today',
+    validate: 'Apply',
+  },
+  richTextEditor: { editHtml: 'Edit HTML' },
+  fileUpload: {
+    chooseFile: 'Choose a file',
+    dragDropLabel: 'Drag & drop files here, or click to select',
+    uploadedFilesTitle: 'Uploaded files',
+    canAddMore: 'You can add multiple files.',
+    cannotAddMore: 'Only one file allowed. Remove the current file to upload a new one.',
+    maxFileSizeExceeded: (fileName, maxFileSize) =>
+      `"${fileName}" exceeds the ${maxFileSize}-byte limit.`,
+  },
+  autocomplete: { newOption: '(new)' },
+  picklist: { sourceHeader: 'Available', targetHeader: 'Selected' },
+})
+```
+
+### Button labels per instance
+
+For one-off overrides on a single form instance (e.g. a specific page), you can still pass `submitButtonLabel` / `resetButtonLabel` inputs directly — they take precedence over the token:
+
+```typescript
+<frm-form
+  [(model)]="formData"
+  [config]="formConfig"
+  submitButtonLabel="Save changes"
+  resetButtonLabel="Discard">
+</frm-form>
+```
+
 ## Best Practices
 
 1. **Performance**: Use `forceReload` sparingly as it recreates the entire form

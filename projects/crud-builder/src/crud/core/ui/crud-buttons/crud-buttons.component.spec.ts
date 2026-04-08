@@ -11,7 +11,6 @@ import { ButtonType, CrudButtonComponent } from "./crud-buttons.component";
       [label]="label"
       [icon]="icon"
       [severity]="severity"
-      [functionalityKey]="functionalityKey"
       (clicked)="onButtonClick()"
     />`,
   standalone: true,
@@ -24,8 +23,7 @@ class TestWrapperComponent {
   label = "";
   icon = "";
   severity: ButtonSeverity | undefined = undefined;
-  functionalityKey = "";
-  onButtonClick = jasmine.createSpy("onButtonClick");
+  onButtonClick = vi.fn();
 }
 
 describe("CrudButtonComponent", () => {
@@ -52,10 +50,10 @@ describe("CrudButtonComponent", () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TestWrapperComponent);
-    fixture.detectChanges();
   });
 
   it("should create and render validate button", () => {
+    fixture.detectChanges();
     expect(fixture).toBeTruthy();
     const button: HTMLElement = fixture.nativeElement.querySelector("button");
     expect(button).toBeTruthy();
@@ -211,23 +209,6 @@ describe("CrudButtonComponent", () => {
       const iconElement = button?.querySelector(".pi-heart");
       expect(iconElement).toBeTruthy();
     });
-
-    it("should handle functionalityKey input", () => {
-      fixture.componentInstance.type = "delete";
-      fixture.componentInstance.functionalityKey = "user.delete";
-      fixture.detectChanges();
-
-      const button = getPButton("delete");
-      expect(button).toBeTruthy();
-    });
-
-    it("should render button without functionalityKey", () => {
-      fixture.componentInstance.type = "edit";
-      fixture.detectChanges();
-
-      const button = getPButton("edit");
-      expect(button).toBeTruthy();
-    });
   });
 
   describe("Button States Combinations", () => {
@@ -278,7 +259,7 @@ describe("CrudButtonComponent", () => {
       fixture.detectChanges();
 
       const spy = fixture.componentInstance.onButtonClick;
-      spy.calls.reset();
+      spy.mockClear();
 
       const buttonElement = getButton("validate");
       buttonElement?.click();
@@ -292,7 +273,7 @@ describe("CrudButtonComponent", () => {
       fixture.detectChanges();
 
       const spy = fixture.componentInstance.onButtonClick;
-      spy.calls.reset();
+      spy.mockClear();
 
       const buttonElement = getButton("validate");
       buttonElement?.click();
