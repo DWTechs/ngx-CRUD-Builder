@@ -1,11 +1,14 @@
 export type HistorizedData<T> = {
-  who: string;
-  tstamp: number;
-  old_val: T;
+  tstamp: string;
+  table_name: string;
+  operation: string;
+  updaterId: number;
+  updaterName: string;
+  val: T;
 };
 
 export interface FullHistoryRow<T> extends HistorizedData<T> {
-  id: number;
+  id: string;
   changes: {
     oldValue: unknown;
     newValue: unknown;

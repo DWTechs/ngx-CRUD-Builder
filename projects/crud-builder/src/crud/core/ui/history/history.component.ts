@@ -27,7 +27,7 @@ export class HistoryComponent<TData> {
   protected readonly labels = inject(CRUD_LABELS);
   public readonly data = input.required<{
     rows: HistorizedData<TData>[];
-    total: number;
+    total: number | undefined;
   } | null>();
 
   public readonly config = input.required<CrudItemOptions[]>();
@@ -39,9 +39,9 @@ export class HistoryComponent<TData> {
   public readonly selected = output<HistorizedData<TData>>();
 
   public readonly DATE_FORMAT = DATE_FORMAT;
-  public selectedDate: number | null = null;
+  public selectedDate: string | null = null;
 
-  public expandedRows: Record<number, boolean> = {};
+  public expandedRows: Record<string, boolean> = {};
 
   public showVersion(entry: HistorizedData<TData>) {
     this.selectedDate = entry.tstamp;
@@ -51,8 +51,8 @@ export class HistoryComponent<TData> {
   private buildHistoryTable() {
     const rows = this.data()?.rows ?? [];
     return rows.map((row, rowIndex) => {
-      const currentRow = row.old_val;
-      const lastRow = rows[rowIndex + 1]?.old_val;
+      const currentRow = row.val;
+      const lastRow = rows[rowIndex + 1]?.val;
       const changes = [];
       for (const propKey in currentRow) {
         const change = this.buildChangesTable(

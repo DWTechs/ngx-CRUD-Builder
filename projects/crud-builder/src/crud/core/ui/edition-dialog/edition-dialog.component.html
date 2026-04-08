@@ -30,7 +30,7 @@
           <p-card>
             <ng-template #header>
               <span>
-                {{ labels.editionDialog.historyHeader }} ({{ historyData.total }})
+                {{ labels.editionDialog.historyHeader }} ({{ historyData.total ?? historyData.rows.length }})
               </span>
             </ng-template>
             <shared-history
