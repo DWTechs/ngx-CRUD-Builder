@@ -17,7 +17,7 @@ import { CRUD_LABELS } from "../../utils/i18n/crud-labels.token";
 import { FullHistoryRow, HistorizedData } from "./history.model";
 
 @Component({
-  selector: "shared-history",
+  selector: "crd-history",
   templateUrl: "./history.component.html",
   styleUrls: ["./history.component.scss"],
   imports: [TableModule, SharedModule, DatePipe, ButtonModule],

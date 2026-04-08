@@ -55,6 +55,7 @@ export interface CrudLabels {
     property: string;
     value: string;
     previousValue: string;
+    noChanges: string;
   };
   editionDialog: {
     historyHeader: string;
@@ -192,6 +193,7 @@ export const DEFAULT_CRUD_LABELS: CrudLabels = {
     property: "Propriété",
     value: "Valeur",
     previousValue: "Ancienne valeur",
+    noChanges: "Aucun changement",
   },
   editionDialog: {
     historyHeader: "Historique des modifications",

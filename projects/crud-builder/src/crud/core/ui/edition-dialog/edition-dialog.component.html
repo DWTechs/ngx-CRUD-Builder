@@ -33,7 +33,7 @@
                 {{ labels.editionDialog.historyHeader }} ({{ historyData.total ?? historyData.rows.length }})
               </span>
             </ng-template>
-            <shared-history
+            <crd-history
               [data]="historyData"
               [config]="config()"
               (selected)="onHistorySelect($event)"
