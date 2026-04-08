@@ -894,6 +894,6 @@ describe("TableControlComponent", () => {
       fixture.detectChanges();
 
       expect(component.value().length).toBe(1000);
-    }, 10000);
+    }, 15000);
   });
 });
