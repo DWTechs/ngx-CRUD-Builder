@@ -166,42 +166,51 @@ export class TableDemoMockService {
       // Create a realistic history with multiple versions showing changes over time
       // Note: Array should be ordered from newest to oldest (descending timestamp)
       const now = Date.now();
-      const oneDay = 24 * 60 * 60 * 1000;
-      const oneWeek = 7 * oneDay;
-      const oneMonth = 30 * oneDay;
+      const oneWeek = 7 * 24 * 60 * 60 * 1000;
+      const oneMonth = 30 * 24 * 60 * 60 * 1000;
 
       const mockedHistory: HistorizedData<DemoUser>[] = [
         // Current version (most recent)
         {
-          old_val: { ...user },
-          tstamp: now,
-          who: "admin@example.com",
+          val: { ...user },
+          tstamp: new Date(now).toISOString(),
+          table_name: "users",
+          operation: "UPDATE",
+          updaterId: 1,
+          updaterName: "admin@example.com",
         },
         // Previous version - salary and subscription changed
         {
-          old_val: {
+          val: {
             ...user,
             salary: (user.salary || 50000) - 5000,
             subscription: user.subscription === "premium" ? "basic" : "premium",
           },
-          tstamp: now - oneWeek,
-          who: "hr.manager@example.com",
+          tstamp: new Date(now - oneWeek).toISOString(),
+          table_name: "users",
+          operation: "UPDATE",
+          updaterId: 2,
+          updaterName: "hr.manager@example.com",
         },
         // Older version - email and city changed
         {
-          old_val: {
+          val: {
             ...user,
             salary: (user.salary || 50000) - 5000,
             subscription: user.subscription === "premium" ? "basic" : "premium",
             email: user.email.replace("@example.com", ".old@example.com"),
             city: user.city === "paris" ? "lyon" : "paris",
           },
-          tstamp: now - oneMonth,
-          who: user.name.toLowerCase().replace(" ", ".") + "@example.com",
+          tstamp: new Date(now - oneMonth).toISOString(),
+          table_name: "users",
+          operation: "UPDATE",
+          updaterId: user.id,
+          updaterName:
+            user.name.toLowerCase().replace(" ", ".") + "@example.com",
         },
         // Even older - active status and languages changed
         {
-          old_val: {
+          val: {
             ...user,
             salary: (user.salary || 50000) - 10000,
             subscription: "basic",
@@ -210,12 +219,15 @@ export class TableDemoMockService {
             active: !user.active,
             languages: user.languages?.slice(0, 1) || ["en"],
           },
-          tstamp: now - 2 * oneMonth,
-          who: "system@example.com",
+          tstamp: new Date(now - 2 * oneMonth).toISOString(),
+          table_name: "users",
+          operation: "UPDATE",
+          updaterId: 0,
+          updaterName: "system@example.com",
         },
         // Initial creation
         {
-          old_val: {
+          val: {
             ...user,
             salary: (user.salary || 50000) - 15000,
             subscription: "basic",
@@ -225,8 +237,11 @@ export class TableDemoMockService {
             languages: ["en"],
             description: "",
           },
-          tstamp: now - 3 * oneMonth,
-          who: "admin@example.com",
+          tstamp: new Date(now - 3 * oneMonth).toISOString(),
+          table_name: "users",
+          operation: "CREATE",
+          updaterId: 1,
+          updaterName: "admin@example.com",
         },
       ];
 
