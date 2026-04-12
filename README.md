@@ -2,7 +2,7 @@
 
 A comprehensive Angular library for building dynamic forms and data tables with minimal configuration. CRUD Builder provides a declarative approach to creating complex CRUD interfaces, eliminating boilerplate code while maintaining full flexibility and type safety.
 
-**[View Live Demo](#)** <!-- TODO: Add demo URL -->
+**[View Live Demo](https://crud-builder-12c1d.web.app)**
 
 ---
 
@@ -42,7 +42,7 @@ CRUD Builder transforms configuration objects into fully functional forms and ta
 - Custom action templates
 - Configurable dialog sizes and dimensions
 - Access control integration
-- Localization support
+- Localization support (French by default, fully overridable via `provideCrudLabels()`)
 
 ---
 
@@ -50,7 +50,7 @@ CRUD Builder transforms configuration objects into fully functional forms and ta
 
 The demo application showcases all features of the CRUD Builder library through interactive examples. It includes a form builder demo and a comprehensive table demo with live configuration controls.
 
-**[Access the Live Demo](#)** <!-- TODO: Add demo URL -->
+**[Access the Live Demo](https://crud-builder-12c1d.web.app)**
 
 ### Running the demo
 
@@ -58,7 +58,7 @@ To run the demo locally:
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/estellepicq/crud-builder.git
 cd crud-builder
 
 # Install dependencies
