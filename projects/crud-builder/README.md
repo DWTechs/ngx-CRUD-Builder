@@ -1,4 +1,4 @@
-# @altengroup/crud-builder
+# @dwtechs/crud-builder
 
 An Angular component library providing a full CRUD experience: dynamic reactive forms, configurable data tables, edition dialogs, column management, export, history, and more.
 
@@ -10,7 +10,7 @@ An Angular component library providing a full CRUD experience: dynamic reactive 
 ## Installation
 
 ```bash
-npm install @altengroup/crud-builder
+npm install @dwtechs/crud-builder
 ```
 
 ## Quick start
@@ -26,7 +26,7 @@ import { providePrimeNG } from 'primeng/config';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { definePreset } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
-import { provideCrudLabels } from '@altengroup/crud-builder';
+import { provideCrudLabels } from '@dwtechs/crud-builder';
 
 const MyPreset = definePreset(Aura, {
   semantic: {
@@ -56,7 +56,7 @@ export const appConfig: ApplicationConfig = {
 
 ```typescript
 // my-page.component.ts
-import { TableComponent } from '@altengroup/crud-builder';
+import { TableComponent } from '@dwtechs/crud-builder';
 
 @Component({
   selector: 'app-my-page',
@@ -87,7 +87,7 @@ export class MyPageComponent {
 Provides application-level metadata used internally (local storage key prefixes, API prefix, etc.). All fields have sensible defaults so this token is **optional**.
 
 ```typescript
-import { APP_CONFIG } from '@altengroup/crud-builder';
+import { APP_CONFIG } from '@dwtechs/crud-builder';
 
 { provide: APP_CONFIG, useValue: {
   title: 'My App',
@@ -104,7 +104,7 @@ import { APP_CONFIG } from '@altengroup/crud-builder';
 Controls which CRUD operations (create / update / archive / restore) are available based on a `functionalityKey`. The default grants all permissions. Override it to plug in your own access-control service.
 
 ```typescript
-import { ACL_ADAPTER, AclAdapter, CallsPermissions } from '@altengroup/crud-builder';
+import { ACL_ADAPTER, AclAdapter, CallsPermissions } from '@dwtechs/crud-builder';
 
 @Injectable({ providedIn: 'root' })
 export class AclService implements AclAdapter {
@@ -130,7 +130,7 @@ export class AclService implements AclAdapter {
 Registers application-level custom validation error messages that are merged with the library's built-in messages (and with field-level `customErrorMessages`). Use this for app-specific validators shared across all forms.
 
 ```typescript
-import { APP_FORM_CONFIG } from '@altengroup/crud-builder';
+import { APP_FORM_CONFIG } from '@dwtechs/crud-builder';
 
 { provide: APP_FORM_CONFIG, useValue: {
   customErrorMessages: {
@@ -174,7 +174,7 @@ import {
   APP_CONFIG,
   APP_FORM_CONFIG,
   provideCrudLabels,
-} from '@altengroup/crud-builder';
+} from '@dwtechs/crud-builder';
 import { AclService } from './acl.service';
 import { routes } from './app.routes';
 
@@ -219,7 +219,7 @@ The library ships with **French default labels**. No `$localize` / Angular i18n 
 Call this function once in your `ApplicationConfig` (or in any component/route `providers` array for a scoped override). Pass only the sections you want to change — the rest falls back to the French defaults automatically.
 
 ```typescript
-import { provideCrudLabels } from '@altengroup/crud-builder';
+import { provideCrudLabels } from '@dwtechs/crud-builder';
 
 provideCrudLabels({
   toolbar: {

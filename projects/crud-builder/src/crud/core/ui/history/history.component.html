@@ -21,7 +21,7 @@
             [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" 
           />
         </td>
-        <td>{{ entry.tstamp | date:DATE_FORMAT }}</td>
+        <td>{{ entry.tstamp | date:DATE_WITH_TIME_FORMAT }}</td>
         <td>{{ entry.updaterName }}</td>
         <td>
           <p-button type="button" pRipple

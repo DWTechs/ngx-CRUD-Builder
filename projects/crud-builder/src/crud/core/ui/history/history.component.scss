@@ -1,4 +1,4 @@
-shared-history {
+crd-history {
 
     td:not(.first-col),
     th:not(.first-col) {
@@ -28,7 +28,7 @@ shared-history {
     }
 
     .has-changed {
-        color: var(--error-color);
+        color: var(--p-orange-500);
         font-weight: bold;
     }
 }

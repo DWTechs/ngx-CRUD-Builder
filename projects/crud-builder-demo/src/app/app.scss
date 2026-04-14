@@ -39,70 +39,80 @@ main {
   position: relative;
 }
 
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  height: 56px;
+  border-bottom: 1px solid var(--p-surface-200);
+  gap: 1rem;
+}
+
 .logo {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  margin: 0;
+  gap: 0.75rem;
+  text-decoration: none;
+  flex-shrink: 0;
 
   span {
-    font-size: 2rem;
+    font-size: 1.1rem;
     font-weight: 700;
     background: var(--red-to-pink-to-purple-horizontal-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-
-    text-align: left;
     font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
       Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
       "Segoe UI Symbol";
-    letter-spacing: -0.5px;
+    letter-spacing: -0.3px;
   }
 }
 
-.content {
+.nav-links {
   display: flex;
-  justify-content: flex-start;
-  width: 100%;
-}
-
-.header-container {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 100%;
-  gap: 2rem;
+  gap: 0.25rem;
+
+  a {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--p-text-muted-color);
+    text-decoration: none;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: color 0.2s, background 0.2s;
+
+    &:hover {
+      color: var(--p-primary-color);
+    }
+
+    &.active {
+      color: var(--p-primary-color);
+      font-weight: 700;
+    }
+  }
 }
 
-.nav-buttons {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-.nav-button {
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #333;
-  background: white;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-  border-color: var(--electric-violet);
-
-  &:hover {
-    transform: translateY(-2px);
+@media (max-width: 540px) {
+  .navbar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 0.5rem 1rem;
+    gap: 0.5rem;
   }
 
-  &:active {
-    transform: translateY(0);
-  }
+  .nav-links {
+    width: 100%;
+    flex-wrap: wrap;
 
-  &.active {
-    background: var(--red-to-pink-to-purple-horizontal-gradient);
-    color: white;
+    a {
+      flex: 1 1 auto;
+      text-align: center;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.5rem;
+    }
   }
 }

@@ -28,6 +28,8 @@ export class RequestsService {
     create: this.crud.create,
     update: this.crud.update,
     archive: this.crud.archive,
+    restore: this.crud.restore,
+    getHistory: this.crud.getHistory,
   };
 
   public readonly config = (payload: ActivatedRouteSnapshot) =>

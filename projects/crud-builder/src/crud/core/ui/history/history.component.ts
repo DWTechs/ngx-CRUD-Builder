@@ -12,7 +12,7 @@ import { ButtonModule } from "primeng/button";
 import { TableModule } from "primeng/table";
 import { CrudItemOptions } from "../../models/crud-item-options.model";
 import { isEqual } from "../../utils/arrays/is-equal.utils";
-import { DATE_FORMAT } from "../../utils/dates/dates.utils";
+import { DATE_WITH_TIME_FORMAT } from "../../utils/dates/dates.utils";
 import { CRUD_LABELS } from "../../utils/i18n/crud-labels.token";
 import { FullHistoryRow, HistorizedData } from "./history.model";
 
@@ -38,7 +38,7 @@ export class HistoryComponent<TData> {
 
   public readonly selected = output<HistorizedData<TData>>();
 
-  public readonly DATE_FORMAT = DATE_FORMAT;
+  public readonly DATE_WITH_TIME_FORMAT = DATE_WITH_TIME_FORMAT;
   public selectedDate: string | null = null;
 
   public expandedRows: Record<string, boolean> = {};
@@ -51,8 +51,8 @@ export class HistoryComponent<TData> {
   private buildHistoryTable() {
     const rows = this.data()?.rows ?? [];
     return rows.map((row, rowIndex) => {
-      const currentRow = row.val;
-      const lastRow = rows[rowIndex + 1]?.val;
+      const currentRow = row.record;
+      const lastRow = rows[rowIndex + 1]?.record;
       const changes = [];
       for (const propKey in currentRow) {
         const change = this.buildChangesTable(

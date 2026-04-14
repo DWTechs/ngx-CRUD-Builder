@@ -81,12 +81,11 @@ export const appConfig: ApplicationConfig = {
       useValue: (raw: unknown): HistorizedData<unknown> => {
         const r = raw as RawHistoryRow<unknown>;
         return {
-          tstamp: r.timestamp,
-          operation: r.action,
+          tstamp: r.tstamp,
+          operation: r.operation,
           updaterId: r.consumerId,
           updaterName: r.consumerName,
-          val: r.data,
-          table_name: "users",
+          record: r.record,
         };
       },
     },

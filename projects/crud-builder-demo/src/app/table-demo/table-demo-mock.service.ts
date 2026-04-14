@@ -10,11 +10,11 @@ import { delay } from "rxjs/operators";
  * to demonstrate the HISTORY_MAPPER token.
  */
 export interface RawHistoryRow<T> {
-  timestamp: string;
-  action: string;
+  tstamp: string;
+  operation: string;
   consumerId: number;
   consumerName: string;
-  data: T;
+  record: T;
 }
 
 export interface DemoUser extends CrudItemBase {
@@ -175,7 +175,7 @@ export class TableDemoMockService {
       }
 
       // Create a realistic history with multiple versions showing changes over time
-      // Note: Array should be ordered from newest to oldest (descending timestamp)
+      // Note: Array should be ordered from newest to oldest (descending tstamp)
       const now = Date.now();
       const oneWeek = 7 * 24 * 60 * 60 * 1000;
       const oneMonth = 30 * 24 * 60 * 60 * 1000;
@@ -185,42 +185,42 @@ export class TableDemoMockService {
       const mockedHistory: RawHistoryRow<DemoUser>[] = [
         // Current version (most recent)
         {
-          data: { ...user },
-          timestamp: new Date(now).toISOString(),
-          action: "UPDATE",
+          record: { ...user },
+          tstamp: new Date(now).toISOString(),
+          operation: "UPDATE",
           consumerId: 1,
           consumerName: "admin@example.com",
         },
         // Previous version - salary and subscription changed
         {
-          data: {
+          record: {
             ...user,
             salary: (user.salary || 50000) - 5000,
             subscription: user.subscription === "premium" ? "basic" : "premium",
           },
-          timestamp: new Date(now - oneWeek).toISOString(),
-          action: "UPDATE",
+          tstamp: new Date(now - oneWeek).toISOString(),
+          operation: "UPDATE",
           consumerId: 2,
           consumerName: "hr.manager@example.com",
         },
         // Older version - email and city changed
         {
-          data: {
+          record: {
             ...user,
             salary: (user.salary || 50000) - 5000,
             subscription: user.subscription === "premium" ? "basic" : "premium",
             email: user.email.replace("@example.com", ".old@example.com"),
             city: user.city === "paris" ? "lyon" : "paris",
           },
-          timestamp: new Date(now - oneMonth).toISOString(),
-          action: "UPDATE",
+          tstamp: new Date(now - oneMonth).toISOString(),
+          operation: "UPDATE",
           consumerId: user.id,
           consumerName:
             user.name.toLowerCase().replace(" ", ".") + "@example.com",
         },
         // Even older - active status and languages changed
         {
-          data: {
+          record: {
             ...user,
             salary: (user.salary || 50000) - 10000,
             subscription: "basic",
@@ -229,14 +229,14 @@ export class TableDemoMockService {
             active: !user.active,
             languages: user.languages?.slice(0, 1) || ["en"],
           },
-          timestamp: new Date(now - 2 * oneMonth).toISOString(),
-          action: "UPDATE",
+          tstamp: new Date(now - 2 * oneMonth).toISOString(),
+          operation: "UPDATE",
           consumerId: 0,
           consumerName: "system@example.com",
         },
         // Initial creation
         {
-          data: {
+          record: {
             ...user,
             salary: (user.salary || 50000) - 15000,
             subscription: "basic",
@@ -246,8 +246,8 @@ export class TableDemoMockService {
             languages: ["en"],
             description: "",
           },
-          timestamp: new Date(now - 3 * oneMonth).toISOString(),
-          action: "CREATE",
+          tstamp: new Date(now - 3 * oneMonth).toISOString(),
+          operation: "CREATE",
           consumerId: 1,
           consumerName: "admin@example.com",
         },

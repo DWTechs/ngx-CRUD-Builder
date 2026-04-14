@@ -1,5 +1,5 @@
 {
-  "name": "@altengroup/crud-builder",
+  "name": "@dwtechs/crud-builder",
   "version": "1.0.0",
   "peerDependencies": {
     "@angular/common": "^21.1.0",
@@ -7,6 +7,8 @@
     "@angular/forms": "^21.1.0",
     "@angular/router": "^21.1.0",
     "@angular/localize": "^21.1.0",
+    "@dwtechs/checkard": "^3.6.0",
+    "@dwtechs/csvx": "^0.3.1",
     "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",
     "primeng": "^21.1.0",
@@ -17,9 +19,7 @@
     "rxjs": "^7.8.0"
   },
   "dependencies": {
-    "tslib": "^2.3.0",
-    "@dwtechs/checkard": "^3.6.0",
-    "@dwtechs/csvx": "^0.3.1"
+    "tslib": "^2.3.0"
   },
   "sideEffects": false,
   "publishConfig": {

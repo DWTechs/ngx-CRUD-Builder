@@ -19,7 +19,7 @@ crd-edition-dialog {
             &.deletion-container {
                 .p-accordion-header:hover .p-accordion-header-link,
                 .p-accordion-header .p-accordion-header-link {
-                    background-color: var(--error-color);
+                    background-color: var(--p-orange-500);
                     color: white;
                 }
             }

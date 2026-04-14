@@ -333,7 +333,7 @@ All labels produced by the table component (toolbar buttons, export dialog, conf
 
 ```typescript
 // app.config.ts
-import { provideCrudLabels } from '@altengroup/crud-builder';
+import { provideCrudLabels } from '@dwtechs/crud-builder';
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -1,23 +1,14 @@
-<main class="main">
-  <div class="content">
-    <div class="header-container">
-      <h1 class="logo">
-        <img src="crud_mini.png" alt="CRUD Mini Logo" height="50" />
-        <span>CRUD Builder</span>
-      </h1>
-      <nav class="nav-buttons">
-        <button class="nav-button" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-          📝 Form Demo
-        </button>
-        <button class="nav-button" routerLink="/table" routerLinkActive="active">
-          📊 Table Demo
-        </button>
-        <button class="nav-button" routerLink="/doc" routerLinkActive="active">
-          📚 Documentation
-        </button>
-      </nav>
-    </div>
-  </div>
-</main>
+<header class="navbar">
+  <a class="logo" routerLink="/">
+    <img src="crud_mini.png" alt="CRUD Mini Logo" height="36" />
+    <span>CRUD Builder</span>
+  </a>
+  <nav class="nav-links">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">📝 Form</a>
+    <a routerLink="/table" routerLinkActive="active">📊 Table</a>
+    <a routerLink="/full-example" routerLinkActive="active">🚀 Full Example</a>
+    <a routerLink="/doc" routerLinkActive="active">📚 Docs</a>
+  </nav>
+</header>
 
 <router-outlet />

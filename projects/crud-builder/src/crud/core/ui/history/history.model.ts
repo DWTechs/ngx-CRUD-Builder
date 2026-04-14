@@ -1,10 +1,10 @@
 export type HistorizedData<T> = {
   tstamp: string;
-  table_name: string;
+  // table_name: string;
   operation: string;
   updaterId: number;
   updaterName: string;
-  val: T;
+  record: T;
 };
 
 export interface FullHistoryRow<T> extends HistorizedData<T> {

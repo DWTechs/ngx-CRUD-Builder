@@ -1249,7 +1249,7 @@ Use `provideCrudLabels()` in your `ApplicationConfig` (or any component/route pr
 
 ```typescript
 // app.config.ts
-import { provideCrudLabels } from '@altengroup/crud-builder';
+import { provideCrudLabels } from '@dwtechs/crud-builder';
 
 export const appConfig: ApplicationConfig = {
   providers: [

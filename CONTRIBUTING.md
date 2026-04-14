@@ -1,4 +1,4 @@
-# Contributing to @altengroup/crud-builder
+# Contributing to @dwtechs/crud-builder
 
 Thank you for your interest in contributing! This document explains how to set up the project locally and the conventions to follow when submitting changes.
 

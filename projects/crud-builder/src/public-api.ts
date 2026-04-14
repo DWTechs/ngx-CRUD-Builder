@@ -66,6 +66,7 @@ export * from "./crud/form/utils/socials.config";
 // --- Table: data access ---
 export * from "./crud/table/data-access/table-config.model";
 export * from "./crud/table/data-access/table-config.service";
+export * from "./crud/table/utils/excel/location-interceptor.service";
 // --- Table: main entry point ---
 export * from "./crud/table/table.component";
 export * from "./crud/table/utils/views/table-config.model";
