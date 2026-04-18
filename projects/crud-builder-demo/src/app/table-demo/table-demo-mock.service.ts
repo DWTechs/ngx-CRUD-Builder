@@ -10,6 +10,7 @@ import { delay } from "rxjs/operators";
  * to demonstrate the HISTORY_MAPPER token.
  */
 export interface RawHistoryRow<T> {
+  id: number;
   tstamp: string;
   operation: string;
   consumerId: number;
@@ -185,6 +186,7 @@ export class TableDemoMockService {
       const mockedHistory: RawHistoryRow<DemoUser>[] = [
         // Current version (most recent)
         {
+          id: 1,
           record: { ...user },
           tstamp: new Date(now).toISOString(),
           operation: "UPDATE",
@@ -193,6 +195,7 @@ export class TableDemoMockService {
         },
         // Previous version - salary and subscription changed
         {
+          id: 2,
           record: {
             ...user,
             salary: (user.salary || 50000) - 5000,
@@ -205,6 +208,7 @@ export class TableDemoMockService {
         },
         // Older version - email and city changed
         {
+          id: 3,
           record: {
             ...user,
             salary: (user.salary || 50000) - 5000,
@@ -220,6 +224,7 @@ export class TableDemoMockService {
         },
         // Even older - active status and languages changed
         {
+          id: 4,
           record: {
             ...user,
             salary: (user.salary || 50000) - 10000,
@@ -236,6 +241,7 @@ export class TableDemoMockService {
         },
         // Initial creation
         {
+          id: 5,
           record: {
             ...user,
             salary: (user.salary || 50000) - 15000,

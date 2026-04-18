@@ -1,4 +1,5 @@
 export type HistorizedData<T> = {
+  id: number;
   tstamp: string;
   // table_name: string;
   operation: string;
@@ -8,7 +9,7 @@ export type HistorizedData<T> = {
 };
 
 export interface FullHistoryRow<T> extends HistorizedData<T> {
-  id: string;
+  id: number;
   changes: {
     oldValue: unknown;
     newValue: unknown;

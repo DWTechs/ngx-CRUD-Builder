@@ -64,7 +64,7 @@ export class HistoryComponent<TData> {
           changes.push(change);
         }
       }
-      return { ...row, id: row.tstamp, changes };
+      return { ...row, changes };
     });
   }
 
