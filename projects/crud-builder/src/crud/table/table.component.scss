@@ -83,6 +83,16 @@ tbl-table {
           width: 3rem;
         }
 
+        &.actions-column {
+          width: 150px;
+          min-width: 150px;
+          max-width: 150px;
+
+          .p-button-icon-only {
+            padding: 0;
+          }
+        }
+
         &.clickable {
           cursor: pointer;
         }

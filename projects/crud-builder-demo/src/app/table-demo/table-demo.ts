@@ -1,4 +1,11 @@
-import { Component, signal, ViewEncapsulation } from "@angular/core";
+import {
+  Component,
+  computed,
+  signal,
+  TemplateRef,
+  viewChild,
+  ViewEncapsulation,
+} from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
 import { TableComponent } from "@table/table.component";
@@ -6,6 +13,7 @@ import { ButtonModule } from "primeng/button";
 import { CheckboxModule } from "primeng/checkbox";
 import { InputTextModule } from "primeng/inputtext";
 import { SelectModule } from "primeng/select";
+import { TooltipModule } from "primeng/tooltip";
 import { DEMO_CONF } from "../demo.conf";
 import { TableDemoMockService } from "./table-demo-mock.service";
 
@@ -21,6 +29,7 @@ import { TableDemoMockService } from "./table-demo-mock.service";
     SelectModule,
     CheckboxModule,
     InputTextModule,
+    TooltipModule,
   ],
   styleUrls: ["./table-demo.scss"],
   templateUrl: "./table-demo.html",
@@ -52,6 +61,7 @@ export class TableDemo {
   protected tempIsPreferencesModeEnabled = false;
   protected tempCanAccessItemFromUrl = false;
   protected tempStateStorage: "local" | "session" = "session";
+  protected tempCustomActionsTemplate = false;
 
   // Applied configuration signals (used by the table)
   protected readonly entityLabel = signal("User");
@@ -77,6 +87,12 @@ export class TableDemo {
   protected readonly isPreferencesModeEnabled = signal(false);
   protected readonly canAccessItemFromUrl = signal(false);
   protected readonly stateStorage = signal<"local" | "session">("session");
+  protected readonly isCustomActionsTemplateEnabled = signal(false);
+  protected readonly customActionsTpl =
+    viewChild<TemplateRef<unknown>>("customActionsTpl");
+  protected readonly customActionsTemplate = computed(() =>
+    this.isCustomActionsTemplateEnabled() ? this.customActionsTpl() : undefined,
+  );
   protected readonly forceReload = signal(0);
 
   // Table configuration
@@ -145,6 +161,7 @@ export class TableDemo {
     this.isPreferencesModeEnabled.set(this.tempIsPreferencesModeEnabled);
     this.canAccessItemFromUrl.set(this.tempCanAccessItemFromUrl);
     this.stateStorage.set(this.tempStateStorage);
+    this.isCustomActionsTemplateEnabled.set(this.tempCustomActionsTemplate);
     this.forceReload.update((n) => n + 1);
   }
 }

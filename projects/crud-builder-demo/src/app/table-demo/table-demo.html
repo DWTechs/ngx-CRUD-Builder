@@ -177,6 +177,13 @@
             binary="true" />
           <label>URL Item Access</label>
         </div>
+
+        <div class="demo-control">
+          <p-checkbox
+            [(ngModel)]="tempCustomActionsTemplate"
+            binary="true" />
+          <label>Custom Actions Cell Template</label>
+        </div>
       </div>
       
       <p-button label="Apply" (click)="applyConfig()" class="apply-btn" />
@@ -215,7 +222,40 @@
         [canAccessItemFromUrl]="canAccessItemFromUrl()"
         [stateStorage]="stateStorage()"
         [forceReload]="forceReload()"
+        [customActionsTemplate]="customActionsTemplate()"
       />
     }
   </div>
 </div>
+
+<ng-template #customActionsTpl let-row>
+  <div style="display:flex; gap:0.4rem; align-items:center;">
+    <p-button
+      icon="pi pi-eye"
+      [rounded]="true"
+      [text]="true"
+      severity="info"
+      size="small"
+      [pTooltip]="'View ' + (row.name ?? row.id)"
+      tooltipPosition="top"
+    />
+    <p-button
+      icon="pi pi-envelope"
+      [rounded]="true"
+      [text]="true"
+      severity="secondary"
+      size="small"
+      [pTooltip]="'Email ' + (row.email ?? '')"
+      tooltipPosition="top"
+    />
+    <p-button
+      icon="pi pi-trash"
+      [rounded]="true"
+      [text]="true"
+      severity="danger"
+      size="small"
+      pTooltip="Delete"
+      tooltipPosition="top"
+    />
+  </div>
+</ng-template>

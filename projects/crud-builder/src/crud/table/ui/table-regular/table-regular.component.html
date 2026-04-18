@@ -74,8 +74,8 @@
           </div>
         </th>
       }
-      @if (!clickableRows()) {
-        <th scope="th">Actions</th>
+      @if (!clickableRows() || customActionsTemplate()) {
+        <th scope="th" class="actions-column">Actions</th>
       }
     </tr>
     <!-- Filter row -->
@@ -99,8 +99,8 @@
             }
           </th>
         }
-        @if (!clickableRows()) {
-          <th scope="col"></th>
+        @if (!clickableRows() || customActionsTemplate()) {
+          <th scope="col" class="actions-column"></th>
         }
       </tr>
     }
@@ -128,8 +128,8 @@
           <tbl-table-cell-tooltip [cellValue]="value" [options]="col" />
         </ng-template>
       }
-      @if (!clickableRows()) {
-        <td>
+      @if (!clickableRows() || customActionsTemplate()) {
+        <td class="actions-column">
           @let customTemplate = customActionsTemplate();
           @if (customTemplate) {
             <ng-container [ngTemplateOutlet]="customTemplate"
