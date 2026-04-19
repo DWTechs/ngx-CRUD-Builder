@@ -1,24 +1,57 @@
 crd-history {
 
-    td:not(.first-col),
-    th:not(.first-col) {
-        width: 150px;
-        max-width: 150px;
-        min-width: 150px;
-
+    td:not(.first-col):not(.expansion-cell),
+    th:not(.first-col):not(.expansion-cell) {
+        width: 200px;
+        max-width: 200px;
+        min-width: 200px;
         overflow: hidden;
         text-overflow: ellipsis;
+        padding: 5px;
     }
 
     .first-col {
         width: 100px;
         max-width: 100px;
         min-width: 100px;
+        padding: 5px !important;
 
         p-button button {
             padding: 0;
-            height: auto !important;
         }
+    }
+
+    td.expansion-cell {
+        padding: 0 !important;
+        width: auto !important;
+        max-width: none !important;
+        min-width: 0 !important;
+    }
+
+    .changes-grid {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+
+        &.show-old-value {
+            grid-template-columns: 200px 1fr 1fr;
+        }
+    }
+
+    .changes-header {
+        padding: 5px;
+        font-weight: bold;
+        border-bottom: 1px solid var(--p-datatable-border-color, #e2e8f0);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .changes-cell {
+        padding: 5px;
+        border-bottom: 1px solid var(--p-datatable-border-color, #e2e8f0);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .action-button button {

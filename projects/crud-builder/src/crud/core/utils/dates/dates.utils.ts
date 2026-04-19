@@ -3,6 +3,7 @@ import { isDate, isNumber, isString } from "@dwtechs/checkard";
 
 export const DATE_FORMAT = "yyyy-MM-dd";
 export const DATE_WITH_TIME_FORMAT = "yyyy-MM-dd HH:mm";
+export const DATE_WITH_SECONDS_FORMAT = "yyyy-MM-dd HH:mm:ss";
 export const DATE_FORMAT_CALENDAR = "yy-mm-dd";
 
 export const getMidnightTimeStamp = (

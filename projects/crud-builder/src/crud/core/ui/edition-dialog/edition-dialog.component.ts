@@ -10,7 +10,7 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { toObservable } from "@angular/core/rxjs-interop";
-import { ValidatorFn } from "@angular/forms";
+import { FormsModule, ValidatorFn } from "@angular/forms";
 import { SharedModule } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
@@ -47,6 +47,7 @@ import { HistorizedData } from "../history/history.model";
     CardModule,
     HistoryComponent,
     CheckboxModule,
+    FormsModule,
     ButtonModule,
     AsyncPipe,
     CrudButtonComponent,
@@ -152,6 +153,9 @@ export class EditionDialogComponent<TData extends CrudItemBase> {
 
   /** Timestamp to force form reload */
   public forceReloadTime = signal(0);
+
+  /** Whether to show the previous value column in history */
+  public readonly showOldValue = signal(false);
 
   // Computed
   /** ID of the currently edited entry */

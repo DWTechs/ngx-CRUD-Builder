@@ -10,7 +10,7 @@
         <th></th>
       </tr>
     </ng-template>
-    <ng-template #body let-entry let-expanded="expanded">
+    <ng-template #body let-entry let-rowIndex="rowIndex" let-expanded="expanded">
       <tr [class.selected]="entry.tstamp === selectedDate">
         <td class="first-col">
           <p-button type="button" pRipple
@@ -21,40 +21,39 @@
             [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" 
           />
         </td>
-        <td>{{ entry.tstamp | date:DATE_WITH_TIME_FORMAT }}</td>
+        <td>{{ entry.tstamp | date:dateFormat }}</td>
         <td>{{ entry.updaterName }}</td>
         <td>
-          <p-button type="button" pRipple
-            class="action-button"
-            icon="pi pi-history"
-            [title]="labels.history.restore"
-            (click)="showVersion(entry)"
-          />
+          @if (rowIndex) {
+            <p-button type="button" pRipple
+              class="action-button"
+              icon="pi pi-history"
+              [title]="labels.history.restore"
+              (click)="showVersion(entry)"
+            />
+          }
         </td>
       </tr>
     </ng-template>
     <ng-template #expandedrow let-entry>
       <tr>
-        <td colspan="4">     
-          @if (entry.changes.length > 0) {      
-            <p-table [value]="entry.changes" dataKey="propKey">
-              <ng-template #header>
-                <tr>
-                  <th class="first-col"></th>
-                  <th>{{ labels.history.property }}</th>
-                  <th>{{ labels.history.value }}</th>
-                  <th>{{ labels.history.previousValue }}</th>
-                </tr>
-              </ng-template>
-              <ng-template #body let-row>
-                <tr>
-                  <td class="first-col"></td>
-                  <td>{{ row.label }}</td>
-                  <td [class.has-changed]="row.hasChanged">{{ row.newValue }}</td>
-                  <td>{{ row.oldValue }}</td>
-                </tr>
-              </ng-template>
-            </p-table>
+        <td class="first-col"></td>
+        <td colspan="3" class="expansion-cell">
+          @if (entry.changes.length > 0) {
+            <div class="changes-grid" [class.show-old-value]="showOldValue()">
+              <div class="changes-header">{{ labels.history.property }}</div>
+              <div class="changes-header">{{ labels.history.value }}</div>
+              @if (showOldValue()) {
+                <div class="changes-header">{{ labels.history.previousValue }}</div>
+              }
+              @for (row of entry.changes; track row.propKey) {
+                <div class="changes-cell">{{ row.label }}</div>
+                <div class="changes-cell" [class.has-changed]="row.hasChanged">{{ row.newValue }}</div>
+                @if (showOldValue()) {
+                  <div class="changes-cell">{{ row.oldValue }}</div>
+                }
+              }
+            </div>
           } @else {
             <div class="no-changes">{{ labels.history.noChanges }}</div>
           }

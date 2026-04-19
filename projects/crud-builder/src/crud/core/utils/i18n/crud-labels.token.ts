@@ -55,6 +55,7 @@ export interface CrudLabels {
     property: string;
     value: string;
     previousValue: string;
+    showPreviousValue: string;
     noChanges: string;
   };
   editionDialog: {
@@ -193,6 +194,7 @@ export const DEFAULT_CRUD_LABELS: CrudLabels = {
     property: "Propriété",
     value: "Valeur",
     previousValue: "Ancienne valeur",
+    showPreviousValue: "Afficher l'ancienne valeur",
     noChanges: "Aucun changement",
   },
   editionDialog: {

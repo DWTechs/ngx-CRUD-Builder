@@ -32,10 +32,15 @@
               <span>
                 {{ labels.editionDialog.historyHeader }} ({{ historyData.total ?? historyData.rows.length }})
               </span>
+              <!-- <span class="history-header-toggle">
+                <p-checkbox [(ngModel)]="showOldValue" [binary]="true" inputId="showOldValue" />
+                <label for="showOldValue">{{ labels.history.showPreviousValue }}</label>
+              </span> -->
             </ng-template>
             <crd-history
               [data]="historyData"
               [config]="config()"
+              [showOldValue]="showOldValue()"
               (selected)="onHistorySelect($event)"
             />
           </p-card>
