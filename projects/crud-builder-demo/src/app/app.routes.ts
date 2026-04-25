@@ -1,6 +1,6 @@
 import { inject } from "@angular/core";
 import { Routes } from "@angular/router";
-import { RequestsService } from "./full-example/data-access/requests.service";
+import { RequestsService } from "./full-example/data-access/requests/requests.service";
 
 export const routes: Routes = [
   {

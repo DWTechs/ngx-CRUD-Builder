@@ -35,9 +35,8 @@
     <tr>
       <td 
         [attr.colspan]="columns().length" 
-        i18n="@@Table_NoData"
         class="no-data-row">
-        Pas de données
+        {{ labels.tableControl.noData }}
       </td>
     </tr>
   </ng-template>
@@ -75,7 +74,7 @@
         </th>
       }
       @if (!clickableRows() || customActionsTemplate()) {
-        <th scope="th" class="actions-column">Actions</th>
+        <th scope="th" class="actions-column">{{ labels.tableControl.actionsColumnHeader }}</th>
       }
     </tr>
     <!-- Filter row -->

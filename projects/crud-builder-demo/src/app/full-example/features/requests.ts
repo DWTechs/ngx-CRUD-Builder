@@ -9,7 +9,7 @@ import { ACL_ADAPTER } from "@crud/core/utils/crud-service/acl-adapter";
 import { ConfigHelper } from "@crud/core/utils/crud-service/config.helper";
 import { filterCalls } from "@crud/core/utils/crud-service/filter-calls";
 import { TableComponent } from "@crud/table/table.component";
-import { RequestsService } from "../data-access/requests.service";
+import { RequestsService } from "../data-access/requests/requests.service";
 
 @Component({
   selector: "adm-requests",
