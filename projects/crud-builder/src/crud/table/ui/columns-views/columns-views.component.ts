@@ -5,6 +5,7 @@ import {
   inject,
   input,
   output,
+  ViewEncapsulation,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { ConfirmationService } from "primeng/api";
@@ -27,6 +28,7 @@ import { TableConfig } from "../../data-access/table-config.model";
     ListboxModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class ColumnsViewsComponent {
   private readonly confirmationService = inject(ConfirmationService);

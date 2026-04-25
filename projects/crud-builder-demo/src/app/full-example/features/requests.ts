@@ -35,6 +35,7 @@ import { RequestsService } from "../data-access/requests/requests.service";
         [rows]="table.rows"
         [rowsPerPageOptions]="table.rowsPerPageOptions"
         [outsideTableHeight]="table.outsideTableHeight"
+        [isPreferencesModeEnabled]="table.isPreferencesModeEnabled"
     />
   `,
   host: {
@@ -77,5 +78,6 @@ export class RequestsComponent {
     rows: 20,
     rowsPerPageOptions: [10, 25, 50],
     outsideTableHeight: "200px",
+    isPreferencesModeEnabled: true,
   };
 }
