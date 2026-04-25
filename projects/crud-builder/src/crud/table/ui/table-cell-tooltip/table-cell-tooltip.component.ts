@@ -2,9 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
 } from "@angular/core";
 import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
+import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
 import { CellTextContent } from "../../../core/utils/table/cell-text-content.class";
 
 @Component({
@@ -14,6 +16,8 @@ import { CellTextContent } from "../../../core/utils/table/cell-text-content.cla
   imports: [],
 })
 export class TableCellTooltipComponent {
+  private readonly labels = inject(CRUD_LABELS);
+
   public readonly cellValue = input.required<unknown>();
   public readonly options = input.required<CrudItemOptions>();
 
@@ -21,6 +25,7 @@ export class TableCellTooltipComponent {
     return new CellTextContent({
       options: this.options(),
       cellValue: this.cellValue(),
+      checkboxLabels: this.labels.checkbox,
     }).value;
   });
 }

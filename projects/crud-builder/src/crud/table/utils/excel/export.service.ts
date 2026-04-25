@@ -6,6 +6,7 @@ import { NO_ROWS_AND_COUNT } from "../../../core/utils/crud-service/no-rows";
 import { CellTextContent } from "../../../core/utils/table/cell-text-content.class";
 import { TableColumn } from "../../../core/utils/table/table-column.model";
 import { TableStateService } from "../../../core/utils/table/table-state.service";
+import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
 import { Export } from "@dwtechs/csvx";
 import { ExcelService } from "./excel.service";
 import { LocationInterceptorService } from "./location-interceptor.service";
@@ -37,6 +38,7 @@ export class ExportService<TData extends { id: number }> {
   private readonly state = inject(TableStateService);
   private readonly tableViewsService = inject(TableColumnsStorage);
   private readonly http = inject(HttpClient);
+  private readonly labels = inject(CRUD_LABELS);
 
   public readonly isExportingData = signal(false);
 
@@ -202,6 +204,7 @@ export class ExportService<TData extends { id: number }> {
               const stringItem = new CellTextContent({
                 cellValue: item[key as keyof TData],
                 options: control,
+                checkboxLabels: this.labels.checkbox,
               }).value;
               arrayItems[key] = (stringItem as string) ?? "";
             }

@@ -1,18 +1,21 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
+import * as ExcelJS from "exceljs";
+import { saveAs } from "file-saver";
+import { catchError, from, map, of, tap } from "rxjs";
 import { ExcelParams } from "../../../core/models/excel.model";
 import {
   formatDate,
   isValidDateString,
 } from "../../../core/utils/dates/dates.utils";
+import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
 import { CellTextContent } from "../../../core/utils/table/cell-text-content.class";
-import * as ExcelJS from "exceljs";
-import { saveAs } from "file-saver";
-import { catchError, from, map, of, tap } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class ExcelService<T> {
+  private readonly labels = inject(CRUD_LABELS);
+
   public generateExcel(data: (T & object)[], excelParams: ExcelParams) {
     const workbook = new ExcelJS.Workbook();
 
@@ -32,6 +35,7 @@ export class ExcelService<T> {
         let renderedValue = new CellTextContent({
           cellValue,
           options: columns[col],
+          checkboxLabels: this.labels.checkbox,
         }).value;
 
         if (isValidDateString(cellValue)) {

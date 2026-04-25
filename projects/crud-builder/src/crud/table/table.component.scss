@@ -120,6 +120,14 @@ tbl-table {
           display: block;
           border-radius: 50%;
         }
+
+        .red {
+          color: var(--p-red-700);
+        }
+
+        .green {
+          color: var(--p-green-700);
+        }
       }
     }
 

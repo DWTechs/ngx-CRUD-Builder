@@ -1,18 +1,19 @@
 import { formatDate } from "@angular/common";
 import { SafeHtml } from "@angular/platform-browser";
-import {
-  CONTROL_TYPES,
-  ControlType,
-} from "../../models/control-type.model";
+import { isArray, isNil, isObject, isString } from "@dwtechs/checkard";
+import { CONTROL_TYPES, ControlType } from "../../models/control-type.model";
 import { CrudItemOptions } from "../../models/crud-item-options.model";
 import { canBeDate, DATE_FORMAT } from "../dates/dates.utils";
-import { isArray, isNil, isObject, isString } from "@dwtechs/checkard";
 
 export class CellTextContent {
   value: string | SafeHtml = "";
 
   private options: CrudItemOptions | null = null;
   private cellValue: unknown = "";
+  private checkboxLabels: { yes: string; no: string } = {
+    yes: "Oui",
+    no: "Non",
+  };
 
   private readonly defaultRenderer = () => `${this.cellValue}`;
 
@@ -47,11 +48,15 @@ export class CellTextContent {
   constructor(config: {
     options: CrudItemOptions;
     cellValue: unknown;
+    checkboxLabels?: { yes: string; no: string };
   }) {
-    const { options, cellValue } = config;
+    const { options, cellValue, checkboxLabels } = config;
 
     this.options = options;
     this.cellValue = cellValue;
+    if (checkboxLabels) {
+      this.checkboxLabels = checkboxLabels;
+    }
 
     if (options.columnOptions?.tooltip) {
       this.value = options.columnOptions.tooltip(this.cellValue);
@@ -97,7 +102,7 @@ export class CellTextContent {
   }
 
   private checkboxCellRenderer(): string {
-    return this.cellValue ? "Oui" : "Non";
+    return this.cellValue ? this.checkboxLabels.yes : this.checkboxLabels.no;
   }
 
   private isCellArray(cellValue: unknown): cellValue is unknown[] {

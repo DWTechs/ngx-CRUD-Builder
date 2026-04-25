@@ -145,6 +145,10 @@ export interface CrudLabels {
   download: {
     noPdfPrintWarning: string;
   };
+  checkbox: {
+    yes: string;
+    no: string;
+  };
 }
 
 export const DEFAULT_CRUD_LABELS: CrudLabels = {
@@ -294,6 +298,10 @@ export const DEFAULT_CRUD_LABELS: CrudLabels = {
   download: {
     noPdfPrintWarning:
       "Le fichier n'est pas un PDF, l'impression n'est pas disponible. Il sera téléchargé à la place.",
+  },
+  checkbox: {
+    yes: "Oui",
+    no: "Non",
   },
 };
 
