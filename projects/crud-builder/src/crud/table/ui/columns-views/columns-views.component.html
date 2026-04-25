@@ -16,10 +16,14 @@
     [ngModel]="activeViewId()" 
     (onChange)="onSelectView($event.value)">
     <ng-template #item let-view>      
-      @let isDefaultView = view.id === null;
         <div class="flex-item">
-            <div>{{ view.name }}</div>
-            @if (!isDefaultView) {
+            <div>
+              {{ view.name }}
+              @if (view.locked) {
+                <i class="pi pi-lock" style="font-size: 0.75rem; margin-left: 0.35rem; opacity: 0.6;"></i>
+              }
+            </div>
+            @if (!view.locked) {
               <p-button
                   icon="pi pi-trash"
                   [title]="labels.columnsViews.delete"

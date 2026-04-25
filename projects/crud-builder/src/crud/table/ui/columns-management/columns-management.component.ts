@@ -9,9 +9,9 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { ListboxModule } from "primeng/listbox";
 import { TableColumn } from "../../../core/utils/table/table-column.model";
 import { ExtendedTableConfig } from "../../data-access/table-config.model";
-import { ListboxModule } from "primeng/listbox";
 
 @Component({
   selector: "tbl-columns-management",
@@ -36,7 +36,7 @@ export class ColumnsManagementComponent {
   );
 
   public readonly isColumnsEditionDisabled = computed(() => {
-    // If preferences mode is not enabled, we can edit the default view
+    // If preferences mode is not enabled, we can edit the front-end default view
     if (!this.isPreferencesModeEnabled()) {
       return false;
     }
@@ -44,8 +44,8 @@ export class ColumnsManagementComponent {
     if (this.isViewCreation()) {
       return false;
     }
-    // Otherwise, we can edit columns only if the active view is not default
-    return this.activeView().isDefault;
+    // Otherwise, we can edit columns only if the active view is not locked
+    return this.activeView().locked;
   });
 
   public isOptionDisabled(col: string) {

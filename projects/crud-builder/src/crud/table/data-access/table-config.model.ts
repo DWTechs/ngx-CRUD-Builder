@@ -5,8 +5,8 @@ export class TableConfig {
   name = "";
   component = "";
   conf: ColumnConfig[] = [];
-  isDefault = false;
   isActive = false;
+  locked = false;
 
   constructor(component: string, name = "Default") {
     this.component = component;

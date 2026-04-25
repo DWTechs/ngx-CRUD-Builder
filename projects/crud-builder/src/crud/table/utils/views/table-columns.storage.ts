@@ -54,9 +54,7 @@ export class TableColumnsStorage {
       map((views) => this.getViewsWithColumns(views)),
       tap((viewsWithColumns) => {
         this.viewsWithColumns.set(viewsWithColumns);
-        const activeView =
-          viewsWithColumns.find((view) => view.isActive) ??
-          viewsWithColumns.find((view) => view.isDefault);
+        const activeView = viewsWithColumns.find((view) => view.isActive);
         this.activeColumns.set(activeView ? activeView.columns : []);
       }),
     );
@@ -92,15 +90,14 @@ export class TableColumnsStorage {
   public updateMany(views: ExtendedTableConfig[]) {
     const componentId = this.componentId();
     if (!componentId) return of([]);
-    const defaultView = views.find((view) => view.isDefault);
+    const defaultView = views[0];
     if (!this.isViewSystemEnabled() && defaultView) {
       this.localTableColumnsStorage.set(componentId, defaultView.columns);
       this.activeColumns.set(defaultView.columns);
       return of(views);
     }
-    const userViews = views.filter((view) => !view.isDefault);
     return this.preferencesService
-      .updateMany(componentId, userViews)
+      .updateMany(componentId, views)
       .pipe(switchMap(() => this.viewsWithColumns$));
   }
 
@@ -143,13 +140,26 @@ export class TableColumnsStorage {
       return [];
     }
     // Retrieve local storage config if view system is disabled
+
+    const localConfig = this.localTableColumnsStorage.getColumns(
+      componentId,
+      baseCrudItems,
+    );
+    const columns = this.getOrderedColumns(baseCrudItems, localConfig);
+    this.activeColumns.set(columns);
+    const defaultView = {
+      ...new TableConfig(componentId, this.labels.table.defaultViewName),
+      columns,
+      isActive: true,
+    };
+
+    if (!this.isViewSystemEnabled()) {
+      return [defaultView];
+    }
+    if (views.length === 0) {
+      return [{ ...defaultView, locked: true }];
+    }
     // Otherwise, the config will come from the view preferences
-    // And the default view is built from the baseCrudItems
-    const localConfig = this.isViewSystemEnabled()
-      ? baseCrudItems
-      : this.localTableColumnsStorage.getColumns(componentId, baseCrudItems);
-    const defaultColumns = this.getOrderedColumns(baseCrudItems, localConfig);
-    // Build user views
     const userViews: ExtendedTableConfig[] = views
       .toSorted((a, b) => a.name.localeCompare(b.name))
       .map((view) => {
@@ -163,14 +173,7 @@ export class TableColumnsStorage {
           columns,
         };
       });
-    // Build default view
-    const defaultView: ExtendedTableConfig = {
-      ...new TableConfig(componentId, this.labels.table.defaultViewName),
-      columns: defaultColumns,
-      isDefault: true,
-      isActive: !userViews.length,
-    };
-    return [defaultView, ...userViews];
+    return userViews;
   }
 
   private getOrderedColumns(

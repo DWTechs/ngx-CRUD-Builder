@@ -49,9 +49,6 @@ export class ColumnsManagementDialogComponent {
     () => this.activeView().columns,
   );
 
-  public readonly isDefaultViewActive = computed(
-    () => this.activeView().isDefault,
-  );
   public readonly isViewCreation = signal(false);
 
   public onSelectView(viewId: number): void {
@@ -92,10 +89,10 @@ export class ColumnsManagementDialogComponent {
       id: Date.now(),
       name,
       isActive: true,
-      isDefault: false,
       columns: this.activeView().columns,
       conf: this.activeView().conf,
       component: this.activeView().component,
+      locked: false,
     };
     const currentViews = this.editedViews().map((v) => ({
       ...v,
