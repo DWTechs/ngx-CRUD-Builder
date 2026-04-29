@@ -53,14 +53,15 @@
         <th [pSortableColumnDisabled]="!sortable() || !col.sortable"
           [pSortableColumn]="col.key"
           pResizableColumn
-          [title]="col.label"
+          [pTooltip]="col.headerTooltip ?? col.label"
+          [tooltipDisabled]="!col.headerTooltip"
           [style.width]="col.defaultWidth | colWidth"
           [style.max-width]="col.defaultWidth | colWidth"
           scope="th"
           [attr.data-colkey]="col.key">
           <div class="header-container">
             <div class="sub-container">
-              <span>{{ col.label }}</span>
+              <tbl-table-header-cell [col]="col" />
               @if (col.sortable) {
                 <p-sortIcon [field]="col.key" />
               }

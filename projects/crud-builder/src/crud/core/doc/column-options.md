@@ -6,9 +6,12 @@ Column options allow you to customize how table columns are displayed and behave
 
 - [Basic Options](#basic-options)
 - [Rendering Options](#rendering-options)
+  - [`customHeaderRenderer`](#customheaderrenderer)
+  - [`customCellRenderer`](#customcellrenderer)
 - [Custom Components](#custom-components)
 - [Filter Options](#filter-options)
 - [Display Options](#display-options)
+  - [`headerTooltip`](#headertooltip)
 
 ---
 
@@ -49,6 +52,27 @@ Defines if the column is filterable.
 ---
 
 ## Rendering Options
+
+### `customHeaderRenderer`
+**Type:** `(label: string) => string`
+
+Specifies a custom HTML renderer function for the column header. Receives the column label as argument and returns an HTML string.
+
+⚠️ **Warning:** Be careful when using this property:
+- Can lead to performance issues if the function is complex
+- XSS security issues if the renderer returns unsafe HTML
+
+```typescript
+{
+  key: "name",
+  label: "Name",
+  controlType: CONTROL_TYPES.INPUT,
+  columnOptions: {
+    customHeaderRenderer: (label) =>
+      `<span><i class="pi pi-user" style="margin-right:4px"></i>${label}</span>`
+  }
+}
+```
 
 ### `customCellRenderer`
 **Type:** `(cellValue: unknown) => string`
@@ -365,6 +389,22 @@ If the column should have a different label than the main label defined in CrudI
   controlType: CONTROL_TYPES.INPUT,
   columnOptions: {
     label: "Given Name" // Different label for table column
+  }
+}
+```
+
+### `headerTooltip`
+**Type:** `string`
+
+Custom tooltip displayed on the column header on hover. Falls back to the column label if not defined.
+
+```typescript
+{
+  key: "email",
+  label: "Email",
+  controlType: CONTROL_TYPES.INPUT,
+  columnOptions: {
+    headerTooltip: "The user's primary email address"
   }
 }
 ```

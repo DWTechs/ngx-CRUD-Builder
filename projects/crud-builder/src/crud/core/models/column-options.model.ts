@@ -1,7 +1,7 @@
 import { Type } from "@angular/core";
 import { SafeHtml } from "@angular/platform-browser";
-import { ControlType } from "./control-type.model";
 import { FilterMetadata } from "primeng/api";
+import { ControlType } from "./control-type.model";
 
 export class ColumnOptions {
   /** Defines if the column is sortable or not */
@@ -28,6 +28,11 @@ export class ColumnOptions {
    * Along with xss security issues if the renderer returns unsafe HTML
    */
   customCellRenderer?: (cellValue: unknown) => string;
+  /** Specifies a custom HTML renderer for the column header
+   * Warning: be careful when using this prop as it can lead to XSS security issues
+   * if the renderer returns unsafe HTML
+   */
+  customHeaderRenderer?: (label: string) => string;
   /** Specifies a custom component for datatable cells -- Works for CUSTOM controlType */
   customComponent?: Type<unknown>;
   /** If true and the value is an array, each item will be displayed as a chip. Default true */
@@ -44,6 +49,8 @@ export class ColumnOptions {
   ignoreOnExport?: boolean;
   /** If the column should have a different label that the main label defined in CrudItemOptions */
   label?: string;
+  /** Custom tooltip for the column header. Falls back to the column label if not defined */
+  headerTooltip?: string;
   /** If the edition of this cell should be disabled in inline-cell edition mode */
   isCellEditionDisabled?: boolean;
 }

@@ -34,6 +34,7 @@ import { LastRowPipe } from "../../utils/pipes/last-row.pipe";
 import { ColumnResizeEvent } from "../../utils/views/table-config.model";
 import { TableActionsCellComponent } from "../table-actions-cell/table-actions-cell.component";
 import { TableCellTooltipComponent } from "../table-cell-tooltip/table-cell-tooltip.component";
+import { TableHeaderCellComponent } from "../table-header-cell/table-header-cell.component";
 import { ColWidthPipe } from "./col-width.pipe";
 import { buildContextMenu } from "./context-menu.builder";
 
@@ -53,6 +54,7 @@ import { buildContextMenu } from "./context-menu.builder";
     NgTemplateOutlet,
     TableCellComponent,
     TableCellTooltipComponent,
+    TableHeaderCellComponent,
     Tooltip,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,0 +1,5 @@
+@if (customRenderedHeader()) {
+  <span [innerHTML]="customRenderedHeader()"></span>
+} @else {
+  <span>{{ col().label }}</span>
+}

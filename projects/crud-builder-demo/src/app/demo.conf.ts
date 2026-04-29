@@ -22,6 +22,10 @@ export const DEMO_CONF: CrudItemOptions[] = [
       inputIcon: "pi pi-user",
       validators: [required, minlength(2)],
     },
+    columnOptions: {
+      customHeaderRenderer: (label) =>
+        `<span><i class="pi pi-user" style="margin-right:4px"></i>${label}</span>`,
+    },
   },
   {
     key: "email",
@@ -31,6 +35,9 @@ export const DEMO_CONF: CrudItemOptions[] = [
     controlOptions: {
       inputIcon: "pi pi-envelope",
       validators: [required, EmailValidator],
+    },
+    columnOptions: {
+      headerTooltip: "The user's primary email address (hover tooltip example)",
     },
   },
   {
