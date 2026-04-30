@@ -10,6 +10,9 @@ import { TableColumn } from "../../../core/utils/table/table-column.model";
   selector: "tbl-table-header-cell",
   templateUrl: "./table-header-cell.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    style: "display: contents;",
+  },
 })
 export class TableHeaderCellComponent {
   public readonly col = input.required<TableColumn>();
