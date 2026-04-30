@@ -28,7 +28,10 @@ jobs:
       - name: Build website
         run: npm run build:demo
 
+      - name: Authenticate to Google
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
       - name: Deploy to Firebase
-        run: npx firebase-tools deploy --only hosting --project crud-builder-12c1d --token "$FIREBASE_TOKEN"
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: npx firebase-tools deploy --only hosting --project crud-builder-12c1d
