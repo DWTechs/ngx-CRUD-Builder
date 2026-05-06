@@ -98,6 +98,18 @@ lazy: false
 **Type:** `boolean` | **Default:** `false`  
 **Description:** Enables row selection with checkboxes for bulk operations.
 
+#### `stripedRows`
+**Type:** `boolean` | **Default:** `true`  
+**Description:** Enables alternating background colors on table rows (zebra striping). When `true`, odd and even rows will have slightly different background colors, making it easier to visually follow a row across wide tables. When `false`, all rows share the same background color.
+
+```typescript
+// Striped rows (default) — improves readability for wide tables
+stripedRows: true
+
+// Uniform rows — use when row styling is handled externally (e.g. customRowStyles)
+stripedRows: false
+```
+
 #### `customRowStyles`
 **Type:** `(row: TData) => Record<string, string>`  
 **Description:** Applies conditional CSS styles to table rows.

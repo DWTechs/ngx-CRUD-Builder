@@ -344,6 +344,16 @@ export class TableComponent<TData extends CrudItemBase>
   public readonly stateStorage = input<"local" | "session">("session");
 
   /**
+   * Enables alternating background colors on table rows (zebra striping).
+   * When true, odd and even rows will have slightly different background colors,
+   * making it easier to visually follow a row across wide tables.
+   * When false, all rows share the same background color.
+   * Passed down to the underlying TableRegularComponent and its p-table binding.
+   * @default true
+   */
+  public readonly stripedRows = input(true);
+
+  /**
    * Display title shown at the top of the table component.
    * Usually plural form of the entity name, appears in the table header/toolbar.
    * Helps users understand what data they're viewing and provides context.

@@ -1,6 +1,7 @@
 <p-contextmenu #cm [model]="contextMenuItems()" appendTo="body" />
 <p-table #dataTable
   class="table"
+  [stripedRows]="stripedRows()"
   [scrollable]="true"
   [scrollHeight]="scrollHeight()"
   [columns]="visibleColumns()"

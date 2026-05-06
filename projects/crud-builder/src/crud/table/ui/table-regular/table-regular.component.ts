@@ -98,6 +98,7 @@ export class TableRegularComponent<TData> {
   public readonly rows = input.required<number>();
   public readonly rowsPerPageOptions = input.required<number[]>();
   public readonly outsideTableHeight = input.required<string>();
+  public readonly stripedRows = input.required();
 
   readonly selectedEntriesChange = output<TData[]>();
   readonly lazyLoaded = output<TableLazyLoadEvent>();

@@ -184,6 +184,13 @@
             binary="true" />
           <label>Custom Actions Cell Template</label>
         </div>
+
+        <div class="demo-control">
+          <p-checkbox
+            [(ngModel)]="tempStripedRows"
+            binary="true" />
+          <label>Striped Rows</label>
+        </div>
       </div>
       
       <p-button label="Apply" (click)="applyConfig()" class="apply-btn" />
@@ -223,6 +230,7 @@
         [stateStorage]="stateStorage()"
         [forceReload]="forceReload()"
         [customActionsTemplate]="customActionsTemplate()"
+        [stripedRows]="stripedRows()"
       />
     }
   </div>

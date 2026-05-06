@@ -62,6 +62,7 @@ export class TableDemo {
   protected tempCanAccessItemFromUrl = false;
   protected tempStateStorage: "local" | "session" = "session";
   protected tempCustomActionsTemplate = false;
+  protected tempStripedRows = true;
 
   // Applied configuration signals (used by the table)
   protected readonly entityLabel = signal("User");
@@ -87,6 +88,7 @@ export class TableDemo {
   protected readonly isPreferencesModeEnabled = signal(false);
   protected readonly canAccessItemFromUrl = signal(false);
   protected readonly stateStorage = signal<"local" | "session">("session");
+  protected readonly stripedRows = signal(true);
   protected readonly isCustomActionsTemplateEnabled = signal(false);
   protected readonly customActionsTpl =
     viewChild<TemplateRef<unknown>>("customActionsTpl");
@@ -162,6 +164,7 @@ export class TableDemo {
     this.canAccessItemFromUrl.set(this.tempCanAccessItemFromUrl);
     this.stateStorage.set(this.tempStateStorage);
     this.isCustomActionsTemplateEnabled.set(this.tempCustomActionsTemplate);
+    this.stripedRows.set(this.tempStripedRows);
     this.forceReload.update((n) => n + 1);
   }
 }
