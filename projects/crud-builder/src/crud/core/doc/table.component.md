@@ -230,6 +230,15 @@ groupValidator: (group: AbstractControl) => {
 }
 ```
 
+#### `showHistoryFor`
+**Type:** `(row: TData) => boolean`  
+**Description:** Predicate function to conditionally enable history fetching based on the opened row. When provided, `getHistory` is only triggered for rows where this function returns `true`. When not provided, history is fetched for all rows (default behavior).
+
+```typescript
+// Only show history for unlocked entries
+showHistoryFor: (row) => !row.locked
+```
+
 #### `customActionsTemplate`
 **Type:** `TemplateRef<unknown>`  
 **Description:** Custom template for actions in the table's action column. Allows injection of custom buttons or controls in place of the default edit/delete actions.

@@ -236,6 +236,14 @@ export class TableComponent<TData extends CrudItemBase>
   public readonly httpCalls = input.required<Calls<TData>>();
 
   /**
+   * Predicate function to determine whether history should be fetched for a given row.
+   * When provided, `getHistory` will only be triggered for rows where this function returns `true`.
+   * When not provided, history is fetched for all rows (default behavior).
+   * @example showHistoryFor: (row) => !row.locked
+   */
+  public readonly showHistoryFor = input<(row: TData) => boolean>();
+
+  /**
    * Enables the context menu on right-clicking table rows.
    * When enabled, right-clicking a row shows a context menu with actions like View and Edit.
    * Context menu actions emit the same events as clicking the row or action buttons.
@@ -602,6 +610,12 @@ export class TableComponent<TData extends CrudItemBase>
     this.isCreation.set(true);
     this.isReadonly.set(false);
     this.isEntryEditionDialogDisplayed.set(true);
+  }
+
+  public getHistoryForEntry(): Calls<TData>["getHistory"] {
+    const predicate = this.showHistoryFor();
+    if (!predicate || !this.editedEntry) return this.httpCalls().getHistory;
+    return predicate(this.editedEntry) ? this.httpCalls().getHistory : undefined;
   }
 
   public onValidityChanged(validity: boolean) {
