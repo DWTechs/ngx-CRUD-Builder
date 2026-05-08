@@ -24,7 +24,7 @@
         (validityChange)="onValidityChange($event)"
       />
 
-      @if (features().getHistory) {
+      @if (features().getHistory && !!getHistory()) {
         @let historyData = history$ | async;
         @if (historyData) {
           <p-card>
