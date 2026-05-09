@@ -336,4 +336,12 @@ export const DEMO_CONF: CrudItemOptions[] = [
       },
     },
   },
+  {
+    key: "active",
+    label: "Active",
+    controlType: CONTROL_TYPES.CHECKBOX,
+    controlOptions: {
+      validators: [],
+    },
+  },
 ];

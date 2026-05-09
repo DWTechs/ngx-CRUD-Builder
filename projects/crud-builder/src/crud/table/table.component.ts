@@ -147,6 +147,15 @@ export class TableComponent<TData extends CrudItemBase>
     input<(row: TData) => Record<string, string>>();
 
   /**
+   * Forces read-only mode on the edition dialog when a row matches one of the provided property/value pairs.
+   * Each key-value entry is checked against the clicked row: if any matches, the dialog opens in read-only mode instead of edit mode.
+   * Takes precedence over the normal edit/write mode resolution.
+   * @example { active: false } — opens inactive users in read-only mode
+   */
+  public readonly additionalReadonlyProperties =
+    input<Record<string, unknown>>();
+
+  /**
    * Factory function that creates new entity instances for the creation dialog.
    * Must return an object with default values matching your entity structure.
    * Called when user clicks "New" button to populate the form with initial values.
@@ -234,14 +243,6 @@ export class TableComponent<TData extends CrudItemBase>
    * Each operation is optional - omit unsupported operations to hide related UI elements.
    */
   public readonly httpCalls = input.required<Calls<TData>>();
-
-  /**
-   * Predicate function to determine whether history should be fetched for a given row.
-   * When provided, `getHistory` will only be triggered for rows where this function returns `true`.
-   * When not provided, history is fetched for all rows (default behavior).
-   * @example showHistoryFor: (row) => !row.locked
-   */
-  public readonly showHistoryFor = input<(row: TData) => boolean>();
 
   /**
    * Enables the context menu on right-clicking table rows.
@@ -613,9 +614,16 @@ export class TableComponent<TData extends CrudItemBase>
   }
 
   public getHistoryForEntry(): Calls<TData>["getHistory"] {
-    const predicate = this.showHistoryFor();
-    if (!predicate || !this.editedEntry) return this.httpCalls().getHistory;
-    return predicate(this.editedEntry) ? this.httpCalls().getHistory : undefined;
+    if (!this.features().update) return undefined;
+    const readonlyProperties = this.additionalReadonlyProperties();
+    const entry = this.editedEntry;
+    if (readonlyProperties && entry) {
+      const matches = Object.entries(readonlyProperties).some(
+        ([key, value]) => entry[key as keyof TData] === value,
+      );
+      if (matches) return undefined;
+    }
+    return this.httpCalls().getHistory;
   }
 
   public onValidityChanged(validity: boolean) {

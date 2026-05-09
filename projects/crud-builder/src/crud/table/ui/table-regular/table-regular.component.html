@@ -108,7 +108,7 @@
   </ng-template>
 
   <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
-    <tr [ngStyle]="customRowStyles() ? customRowStyles()?.(rowData) : {}" [pContextMenuRow]="rowData">
+    <tr [ngStyle]="resolvedRowStyles(rowData)" [pContextMenuRow]="rowData">
       @if (selectable()) {
         <td class="checkbox-column">
           <p-tableCheckbox [value]="rowData" />

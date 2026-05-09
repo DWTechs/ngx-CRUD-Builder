@@ -98,7 +98,10 @@ export class TableRegularComponent<TData> {
   public readonly rows = input.required<number>();
   public readonly rowsPerPageOptions = input.required<number[]>();
   public readonly outsideTableHeight = input.required<string>();
-  public readonly stripedRows = input.required();
+  public readonly stripedRows = input.required<boolean>();
+  public readonly additionalReadonlyProperties = input.required<
+    Record<string, unknown> | undefined
+  >();
 
   readonly selectedEntriesChange = output<TData[]>();
   readonly lazyLoaded = output<TableLazyLoadEvent>();
@@ -148,12 +151,36 @@ export class TableRegularComponent<TData> {
     if (!this.clickableRows() || col.controlType === CONTROL_TYPES.CUSTOM) {
       return;
     }
-    const mode = this.features().update ? "write" : "read";
+    let mode: "read" | "write" = this.features().update ? "write" : "read";
+    const readonlyProperties = this.additionalReadonlyProperties();
+    if (readonlyProperties) {
+      const match = Object.entries(readonlyProperties).find(([key, value]) => {
+        return rowData[key as keyof TData] === value;
+      });
+      if (match) {
+        mode = "read";
+      }
+    }
     this.cellClicked.emit({ row: rowData, mode });
   }
 
   public onActionClick(rowData: TData, mode: "read" | "write") {
     this.cellClicked.emit({ row: rowData, mode });
+  }
+
+  public resolvedRowStyles(rowData: TData): Record<string, string> {
+    const base = this.customRowStyles()?.(rowData) ?? {};
+    const isArchived = (rowData as Record<string, unknown>).archived === true;
+    const readonlyProperties = this.additionalReadonlyProperties();
+    const matchesReadonly = readonlyProperties
+      ? Object.entries(readonlyProperties).some(
+          ([key, value]) => rowData[key as keyof TData] === value,
+        )
+      : false;
+    const noUpdate = !this.features().update;
+    return isArchived || matchesReadonly || noUpdate
+      ? { ...base, opacity: "0.5" }
+      : base;
   }
 
   public onColumnResized(event: TableColResizeEvent) {

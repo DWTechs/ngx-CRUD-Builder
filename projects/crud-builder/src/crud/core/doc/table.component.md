@@ -39,6 +39,10 @@ httpCalls: {
 }
 ```
 
+> **Note — `getHistory` visibility:** providing `getHistory` is necessary but not sufficient to display the history panel. The panel is automatically hidden in the following cases:
+> - `update` is not provided (read-only table)
+> - the opened row matches one of the `additionalReadonlyProperties` pairs
+
 #### `entityFactory` (required)
 **Type:** `CrudItemFactory<TData>`  
 **Description:** Factory function that creates new entity instances for the creation dialog.
@@ -119,6 +123,20 @@ customRowStyles: (row) => ({
   'background-color': row.status === 'inactive' ? '#ffe6e6' : '',
   'color': row.priority === 'high' ? '#d32f2f' : ''
 })
+```
+
+#### `additionalReadonlyProperties`
+**Type:** `Record<string, unknown>`  
+**Description:** Forces read-only mode on the edition dialog when a row matches one of the provided property/value pairs. Each key-value entry is checked against the clicked row: if any matches, the dialog opens in read-only mode instead of edit mode. Takes precedence over the normal edit/write mode resolution.
+
+> **Side effect on history:** when a row matches, the history panel is also hidden, even if `getHistory` is provided in `httpCalls`.
+
+```typescript
+// Open inactive users in read-only mode
+additionalReadonlyProperties: { active: false }
+
+// Open locked entries in read-only mode
+additionalReadonlyProperties: { locked: true }
 ```
 
 ### Table Features
@@ -228,15 +246,6 @@ groupValidator: (group: AbstractControl) => {
   const end = group.get('endDate')?.value;
   return start && end && start > end ? { dateRange: true } : null;
 }
-```
-
-#### `showHistoryFor`
-**Type:** `(row: TData) => boolean`  
-**Description:** Predicate function to conditionally enable history fetching based on the opened row. When provided, `getHistory` is only triggered for rows where this function returns `true`. When not provided, history is fetched for all rows (default behavior).
-
-```typescript
-// Only show history for unlocked entries
-showHistoryFor: (row) => !row.locked
 ```
 
 #### `customActionsTemplate`
