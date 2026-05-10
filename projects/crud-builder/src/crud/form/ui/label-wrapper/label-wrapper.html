@@ -16,7 +16,7 @@
 <ng-template #labelContentTemplate>
     @let isCheckbox = config().controlType === 'checkbox';
     <!-- Empty element to align correctly checkboxes -->
-    @if (isCheckbox) {
+    @if (isCheckbox && labelStrategy() === 'normal' ) {
         <span>&nbsp;</span>
     }
     <!-- Label -->

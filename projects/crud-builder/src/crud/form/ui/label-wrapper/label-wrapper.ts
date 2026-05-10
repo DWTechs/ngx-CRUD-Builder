@@ -7,19 +7,19 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
+import { FloatLabelModule } from "primeng/floatlabel";
+import { IconFieldModule } from "primeng/iconfield";
+import { IftaLabelModule } from "primeng/iftalabel";
+import { InputIconModule } from "primeng/inputicon";
 import { ControlOptions } from "../../../core/models/control-options.model";
 import {
   CONTROL_TYPES,
   ControlType,
 } from "../../../core/models/control-type.model";
 import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
-import { FormFieldTooltip } from "../field-tooltip/field-tooltip";
 import { required, requiredTrue } from "../../utils/common.validators";
 import { LabelStrategy } from "../../utils/label-strategy.model";
-import { FloatLabelModule } from "primeng/floatlabel";
-import { IconFieldModule } from "primeng/iconfield";
-import { IftaLabelModule } from "primeng/iftalabel";
-import { InputIconModule } from "primeng/inputicon";
+import { FormFieldTooltip } from "../field-tooltip/field-tooltip";
 
 @Component({
   selector: "frm-label-wrapper",
@@ -64,19 +64,28 @@ export class LabelWrapperComponent {
     return this.options().inputIcon ?? null;
   });
 
-  protected readonly fieldLabelStrategy = computed<LabelStrategy>(() => {
-    const defaultStrategy = this.labelStrategy();
+  protected readonly isForcedNormalLabel = computed(() => {
     const normalLabelControls: ControlType[] = [
-      CONTROL_TYPES.CHECKBOX,
+      // CONTROL_TYPES.CHECKBOX,
       CONTROL_TYPES.FILES,
-      CONTROL_TYPES.RADIO,
-      CONTROL_TYPES.SELECT_BUTTON,
       CONTROL_TYPES.PICKLIST,
       CONTROL_TYPES.TABLE,
       CONTROL_TYPES.WYSIWYG,
       CONTROL_TYPES.CUSTOM,
     ];
-    if (normalLabelControls.includes(this.config().controlType)) {
+    return normalLabelControls.includes(this.config().controlType);
+  });
+
+  protected readonly fieldLabelStrategy = computed<LabelStrategy>(() => {
+    const defaultStrategy = this.labelStrategy();
+    if (this.isForcedNormalLabel()) {
+      return "normal";
+    }
+    if (
+      defaultStrategy === "float" &&
+      (this.config().controlType === CONTROL_TYPES.RADIO ||
+        this.config().controlType === CONTROL_TYPES.SELECT_BUTTON)
+    ) {
       return "normal";
     }
     return defaultStrategy;

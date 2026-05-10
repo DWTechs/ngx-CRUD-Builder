@@ -11,13 +11,6 @@ label {
         margin-left: 2px;
     }
 
-    &.checkbox-label {
-        position: absolute;
-        top: 30px;
-        left: 46px;
-        display: flex;
-    }
-
     .floating-tooltip {
         position: absolute;
         right: -20px;
@@ -47,6 +40,13 @@ label {
 
 .p-floatlabel:has(.p-inputicon:first-child) label {
     inset-inline-start: 5px;
+}
+
+.p-floatlabel:has(.checkbox-label) label {
+    top: 12px !important;
+    padding-left: 18px !important;
+    transform: none;
+    transition: none !important;
 }
 
 .p-floatlabel:has(.has-icon > .p-inputicon:first-child) label {

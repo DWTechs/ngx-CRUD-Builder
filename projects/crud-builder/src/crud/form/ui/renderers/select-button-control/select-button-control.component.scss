@@ -1,9 +1,14 @@
 .p-selectbutton {
     width: 100%;
     border: 1px solid var(--p-inputtext-border-color);
+    background: var(--p-inputtext-background);
 
     .p-togglebutton {
         padding: 1px var(--p-togglebutton-padding);
         flex: 1;
     }
+}
+
+.p-iftalabel .p-selectbutton {
+    padding-top: 20px;
 }

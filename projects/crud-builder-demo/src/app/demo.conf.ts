@@ -66,6 +66,30 @@ export const DEMO_CONF: CrudItemOptions[] = [
     },
   },
 
+  {
+    key: "active",
+    label: "Active",
+    controlType: CONTROL_TYPES.CHECKBOX,
+    controlOptions: {
+      validators: [],
+    },
+  },
+
+  // RADIO
+  {
+    key: "gender",
+    label: "Gender",
+    controlType: CONTROL_TYPES.RADIO,
+    options: [
+      { label: "Male", value: "M" },
+      { label: "Female", value: "F" },
+    ],
+    controlOptions: {
+      radioOptionsDirection: "row",
+      validators: [required],
+    },
+  },
+
   // TEXTAREA
   {
     key: "description",
@@ -143,21 +167,6 @@ export const DEMO_CONF: CrudItemOptions[] = [
     ],
     controlOptions: {
       inputIcon: "pi pi-map-marker",
-    },
-  },
-
-  // RADIO
-  {
-    key: "gender",
-    label: "Gender",
-    controlType: CONTROL_TYPES.RADIO,
-    options: [
-      { label: "Male", value: "M" },
-      { label: "Female", value: "F" },
-    ],
-    controlOptions: {
-      radioOptionsDirection: "row",
-      validators: [required],
     },
   },
 
@@ -334,14 +343,6 @@ export const DEMO_CONF: CrudItemOptions[] = [
       controlOptions: {
         hidden: ({ model }) => !model.age || model.age < 18,
       },
-    },
-  },
-  {
-    key: "active",
-    label: "Active",
-    controlType: CONTROL_TYPES.CHECKBOX,
-    controlOptions: {
-      validators: [],
     },
   },
 ];
