@@ -227,7 +227,7 @@ describe("LabelWrapperComponent", () => {
     });
 
     it("should force normal strategy for CHECKBOX control", () => {
-      component.labelStrategy.set("float");
+      component.labelStrategy.set("normal");
       component.config.set({
         key: "field",
         label: "Field",
@@ -253,7 +253,7 @@ describe("LabelWrapperComponent", () => {
     });
 
     it("should force normal strategy for RADIO control", () => {
-      component.labelStrategy.set("ifta");
+      component.labelStrategy.set("float");
       component.config.set({
         key: "field",
         label: "Field",
@@ -261,8 +261,8 @@ describe("LabelWrapperComponent", () => {
       });
       fixture.detectChanges();
 
-      const iftaLabel = fixture.nativeElement.querySelector("p-iftalabel");
-      expect(iftaLabel).toBeFalsy();
+      const floatLabel = fixture.nativeElement.querySelector("p-floatlabel");
+      expect(floatLabel).toBeFalsy();
     });
 
     it("should force normal strategy for SELECT_BUTTON control", () => {
