@@ -1,4 +1,7 @@
 import { computed, inject, signal } from "@angular/core";
+import { TableLazyLoadEvent } from "primeng/table";
+import { catchError, delay, map, Observable, of, tap, throwError } from "rxjs";
+import { FileInfo } from "../../../form/ui/renderers/file-upload-input/file-info.class";
 import { CrudItemBase } from "../../models/crud-item-base.class";
 import { CrudItemOptions } from "../../models/crud-item-options.model";
 import { Calls, Repository } from "../crud-service/crud.model";
@@ -7,9 +10,6 @@ import { NO_ROWS_AND_COUNT } from "../crud-service/no-rows";
 import { TableLoadingService } from "../loading/table-loading.service";
 import { hasCacheable } from "../offline/cacheable.utils";
 import { TableStateService } from "./table-state.service";
-import { FileInfo } from "../../../form/ui/renderers/file-upload-input/file-info.class";
-import { TableLazyLoadEvent } from "primeng/table";
-import { catchError, delay, map, Observable, of, tap, throwError } from "rxjs";
 
 type LocalUpdatePayload =
   | { value: CrudItemBase; feature: "update" }
@@ -88,10 +88,11 @@ export class CrudLoader<TData extends CrudItemBase> {
     this.loadingService.start();
     return this.httpCalls.create(args).pipe(
       tap(() => this.loadingService.stop()),
-      this.handleLocalData({
-        value: { ...args, id: Date.now() },
+      this.handleLocalData((res) => ({
+        value: (res as Rows<TData>)?.rows?.[0] ?? { ...args, id: Date.now() },
         feature: "create",
-      }),
+      })),
+
       catchError((err) => {
         this.loadingService.stop();
         return throwError(() => err);
@@ -255,17 +256,21 @@ export class CrudLoader<TData extends CrudItemBase> {
     this.state.setData({ rows, total });
   }
 
-  private handleLocalData<T>(payload: LocalUpdatePayload) {
+  private handleLocalData<T>(
+    payload: LocalUpdatePayload | ((res: T) => LocalUpdatePayload),
+  ) {
+    const resolvePayload = (res: T) =>
+      typeof payload === "function" ? payload(res) : payload;
     return (source: Observable<T>): Observable<T | null> => {
       return source.pipe(
-        tap(() => {
-          this.updateLocalRows(payload);
+        tap((res) => {
+          this.updateLocalRows(resolvePayload(res));
         }),
         catchError((err) => {
           const isOfflineError = err.status === 0;
           const isCacheable = hasCacheable(err);
           if (isOfflineError && isCacheable) {
-            this.updateLocalRows(payload);
+            this.updateLocalRows(resolvePayload(err));
             this._forceCloseEdition.set(Date.now());
           }
           return throwError(() => err);
