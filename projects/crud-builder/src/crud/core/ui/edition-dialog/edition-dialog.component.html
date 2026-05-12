@@ -82,6 +82,7 @@
         @if (canInteract()) {
           <crd-crud-button
             type="validate"
+            [label]="labels.editionDialog.validate"
             icon="pi pi-check"
             [disabled]="isLoading() || invalidForm"
             (click)="onSave()"

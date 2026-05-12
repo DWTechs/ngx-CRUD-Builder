@@ -1,11 +1,11 @@
-import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
-import { StrictCrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { INPUT_TYPES } from "@crud/core/models/input-type.model";
-import { ArchiveInfo } from "@crud/core/utils/confs/archived-config";
+import { CONTROL_TYPES } from "../../models/control-type.model";
+import { StrictCrudItemOptions } from "../../models/crud-item-options.model";
+import { INPUT_TYPES } from "../../models/input-type.model";
+import { ArchiveInfo } from "../../utils/confs/archived-config";
 import {
   CrudLabels,
   DEFAULT_CRUD_LABELS,
-} from "@crud/core/utils/i18n/crud-labels.token";
+} from "../../utils/i18n/crud-labels.token";
 
 export function createAuditConfig(
   labels: CrudLabels["auditConfig"] = DEFAULT_CRUD_LABELS.auditConfig,

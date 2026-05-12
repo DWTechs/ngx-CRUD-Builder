@@ -28,6 +28,7 @@ export * from "./crud/core/ui/history/history.model";
 export * from "./crud/core/utils/adapter/adapter.model";
 // --- CRUD: shared configs ---
 export * from "./crud/core/utils/confs/archived-config";
+export * from "./crud/core/utils/confs/audit.config";
 export * from "./crud/core/utils/confs/id-config";
 // --- CRUD: service layer ---
 export * from "./crud/core/utils/crud-service/acl-adapter";
