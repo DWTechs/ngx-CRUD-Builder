@@ -149,6 +149,12 @@ export interface CrudLabels {
     yes: string;
     no: string;
   };
+  auditConfig: {
+    createdAt: string;
+    createdBy: string;
+    updatedAt: string;
+    updatedBy: string;
+  };
 }
 
 export const DEFAULT_CRUD_LABELS: CrudLabels = {
@@ -302,6 +308,12 @@ export const DEFAULT_CRUD_LABELS: CrudLabels = {
   checkbox: {
     yes: "Oui",
     no: "Non",
+  },
+  auditConfig: {
+    createdAt: "Créé le",
+    createdBy: "Créé par",
+    updatedAt: "Mis à jour le",
+    updatedBy: "Mis à jour par",
   },
 };
 
