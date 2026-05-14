@@ -22,7 +22,7 @@
   [lazy]="lazy()"
   [contextMenu]="isContextMenuEnabled() ? cm : null"
   [stateStorage]="stateStorage()"
-  [stateKey]="entityId() + '-table-state'"
+  [stateKey]="persistState() ? entityId() + '-table-state' : undefined"
   [resizableColumns]="areColumnsResizable()" 
   columnResizeMode="expand"
   [(selection)]="selectedEntries"

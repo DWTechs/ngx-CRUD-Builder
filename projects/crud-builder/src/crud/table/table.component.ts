@@ -345,9 +345,18 @@ export class TableComponent<TData extends CrudItemBase>
   public readonly sortable = input(true);
 
   /**
+   * Enables persistence of table state (filters, sorting, pagination) across page reloads.
+   * When enabled, state is stored using the storage type defined by `stateStorage`.
+   * Disabled by default — set to `true` to opt in to state persistence.
+   * @default false
+   */
+  public readonly persistState = input(false);
+
+  /**
    * Specifies where to store table state (filters, sorting, pagination).
    * Can be "local" for localStorage or "session" for sessionStorage.
    * Persists user preferences across sessions or tabs based on selection.
+   * Only applies when `persistState` is `true`.
    * @default "session"
    */
   public readonly stateStorage = input<"local" | "session">("session");

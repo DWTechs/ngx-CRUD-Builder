@@ -228,6 +228,19 @@ editionDialogWidth: "90vw"
 
 ### Advanced Options
 
+#### `persistState`
+**Type:** `boolean` | **Default:** `false`  
+**Description:** Enables persistence of table state (filters, sorting, pagination) across page reloads. When `true`, the state is stored using the storage type defined by `stateStorage`. Disabled by default — set to `true` to opt in.
+
+```typescript
+// Enable state persistence (stored in sessionStorage by default)
+persistState: true
+
+// Also specify storage type
+persistState: true
+stateStorage: "local" // persist across browser sessions
+```
+
 #### `entityLabel`
 **Type:** `string` | **Default:** `""`  
 **Description:** Human-readable label for a single entity instance.

@@ -187,6 +187,13 @@
 
         <div class="demo-control">
           <p-checkbox
+            [(ngModel)]="tempPersistState"
+            binary="true" />
+          <label>Persist State</label>
+        </div>
+
+        <div class="demo-control">
+          <p-checkbox
             [(ngModel)]="tempStripedRows"
             binary="true" />
           <label>Striped Rows</label>
@@ -235,12 +242,15 @@
         [isPreferencesModeEnabled]="isPreferencesModeEnabled()"
         [canAccessItemFromUrl]="canAccessItemFromUrl()"
         [stateStorage]="stateStorage()"
+        [persistState]="persistState()"
         [forceReload]="forceReload()"
         [customActionsTemplate]="customActionsTemplate()"
         [stripedRows]="stripedRows()"
         [additionalReadonlyProperties]="additionalReadonlyProperties()"
       />
     }
+
+    <tbl-debug-snippet [config]="debugConfig()" />
   </div>
 </div>
 

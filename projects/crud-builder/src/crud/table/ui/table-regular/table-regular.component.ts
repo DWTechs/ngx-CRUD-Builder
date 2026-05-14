@@ -94,6 +94,7 @@ export class TableRegularComponent<TData> {
   public readonly isContextMenuEnabled = input.required<boolean>();
   public readonly entityId = input.required<string>();
   public readonly stateStorage = input.required<"local" | "session">();
+  public readonly persistState = input.required<boolean>();
   public readonly areColumnsResizable = input.required<boolean>();
   public readonly rows = input.required<number>();
   public readonly rowsPerPageOptions = input.required<number[]>();

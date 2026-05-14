@@ -16,6 +16,10 @@ import { SelectModule } from "primeng/select";
 import { TooltipModule } from "primeng/tooltip";
 import { DEMO_CONF } from "../demo.conf";
 import { TableDemoMockService } from "./table-demo-mock.service";
+import {
+  DebugSnippetComponent,
+  TableDebugConfig,
+} from "./ui/debug-snippet.component";
 
 /**
  * Table demo component showcasing table configuration options
@@ -30,6 +34,7 @@ import { TableDemoMockService } from "./table-demo-mock.service";
     CheckboxModule,
     InputTextModule,
     TooltipModule,
+    DebugSnippetComponent,
   ],
   styleUrls: ["./table-demo.scss"],
   templateUrl: "./table-demo.html",
@@ -61,6 +66,7 @@ export class TableDemo {
   protected tempIsPreferencesModeEnabled = false;
   protected tempCanAccessItemFromUrl = false;
   protected tempStateStorage: "local" | "session" = "session";
+  protected tempPersistState = false;
   protected tempCustomActionsTemplate = false;
   protected tempStripedRows = true;
   protected tempReadonlyIfInactive = false;
@@ -89,11 +95,12 @@ export class TableDemo {
   protected readonly isPreferencesModeEnabled = signal(false);
   protected readonly canAccessItemFromUrl = signal(false);
   protected readonly stateStorage = signal<"local" | "session">("session");
+  protected readonly persistState = signal(false);
   protected readonly stripedRows = signal(true);
   protected readonly readonlyIfInactive = signal(false);
-  protected readonly additionalReadonlyProperties = computed<Record<string, unknown> | undefined>(
-    () => (this.readonlyIfInactive() ? { active: false } : undefined),
-  );
+  protected readonly additionalReadonlyProperties = computed<
+    Record<string, unknown> | undefined
+  >(() => (this.readonlyIfInactive() ? { active: false } : undefined));
   protected readonly isCustomActionsTemplateEnabled = signal(false);
   protected readonly customActionsTpl =
     viewChild<TemplateRef<unknown>>("customActionsTpl");
@@ -101,6 +108,35 @@ export class TableDemo {
     this.isCustomActionsTemplateEnabled() ? this.customActionsTpl() : undefined,
   );
   protected readonly forceReload = signal(0);
+
+  protected readonly debugConfig = computed<TableDebugConfig>(() => ({
+    tableTitle: this.tableTitle(),
+    entityLabel: this.entityLabel(),
+    filterable: this.filterable(),
+    filterLevel: this.filterLevel(),
+    sortable: this.sortable(),
+    clickableRows: this.clickableRows(),
+    paginator: this.showPagination(),
+    isCsvExportEnabled: this.isCsvExportEnabled(),
+    isExcelExportEnabled: this.isExcelExportEnabled(),
+    excelExportMode: this.excelExportMode(),
+    areColumnsConfigurable: this.areColumnsConfigurable(),
+    areColumnsResizable: this.areColumnsResizable(),
+    editionDialogSize: this.selectedDialogSize(),
+    editionDialogWidth: this.dialogWidth(),
+    editionDialogHeight: this.dialogHeight(),
+    selectable: this.selectable(),
+    lazy: this.lazy(),
+    isContextMenuEnabled: this.isContextMenuEnabled(),
+    isDefaultEditionDisabled: this.isDefaultEditionDisabled(),
+    isPreferencesModeEnabled: this.isPreferencesModeEnabled(),
+    canAccessItemFromUrl: this.canAccessItemFromUrl(),
+    persistState: this.persistState(),
+    stateStorage: this.stateStorage(),
+    stripedRows: this.stripedRows(),
+    readonlyIfInactive: this.readonlyIfInactive(),
+    customActionsTemplate: this.isCustomActionsTemplateEnabled(),
+  }));
 
   // Table configuration
   protected readonly tableConfig = signal<CrudItemOptions[]>(DEMO_CONF);
@@ -168,6 +204,7 @@ export class TableDemo {
     this.isPreferencesModeEnabled.set(this.tempIsPreferencesModeEnabled);
     this.canAccessItemFromUrl.set(this.tempCanAccessItemFromUrl);
     this.stateStorage.set(this.tempStateStorage);
+    this.persistState.set(this.tempPersistState);
     this.isCustomActionsTemplateEnabled.set(this.tempCustomActionsTemplate);
     this.stripedRows.set(this.tempStripedRows);
     this.readonlyIfInactive.set(this.tempReadonlyIfInactive);
