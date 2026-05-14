@@ -101,7 +101,7 @@ tbl-table {
           overflow: unset;
         }
 
-        span:not(:has(span)) {
+        span:not(:has(span)):not([role="combobox"]) {
           display: block;
           overflow: hidden;
           text-overflow: ellipsis;

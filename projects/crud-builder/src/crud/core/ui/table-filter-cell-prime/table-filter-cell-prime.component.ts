@@ -6,13 +6,13 @@ import {
   input,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { DatePickerModule } from "primeng/datepicker";
+import { MultiSelectModule } from "primeng/multiselect";
+import { TableModule } from "primeng/table";
 import { CONTROL_TYPES } from "../../models/control-type.model";
 import { INPUT_TYPES } from "../../models/input-type.model";
 import { DATE_FORMAT_CALENDAR } from "../../utils/dates/dates.utils";
 import { TableColumn } from "../../utils/table/table-column.model";
-import { DatePickerModule } from "primeng/datepicker";
-import { MultiSelectModule } from "primeng/multiselect";
-import { TableModule } from "primeng/table";
 
 @Component({
   selector: "crd-table-filter-cell-prime",

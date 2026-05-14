@@ -34,14 +34,15 @@
     [showMatchModes]="false"
     [showOperator]="false"
     [showAddButton]="false"
-    [showButtons]="false">
+    [showApplyButton]="false"
+    [showClearButton]="true">
     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
       <p-multiSelect [ngModel]="value"
         [options]="options()"
         (onChange)="filter($event.value)"
         placeholder="---"
         filterPlaceHolder="---"
-        appendTo="body">
+        style="width: 100%;">
         <ng-template let-option pTemplate="item">
           <div class="flex">
             @if (option.icon) {

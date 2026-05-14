@@ -16,7 +16,8 @@
           (onChange)="filter($event.value)"
           placeholder="---"
           filterPlaceholder="---"
-          [showClear]="true">
+          [showClear]="true"
+          style="width: 100%;">
           <ng-template let-option pTemplate="item">
             <div class="select-option-container">
               @if (option.icon) {

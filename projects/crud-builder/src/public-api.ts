@@ -3,6 +3,7 @@ export * from "./core/app-config/app-config.token";
 export * from "./core/utils/loading/loading.service";
 // --- Core: utilities ---
 export * from "./core/utils/local-storage/local-storage.service";
+export * from "./core/utils/primeng/primeng-translations";
 export * from "./core/utils/primeng/to-select-items";
 export * from "./core/utils/snackbar/snackbar.service";
 export * from "./core/utils/strings/strings.utils";

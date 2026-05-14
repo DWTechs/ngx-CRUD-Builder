@@ -7,6 +7,7 @@ import {
 } from "@angular/core";
 import { provideRouter } from "@angular/router";
 import { APP_CONFIG, AppConfig } from "@core/app-config/app-config.token";
+import { PRIMENG_FR } from "@core/utils/primeng/primeng-translations";
 import { HISTORY_MAPPER } from "@crud/core/ui/history/history-mapper.token";
 import { HistorizedData } from "@crud/core/ui/history/history.model";
 import { ACL_ADAPTER } from "@crud/core/utils/crud-service/acl-adapter";
@@ -69,6 +70,7 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: MyPreset,
       },
+      translation: PRIMENG_FR,
     }),
     MessageService,
     ConfirmationService,
