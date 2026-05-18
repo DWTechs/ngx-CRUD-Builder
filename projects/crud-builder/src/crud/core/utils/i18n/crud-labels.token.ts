@@ -1,4 +1,13 @@
-import { InjectionToken, Provider } from "@angular/core";
+import {
+  EnvironmentProviders,
+  InjectionToken,
+  Provider,
+  inject,
+  provideAppInitializer,
+} from "@angular/core";
+import { PRIMENG_FR } from "@core/utils/primeng/primeng-translations";
+import { Translation } from "primeng/api";
+import { PrimeNG } from "primeng/config";
 
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends (...args: unknown[]) => unknown
@@ -320,7 +329,10 @@ export const DEFAULT_CRUD_LABELS: CrudLabels = {
 };
 
 export const CRUD_LABELS = new InjectionToken<CrudLabels>("CRUD_LABELS", {
-  factory: () => DEFAULT_CRUD_LABELS,
+  factory: () => {
+    inject(PrimeNG).setTranslation(PRIMENG_FR);
+    return DEFAULT_CRUD_LABELS;
+  },
 });
 
 /**
@@ -335,12 +347,28 @@ export const CRUD_LABELS = new InjectionToken<CrudLabels>("CRUD_LABELS", {
  *   })
  * ]
  */
-export function provideCrudLabels(labels: DeepPartial<CrudLabels>): Provider {
+export function provideCrudLabels(
+  labels: DeepPartial<CrudLabels>,
+  primeNGTranslation?: Partial<Translation>,
+): (Provider | EnvironmentProviders)[] {
   const merged = Object.fromEntries(
     (Object.keys(DEFAULT_CRUD_LABELS) as (keyof CrudLabels)[]).map((key) => [
       key,
       { ...(DEFAULT_CRUD_LABELS[key] as object), ...(labels[key] ?? {}) },
     ]),
   ) as unknown as CrudLabels;
-  return { provide: CRUD_LABELS, useValue: merged };
+
+  const providers: (Provider | EnvironmentProviders)[] = [
+    { provide: CRUD_LABELS, useValue: merged },
+  ];
+
+  if (primeNGTranslation) {
+    providers.push(
+      provideAppInitializer(() => {
+        inject(PrimeNG).setTranslation(primeNGTranslation);
+      }),
+    );
+  }
+
+  return providers;
 }
