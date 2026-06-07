@@ -5,7 +5,6 @@ import {
   inject,
   provideAppInitializer,
 } from "@angular/core";
-import { PRIMENG_FR } from "@core/utils/primeng/primeng-translations";
 import { Translation } from "primeng/api";
 import { PrimeNG } from "primeng/config";
 
@@ -330,7 +329,6 @@ export const DEFAULT_CRUD_LABELS: CrudLabels = {
 
 export const CRUD_LABELS = new InjectionToken<CrudLabels>("CRUD_LABELS", {
   factory: () => {
-    inject(PrimeNG).setTranslation(PRIMENG_FR);
     return DEFAULT_CRUD_LABELS;
   },
 });
