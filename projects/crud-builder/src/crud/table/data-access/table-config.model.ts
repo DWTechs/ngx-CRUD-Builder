@@ -1,7 +1,7 @@
 import { TableColumn } from "../../core/utils/table/table-column.model";
 
 export class TableConfig {
-  id: number | null = null;
+  id: number | null | undefined = null;
   name = "";
   component = "";
   conf: ColumnConfig[] = [];
@@ -17,6 +17,7 @@ export class TableConfig {
 
 export interface ExtendedTableConfig extends TableConfig {
   columns: TableColumn[];
+  isCreation?: boolean;
 }
 
 export type ColumnConfig = Pick<

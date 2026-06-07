@@ -96,8 +96,14 @@ export class TableColumnsStorage {
       this.activeColumns.set(defaultView.columns);
       return of(views);
     }
+    const cleanViews = views.map((view) => ({
+      ...view,
+      id: view.isCreation || view.id === null ? undefined : view.id,
+      isCreation: undefined,
+      columns: undefined,
+    }));
     return this.preferencesService
-      .updateMany(componentId, views)
+      .updateMany(componentId, cleanViews)
       .pipe(switchMap(() => this.viewsWithColumns$));
   }
 

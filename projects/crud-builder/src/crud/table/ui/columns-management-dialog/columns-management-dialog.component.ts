@@ -93,6 +93,7 @@ export class ColumnsManagementDialogComponent {
       conf: this.activeView().conf,
       component: this.activeView().component,
       locked: false,
+      isCreation: true,
     };
     const currentViews = this.editedViews().map((v) => ({
       ...v,
