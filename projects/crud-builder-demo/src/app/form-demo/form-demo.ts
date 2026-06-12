@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from "@angular/core";
 import { TabsModule } from "primeng/tabs";
 import { AutocompleteInputTabComponent } from "./ui/autocomplete-input-tab.component";
 import { CheckboxInputTabComponent } from "./ui/checkbox-input-tab.component";
+import { ColorPickerTabComponent } from "./ui/color-picker-tab.component";
 import { DateInputTabComponent } from "./ui/date-input-tab.component";
 import { FileUploadTabComponent } from "./ui/file-upload-tab.component";
 import { FormGeneralTabComponent } from "./ui/form-general-tab.component";
@@ -26,6 +27,7 @@ import { TextareaInputTabComponent } from "./ui/textarea-input-tab.component";
     InputTextTabComponent,
     NumberInputTabComponent,
     CheckboxInputTabComponent,
+    ColorPickerTabComponent,
     DateInputTabComponent,
     AutocompleteInputTabComponent,
     FileUploadTabComponent,

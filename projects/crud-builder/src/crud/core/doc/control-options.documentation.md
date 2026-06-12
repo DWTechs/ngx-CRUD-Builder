@@ -1228,3 +1228,55 @@ controlOptions: {
 8. **Avoid too small heights** (< 150px) as it impacts usability
 9. **Consider user expertise** when deciding to enable HTML toggle
 10. **Provide tooltips** to guide users on HTML editing features
+
+---
+
+## Color Picker Controls
+
+Color picker controls combine a clickable color swatch with a free-text hex input, both bound to the same `FormControl`. Use `CONTROL_TYPES.COLOR`.
+
+### Basic Configuration
+
+```typescript
+import { CONTROL_TYPES, hexColor } from 'crud-builder';
+
+{
+  key: 'brandColor',
+  label: 'Brand Color',
+  controlType: CONTROL_TYPES.COLOR,
+  controlOptions: {
+    defaultValue: '#6366f1',
+    validators: [hexColor],
+  },
+}
+```
+
+### `hexColor` Validator
+
+Built-in validator that accepts `#RGB` and `#RRGGBB` formats. Empty values pass (combine with `required` to make the field mandatory).
+
+```typescript
+import { hexColor, required } from 'crud-builder';
+
+// Format only (optional field)
+validators: [hexColor]
+
+// Required + valid format
+validators: [required, hexColor]
+```
+
+### Color Control Options
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `defaultValue` | `string` | Initial hex color (e.g. `'#3b82f6'`) |
+| `placeholder` | `string` | Placeholder text in the hex input (default: `'#RRGGBB'`) |
+| `validators` | `ValidatorFn[]` | Use `hexColor` to enforce valid hex format |
+| `disabled` | `boolean` | Disables both swatch and text input |
+
+### Best Practices
+
+1. **Always use `hexColor` validator** to prevent storing invalid color strings
+2. **Provide a meaningful `defaultValue`** so the swatch is never blank on load
+3. **Combine with `required`** when the color is mandatory for your data model
+4. **Store values in `#RRGGBB` format** — the component normalises shorthand `#RGB` internally

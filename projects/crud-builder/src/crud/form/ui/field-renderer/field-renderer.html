@@ -15,6 +15,14 @@
       (fieldInteraction)="fieldInteraction.emit($event)"
     />
   }
+  @case (ControlType.COLOR) {
+    <frm-colorpicker-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
   @case (ControlType.CUSTOM) {
     @let component = config().controlOptions?.customComponent;
     @if (component) {

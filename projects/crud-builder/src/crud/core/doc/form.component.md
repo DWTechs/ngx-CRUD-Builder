@@ -402,6 +402,83 @@ config: [
 }
 ```
 
+### Color Picker Controls
+
+Color picker controls let users pick a CSS hex color via a clickable color swatch combined with a free-text hex input. Use `CONTROL_TYPES.COLOR`.
+
+```typescript
+import { CONTROL_TYPES } from 'crud-builder';
+import { hexColor } from 'crud-builder';
+
+config: [
+  {
+    key: 'brandColor',
+    label: 'Brand Color',
+    controlType: CONTROL_TYPES.COLOR,
+    controlOptions: {
+      defaultValue: '#6366f1',
+      validators: [hexColor],
+    },
+  },
+]
+```
+
+#### How it works
+
+- A **color swatch** (small colored square) is rendered inside the text input.
+- Clicking the swatch opens the **native OS color picker**.
+- The companion **text input** accepts free typing; both stay bound to the same `FormControl`.
+- The stored value is always a CSS hex string (`#RRGGBB` or `#RGB`).
+
+#### Color Control Options
+
+- **`defaultValue`**: Initial hex color value (e.g. `'#3b82f6'`)
+- **`placeholder`**: Placeholder shown in the text input when empty (default: `'#RRGGBB'`)
+- **`validators`**: Use the built-in `hexColor` validator to enforce valid hex format
+- **`disabled`**: Disables both the swatch and the text input
+
+#### Examples
+
+##### Required Color
+```typescript
+{
+  key: 'themeColor',
+  label: 'Theme Color',
+  controlType: CONTROL_TYPES.COLOR,
+  controlOptions: {
+    validators: [required, hexColor],
+    defaultValue: '#ffffff',
+  },
+}
+```
+
+##### Optional Color with Default
+```typescript
+{
+  key: 'highlightColor',
+  label: 'Highlight Color',
+  controlType: CONTROL_TYPES.COLOR,
+  controlOptions: {
+    defaultValue: '#f59e0b',
+    validators: [hexColor],
+  },
+}
+```
+
+#### `hexColor` Validator
+
+A built-in validator that checks whether the value is a valid CSS hex color string (`#RGB` or `#RRGGBB`). Empty values pass validation (combine with `required` to make the field mandatory).
+
+```typescript
+import { hexColor } from 'crud-builder';
+
+// Validate format only (field is optional)
+validators: [hexColor]
+
+// Validate format and require a value
+validators: [required, hexColor]
+```
+
 ### Input Icons
 
 Form fields that support visual enhancement can display icons to improve user experience and provide visual context. Use the `inputIcon` property in field configuration.

@@ -10,11 +10,13 @@ import {
   viewChild,
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
+import { Subscription } from "rxjs";
 import { CONTROL_TYPES } from "../../../core/models/control-type.model";
 import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
 import { FormFieldInteractionEvent } from "../../../core/models/form-field-interaction.event";
 import { AutocompleteControlComponent } from "../renderers/autocomplete-control/autocomplete-control.component";
 import { CheckboxControlComponent } from "../renderers/checkbox-control/checkbox-control.component";
+import { ColorPickerControlComponent } from "../renderers/colorpicker-control/colorpicker-control.component";
 import { DateControlComponent } from "../renderers/date-control/date-control.component";
 import { FileUploadInputComponent } from "../renderers/file-upload-input/file-upload-input.component";
 import { InputNumberControlComponent } from "../renderers/inputnumber-control/inputnumber-control.component";
@@ -27,7 +29,6 @@ import { SelectButtonControlComponent } from "../renderers/select-button-control
 import { SelectControlComponent } from "../renderers/select-control/select-control.component";
 import { TableControlComponent } from "../renderers/table-control/table-control.component";
 import { TextareaControlComponent } from "../renderers/textarea-control/textarea-control.component";
-import { Subscription } from "rxjs";
 
 @Component({
   selector: "frm-field-renderer",
@@ -36,6 +37,7 @@ import { Subscription } from "rxjs";
   imports: [
     AutocompleteControlComponent,
     CheckboxControlComponent,
+    ColorPickerControlComponent,
     DateControlComponent,
     InputNumberControlComponent,
     InputTextControlComponent,

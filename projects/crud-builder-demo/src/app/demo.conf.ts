@@ -3,6 +3,7 @@ import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
 import { INPUT_TYPES } from "@crud/core/models/input-type.model";
 import { ID_CONFIG } from "@crud/core/utils/confs/id-config";
 import {
+  hexColor,
   max,
   min,
   minlength,
@@ -72,6 +73,18 @@ export const DEMO_CONF: CrudItemOptions[] = [
     controlType: CONTROL_TYPES.CHECKBOX,
     controlOptions: {
       validators: [],
+    },
+  },
+
+  // COLOR
+  {
+    key: "profileColor",
+    label: "Profile Color",
+    controlType: CONTROL_TYPES.COLOR,
+    controlOptions: {
+      inputIcon: "pi pi-palette",
+      validators: [hexColor],
+      defaultValue: "#6366f1",
     },
   },
 

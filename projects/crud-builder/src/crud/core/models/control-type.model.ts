@@ -1,6 +1,7 @@
 export const CONTROL_TYPES = {
   AUTOCOMPLETE: "autocomplete",
   CHECKBOX: "checkbox",
+  COLOR: "color",
   CUSTOM: "custom",
   DATE: "date",
   FILES: "files",
