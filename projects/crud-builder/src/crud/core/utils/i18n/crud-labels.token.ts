@@ -43,6 +43,7 @@ export interface CrudLabels {
     validate: string;
     cancel: string;
     deleteConfirmation: string;
+    deleteConfirmationHeader: string;
   };
   tableActions: {
     edit: string;
@@ -193,6 +194,7 @@ export const DEFAULT_CRUD_LABELS: CrudLabels = {
     validate: "Valider",
     cancel: "Annuler",
     deleteConfirmation: "Êtes-vous sûr de vouloir supprimer cette vue ?",
+    deleteConfirmationHeader: "Confirmation de suppression",
   },
   tableActions: {
     edit: "Editer",

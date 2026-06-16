@@ -9,13 +9,32 @@ import { ACL_ADAPTER } from "@crud/core/utils/crud-service/acl-adapter";
 import { ConfigHelper } from "@crud/core/utils/crud-service/config.helper";
 import { filterCalls } from "@crud/core/utils/crud-service/filter-calls";
 import { TableComponent } from "@crud/table/table.component";
+import { TableConfig } from "@table/data-access/table-config.model";
+import { TableConfigService } from "@table/data-access/table-config.service";
+import { of } from "rxjs";
+import { REQUESTS_VIEWS } from "../data-access/requests/requests-views";
 import { RequestsService } from "../data-access/requests/requests.service";
 
 @Component({
   selector: "adm-requests",
   imports: [TableComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ConfigHelper],
+  providers: [
+    ConfigHelper,
+    {
+      provide: TableConfigService,
+      useFactory: () => {
+        let views = REQUESTS_VIEWS;
+        return {
+          getViews: () => of(views),
+          updateMany: (_: string, updated: TableConfig[]) => {
+            views = updated;
+            return of({ rows: updated });
+          },
+        };
+      },
+    },
+  ],
   template: `
     <tbl-table 
         [config]="config"
@@ -78,6 +97,6 @@ export class RequestsComponent {
     rows: 20,
     rowsPerPageOptions: [10, 25, 50],
     outsideTableHeight: "200px",
-    isPreferencesModeEnabled: false,
+    isPreferencesModeEnabled: true,
   };
 }

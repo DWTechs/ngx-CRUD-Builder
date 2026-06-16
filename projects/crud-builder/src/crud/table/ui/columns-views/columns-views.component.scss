@@ -8,18 +8,33 @@
 .views-container-list {
   display: flex;
   flex-direction: column;
+  min-height: calc(100% - 120px);
+  max-height: calc(100% - 120px);
 
-  .p-listbox-option {
-    padding: 0 5px;
-    height: 40px;
+  .p-listbox {
+    height: 100%;
+    overflow: auto;
+
+    .p-listbox-list-container {
+      max-height: unset !important;
+      overflow: unset !important;
+    }
+
+    .p-listbox-option {
+      padding: 0 5px;
+      height: 40px;
+
+
+      .flex-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+      }
+    }
+
   }
 
-  .flex-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-  }
 }
 
 .new-view {

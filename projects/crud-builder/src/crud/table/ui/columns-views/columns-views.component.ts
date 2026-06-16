@@ -58,6 +58,7 @@ export class ColumnsViewsComponent {
       return;
     }
     this.confirmationService.confirm({
+      header: this.labels.columnsViews.deleteConfirmationHeader,
       message: this.labels.columnsViews.deleteConfirmation,
       accept: () => this.deleteView.emit(viewId),
     });
