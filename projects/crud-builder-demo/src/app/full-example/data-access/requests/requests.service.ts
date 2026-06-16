@@ -11,6 +11,7 @@ import {
   itRequests,
   osTypes,
   requestTypes,
+  requestsHistory,
 } from "./requests-data";
 
 @Injectable({ providedIn: "root" })
@@ -29,7 +30,10 @@ export class RequestsService {
     update: this.crud.update,
     archive: this.crud.archive,
     restore: this.crud.restore,
-    getHistory: this.crud.getHistory,
+    getHistory: (id) => {
+      const history = requestsHistory[id] ?? [];
+      return of({ rows: history, total: history.length });
+    },
   };
 
   public readonly config = (payload: ActivatedRouteSnapshot) =>

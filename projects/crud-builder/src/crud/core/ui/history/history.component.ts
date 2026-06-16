@@ -1,10 +1,11 @@
 import { DatePipe } from "@angular/common";
 import {
   Component,
-  computed,
+  effect,
   inject,
   input,
   output,
+  signal,
   ViewEncapsulation,
 } from "@angular/core";
 import { SharedModule } from "primeng/api";
@@ -31,22 +32,31 @@ export class HistoryComponent<TData> {
   } | null>();
 
   public readonly config = input.required<CrudItemOptions[]>();
-
-  public readonly rows = computed<FullHistoryRow<TData>[]>(() =>
-    this.buildHistoryTable(),
-  );
+  public readonly showOldValue = input(false);
 
   public readonly selected = output<HistorizedData<TData>>();
 
-  public readonly showOldValue = input(false);
+  public readonly rows = signal<FullHistoryRow<TData>[]>([]);
+  public readonly selectedDate = signal<string | null>(null);
 
   public readonly dateFormat = DATE_WITH_SECONDS_FORMAT;
-  public selectedDate: string | null = null;
 
   public expandedRows: Record<string, boolean> = {};
 
+  // Build the history table when the data is set, and set the selected date to the most recent entry
+  // this effects will be destroyed after the first run, since we only want to set the rows and selected date once
+  protected readonly setRowsEffect = effect(
+    () => {
+      const historyData = this.buildHistoryTable();
+      this.selectedDate.set(historyData[0]?.tstamp ?? null);
+      this.rows.set(historyData);
+      this.setRowsEffect.destroy();
+    },
+    { manualCleanup: true },
+  );
+
   public showVersion(entry: HistorizedData<TData>) {
-    this.selectedDate = entry.tstamp;
+    this.selectedDate.set(entry.tstamp);
     this.selected.emit(entry);
   }
 

@@ -11,7 +11,7 @@
       </tr>
     </ng-template>
     <ng-template #body let-entry let-rowIndex="rowIndex" let-expanded="expanded">
-      <tr [class.selected]="entry.tstamp === selectedDate">
+      <tr [class.selected]="entry.tstamp === selectedDate()">
         <td class="first-col">
           <p-button type="button" pRipple
             [pRowToggler]="entry"
@@ -23,15 +23,16 @@
         </td>
         <td>{{ entry.tstamp | date:dateFormat }}</td>
         <td>{{ entry.updaterName }}</td>
-        <td>
-          @if (rowIndex) {
-            <p-button type="button" pRipple
-              class="action-button"
-              icon="pi pi-history"
-              [title]="labels.history.restore"
-              (click)="showVersion(entry)"
-            />
-          }
+        <td>          
+          <p-button 
+            type="button" 
+            pRipple
+            class="action-button"
+            icon="pi pi-history"
+            [disabled]="entry.tstamp === selectedDate()"
+            [title]="labels.history.restore"
+            (click)="showVersion(entry)"
+          />
         </td>
       </tr>
     </ng-template>
