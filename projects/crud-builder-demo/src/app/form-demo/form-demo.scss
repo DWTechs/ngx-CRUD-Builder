@@ -14,11 +14,12 @@ $tabAndHeaderHeight: 196px;
     a, button {
         padding: 0.4rem 1.2rem;
         border: 1px solid var(--p-primary-color);
-        color: var(--p-primary-color);
+        color: white;
         text-decoration: none;
         font-size: 0.875rem;
         font-weight: 500;
         transition: background-color 0.2s, color 0.2s;
+        cursor: pointer;
 
         &:first-child {
             border-radius: 6px 0 0 6px;
@@ -36,6 +37,7 @@ $tabAndHeaderHeight: 196px;
 
         &:hover:not(.active) {
             background-color: var(--p-primary-50);
+            color: var(--p-primary-color);
         }
     }
 }
