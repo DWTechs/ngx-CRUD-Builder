@@ -38,7 +38,7 @@ import { CrudLoader } from "../core/utils/table/crud-loader.class";
 import { ExcelExportMode } from "../core/utils/table/export-mode.model";
 import { FilterLevel } from "../core/utils/table/filter-level.model";
 import { TableStateService } from "../core/utils/table/table-state.service";
-import { FileInfo } from "../form/ui/renderers/file-upload-input/file-info.class";
+import { FileInfo } from "../form/ui/renderers-primeng/file-upload-input/file-info.class";
 import { LabelStrategy } from "../form/utils/label-strategy.model";
 import { ExtendedTableConfig } from "./data-access/table-config.model";
 import { ColumnsManagementDialogComponent } from "./ui/columns-management-dialog/columns-management-dialog.component";

@@ -1,0 +1,26 @@
+<div class="color-picker-control">
+  <div
+    class="color-swatch"
+    [style.background-color]="safeColor()"
+    [class.disabled]="isDisabled() || isFormReadonly()"
+    [title]="control().value || ''"
+    (click)="onSwatchClick()"
+  >
+    <input
+      #nativeColorInput
+      type="color"
+      class="native-color-input"
+      [value]="safeColor()"
+      [disabled]="isDisabled() || isFormReadonly()"
+      (input)="onNativeColorChange($event)"
+    />
+  </div>
+  <input
+    type="text"
+    [placeholder]="placeholder() || '#RRGGBB'"
+    [formControl]="control()"
+    (input)="emitInteractionEvent('keyup')"
+    (focus)="emitInteractionEvent('focus')"
+    (blur)="emitInteractionEvent('blur')"
+  />
+</div>

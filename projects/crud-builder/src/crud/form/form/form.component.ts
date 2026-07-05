@@ -26,7 +26,6 @@ import {
   ValidatorFn,
 } from "@angular/forms";
 import { isArray, isFunction, isNil } from "@dwtechs/checkard";
-import { PanelModule } from "primeng/panel";
 import { ProgressSpinnerModule } from "primeng/progressspinner";
 import { debounceTime, distinctUntilChanged, Subscription } from "rxjs";
 import {
@@ -76,7 +75,6 @@ export const ONE_COLUMN_WIDTH = "100%";
     FormArrayElement,
     ToControlPipe,
     CrudButtonComponent,
-    PanelModule,
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,

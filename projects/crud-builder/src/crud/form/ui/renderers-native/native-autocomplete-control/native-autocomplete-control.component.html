@@ -1,0 +1,84 @@
+<div class="native-autocomplete"
+     [class.open]="isPanelOpen()"
+     [class.multiple]="isMultiple()"
+     [class.disabled]="isDisabled() || isFormReadonly()">
+
+  <!-- Trigger -->
+  <div class="autocomplete-trigger">
+
+    @if (isMultiple()) {
+      <!-- Mode multiple : chips + input inline -->
+      <div class="selected-labels">
+        @for (chip of selectedChips(); track chip.value) {
+          <span class="chip">
+            {{ chip.label }}
+            @if (!isDisabled() && !isFormReadonly()) {
+              <button type="button" class="chip-remove"
+                (click)="removeChip(chip.value, $event)">✕</button>
+            }
+          </span>
+        }
+        <input
+          type="text"
+          class="autocomplete-input"
+          [formControl]="inputControl"
+          [placeholder]="!hasValue() ? (placeholder() || 'Rechercher...') : ''"
+          [attr.disabled]="isDisabled() || isFormReadonly() ? true : null"
+          (focus)="onInputFocus()"
+          (input)="onInput()"
+          (click)="stopPropagation($event)"
+        />
+      </div>
+    } @else {
+      <!-- Mode simple : l'input est le trigger -->
+      <input
+        type="text"
+        class="autocomplete-input"
+        [formControl]="inputControl"
+        [placeholder]="placeholder() || 'Rechercher...'"
+        [attr.disabled]="isDisabled() || isFormReadonly() ? true : null"
+        (focus)="onInputFocus()"
+        (input)="onInput()"
+        (click)="stopPropagation($event)"
+      />
+    }
+
+    @if (showClear() && !isRequired() && hasValue()) {
+      <button
+        type="button"
+        class="clear-btn"
+        [disabled]="isDisabled() || isFormReadonly()"
+        (click)="clearSelection($event)"
+      >✕</button>
+    }
+
+    @if (isDropdown()) {
+      <button
+        type="button"
+        class="chevron-btn"
+        [disabled]="isDisabled() || isFormReadonly()"
+        (click)="togglePanel(); stopPropagation($event)"
+      >
+        <span class="chevron">{{ isPanelOpen() ? '▲' : '▼' }}</span>
+      </button>
+    }
+  </div>
+
+  <!-- Panel -->
+  @if (isPanelOpen()) {
+    <div class="autocomplete-panel" (click)="stopPropagation($event)">
+      <div class="options-list" [style.max-height]="scrollHeight()">
+        @for (opt of filteredOptions(); track opt.value) {
+          <div
+            class="option-row"
+            [class.selected]="isSelected(opt.value)"
+            (click)="selectOption(opt.value)"
+          >{{ opt.label }}</div>
+        } @empty {
+          <span class="no-results">Aucun résultat</span>
+        }
+      </div>
+    </div>
+  }
+
+</div>

@@ -1,0 +1,75 @@
+<div class="native-multiselect" [class.open]="isPanelOpen()" [class.disabled]="isDisabled() || isFormReadonly()">
+
+  <!-- Trigger -->
+  <div class="multiselect-trigger" (click)="togglePanel()">
+    <div class="selected-labels">
+      @if (hasValue()) {
+        @for (label of selectedDisplay(); track label) {
+          <span class="chip">{{ label }}</span>
+        }
+      } @else {
+        <span class="placeholder">{{ placeholder() || 'Sélectionner...' }}</span>
+      }
+    </div>
+    @if (showClear() && !isRequired() && hasValue()) {
+      <button
+        type="button"
+        class="clear-btn"
+        [disabled]="isDisabled() || isFormReadonly()"
+        (click)="clearSelection(); stopPropagation($event)"
+      >✕</button>
+    }
+    <span class="chevron">{{ isPanelOpen() ? '▲' : '▼' }}</span>
+  </div>
+
+  <!-- Panel -->
+  @if (isPanelOpen()) {
+    <div class="multiselect-panel" (click)="stopPropagation($event)">
+
+      @if (areOptionsFilterable()) {
+        <div class="panel-filter">
+          <input
+            type="text"
+            class="filter-input"
+            placeholder="Filtrer..."
+            [formControl]="filterControl"
+            (click)="stopPropagation($event)"
+          />
+        </div>
+      }
+
+      @if (isSelectAllEnabled()) {
+        <label class="option-row toggle-all">
+          <input
+            type="checkbox"
+            [checked]="allSelected()"
+            [indeterminate]="someSelected()"
+            [disabled]="isDisabled() || isFormReadonly()"
+            (change)="toggleAll($event)"
+          />
+          <span>Tout sélectionner</span>
+        </label>
+        <hr class="divider" />
+      }
+
+      <div class="options-list">
+        @for (opt of filteredOptions(); track opt.value) {
+          <label class="option-row">
+            <input
+              type="checkbox"
+              [value]="opt.value"
+              [checked]="isSelected(opt.value)"
+              [disabled]="isDisabled() || isFormReadonly()"
+              (change)="toggleOption(opt.value, $event)"
+            />
+            <span>{{ opt.label }}</span>
+          </label>
+        } @empty {
+          <span class="no-results">Aucun résultat</span>
+        }
+      </div>
+
+    </div>
+  }
+
+</div>

@@ -1,0 +1,141 @@
+.native-multiselect {
+  position: relative;
+  display: block;
+  width: 100%;
+
+  &.disabled .multiselect-trigger {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &.open .multiselect-trigger {
+    outline: 1px solid Highlight;
+    border-color: Highlight;
+  }
+}
+
+.multiselect-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.4rem;
+  background: Field;
+  color: FieldText;
+  border: 1px solid ButtonBorder;
+  border-radius: 2px;
+  cursor: pointer;
+  user-select: none;
+  min-height: 1.8rem;
+  font: inherit;
+}
+
+.selected-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1rem 0.45rem;
+  border-radius: 10px;
+  background-color: Highlight;
+  color: HighlightText;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.placeholder {
+  color: GrayText;
+}
+
+.clear-btn {
+  background: none;
+  border: none;
+  color: GrayText;
+  cursor: pointer;
+  padding: 0 0.2rem;
+  line-height: 1;
+  flex-shrink: 0;
+  font: inherit;
+
+  &:hover {
+    color: FieldText;
+  }
+}
+
+.chevron {
+  font-size: 0.65rem;
+  color: GrayText;
+  flex-shrink: 0;
+}
+
+.multiselect-panel {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: Canvas;
+  color: CanvasText;
+  border: 1px solid ButtonBorder;
+  border-radius: 2px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.panel-filter {
+  padding: 0.3rem 0.4rem;
+  border-bottom: 1px solid ButtonBorder;
+
+  .filter-input {
+    width: 100%;
+    box-sizing: border-box;
+    font: inherit;
+  }
+}
+
+.divider {
+  margin: 0;
+  border: none;
+  border-top: 1px solid ButtonBorder;
+}
+
+.toggle-all {
+  font-weight: 600;
+}
+
+.options-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.option-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  color: CanvasText;
+
+  &:hover {
+    background-color: Highlight;
+    color: HighlightText;
+  }
+
+  input[type='checkbox'] {
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+}
+
+.no-results {
+  display: block;
+  padding: 0.5rem;
+  color: GrayText;
+  font-style: italic;
+}

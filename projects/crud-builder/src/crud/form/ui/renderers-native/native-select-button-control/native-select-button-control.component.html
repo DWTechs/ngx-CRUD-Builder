@@ -1,0 +1,17 @@
+<div
+  class="native-select-button"
+  [class.multiple]="isMultiple()"
+  [attr.role]="isMultiple() ? 'group' : 'radiogroup'"
+>
+  @for (opt of selectOptions(); track opt.value) {
+    <button
+      type="button"
+      class="select-btn"
+      [class.selected]="isSelected(opt.value)"
+      [attr.role]="isMultiple() ? 'checkbox' : 'radio'"
+      [attr.aria-checked]="isSelected(opt.value)"
+      [disabled]="isDisabled() || isFormReadonly() || opt.disabled || null"
+      (click)="selectOption(opt.value)"
+    >{{ opt.label }}</button>
+  }
+</div>

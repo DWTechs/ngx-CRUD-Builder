@@ -50,9 +50,14 @@ export * from "./crud/core/utils/table/table-column.model";
 export * from "./crud/form/form/form.component";
 // --- Form: main entry points ---
 export * from "./crud/form/form-builder.service";
+// --- Form: renderer adapter ---
+export * from "./crud/form/ui/field-renderer/form-field-component-base";
+export * from "./crud/form/ui/field-renderer/form-field-component.token";
+export * from "./crud/form/ui/field-renderer/form-field-renderer.token";
+export * from "./crud/form/ui/field-renderer/provide-form-field-renderer";
 
 // --- Form: file upload ---
-export * from "./crud/form/ui/renderers/file-upload-input/file-info.class";
+export * from "./crud/form/ui/renderers-primeng/file-upload-input/file-info.class";
 
 // --- Form: validators & utilities ---
 export * from "./crud/form/utils/common.validators";

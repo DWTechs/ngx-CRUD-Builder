@@ -1,0 +1,58 @@
+.native-select-button {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.select-btn {
+  padding: 0.3rem 0.75rem;
+  background: Field;
+  color: FieldText;
+  border: 1px solid ButtonBorder;
+  border-right-width: 0;
+  font: inherit;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: background-color 0.1s, color 0.1s;
+
+  &:first-child {
+    border-radius: 2px 0 0 2px;
+  }
+
+  &:last-child {
+    border-radius: 0 2px 2px 0;
+    border-right-width: 1px;
+  }
+
+  &:only-child {
+    border-radius: 2px;
+    border-right-width: 1px;
+  }
+
+  &:hover:not(:disabled):not(.selected) {
+    background: ButtonFace;
+  }
+
+  &.selected {
+    background: Highlight;
+    color: HighlightText;
+    border-color: Highlight;
+    // Évite le doublon de bordure entre deux options sélectionnées
+    & + .select-btn.selected {
+      border-left-color: HighlightText;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+    z-index: 1;
+    position: relative;
+  }
+}

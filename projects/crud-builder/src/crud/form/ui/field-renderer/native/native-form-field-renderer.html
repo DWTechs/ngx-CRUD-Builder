@@ -1,0 +1,105 @@
+@switch (config().controlType) {
+  @case (ControlType.INPUT) {
+    @if (config().type === 'number') {
+      <frm-native-inputnumber-control
+        [config]="config()"
+        [control]="control()"
+        [isFormReadonly]="isFormReadonly()"
+        (fieldInteraction)="fieldInteraction.emit($event)"
+      />
+    } @else {
+      <frm-native-inputtext-control
+        [config]="config()"
+        [control]="control()"
+        [isFormReadonly]="isFormReadonly()"
+        (fieldInteraction)="fieldInteraction.emit($event)"
+      />
+    }
+  }
+  @case (ControlType.SELECT) {
+    <frm-native-select-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.CHECKBOX) {
+    <frm-native-checkbox-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.TEXTAREA) {
+    <frm-native-textarea-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.COLOR) {
+    <frm-native-colorpicker-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.DATE) {
+    <frm-native-date-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.MULTISELECT) {
+    <frm-native-multiselect-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.RADIO) {
+    <frm-native-radiogroup-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.FILES) {
+    <frm-native-file-upload-input
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.SELECT_BUTTON) {
+    <frm-native-select-button-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.AUTOCOMPLETE) {
+    <frm-native-autocomplete-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      [syncValueInc]="syncValueInc()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @default {
+    <span class="frm-native-unsupported">
+      Native renderer: controlType "{{ config().controlType }}" is not supported.
+    </span>
+  }
+}

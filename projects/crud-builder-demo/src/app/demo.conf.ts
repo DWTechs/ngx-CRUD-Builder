@@ -62,7 +62,7 @@ export const DEMO_CONF: CrudItemOptions[] = [
     },
     conditions: {
       controlOptions: {
-        hidden: ({ model }) => model.age < 18, // Hide salary field if age is less than 18
+        hidden: ({ model }) => !model.age || model.age < 18, // Hide salary field if age is less than 18
       },
     },
   },

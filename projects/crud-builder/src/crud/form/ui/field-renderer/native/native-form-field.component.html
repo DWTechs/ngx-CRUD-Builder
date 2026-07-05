@@ -1,0 +1,10 @@
+<label [for]="config().key" [class.mandatory-control]="isRequired()">
+  {{ label() }}
+</label>
+<frm-native-field-renderer
+  [config]="config()"
+  [control]="control()"
+  [isFormReadonly]="isFormReadonly()"
+  [syncValueInc]="syncValueInc()"
+  (fieldInteraction)="fieldInteraction.emit($event)"
+/>

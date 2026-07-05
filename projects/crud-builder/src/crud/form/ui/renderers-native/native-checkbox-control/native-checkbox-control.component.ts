@@ -1,0 +1,19 @@
+import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
+import { FormFieldBaseComponent } from "../../renderers-primeng/form-field-base.component";
+
+@Component({
+  selector: "frm-native-checkbox-control",
+  template: `
+    <input
+      type="checkbox"
+      [formControl]="control()"
+      (change)="emitInteractionEvent('valueChange')"
+      (focus)="emitInteractionEvent('focus')"
+      (blur)="emitInteractionEvent('blur')"
+    />
+  `,
+  imports: [ReactiveFormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class NativeCheckboxControlComponent extends FormFieldBaseComponent {}

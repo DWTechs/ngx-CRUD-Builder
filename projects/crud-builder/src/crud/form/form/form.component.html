@@ -5,17 +5,17 @@
       @if (config.controlType === "group") {
         @let group= _form | formGroupByKey:config.key;
         @if (group) {
-           <p-panel [formGroup]="group" 
-            class="form-group" #childFormGroup="ngForm" 
-            [toggleable]="true"
-            [header]="config.label">
-            @for (child of config.children; track trackControl($index, child)) {              
-              <ng-container 
-                [ngTemplateOutlet]="controlTemplate" 
-                [ngTemplateOutletContext]="{ $implicit: child, form: group }" 
-              />
-            }
-          </p-panel>
+          <details class="form-group" open [formGroup]="group" #childFormGroup="ngForm">
+            <summary class="form-group-header">{{ config.label }}</summary>
+            <div class="form-group-content">
+              @for (child of config.children; track trackControl($index, child)) {
+                <ng-container
+                  [ngTemplateOutlet]="controlTemplate"
+                  [ngTemplateOutletContext]="{ $implicit: child, form: group }"
+                />
+              }
+            </div>
+          </details>
         }
       } @else if (config.controlOptions?.isFormArray) {
         <frm-array-element 

@@ -1,0 +1,13 @@
+<frm-label-wrapper
+  [config]="config()"
+  [control]="control()"
+  [labelStrategy]="labelStrategy()"
+  [labelVariant]="labelVariant()">
+  <frm-field-renderer
+    [config]="config()"
+    [control]="control()"
+    [isFormReadonly]="isFormReadonly()"
+    [syncValueInc]="syncValueInc()"
+    (fieldInteraction)="fieldInteraction.emit($event)"
+  />
+</frm-label-wrapper>

@@ -1,4 +1,8 @@
     <div class="form-demo-container">
+      <div class="adapter-toggle">
+        <button (click)="switchAdapter('primeng')" [class.active]="currentAdapter() === 'primeng'">PrimeNG</button>
+        <button (click)="switchAdapter('native')" [class.active]="currentAdapter() === 'native'">Native HTML</button>
+      </div>
       <p-tabs value="0">
         <p-tablist>
           <p-tab value="0">Form</p-tab>

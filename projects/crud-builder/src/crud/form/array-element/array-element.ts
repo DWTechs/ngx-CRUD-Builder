@@ -13,7 +13,6 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from "@angular/forms";
-import { ButtonModule } from "primeng/button";
 import { ControlOptions } from "../../core/models/control-options.model";
 import { CrudItemOptions } from "../../core/models/crud-item-options.model";
 import { CRUD_LABELS } from "../../core/utils/i18n/crud-labels.token";
@@ -24,12 +23,7 @@ import { FormFieldRenderer } from "../ui/field-renderer/field-renderer";
 @Component({
   selector: "frm-array-element",
   templateUrl: "./array-element.html",
-  imports: [
-    ButtonModule,
-    ReactiveFormsModule,
-    FormFieldRenderer,
-    FormErrorMessage,
-  ],
+  imports: [ReactiveFormsModule, FormFieldRenderer, FormErrorMessage],
   styleUrls: ["./array-element.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

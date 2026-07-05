@@ -1,9 +1,9 @@
+import { SelectItem } from "primeng/api";
+import { FileInfo } from "../../form/ui/renderers-primeng/file-upload-input/file-info.class";
 import { ColumnOptions } from "./column-options.model";
 import { ControlOptions } from "./control-options.model";
 import { ControlType } from "./control-type.model";
 import { InputType } from "./input-type.model";
-import { FileInfo } from "../../form/ui/renderers/file-upload-input/file-info.class";
-import { SelectItem } from "primeng/api";
 
 /**
  * Use StrictCrudItemOptions to enforce type checking in your crud options

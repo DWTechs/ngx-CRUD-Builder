@@ -1,0 +1,163 @@
+.native-autocomplete {
+  position: relative;
+  display: block;
+  width: 100%;
+
+  &.disabled .autocomplete-trigger {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &.open .autocomplete-trigger {
+    outline: 1px solid Highlight;
+    border-color: Highlight;
+  }
+}
+
+.autocomplete-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.4rem;
+  background: Field;
+  color: FieldText;
+  border: 1px solid ButtonBorder;
+  border-radius: 2px;
+  min-height: 1.8rem;
+  font: inherit;
+}
+
+.autocomplete-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: FieldText;
+  font: inherit;
+  cursor: text;
+
+  &::placeholder {
+    color: GrayText;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+// Mode multiple : la zone chips contient l'input inline
+.selected-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  flex: 1;
+  min-width: 0;
+  align-items: center;
+
+  .autocomplete-input {
+    flex: 1;
+    min-width: 4rem;
+  }
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.1rem 0.3rem 0.1rem 0.45rem;
+  border-radius: 10px;
+  background-color: Highlight;
+  color: HighlightText;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.chip-remove {
+  background: none;
+  border: none;
+  color: HighlightText;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  font-size: 0.75rem;
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.clear-btn {
+  background: none;
+  border: none;
+  color: GrayText;
+  cursor: pointer;
+  padding: 0 0.2rem;
+  line-height: 1;
+  flex-shrink: 0;
+  font: inherit;
+
+  &:hover {
+    color: FieldText;
+  }
+}
+
+.chevron-btn {
+  background: none;
+  border: none;
+  padding: 0 0.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.chevron {
+  font-size: 0.65rem;
+  color: GrayText;
+}
+
+.autocomplete-panel {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: Canvas;
+  color: CanvasText;
+  border: 1px solid ButtonBorder;
+  border-radius: 2px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.options-list {
+  overflow-y: auto;
+}
+
+.option-row {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  color: CanvasText;
+
+  &:hover,
+  &.selected {
+    background-color: Highlight;
+    color: HighlightText;
+  }
+}
+
+.no-results {
+  display: block;
+  padding: 0.5rem;
+  color: GrayText;
+  font-style: italic;
+}

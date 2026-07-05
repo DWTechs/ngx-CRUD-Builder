@@ -1,5 +1,6 @@
-import { Component, ViewEncapsulation } from "@angular/core";
+import { Component, signal, ViewEncapsulation } from "@angular/core";
 import { TabsModule } from "primeng/tabs";
+import { ADAPTER_STORAGE_KEY } from "../app.config";
 import { AutocompleteInputTabComponent } from "./ui/autocomplete-input-tab.component";
 import { CheckboxInputTabComponent } from "./ui/checkbox-input-tab.component";
 import { ColorPickerTabComponent } from "./ui/color-picker-tab.component";
@@ -41,4 +42,13 @@ import { TextareaInputTabComponent } from "./ui/textarea-input-tab.component";
     TableControlTabComponent,
   ],
 })
-export class FormDemo {}
+export class FormDemo {
+  protected readonly currentAdapter = signal(
+    localStorage.getItem(ADAPTER_STORAGE_KEY) ?? "primeng",
+  );
+
+  protected switchAdapter(type: string): void {
+    localStorage.setItem(ADAPTER_STORAGE_KEY, type);
+    window.location.reload();
+  }
+}

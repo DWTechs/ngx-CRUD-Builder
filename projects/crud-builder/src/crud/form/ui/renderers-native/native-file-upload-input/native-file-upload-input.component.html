@@ -1,0 +1,76 @@
+<input #fileInput
+  [id]="'file-upload-' + config().key"
+  type="file"
+  [accept]="accept()"
+  [multiple]="options().multiple"
+  [disabled]="isDisabled()"
+  (change)="onFileUploaded(fileInput)"
+/>
+
+<label
+  [for]="'file-upload-' + config().key"
+  class="upload-zone"
+  [class.disabled]="isDisabled()"
+  [class.dragged-over]="isDraggedOver"
+  (drop)="onDrop($event, fileInput)"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (dragenter)="prevent($event)">
+
+  <div class="dropbox-toolbar">
+    <div class="toolbar-left">
+      <button
+        type="button"
+        class="tool-btn"
+        [title]="labels.fileUpload.chooseFile"
+        [disabled]="!canAddMore()"
+        (click)="fileInput.click()"
+      >⬆</button>
+      <button
+        type="button"
+        class="tool-btn danger"
+        title="Tout supprimer"
+        [disabled]="!localFiles() || localFiles().length === 0"
+        (click)="clearAll(fileInput)"
+      >✕</button>
+    </div>
+    <div class="toolbar-right">
+      <button
+        type="button"
+        class="tool-btn info"
+        [title]="infoTitle()"
+      >ℹ</button>
+    </div>
+  </div>
+
+  <div class="dropbox-container">
+    @let hasFiles = localFiles() && localFiles().length > 0;
+    @if (!hasFiles) {
+      <span class="upload-icon">⬆</span>
+      <p>{{ labels.fileUpload.dragDropLabel }}</p>
+    } @else {
+      <div class="uploaded-files-container">
+        <div class="container-title">
+          {{ labels.fileUpload.uploadedFilesTitle }}
+        </div>
+        @for (file of localFiles(); track file; let i = $index) {
+          <div class="file-row">
+            <button
+              type="button"
+              class="file-btn danger"
+              title="Supprimer"
+              (click)="clear(i, fileInput)"
+            >✕</button>
+            <button
+              type="button"
+              class="file-btn"
+              title="Télécharger"
+              (click)="onDownload(file)"
+            >⬇</button>
+            <span class="file-name">{{ file | fileName }}</span>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</label>

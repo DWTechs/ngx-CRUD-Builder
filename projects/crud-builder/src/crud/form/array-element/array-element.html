@@ -1,14 +1,12 @@
 <div class="array-group" [class.p-disabled]="isDisabled()">
     <div class="array-group-label">
       <span>{{config().label}}</span>
-      <p-button 
-        type="button" 
-        outlined
-        [label]="arrayControlOptions().addButtonLabel" 
-        icon="pi pi-plus" 
+      <button
+        type="button"
+        class="add-btn"
         [disabled]="cannotAdd()"
         (click)="addControl()"
-      />
+      >+ {{ arrayControlOptions().addButtonLabel }}</button>
     </div>
     @for (control of controls(); track control) {   
       <div class="array-control-container">
@@ -26,14 +24,13 @@
             [controlErrors]="control.errors" 
           />
         }
-        <p-button 
-          type="button" 
-          text
-          icon="pi pi-trash"
+        <button
+          type="button"
+          class="delete-btn"
           [title]="labels.arrayElement.delete"
           [disabled]="cannotDelete()"
           (click)="removeControl($index)"
-        />
+        >🗑</button>
       </div>       
     }
 </div>

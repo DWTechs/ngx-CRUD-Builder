@@ -13,24 +13,25 @@
 
   .form-group {
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
     padding: 5px;
     border-radius: 8px;
     background-color: var(--primary-bg-color);
     margin: 10px 0;
 
-    .p-panel-header {
+    summary.form-group-header {
       width: 100%;
+      cursor: pointer;
+      font-weight: 600;
+      padding: 0.25rem 0;
+      user-select: none;
+      list-style: revert;
     }
 
-    .p-panel-content {
+    .form-group-content {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
     }
-
-
   }
 }
 

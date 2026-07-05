@@ -1,0 +1,166 @@
+:host {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.upload-zone {
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem;
+  border: 1px solid ButtonBorder;
+  border-radius: 2px;
+  background: Field;
+  color: FieldText;
+  cursor: pointer;
+  text-align: center;
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &.dragged-over {
+    outline: 2px dashed Highlight;
+    outline-offset: -2px;
+    font-weight: bold;
+  }
+
+  p {
+    margin: 0;
+    color: GrayText;
+  }
+}
+
+// Toolbar --------------------------------------------------------
+
+.dropbox-toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+
+  .toolbar-left {
+    display: flex;
+    gap: 0.25rem;
+  }
+}
+
+.tool-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid ButtonBorder;
+  border-radius: 50%;
+  background: Field;
+  color: FieldText;
+  cursor: pointer;
+  font-size: 0.9rem;
+  line-height: 1;
+
+  &:hover:not(:disabled) {
+    background: ButtonFace;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &.danger {
+    color: #c00;
+    border-color: #c00;
+
+    &:hover:not(:disabled) {
+      background: #c00;
+      color: HighlightText;
+    }
+  }
+
+  &.info {
+    color: GrayText;
+    font-style: italic;
+    cursor: default;
+  }
+}
+
+// Drop area ------------------------------------------------------
+
+.dropbox-container {
+  min-height: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.upload-icon {
+  font-size: 2rem;
+  color: GrayText;
+}
+
+// File list ------------------------------------------------------
+
+.uploaded-files-container {
+  width: 100%;
+  text-align: left;
+
+  .container-title {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.file-row {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0;
+}
+
+.file-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: FieldText;
+  cursor: pointer;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+
+  &:hover {
+    background: ButtonFace;
+  }
+
+  &.danger {
+    color: #c00;
+
+    &:hover {
+      background: #c00;
+      color: HighlightText;
+    }
+  }
+}
+
+.file-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  text-align: left;
+}

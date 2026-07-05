@@ -1,28 +1,29 @@
+import { NgComponentOutlet } from "@angular/common";
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
+  OnDestroy,
   OnInit,
   output,
+  OutputEmitterRef,
+  viewChild,
   ViewEncapsulation,
 } from "@angular/core";
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { isNil } from "@dwtechs/checkard";
+import { Subscription } from "rxjs";
 import { ControlOptions } from "../../core/models/control-options.model";
 import { CONTROL_TYPES } from "../../core/models/control-type.model";
 import { CrudItemOptions } from "../../core/models/crud-item-options.model";
 import { FormFieldInteractionEvent } from "../../core/models/form-field-interaction.event";
-import { required } from "../utils/common.validators";
-import { isNil } from "@dwtechs/checkard";
 import { FormErrorMessage } from "../ui/field-error-message/field-error-message";
-import { FormFieldRenderer } from "../ui/field-renderer/field-renderer";
-import { LabelWrapperComponent } from "../ui/label-wrapper/label-wrapper";
+import { FORM_FIELD_COMPONENT } from "../ui/field-renderer/form-field-component.token";
+import { required } from "../utils/common.validators";
 import { LabelStrategy } from "../utils/label-strategy.model";
-import { SharedModule } from "primeng/api";
-import { ButtonModule } from "primeng/button";
-import { CheckboxModule } from "primeng/checkbox";
-import { IftaLabelModule } from "primeng/iftalabel";
-import { MultiSelectModule } from "primeng/multiselect";
 
 @Component({
   selector: "frm-simple-element",
@@ -31,14 +32,8 @@ import { MultiSelectModule } from "primeng/multiselect";
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    MultiSelectModule,
-    SharedModule,
-    CheckboxModule,
-    ButtonModule,
-    IftaLabelModule,
     FormErrorMessage,
-    FormFieldRenderer,
-    LabelWrapperComponent,
+    NgComponentOutlet,
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -49,7 +44,7 @@ import { MultiSelectModule } from "primeng/multiselect";
     "[class]": "controlOptions().styleClass",
   },
 })
-export class FormSimpleElement implements OnInit {
+export class FormSimpleElement implements OnInit, AfterViewInit, OnDestroy {
   public readonly config = input.required<CrudItemOptions>();
   public readonly control = input.required<FormControl>();
   public readonly isFormReadonly = input.required<boolean | undefined>();
@@ -63,6 +58,14 @@ export class FormSimpleElement implements OnInit {
   public readonly fieldInteraction = output<FormFieldInteractionEvent>();
 
   public readonly ControlType = CONTROL_TYPES;
+
+  /** Full field component (label + control) resolved from FORM_FIELD_COMPONENT token.
+   * Throws at runtime if no provider is configured — use `providePrimengFormFieldRenderer()`
+   * or `provideNativeFormFieldRenderer()` in your application config. */
+  protected readonly fieldComponent = inject(FORM_FIELD_COMPONENT);
+
+  private readonly rendererOutlet = viewChild(NgComponentOutlet);
+  private sub = new Subscription();
 
   protected readonly controlOptions = computed<Partial<ControlOptions>>(() => {
     return this.config()?.controlOptions ?? {};
@@ -83,5 +86,23 @@ export class FormSimpleElement implements OnInit {
     ) {
       this.control().markAsTouched();
     }
+  }
+
+  ngAfterViewInit(): void {
+    const outlet = this.rendererOutlet();
+    const fieldInteraction = outlet?.componentInstance?.fieldInteraction as
+      | OutputEmitterRef<FormFieldInteractionEvent>
+      | undefined;
+    if (fieldInteraction) {
+      this.sub.add(
+        fieldInteraction.subscribe((event: FormFieldInteractionEvent) =>
+          this.fieldInteraction.emit(event),
+        ),
+      );
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }

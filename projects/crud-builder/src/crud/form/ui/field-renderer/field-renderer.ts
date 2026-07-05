@@ -14,21 +14,21 @@ import { Subscription } from "rxjs";
 import { CONTROL_TYPES } from "../../../core/models/control-type.model";
 import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
 import { FormFieldInteractionEvent } from "../../../core/models/form-field-interaction.event";
-import { AutocompleteControlComponent } from "../renderers/autocomplete-control/autocomplete-control.component";
-import { CheckboxControlComponent } from "../renderers/checkbox-control/checkbox-control.component";
-import { ColorPickerControlComponent } from "../renderers/colorpicker-control/colorpicker-control.component";
-import { DateControlComponent } from "../renderers/date-control/date-control.component";
-import { FileUploadInputComponent } from "../renderers/file-upload-input/file-upload-input.component";
-import { InputNumberControlComponent } from "../renderers/inputnumber-control/inputnumber-control.component";
-import { InputTextControlComponent } from "../renderers/inputtext-control/inputtext-control.component";
-import { MultiSelectControlComponent } from "../renderers/multi-select-control/multi-select-control.component";
-import { PicklistControlComponent } from "../renderers/picklist-control/picklist-control.component";
-import { RadioGroupComponent } from "../renderers/radiogroup-control/radiogroup-control.component";
-import { RichTextEditorComponent } from "../renderers/rich-text-editor/rich-text-editor.component";
-import { SelectButtonControlComponent } from "../renderers/select-button-control/select-button-control.component";
-import { SelectControlComponent } from "../renderers/select-control/select-control.component";
-import { TableControlComponent } from "../renderers/table-control/table-control.component";
-import { TextareaControlComponent } from "../renderers/textarea-control/textarea-control.component";
+import { AutocompleteControlComponent } from "../renderers-primeng/autocomplete-control/autocomplete-control.component";
+import { CheckboxControlComponent } from "../renderers-primeng/checkbox-control/checkbox-control.component";
+import { ColorPickerControlComponent } from "../renderers-primeng/colorpicker-control/colorpicker-control.component";
+import { DateControlComponent } from "../renderers-primeng/date-control/date-control.component";
+import { FileUploadInputComponent } from "../renderers-primeng/file-upload-input/file-upload-input.component";
+import { InputNumberControlComponent } from "../renderers-primeng/inputnumber-control/inputnumber-control.component";
+import { InputTextControlComponent } from "../renderers-primeng/inputtext-control/inputtext-control.component";
+import { MultiSelectControlComponent } from "../renderers-primeng/multi-select-control/multi-select-control.component";
+import { PicklistControlComponent } from "../renderers-primeng/picklist-control/picklist-control.component";
+import { RadioGroupComponent } from "../renderers-primeng/radiogroup-control/radiogroup-control.component";
+import { RichTextEditorComponent } from "../renderers-primeng/rich-text-editor/rich-text-editor.component";
+import { SelectButtonControlComponent } from "../renderers-primeng/select-button-control/select-button-control.component";
+import { SelectControlComponent } from "../renderers-primeng/select-control/select-control.component";
+import { TableControlComponent } from "../renderers-primeng/table-control/table-control.component";
+import { TextareaControlComponent } from "../renderers-primeng/textarea-control/textarea-control.component";
 
 @Component({
   selector: "frm-field-renderer",
