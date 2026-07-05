@@ -13,6 +13,26 @@ An Angular component library providing a full CRUD experience: dynamic reactive 
 npm install @dwtechs/crud-builder
 ```
 
+## Entry points
+
+The library exposes three entry points so you only import what you need:
+
+| Entry point | Contents |
+|---|---|
+| `@dwtechs/crud-builder` | Core: models, tokens, services, utilities, shared UI |
+| `@dwtechs/crud-builder/table` | `TableComponent` and table-specific services |
+| `@dwtechs/crud-builder/form` | `FormComponent`, `FormBuilderService`, validators |
+
+```typescript
+// Granular imports (recommended)
+import { TableComponent } from '@dwtechs/crud-builder/table';
+import { FormComponent } from '@dwtechs/crud-builder/form';
+import { provideCrudLabels } from '@dwtechs/crud-builder';
+
+// Or import everything from the main entry point
+import { TableComponent, FormComponent, provideCrudLabels } from '@dwtechs/crud-builder';
+```
+
 ## Quick start
 
 ### 1. Add the required providers
@@ -56,7 +76,7 @@ export const appConfig: ApplicationConfig = {
 
 ```typescript
 // my-page.component.ts
-import { TableComponent } from '@dwtechs/crud-builder';
+import { TableComponent } from '@dwtechs/crud-builder/table';
 
 @Component({
   selector: 'app-my-page',
