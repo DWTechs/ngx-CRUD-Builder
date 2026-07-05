@@ -62,6 +62,8 @@ export const appConfig: ApplicationConfig = {
     }),
     MessageService,
     ConfirmationService,
+    // required – choose 'primeng' or 'native'
+    provideFormFieldRenderer('primeng'),
     // optional – defaults to French
     provideCrudLabels({ /* your overrides */ }),
   ],
@@ -145,6 +147,28 @@ export class AclService implements AclAdapter {
 
 > When no `ACL_ADAPTER` is provided, all four operations are enabled for every table.
 
+### `provideFormFieldRenderer(adapter)`
+
+**Required** when using `FormComponent` or any form-bearing component (e.g. the table's edition dialog). Omitting it throws a `NullInjectorError` at runtime.
+
+Choose the adapter that matches your UI stack:
+
+| Value | Description |
+|---|---|
+| `'primeng'` | PrimeNG controls — float labels, icon fields, full styling support |
+| `'native'` | Plain HTML controls — no PrimeNG dependency, lighter bundle |
+
+```typescript
+import { provideFormFieldRenderer } from '@dwtechs/crud-builder';
+
+// app.config.ts
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideFormFieldRenderer('primeng'), // spread: returns Provider[]
+  ],
+};
+```
+
 ### `APP_FORM_CONFIG`
 
 Registers application-level custom validation error messages that are merged with the library's built-in messages (and with field-level `customErrorMessages`). Use this for app-specific validators shared across all forms.
@@ -194,6 +218,7 @@ import {
   APP_CONFIG,
   APP_FORM_CONFIG,
   provideCrudLabels,
+  provideFormFieldRenderer,
 } from '@dwtechs/crud-builder';
 import { AclService } from './acl.service';
 import { routes } from './app.routes';
@@ -221,6 +246,7 @@ export const appConfig: ApplicationConfig = {
           unsafeWords: 'Texte non autorisé : {words}',
         },
     }},
+    provideFormFieldRenderer('primeng'),
     provideCrudLabels({ /* label overrides */ }),
   ],
 };

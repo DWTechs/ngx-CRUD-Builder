@@ -79,7 +79,28 @@ providePrimeNG({{ '{' }} theme: {{ '{' }} preset: Aura {{ '}' }} {{ '}' }})</cod
 
       <p>And import this new function <code>provideAppConfig</code> in your <code>ApplicationConfig</code>.</p>
 
-      <h3>2. Environment Configuration</h3>
+      <h3>2. Choose a form field adapter</h3>
+      <p>
+        The form rendering is decoupled from the library core. You must choose an adapter and register it once in your
+        <code>ApplicationConfig</code> via <code>provideFormFieldRenderer()</code>:
+      </p>
+      <pre><code>import {{ '{' }} provideFormFieldRenderer {{ '}' }} from '&#64;dwtechs/crud-builder';
+
+export const appConfig: ApplicationConfig = {{ '{' }}
+  providers: [
+    provideFormFieldRenderer('primeng'), // or 'native'
+  ],
+{{ '}' }};</code></pre>
+      <table>
+        <thead><tr><th>Value</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><code>'primeng'</code></td><td>PrimeNG controls with float label, icon field, and full styling support (default)</td></tr>
+          <tr><td><code>'native'</code></td><td>Plain HTML controls — no PrimeNG dependency, lighter bundle</td></tr>
+        </tbody>
+      </table>
+      <p>Omitting this provider will throw a <code>NullInjectorError</code> at runtime.</p>
+
+      <h3>3. Environment Configuration</h3>
       <p>Add required configuration to your environment files:</p>
       <pre><code>// environment.ts
 export const environment = {{ '{' }}

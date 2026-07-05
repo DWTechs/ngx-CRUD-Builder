@@ -4,8 +4,9 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { CONTROL_TYPES } from "../../../core/models/control-type.model";
 import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
-import { FormComponent } from "../form.component";
 import { FormBuilderService } from "../../form-builder.service";
+import { provideFormFieldRenderer } from "../../ui/field-renderer/provide-form-field-renderer";
+import { FormComponent } from "../form.component";
 
 /**
  * Test wrapper component that wraps FormComponent for testing
@@ -38,7 +39,11 @@ export async function setupFormTest(): Promise<{
 }> {
   await TestBed.configureTestingModule({
     imports: [TestWrapperComponent, ReactiveFormsModule],
-    providers: [FormBuilderService, provideAnimations()],
+    providers: [
+      FormBuilderService,
+      provideAnimations(),
+      provideFormFieldRenderer("native"),
+    ],
   }).compileComponents();
 
   const fixture = TestBed.createComponent(TestWrapperComponent);

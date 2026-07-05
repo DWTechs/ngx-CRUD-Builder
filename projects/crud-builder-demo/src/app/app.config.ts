@@ -53,7 +53,7 @@ export const appConfig: ApplicationConfig = {
     MessageService,
     ConfirmationService,
     { provide: ACL_ADAPTER, useExisting: AclService },
-    ...provideFormFieldRenderer(adapter as FormFieldAdapterType),
+    provideFormFieldRenderer(adapter as FormFieldAdapterType),
     provideAppConfig(),
   ],
 };

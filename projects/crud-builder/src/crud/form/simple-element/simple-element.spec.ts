@@ -4,10 +4,7 @@ import { provideAnimations } from "@angular/platform-browser/animations";
 import { CONTROL_TYPES } from "../../core/models/control-type.model";
 import { CrudItemOptions } from "../../core/models/crud-item-options.model";
 import { FormFieldInteractionEvent } from "../../core/models/form-field-interaction.event";
-import { FORM_FIELD_COMPONENT } from "../ui/field-renderer/form-field-component.token";
-import { NativeFormFieldComponent } from "../ui/field-renderer/native/native-form-field.component";
-import { provideNativeFormFieldRenderer } from "../ui/field-renderer/native/provide-native-renderer";
-import { providePrimengFormFieldRenderer } from "../ui/field-renderer/primeng/provide-primeng-renderer";
+import { provideFormFieldRenderer } from "../ui/field-renderer/provide-form-field-renderer";
 import { required } from "../utils/common.validators";
 import { FormSimpleElement } from "./simple-element";
 
@@ -25,7 +22,7 @@ describe("FormSimpleElement", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FormSimpleElement, ReactiveFormsModule],
-      providers: [provideAnimations(), providePrimengFormFieldRenderer()],
+      providers: [provideAnimations(), provideFormFieldRenderer("primeng")],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FormSimpleElement);
@@ -692,7 +689,7 @@ describe("FormSimpleElement — FORM_FIELD_COMPONENT adapter", () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [FormSimpleElement, ReactiveFormsModule],
-        providers: [provideAnimations(), providePrimengFormFieldRenderer()],
+        providers: [provideAnimations(), provideFormFieldRenderer("primeng")],
       }).compileComponents();
 
       fixture = TestBed.createComponent(FormSimpleElement);
@@ -753,7 +750,7 @@ describe("FormSimpleElement — FORM_FIELD_COMPONENT adapter", () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [FormSimpleElement, ReactiveFormsModule],
-        providers: [provideAnimations(), provideNativeFormFieldRenderer()],
+        providers: [provideAnimations(), provideFormFieldRenderer("native")],
       }).compileComponents();
 
       fixture = TestBed.createComponent(FormSimpleElement);
@@ -888,15 +885,6 @@ describe("FormSimpleElement — FORM_FIELD_COMPONENT adapter", () => {
         expect(emitted.length).toBe(1);
         expect(emitted[0].value).toBe("native-test");
       }
-    });
-
-    it("should allow providing NativeFormFieldComponent directly via token", () => {
-      TestBed.overrideProvider(FORM_FIELD_COMPONENT, {
-        useValue: NativeFormFieldComponent,
-      });
-      fixture.detectChanges();
-      const el = fixture.nativeElement.querySelector("frm-native-form-field");
-      expect(el).toBeTruthy();
     });
 
     it("should show unsupported placeholder for unhandled control types", () => {
