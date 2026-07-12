@@ -28,41 +28,52 @@ import { Component } from "@angular/core";
 
       <h2>Installation</h2>
 
-      <h3>1. Install the package</h3>
-      <pre><code>npm install &#64;dwtechs/crud-builder</code></pre>
+      <h3>1. Copy the CRUD library</h3>
+      <ul>
+        <li>Copy the directory <code>front/projects/crud/</code></li>
+        <li>Paste it in your project</li>
+      </ul>
 
-      <h3>2. Entry points</h3>
-      <p>The library exposes three entry points so you only import what you need:</p>
-      <table>
-        <thead><tr><th>Entry point</th><th>Contents</th></tr></thead>
-        <tbody>
-          <tr><td><code>&#64;dwtechs/crud-builder</code></td><td>Core: models, tokens, services, utilities</td></tr>
-          <tr><td><code>&#64;dwtechs/crud-builder/table</code></td><td><code>TableComponent</code> and table-specific services</td></tr>
-          <tr><td><code>&#64;dwtechs/crud-builder/form</code></td><td><code>FormComponent</code>, <code>FormBuilderService</code>, validators</td></tr>
-        </tbody>
-      </table>
-      <pre><code>// Granular imports (recommended)
-import {{ '{' }} TableComponent {{ '}' }} from '&#64;dwtechs/crud-builder/table';
-import {{ '{' }} FormComponent {{ '}' }} from '&#64;dwtechs/crud-builder/form';
-import {{ '{' }} provideCrudLabels {{ '}' }} from '&#64;dwtechs/crud-builder';
+      <h3>2. Import styles from PrimeNG</h3>
+      <p>In your main.ts file, where you provide the root configuration for the application, add the PrimeNG provider:</p>
+      <pre><code>import {{ '{' }} ApplicationConfig {{ '}' }} from '&#64;angular/core';
+import {{ '{' }} providePrimeNG {{ '}' }} from 'primeng/config';
+import Aura from '&#64;primeuix/themes/aura';
 
-// Or import everything from the main entry
-import {{ '{' }} TableComponent, FormComponent, provideCrudLabels {{ '}' }} from '&#64;dwtechs/crud-builder';</code></pre>
+export const appConfig: ApplicationConfig = {{ '{' }}
+    providers: [
+        providePrimeNG({{ '{' }}
+            theme: {{ '{' }}
+                preset: Aura
+            {{ '}' }}
+        {{ '}' }})
+    ]
+{{ '}' }};</code></pre>
 
-      <h3>3. Configure styles</h3>
-      <p>In your <code>angular.json</code>, add the PrimeNG styles:</p>
+      <p><strong>Note:</strong> Check documentation if you need more customization: <a href="https://primeng.org/installation" target="_blank">https://primeng.org/installation</a></p>
+
+      <p>Then, in your angular.json file, add styles needed by PrimeNG:</p>
       <pre><code>"styles": [
     "node_modules/primeicons/primeicons.css",
     "node_modules/quill/dist/quill.core.css",
-    "node_modules/quill/dist/quill.snow.css"
+    "node_modules/quill/dist/quill.snow.css",
 ]</code></pre>
-      <p>Then provide the PrimeNG theme in your <code>app.config.ts</code>:</p>
-      <pre><code>import {{ '{' }} providePrimeNG {{ '}' }} from 'primeng/config';
-import Aura from '&#64;primeuix/themes/aura';
 
-// inside providers:
-providePrimeNG({{ '{' }} theme: {{ '{' }} preset: Aura {{ '}' }} {{ '}' }})</code></pre>
-      <p><strong>Note:</strong> See <a href="https://primeng.org/installation" target="_blank">primeng.org/installation</a> for theme customisation.</p>
+      <p><strong>Note:</strong> Quill dependencies is used by primeng to make the rich-text editor work</p>
+
+      <h3>3. Add paths to TSConfig</h3>
+      <p>Add crud lib paths to tsconfig.json:</p>
+      <pre><code>"paths": {{ '{' }}
+    "&#64;crud/*": [
+        "./projects/crud/src/lib/*"
+    ],
+    "&#64;form/*": [
+        "./projects/crud/src/lib/form/*"
+    ],
+    "&#64;table/*": [
+        "./projects/crud/src/lib/table/*"
+    ]
+{{ '}' }}</code></pre>
 
       <h2>Configuration</h2>
 
@@ -166,9 +177,7 @@ export class UsersService {{ '{' }}
 
       <h3>4. Create the Component</h3>
       <p>Create a standalone component that uses the CRUD table:</p>
-      <pre><code>import {{ '{' }} TableComponent {{ '}' }} from '&#64;dwtechs/crud-builder/table';
-
-&#64;Component({{ '{' }}
+      <pre><code>&#64;Component({{ '{' }}
   selector: "app-users",
   standalone: true,
   imports: [TableComponent],

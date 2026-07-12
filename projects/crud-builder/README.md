@@ -105,7 +105,7 @@ export const appConfig: ApplicationConfig = {
 
 ```typescript
 // my-page.component.ts
-import { TableComponent } from '@dwtechs/crud-builder/table';
+import { TableComponent } from '@dwtechs/crud-builder';
 
 @Component({
   selector: 'app-my-page',
