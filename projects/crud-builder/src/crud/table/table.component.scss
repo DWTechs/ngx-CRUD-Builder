@@ -2,10 +2,10 @@ tbl-table {
   height: 100%;
   display: block;
   position: relative;
-  --p-datatable-body-cell-padding: 0.25rem;
-  --p-datatable-header-cell-padding: 0.25rem;
-  --p-paginator-border-radius: 0 0 6px 6px;
-  --p-toolbar-border-radius: 6px 6px 0 0;
+  --p-datatable-body-cell-padding: 0.3rem;
+  --p-datatable-header-cell-padding: 0.3rem;
+  --p-paginator-border-radius: 0;
+  --p-toolbar-border-radius: 0;
 
   .table-progress-bar {
     position: absolute;
