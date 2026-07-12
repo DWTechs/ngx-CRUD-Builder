@@ -64,7 +64,7 @@ export class TableDemo {
   protected tempIsContextMenuEnabled = false;
   protected tempIsDefaultEditionDisabled = false;
   protected tempIsPreferencesModeEnabled = false;
-  protected tempCanAccessItemFromUrl = false;
+  protected tempIsUrlStateSyncEnabled = false;
   protected tempStateStorage: "local" | "session" = "session";
   protected tempPersistState = false;
   protected tempCustomActionsTemplate = false;
@@ -93,7 +93,7 @@ export class TableDemo {
   protected readonly isContextMenuEnabled = signal(false);
   protected readonly isDefaultEditionDisabled = signal(false);
   protected readonly isPreferencesModeEnabled = signal(false);
-  protected readonly canAccessItemFromUrl = signal(false);
+  protected readonly isUrlStateSyncEnabled = signal(false);
   protected readonly stateStorage = signal<"local" | "session">("session");
   protected readonly persistState = signal(false);
   protected readonly stripedRows = signal(true);
@@ -130,7 +130,7 @@ export class TableDemo {
     isContextMenuEnabled: this.isContextMenuEnabled(),
     isDefaultEditionDisabled: this.isDefaultEditionDisabled(),
     isPreferencesModeEnabled: this.isPreferencesModeEnabled(),
-    canAccessItemFromUrl: this.canAccessItemFromUrl(),
+    isUrlStateSyncEnabled: this.isUrlStateSyncEnabled(),
     persistState: this.persistState(),
     stateStorage: this.stateStorage(),
     stripedRows: this.stripedRows(),
@@ -202,7 +202,7 @@ export class TableDemo {
     this.isContextMenuEnabled.set(this.tempIsContextMenuEnabled);
     this.isDefaultEditionDisabled.set(this.tempIsDefaultEditionDisabled);
     this.isPreferencesModeEnabled.set(this.tempIsPreferencesModeEnabled);
-    this.canAccessItemFromUrl.set(this.tempCanAccessItemFromUrl);
+    this.isUrlStateSyncEnabled.set(this.tempIsUrlStateSyncEnabled);
     this.stateStorage.set(this.tempStateStorage);
     this.persistState.set(this.tempPersistState);
     this.isCustomActionsTemplateEnabled.set(this.tempCustomActionsTemplate);

@@ -4,6 +4,15 @@ A comprehensive Angular library for building dynamic forms and data tables with 
 
 **[View Live Demo](https://crud-builder-12c1d.web.app)**
 
+## Migration notes
+
+Recent versions include important migration points:
+
+- Breaking: form renderer adapter is mandatory. Register `provideFormFieldRenderer('primeng' | 'native')` in app providers, otherwise forms and edition dialogs fail with `NullInjectorError`.
+- Naming update: table URL sync input is now `isUrlStateSyncEnabled`. The old `canAccessItemFromUrl` name remains available as a deprecated alias.
+
+See the full package migration details in `projects/crud-builder/README.md`.
+
 ---
 
 ## Crud builder library

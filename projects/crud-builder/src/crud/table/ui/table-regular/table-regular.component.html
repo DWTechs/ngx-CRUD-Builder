@@ -8,6 +8,7 @@
   [value]="data()"
   [totalRecords]="total()"
   [rowHover]="true"
+  [first]="first()"
   [rows]="rows()"
   [rowsPerPageOptions]="rowsPerPageOptions()"
   [paginator]="paginator()"
@@ -28,7 +29,7 @@
   [(selection)]="selectedEntries"
   [(contextMenuSelection)]="rightClickedEntry"
   (onLazyLoad)="onLazyLoad($event)"
-  (selectionChange)="selectedEntriesChange.emit($event)"
+  (onPage)="onPage($event)"
   (onColResize)="onColumnResized($event)">
 
   <!-- No data panel -->

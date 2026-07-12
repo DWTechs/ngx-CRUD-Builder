@@ -48,7 +48,7 @@ import { RequestsService } from "../data-access/requests/requests.service";
         [lazy]="table.lazy"
         [selectable]="table.selectable"
         [clickableRows]="table.clickableRows"
-        [canAccessItemFromUrl]="table.canAccessItemFromUrl"
+        [isUrlStateSyncEnabled]="table.isUrlStateSyncEnabled"
         [isExcelExportEnabled]="table.isExcelExportEnabled"
         [editionDialogSize]="table.editionDialogSize"
         [rows]="table.rows"
@@ -91,7 +91,7 @@ export class RequestsComponent {
     isExcelExportEnabled: true,
     lazy: true,
     clickableRows: true,
-    canAccessItemFromUrl: false,
+    isUrlStateSyncEnabled: true,
     filterLevel: "advanced" as const,
     editionDialogSize: "m" as const,
     rows: 20,

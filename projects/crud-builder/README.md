@@ -13,6 +13,33 @@ An Angular component library providing a full CRUD experience: dynamic reactive 
 npm install @dwtechs/crud-builder
 ```
 
+## Migration notes
+
+### Breaking change: form renderer adapter is now mandatory
+
+`provideFormFieldRenderer(adapter)` must be registered in your providers when using `FormComponent` or any form-bearing feature (including the table edition dialog).
+
+```typescript
+import { provideFormFieldRenderer } from '@dwtechs/crud-builder';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideFormFieldRenderer('primeng'),
+  ],
+};
+```
+
+If omitted, Angular throws a `NullInjectorError` at runtime.
+
+### Input rename: URL state sync
+
+The table input has been renamed for clarity:
+
+- New name: `isUrlStateSyncEnabled`
+- Deprecated alias (still supported): `canAccessItemFromUrl`
+
+Both currently work, but the new name should be used in new code.
+
 ## Entry points
 
 The library exposes three entry points so you only import what you need:

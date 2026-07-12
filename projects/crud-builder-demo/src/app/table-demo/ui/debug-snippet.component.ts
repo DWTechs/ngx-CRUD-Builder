@@ -27,7 +27,7 @@ export interface TableDebugConfig {
   isContextMenuEnabled: boolean;
   isDefaultEditionDisabled: boolean;
   isPreferencesModeEnabled: boolean;
-  canAccessItemFromUrl: boolean;
+  isUrlStateSyncEnabled: boolean;
   persistState: boolean;
   stateStorage: "local" | "session";
   stripedRows: boolean;
@@ -127,7 +127,7 @@ export class DebugSnippetComponent {
       lines.push('  [isDefaultEditionDisabled]="true"');
     if (c.isPreferencesModeEnabled)
       lines.push('  [isPreferencesModeEnabled]="true"');
-    if (c.canAccessItemFromUrl) lines.push('  [canAccessItemFromUrl]="true"');
+    if (c.isUrlStateSyncEnabled) lines.push('  [isUrlStateSyncEnabled]="true"');
     if (c.persistState) {
       lines.push('  [persistState]="true"');
       if (c.stateStorage !== "session")

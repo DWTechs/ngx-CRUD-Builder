@@ -216,9 +216,16 @@ editionDialogWidth: "90vw"
 **Type:** `number | undefined`  
 **Description:** Links the table to a specific functionality for access control.
 
-#### `canAccessItemFromUrl`
+#### `isUrlStateSyncEnabled`
 **Type:** `boolean` | **Default:** `false`  
-**Description:** Enables deep linking to specific items by adding their ID to the URL.
+**Description:** Enables URL synchronization for table navigation.
+
+When enabled:
+- opening an item writes `id` in query params to deep-link directly to its edition dialog
+- changing table page writes `page` in query params (e.g. `?page=3`)
+- on component init, `page` is restored from URL so the table opens on the same page
+
+> Backward compatibility: `canAccessItemFromUrl` is still supported as a deprecated alias.
 
 ### Column Management
 
@@ -360,7 +367,7 @@ export class MyComponent {
   entityLabel="Order"
   [lazy]="true"
   [selectable]="true"
-  [canAccessItemFromUrl]="true"
+  [isUrlStateSyncEnabled]="true"
   [isExcelExportEnabled]="true"
   [customRowStyles]="getOrderRowStyles"
   [functionalityKey]="orders"

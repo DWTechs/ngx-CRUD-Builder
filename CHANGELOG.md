@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Breaking
+
+- Form rendering adapter is now mandatory: register `provideFormFieldRenderer('primeng' | 'native')` in app providers when using forms or table edition dialogs. Without it, runtime DI fails with `NullInjectorError`.
+
+### Changed
+
+- Table URL synchronization input renamed to `isUrlStateSyncEnabled` for clarity.
+- `canAccessItemFromUrl` remains supported as a deprecated alias for backward compatibility.
+
 ## [1.0.0] - 2026-04-12
 
 ### Added

@@ -19,6 +19,7 @@ import {
   TableColResizeEvent,
   TableLazyLoadEvent,
   TableModule,
+  TablePageEvent,
 } from "primeng/table";
 import { Tooltip } from "primeng/tooltip";
 import { CONTROL_TYPES } from "../../../core/models/control-type.model";
@@ -98,14 +99,15 @@ export class TableRegularComponent<TData> {
   public readonly areColumnsResizable = input.required<boolean>();
   public readonly rows = input.required<number>();
   public readonly rowsPerPageOptions = input.required<number[]>();
+  public readonly first = input<number>(0);
   public readonly outsideTableHeight = input.required<string>();
   public readonly stripedRows = input.required<boolean>();
   public readonly additionalReadonlyProperties = input.required<
     Record<string, unknown> | undefined
   >();
 
-  readonly selectedEntriesChange = output<TData[]>();
   readonly lazyLoaded = output<TableLazyLoadEvent>();
+  readonly pageChanged = output<TablePageEvent>();
   readonly archived = output<number>();
   readonly cellClicked = output<{
     row: TData;
@@ -146,6 +148,10 @@ export class TableRegularComponent<TData> {
   public onLazyLoad(event: TableLazyLoadEvent): void {
     this.lazyLoaded.emit(event);
     this.lastUpdateTime.set(Date.now());
+  }
+
+  public onPage(event: TablePageEvent): void {
+    this.pageChanged.emit(event);
   }
 
   public onCellClick(rowData: TData, col: TableColumn) {

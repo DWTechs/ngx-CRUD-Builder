@@ -17,7 +17,7 @@ import {
 } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { ValidatorFn } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { isArray } from "@dwtechs/checkard";
 import { ConfirmationService, MessageService, SharedModule } from "primeng/api";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
@@ -56,6 +56,8 @@ import {
 } from "./utils/sort/primeng-sort.builder";
 import { TableColumnsStorage } from "./utils/views/table-columns.storage";
 import { ColumnResizeEvent } from "./utils/views/table-config.model";
+
+const MIN_PAGE = 1;
 
 @Component({
   selector: "tbl-table",
@@ -109,9 +111,14 @@ export class TableComponent<TData extends CrudItemBase>
   public readonly areColumnsResizable = input(true);
 
   /**
-   * Enables deep linking to specific items by adding their ID to the URL query parameters.
-   * When enabled, editing an item will add ?id=123 to the URL, allowing direct access to the edition dialog.
-   * Useful for bookmarking or sharing links to specific items.
+   * Enables URL synchronization for navigation state.
+   * When enabled, editing/viewing an item writes ?id=123, and table pagination writes ?page=2.
+   * On init, the table restores the page from query params.
+   */
+  public readonly isUrlStateSyncEnabled = input<boolean>(false);
+
+  /**
+   * @deprecated Use `isUrlStateSyncEnabled` instead.
    */
   public readonly canAccessItemFromUrl = input<boolean>(false);
 
@@ -413,6 +420,10 @@ export class TableComponent<TData extends CrudItemBase>
     order: 1 | -1;
   }>(() => getDefaultSort(this.config()));
 
+  public readonly shouldSyncStateWithUrl = computed(
+    () => this.isUrlStateSyncEnabled() || this.canAccessItemFromUrl(),
+  );
+
   // effects
   readonly forceCloseDialog = effect(() => {
     const _refresh = this.loader.forceCloseEdition();
@@ -427,6 +438,7 @@ export class TableComponent<TData extends CrudItemBase>
   public readonly isEntryEditionDialogDisplayed = signal(false);
   public readonly isReadonly = signal(false);
   public readonly isExportDialogVisible = signal(false);
+  public readonly first = signal(0);
   private readonly lazyLoad$ = new Subject<TableLazyLoadEvent>();
   public selectedEntries: TData[] = [];
 
@@ -436,6 +448,8 @@ export class TableComponent<TData extends CrudItemBase>
   );
 
   ngOnInit() {
+    this.restorePageFromUrl();
+
     this.loader.set(this.httpCalls());
     this.loader.storeConfig(this.config());
     this.loader.enableFeatures();
@@ -524,14 +538,14 @@ export class TableComponent<TData extends CrudItemBase>
   }
 
   public onEditedEntryArchive(editedEntry: TData | null): void {
-    if (!editedEntry || !editedEntry?.id) {
+    if (!editedEntry?.id) {
       return;
     }
     this.handleArchive([editedEntry.id]);
   }
 
   public onEditedEntryRestore(editedEntry: TData | null): void {
-    if (!editedEntry || !editedEntry?.id) {
+    if (!editedEntry?.id) {
       return;
     }
     this.handleRestore([editedEntry.id]);
@@ -601,8 +615,17 @@ export class TableComponent<TData extends CrudItemBase>
     event.sortField = field;
     event.sortOrder = order;
     this.defaultSort.set({ field, order });
+    this.syncPageToUrl(event.first, event.rows);
     // Emit the event to trigger data loading
     this.lazyLoad$.next(event);
+  }
+
+  public onPageChanged(event: {
+    first?: number | null;
+    rows?: number | null;
+  }): void {
+    this.first.set(event.first ?? 0);
+    this.syncPageToUrl(event.first, event.rows);
   }
 
   public onColumnResized(event: ColumnResizeEvent) {
@@ -671,11 +694,42 @@ export class TableComponent<TData extends CrudItemBase>
 
   // Private methods
   private appendIdToUrl(id: number | null): void {
-    if (!this.canAccessItemFromUrl()) {
+    if (!this.shouldSyncStateWithUrl()) {
       return;
     }
+    this.updateQueryParams({ id });
+  }
+
+  private syncPageToUrl(first?: number | null, rows?: number | null): void {
+    if (!this.shouldSyncStateWithUrl() || !this.paginator()) {
+      return;
+    }
+    const safeRows = Math.max(rows ?? this.rows(), 1);
+    const currentFirst = Math.max(first ?? this.first(), 0);
+    this.first.set(currentFirst);
+    const page = Math.floor(currentFirst / safeRows) + 1;
+    this.updateQueryParams({ page });
+  }
+
+  private restorePageFromUrl(): void {
+    if (!this.shouldSyncStateWithUrl() || !this.paginator()) {
+      return;
+    }
+
+    const rawPage = this.route.snapshot.queryParamMap.get("page");
+    const parsedPage = Number.parseInt(rawPage ?? "", 10);
+    if (Number.isNaN(parsedPage) || parsedPage < MIN_PAGE) {
+      this.first.set(0);
+      return;
+    }
+
+    this.first.set((parsedPage - 1) * this.rows());
+  }
+
+  private updateQueryParams(params: Params): void {
     this.router.navigate([], {
-      queryParams: { id },
+      queryParams: params,
+      queryParamsHandling: "merge",
       replaceUrl: true,
     });
   }
@@ -683,7 +737,7 @@ export class TableComponent<TData extends CrudItemBase>
   private displayItemEditionModal(): void {
     const id = this.route.snapshot.queryParams.id;
 
-    if (id && this.canAccessItemFromUrl()) {
+    if (id && this.shouldSyncStateWithUrl()) {
       const searchParams = { filters: { id: { value: id } } };
       const getOne$ = this.loader
         .getCall(searchParams)

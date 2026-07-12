@@ -160,9 +160,10 @@ editionDialogWidth: "90vw"</code></pre>
       <p><strong>Type:</strong> <code>number | undefined</code></p>
       <p><strong>Description:</strong> Links the table to a specific functionality for access control.</p>
 
-      <h4><code>canAccessItemFromUrl</code></h4>
+      <h4><code>isUrlStateSyncEnabled</code></h4>
       <p><strong>Type:</strong> <code>boolean</code> | <strong>Default:</strong> <code>false</code></p>
-      <p><strong>Description:</strong> Enables deep linking to specific items by adding their ID to the URL.</p>
+      <p><strong>Description:</strong> Enables URL synchronization for navigation: selected item (id) and current page (page query param) are stored in URL, and page is restored on init.</p>
+      <p><em>Backward compatibility:</em> <code>canAccessItemFromUrl</code> remains supported as a deprecated alias.</p>
 
       <h3>Column Management</h3>
 
@@ -280,7 +281,7 @@ export class MyComponent &#123;
   entityLabel="Order"
   [lazy]="true"
   [selectable]="true"
-  [canAccessItemFromUrl]="true"
+  [isUrlStateSyncEnabled]="true"
   [isExcelExportEnabled]="true"
   [customRowStyles]="getOrderRowStyles"
   [functionalityKey]="orders"

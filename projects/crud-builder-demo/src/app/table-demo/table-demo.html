@@ -173,9 +173,9 @@
 
         <div class="demo-control">
           <p-checkbox 
-            [(ngModel)]="tempCanAccessItemFromUrl"
+            [(ngModel)]="tempIsUrlStateSyncEnabled"
             binary="true" />
-          <label>URL Item Access</label>
+          <label>URL Sync (Item + Page)</label>
         </div>
 
         <div class="demo-control">
@@ -240,7 +240,7 @@
         [isContextMenuEnabled]="isContextMenuEnabled()"
         [isDefaultEditionDisabled]="isDefaultEditionDisabled()"
         [isPreferencesModeEnabled]="isPreferencesModeEnabled()"
-        [canAccessItemFromUrl]="canAccessItemFromUrl()"
+        [isUrlStateSyncEnabled]="isUrlStateSyncEnabled()"
         [stateStorage]="stateStorage()"
         [persistState]="persistState()"
         [forceReload]="forceReload()"
