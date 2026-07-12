@@ -2,9 +2,6 @@
 export * from "../src/crud/form/form-builder.service";
 export * from "../src/crud/form/form/form.component";
 
-// --- Form: file upload ---
-export * from "../src/crud/form/ui/renderers/file-upload-input/file-info.class";
-
 // --- Form: validators & utilities ---
 export * from "../src/crud/form/utils/common.validators";
 export * from "../src/crud/form/utils/email.validator";
