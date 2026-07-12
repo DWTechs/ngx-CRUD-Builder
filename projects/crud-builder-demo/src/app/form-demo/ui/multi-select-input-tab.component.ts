@@ -173,7 +173,7 @@ export class MultiSelectInputTabComponent {
 
   // Sample data for multi-select
   private readonly sampleOptions = [
-    { label: "France", value: "FR" },
+    { label: "France", value: "FR", styleClass: "p-chip-red" },
     { label: "United States", value: "US" },
     { label: "Allemagne", value: "DE" },
     { label: "Italie", value: "IT" },

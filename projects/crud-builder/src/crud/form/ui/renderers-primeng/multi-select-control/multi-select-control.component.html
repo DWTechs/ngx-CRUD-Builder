@@ -15,5 +15,18 @@
     (onFocus)="emitInteractionEvent('focus')"
     (onBlur)="emitInteractionEvent('blur')"
     (onPanelShow)="emitInteractionEvent('panelOpen')"
-    (onPanelHide)="emitInteractionEvent('panelClose')"
-/>
+    (onPanelHide)="emitInteractionEvent('panelClose')">
+
+  <ng-template #selecteditems let-selectedOptions let-removeChip="removeChip">
+    @for (item of selectedOptions; track item) {
+      @let option = item | multiSelectOption:selectOptions();
+      <p-chip 
+        [label]="option.label" 
+        [removable]="true"
+        (onRemove)="removeChip(item, $event)"
+        [styleClass]="option.styleClass"
+      />
+    }
+  </ng-template>
+
+</p-multiSelect>
