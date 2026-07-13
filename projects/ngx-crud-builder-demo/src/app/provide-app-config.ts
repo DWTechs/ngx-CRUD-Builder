@@ -46,8 +46,8 @@ export function provideAppConfig() {
           id: r.id,
           tstamp: r.tstamp,
           operation: r.operation,
-          updaterId: r.consumerId,
-          updaterName: r.consumerName,
+          updaterId: r.updaterId,
+          updaterName: r.updaterName,
           record: r.record,
         };
       },

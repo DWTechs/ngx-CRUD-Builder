@@ -5,7 +5,7 @@
     <ng-template #header>
       <tr>
         <th class="first-col"></th>
-          <th>{{ labels.history.updatedAt }}</th>
+        <th>{{ labels.history.updatedAt }}</th>
         <th>{{ labels.history.updatedBy }}</th>
         <th></th>
       </tr>
@@ -39,18 +39,19 @@
     <ng-template #expandedrow let-entry>
       <tr>
         <td class="first-col"></td>
-        <td colspan="3" class="expansion-cell">
+        <td colspan="2" class="expansion-cell">
           @if (entry.changes.length > 0) {
             <div class="changes-grid" [class.show-old-value]="showOldValue()">
-              <div class="changes-header">{{ labels.history.property }}</div>
+              <!-- <div class="changes-header">{{ labels.history.property }}</div>
               <div class="changes-header">{{ labels.history.value }}</div>
               @if (showOldValue()) {
                 <div class="changes-header">{{ labels.history.previousValue }}</div>
-              }
-              @for (row of entry.changes; track row.propKey) {
-                <div class="changes-cell">{{ row.label }}</div>
+              } -->
+              @for (row of entry.changes; track row.propKey; let i = $index) {
+                <div class="changes-cell" [class.odd-row]="i % 2 === 0">{{ row.label }}</div>
                 <tbl-table-cell  
                   class="changes-cell" 
+                  [class.odd-row]="i % 2 === 0"
                   [class.has-changed]="row.hasChanged" 
                   [cellValue]="row.newValue" 
                   [options]="row.confItem" 
@@ -58,6 +59,7 @@
                 @if (showOldValue()) {
                   <tbl-table-cell  
                     class="changes-cell" 
+                    [class.odd-row]="i % 2 === 0"
                     [cellValue]="row.oldValue" 
                     [options]="row.confItem" 
                   />

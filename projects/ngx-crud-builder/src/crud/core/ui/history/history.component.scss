@@ -32,6 +32,10 @@ crd-history {
         display: grid;
         grid-template-columns: 200px 1fr;
 
+        .changes-cell.odd-row {
+            background-color: var(--p-content-hover-background);
+        }
+
         &.show-old-value {
             grid-template-columns: 200px 1fr 1fr;
         }
@@ -40,15 +44,16 @@ crd-history {
     .changes-header {
         padding: 5px;
         font-weight: bold;
-        border-bottom: 1px solid var(--p-datatable-border-color, #e2e8f0);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--p-text-muted-color);
     }
 
     .changes-cell {
         padding: 5px;
-        border-bottom: 1px solid var(--p-datatable-border-color, #e2e8f0);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -64,7 +69,7 @@ crd-history {
         color: var(--p-orange-500);
         font-weight: bold;
     }
-    
+
     /* History panel: the oldest entry (always the creation record) has no
         previous version to diff against, so every field is flagged as "changed" —
         display it with default styling instead of the "changed" highlight. 

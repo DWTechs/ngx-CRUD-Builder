@@ -13,8 +13,8 @@ export interface RawHistoryRow<T> {
   id: number;
   tstamp: string;
   operation: string;
-  consumerId: number;
-  consumerName: string;
+  updaterId: number;
+  updaterName: string;
   record: T;
 }
 
@@ -190,8 +190,8 @@ export class TableDemoMockService {
           record: { ...user },
           tstamp: new Date(now).toISOString(),
           operation: "UPDATE",
-          consumerId: 1,
-          consumerName: "admin@example.com",
+          updaterId: 1,
+          updaterName: "admin@example.com",
         },
         // Previous version - salary and subscription changed
         {
@@ -203,8 +203,8 @@ export class TableDemoMockService {
           },
           tstamp: new Date(now - oneWeek).toISOString(),
           operation: "UPDATE",
-          consumerId: 2,
-          consumerName: "hr.manager@example.com",
+          updaterId: 2,
+          updaterName: "hr.manager@example.com",
         },
         // Older version - email and city changed
         {
@@ -218,8 +218,8 @@ export class TableDemoMockService {
           },
           tstamp: new Date(now - oneMonth).toISOString(),
           operation: "UPDATE",
-          consumerId: user.id,
-          consumerName:
+          updaterId: user.id,
+          updaterName:
             user.name.toLowerCase().replace(" ", ".") + "@example.com",
         },
         // Even older - active status and languages changed
@@ -236,8 +236,8 @@ export class TableDemoMockService {
           },
           tstamp: new Date(now - 2 * oneMonth).toISOString(),
           operation: "UPDATE",
-          consumerId: 0,
-          consumerName: "system@example.com",
+          updaterId: 0,
+          updaterName: "system@example.com",
         },
         // Initial creation
         {
@@ -254,8 +254,8 @@ export class TableDemoMockService {
           },
           tstamp: new Date(now - 3 * oneMonth).toISOString(),
           operation: "CREATE",
-          consumerId: 1,
-          consumerName: "admin@example.com",
+          updaterId: 1,
+          updaterName: "admin@example.com",
         },
       ];
 
