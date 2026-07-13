@@ -2,7 +2,8 @@ import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot } from "@angular/router";
 import { Calls } from "@crud/core/utils/crud-service/crud.model";
 import { CrudRepository } from "@crud/core/utils/crud-service/crud.repository";
-import { map, of } from "rxjs";
+import { FilterMetadata } from "primeng/api";
+import { of } from "rxjs";
 import { budgetValidator } from "./request-group.validator";
 import { REQUEST_CONF } from "./request.conf";
 import { ItRequest, itRequestFactory } from "./request.model";
@@ -21,11 +22,22 @@ export class RequestsService {
   });
 
   public readonly httpCalls: Calls<ItRequest> = {
-    get: (e) =>
-      this.crud
-        .get(e)
-        .pipe(map(() => ({ rows: itRequests, total: itRequests.length }))),
-    // get: this.crud.get, // Commented out for demo purposes, since we don't have a real backend
+    get: (e) => {
+      let rows = itRequests;
+      const idFilter = e?.filters?.["id"] as
+        | FilterMetadata
+        | FilterMetadata[]
+        | undefined;
+      if (idFilter) {
+        const value = Array.isArray(idFilter)
+          ? idFilter[0]?.value
+          : idFilter.value;
+        if (value != null) {
+          rows = itRequests.filter((r) => r.id === Number(value));
+        }
+      }
+      return of({ rows, total: rows.length });
+    },
     create: this.crud.create,
     update: this.crud.update,
     archive: this.crud.archive,

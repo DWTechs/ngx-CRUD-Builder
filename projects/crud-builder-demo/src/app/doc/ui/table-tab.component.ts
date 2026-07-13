@@ -160,10 +160,13 @@ editionDialogWidth: "90vw"</code></pre>
       <p><strong>Type:</strong> <code>number | undefined</code></p>
       <p><strong>Description:</strong> Links the table to a specific functionality for access control.</p>
 
-      <h4><code>isUrlStateSyncEnabled</code></h4>
+      <h4><code>shouldSyncPageWithUrl</code></h4>
       <p><strong>Type:</strong> <code>boolean</code> | <strong>Default:</strong> <code>false</code></p>
-      <p><strong>Description:</strong> Enables URL synchronization for navigation: selected item (id) and current page (page query param) are stored in URL, and page is restored on init.</p>
-      <p><em>Backward compatibility:</em> <code>canAccessItemFromUrl</code> remains supported as a deprecated alias.</p>
+      <p><strong>Description:</strong> Enables URL synchronization for the current page. When enabled, the page number is written as <code>?page=2</code> and restored on init. Can be combined with <code>shouldSyncIdWithUrl</code>.</p>
+
+      <h4><code>shouldSyncIdWithUrl</code></h4>
+      <p><strong>Type:</strong> <code>boolean</code> | <strong>Default:</strong> <code>false</code></p>
+      <p><strong>Description:</strong> Enables URL synchronization for the opened item. When enabled, opening an item writes <code>?id=123</code> in the URL and the item is restored on init. Can be combined with <code>shouldSyncPageWithUrl</code>.</p>
 
       <h3>Column Management</h3>
 
@@ -281,7 +284,8 @@ export class MyComponent &#123;
   entityLabel="Order"
   [lazy]="true"
   [selectable]="true"
-  [isUrlStateSyncEnabled]="true"
+  [shouldSyncPageWithUrl]="true"
+  [shouldSyncIdWithUrl]="true"
   [isExcelExportEnabled]="true"
   [customRowStyles]="getOrderRowStyles"
   [functionalityKey]="orders"

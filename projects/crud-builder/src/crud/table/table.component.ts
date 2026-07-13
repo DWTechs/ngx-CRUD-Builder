@@ -24,7 +24,7 @@ import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { ProgressBarModule } from "primeng/progressbar";
 import { TableLazyLoadEvent, TableModule } from "primeng/table";
 import { ToastModule } from "primeng/toast";
-import { debounceTime, map, Subject, switchMap } from "rxjs";
+import { debounceTime, Subject, switchMap } from "rxjs";
 import { CONTROL_TYPES } from "../core/models/control-type.model";
 import { CrudItemBase } from "../core/models/crud-item-base.class";
 import { CrudItemFactory } from "../core/models/crud-item-factory.model";
@@ -111,16 +111,19 @@ export class TableComponent<TData extends CrudItemBase>
   public readonly areColumnsResizable = input(true);
 
   /**
-   * Enables URL synchronization for navigation state.
-   * When enabled, editing/viewing an item writes ?id=123, and table pagination writes ?page=2.
-   * On init, the table restores the page from query params.
+   * Enables URL synchronization for the current page.
+   * When enabled, the page number is written as a query param (e.g. `?page=2`) and restored on init.
+   * Can be combined with `shouldSyncIdWithUrl` to also track the opened item.
    */
-  public readonly isUrlStateSyncEnabled = input<boolean>(false);
+  public readonly shouldSyncPageWithUrl = input<boolean>(false);
 
   /**
-   * @deprecated Use `isUrlStateSyncEnabled` instead.
+   * Enables URL synchronization for the opened item.
+   * When enabled, editing/viewing an item writes `?id=123` in the URL.
+   * On init, if an `id` query param is present, the matching item is fetched and opened.
+   * Can be combined with `shouldSyncPageWithUrl` to also track pagination.
    */
-  public readonly canAccessItemFromUrl = input<boolean>(false);
+  public readonly shouldSyncIdWithUrl = input<boolean>(false);
 
   /**
    * Determines user interaction mode with table rows.
@@ -420,14 +423,25 @@ export class TableComponent<TData extends CrudItemBase>
     order: 1 | -1;
   }>(() => getDefaultSort(this.config()));
 
-  public readonly shouldSyncStateWithUrl = computed(
-    () => this.isUrlStateSyncEnabled() || this.canAccessItemFromUrl(),
-  );
-
   // effects
   readonly forceCloseDialog = effect(() => {
     const _refresh = this.loader.forceCloseEdition();
     this.hideEditionDialog();
+  });
+
+  readonly openItemFromUrl = effect(() => {
+    const targetId = this.targetIdFromUrl();
+    const rows = this.data();
+
+    if (!targetId || !rows.length) return;
+
+    this.targetIdFromUrl.set(null);
+    const item = rows.find((row) => row.id === targetId);
+    if (item) {
+      this.onEdit(item);
+    } else {
+      this.appendIdToUrl(null);
+    }
   });
 
   // Properties
@@ -439,6 +453,7 @@ export class TableComponent<TData extends CrudItemBase>
   public readonly isReadonly = signal(false);
   public readonly isExportDialogVisible = signal(false);
   public readonly first = signal(0);
+  private readonly targetIdFromUrl = signal<number | null>(null);
   private readonly lazyLoad$ = new Subject<TableLazyLoadEvent>();
   public selectedEntries: TData[] = [];
 
@@ -448,7 +463,21 @@ export class TableComponent<TData extends CrudItemBase>
   );
 
   ngOnInit() {
-    this.restorePageFromUrl();
+    if (this.shouldSyncPageWithUrl() && this.paginator()) {
+      const rawPage = this.route.snapshot.queryParamMap.get("page");
+      const parsedPage = Number.parseInt(rawPage ?? "", 10);
+      if (!Number.isNaN(parsedPage) && parsedPage >= MIN_PAGE) {
+        this.first.set((parsedPage - 1) * this.rows());
+      }
+    }
+
+    if (this.shouldSyncIdWithUrl()) {
+      const rawId = this.route.snapshot.queryParams.id;
+      const parsedId = Number.parseInt(rawId, 10);
+      if (!Number.isNaN(parsedId)) {
+        this.targetIdFromUrl.set(parsedId);
+      }
+    }
 
     this.loader.set(this.httpCalls());
     this.loader.storeConfig(this.config());
@@ -468,8 +497,6 @@ export class TableComponent<TData extends CrudItemBase>
     } else {
       this.loader.load();
     }
-
-    this.displayItemEditionModal();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -694,14 +721,14 @@ export class TableComponent<TData extends CrudItemBase>
 
   // Private methods
   private appendIdToUrl(id: number | null): void {
-    if (!this.shouldSyncStateWithUrl()) {
+    if (!this.shouldSyncIdWithUrl()) {
       return;
     }
     this.updateQueryParams({ id });
   }
 
   private syncPageToUrl(first?: number | null, rows?: number | null): void {
-    if (!this.shouldSyncStateWithUrl() || !this.paginator()) {
+    if (!this.shouldSyncPageWithUrl() || !this.paginator()) {
       return;
     }
     const safeRows = Math.max(rows ?? this.rows(), 1);
@@ -711,46 +738,12 @@ export class TableComponent<TData extends CrudItemBase>
     this.updateQueryParams({ page });
   }
 
-  private restorePageFromUrl(): void {
-    if (!this.shouldSyncStateWithUrl() || !this.paginator()) {
-      return;
-    }
-
-    const rawPage = this.route.snapshot.queryParamMap.get("page");
-    const parsedPage = Number.parseInt(rawPage ?? "", 10);
-    if (Number.isNaN(parsedPage) || parsedPage < MIN_PAGE) {
-      this.first.set(0);
-      return;
-    }
-
-    this.first.set((parsedPage - 1) * this.rows());
-  }
-
   private updateQueryParams(params: Params): void {
     this.router.navigate([], {
       queryParams: params,
       queryParamsHandling: "merge",
       replaceUrl: true,
     });
-  }
-
-  private displayItemEditionModal(): void {
-    const id = this.route.snapshot.queryParams.id;
-
-    if (id && this.shouldSyncStateWithUrl()) {
-      const searchParams = { filters: { id: { value: id } } };
-      const getOne$ = this.loader
-        .getCall(searchParams)
-        .pipe(map((res) => res.rows[0]));
-
-      getOne$.subscribe((item) => {
-        if (!item) {
-          this.appendIdToUrl(null);
-          return;
-        }
-        this.onEdit(item);
-      });
-    }
   }
 
   private getFiles(entry: TData): File[] {

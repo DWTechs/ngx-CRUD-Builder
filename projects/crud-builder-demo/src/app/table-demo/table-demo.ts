@@ -64,7 +64,8 @@ export class TableDemo {
   protected tempIsContextMenuEnabled = false;
   protected tempIsDefaultEditionDisabled = false;
   protected tempIsPreferencesModeEnabled = false;
-  protected tempIsUrlStateSyncEnabled = false;
+  protected tempShouldSyncPageWithUrl = false;
+  protected tempShouldSyncIdWithUrl = false;
   protected tempStateStorage: "local" | "session" = "session";
   protected tempPersistState = false;
   protected tempCustomActionsTemplate = false;
@@ -93,7 +94,8 @@ export class TableDemo {
   protected readonly isContextMenuEnabled = signal(false);
   protected readonly isDefaultEditionDisabled = signal(false);
   protected readonly isPreferencesModeEnabled = signal(false);
-  protected readonly isUrlStateSyncEnabled = signal(false);
+  protected readonly shouldSyncPageWithUrl = signal(false);
+  protected readonly shouldSyncIdWithUrl = signal(false);
   protected readonly stateStorage = signal<"local" | "session">("session");
   protected readonly persistState = signal(false);
   protected readonly stripedRows = signal(true);
@@ -130,7 +132,8 @@ export class TableDemo {
     isContextMenuEnabled: this.isContextMenuEnabled(),
     isDefaultEditionDisabled: this.isDefaultEditionDisabled(),
     isPreferencesModeEnabled: this.isPreferencesModeEnabled(),
-    isUrlStateSyncEnabled: this.isUrlStateSyncEnabled(),
+    shouldSyncPageWithUrl: this.shouldSyncPageWithUrl(),
+    shouldSyncIdWithUrl: this.shouldSyncIdWithUrl(),
     persistState: this.persistState(),
     stateStorage: this.stateStorage(),
     stripedRows: this.stripedRows(),
@@ -202,7 +205,8 @@ export class TableDemo {
     this.isContextMenuEnabled.set(this.tempIsContextMenuEnabled);
     this.isDefaultEditionDisabled.set(this.tempIsDefaultEditionDisabled);
     this.isPreferencesModeEnabled.set(this.tempIsPreferencesModeEnabled);
-    this.isUrlStateSyncEnabled.set(this.tempIsUrlStateSyncEnabled);
+    this.shouldSyncPageWithUrl.set(this.tempShouldSyncPageWithUrl);
+    this.shouldSyncIdWithUrl.set(this.tempShouldSyncIdWithUrl);
     this.stateStorage.set(this.tempStateStorage);
     this.persistState.set(this.tempPersistState);
     this.isCustomActionsTemplateEnabled.set(this.tempCustomActionsTemplate);

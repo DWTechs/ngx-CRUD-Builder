@@ -27,7 +27,8 @@ export interface TableDebugConfig {
   isContextMenuEnabled: boolean;
   isDefaultEditionDisabled: boolean;
   isPreferencesModeEnabled: boolean;
-  isUrlStateSyncEnabled: boolean;
+  shouldSyncPageWithUrl: boolean;
+  shouldSyncIdWithUrl: boolean;
   persistState: boolean;
   stateStorage: "local" | "session";
   stripedRows: boolean;
@@ -127,7 +128,8 @@ export class DebugSnippetComponent {
       lines.push('  [isDefaultEditionDisabled]="true"');
     if (c.isPreferencesModeEnabled)
       lines.push('  [isPreferencesModeEnabled]="true"');
-    if (c.isUrlStateSyncEnabled) lines.push('  [isUrlStateSyncEnabled]="true"');
+    if (c.shouldSyncPageWithUrl) lines.push('  [shouldSyncPageWithUrl]="true"');
+    if (c.shouldSyncIdWithUrl) lines.push('  [shouldSyncIdWithUrl]="true"');
     if (c.persistState) {
       lines.push('  [persistState]="true"');
       if (c.stateStorage !== "session")

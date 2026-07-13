@@ -216,16 +216,25 @@ editionDialogWidth: "90vw"
 **Type:** `number | undefined`  
 **Description:** Links the table to a specific functionality for access control.
 
-#### `isUrlStateSyncEnabled`
+#### `shouldSyncPageWithUrl`
 **Type:** `boolean` | **Default:** `false`  
-**Description:** Enables URL synchronization for table navigation.
+**Description:** Enables URL synchronization for the current page.
 
 When enabled:
-- opening an item writes `id` in query params to deep-link directly to its edition dialog
-- changing table page writes `page` in query params (e.g. `?page=3`)
+- changing the table page writes `page` in query params (e.g. `?page=3`)
 - on component init, `page` is restored from URL so the table opens on the same page
 
-> Backward compatibility: `canAccessItemFromUrl` is still supported as a deprecated alias.
+Can be combined with `shouldSyncIdWithUrl` to also track the opened item.
+
+#### `shouldSyncIdWithUrl`
+**Type:** `boolean` | **Default:** `false`  
+**Description:** Enables URL synchronization for the opened item.
+
+When enabled:
+- opening an item writes `?id=123` in query params to deep-link directly to its edition dialog
+- on component init, if `id` is present in the URL, the matching item is fetched and opened
+
+Can be combined with `shouldSyncPageWithUrl` to also track pagination.
 
 ### Column Management
 
@@ -367,7 +376,8 @@ export class MyComponent {
   entityLabel="Order"
   [lazy]="true"
   [selectable]="true"
-  [isUrlStateSyncEnabled]="true"
+  [shouldSyncPageWithUrl]="true"
+  [shouldSyncIdWithUrl]="true"
   [isExcelExportEnabled]="true"
   [customRowStyles]="getOrderRowStyles"
   [functionalityKey]="orders"
