@@ -1,0 +1,7 @@
+# Safety net: this package must never be published from projects/crud-builder/.
+# Always run `npm run build:lib` then `npm publish` from dist/crud-builder/.
+# This file only guards against accidental `npm publish`/`npm pack` run here;
+# it is not copied into the build output.
+src/
+ng-package.json
+tsconfig*.json

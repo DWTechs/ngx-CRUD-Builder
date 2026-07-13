@@ -127,3 +127,16 @@ Open a [GitHub issue](https://github.com/estellepicq/crud-builder/issues) with:
 ## Requesting a feature
 
 Open a [GitHub issue](https://github.com/estellepicq/crud-builder/issues) with a description of the use case and the desired behaviour. Linking to the relevant configuration option (e.g. a `ColumnOptions` or `ControlOptions` field) helps.
+
+---
+
+## Publish
+
+Build the library first, then publish the built output from `dist/crud-builder/` — never from `projects/crud-builder/` (the source folder) or `dist/` directly.
+
+```bash
+npm run build:lib
+cd dist/crud-builder
+npm publish --dry-run  # simulate the publish
+npm publish             # actual publish (publishConfig.access is already set to public)
+```
