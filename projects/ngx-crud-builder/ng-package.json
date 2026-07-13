@@ -3,5 +3,5 @@
   "lib": {
     "entryFile": "src/public-api.ts"
   },
-  "dest": "../../dist/crud-builder"
+  "dest": "../../dist/ngx-crud-builder"
 }

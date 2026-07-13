@@ -1,11 +1,11 @@
 {
-  "name": "crud-builder",
+  "name": "ngx-crud-builder",
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start:demo": "ng serve --project crud-builder-demo",
-    "build:demo": "ng build --project crud-builder-demo",
-    "build:lib": "ng build crud-builder --configuration production",
+    "start:demo": "ng serve --project ngx-crud-builder-demo",
+    "build:demo": "ng build --project ngx-crud-builder-demo",
+    "build:lib": "ng build ngx-crud-builder --configuration production",
     "test": "ng test",
     "deploy": "npx firebase deploy"
   },

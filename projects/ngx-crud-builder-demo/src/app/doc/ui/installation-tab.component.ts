@@ -95,7 +95,7 @@ export const appConfig: ApplicationConfig = {{ '{' }}
         The form rendering is decoupled from the library core. You must choose an adapter and register it once in your
         <code>ApplicationConfig</code> via <code>provideFormFieldRenderer()</code>:
       </p>
-      <pre><code>import {{ '{' }} provideFormFieldRenderer {{ '}' }} from '&#64;dwtechs/crud-builder';
+      <pre><code>import {{ '{' }} provideFormFieldRenderer {{ '}' }} from '&#64;dwtechs/ngx-crud-builder';
 
 export const appConfig: ApplicationConfig = {{ '{' }}
   providers: [

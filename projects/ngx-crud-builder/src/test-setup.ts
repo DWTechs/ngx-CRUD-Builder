@@ -1,5 +1,5 @@
 /**
- * Global test setup for the crud-builder library.
+ * Global test setup for the ngx-crud-builder library.
  * Polyfills APIs that jsdom does not implement but are required by
  * PrimeNG components and some specs.
  */

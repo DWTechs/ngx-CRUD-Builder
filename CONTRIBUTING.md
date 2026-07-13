@@ -1,4 +1,4 @@
-# Contributing to @dwtechs/crud-builder
+# Contributing to @dwtechs/ngx-crud-builder
 
 Thank you for your interest in contributing! This document explains how to set up the project locally and the conventions to follow when submitting changes.
 
@@ -29,8 +29,8 @@ Thank you for your interest in contributing! This document explains how to set u
 
 ```bash
 # 1. Fork and clone the repository
-git clone https://github.com/estellepicq/crud-builder.git
-cd crud-builder
+git clone https://github.com/DWTechs/ngx-crud-builder.git
+cd ngx-crud-builder
 
 # 2. Install dependencies
 npm install
@@ -48,9 +48,9 @@ npm test
 ## Project structure
 
 ```
-crud-builder/
+ngx-crud-builder/
 ├── projects/
-│   ├── crud-builder/          # The publishable library
+│   ├── ngx-crud-builder/          # The publishable library
 │   │   └── src/
 │   │       ├── public-api.ts  # Public exports — add new exports here
 │   │       ├── core/          # Shared utilities, tokens, services
@@ -58,7 +58,7 @@ crud-builder/
 │   │           ├── core/      # Models, UI primitives, i18n, shared utils
 │   │           ├── form/      # FormComponent and related pieces
 │   │           └── table/     # TableComponent and related pieces
-│   └── crud-builder-demo/     # Interactive demo application
+│   └── ngx-crud-builder-demo/     # Interactive demo application
 ├── CHANGELOG.md
 └── LICENSE
 ```
@@ -117,7 +117,7 @@ npx biome check --write .  # auto-fix
 
 ## Reporting a bug
 
-Open a [GitHub issue](https://github.com/estellepicq/crud-builder/issues) with:
+Open a [GitHub issue](https://github.com/DWTechs/ngx-crud-builder/issues) with:
 - A minimal reproducible example or steps to reproduce
 - Expected vs actual behaviour
 - Angular and library version numbers
@@ -126,17 +126,17 @@ Open a [GitHub issue](https://github.com/estellepicq/crud-builder/issues) with:
 
 ## Requesting a feature
 
-Open a [GitHub issue](https://github.com/estellepicq/crud-builder/issues) with a description of the use case and the desired behaviour. Linking to the relevant configuration option (e.g. a `ColumnOptions` or `ControlOptions` field) helps.
+Open a [GitHub issue](https://github.com/DWTechs/ngx-crud-builder/issues) with a description of the use case and the desired behaviour. Linking to the relevant configuration option (e.g. a `ColumnOptions` or `ControlOptions` field) helps.
 
 ---
 
 ## Publish
 
-Build the library first, then publish the built output from `dist/crud-builder/` — never from `projects/crud-builder/` (the source folder) or `dist/` directly.
+Build the library first, then publish the built output from `dist/ngx-crud-builder/` — never from `projects/ngx-crud-builder/` (the source folder) or `dist/` directly.
 
 ```bash
 npm run build:lib
-cd dist/crud-builder
+cd dist/ngx-crud-builder
 npm publish --dry-run  # simulate the publish
 npm publish             # actual publish (publishConfig.access is already set to public)
 ```

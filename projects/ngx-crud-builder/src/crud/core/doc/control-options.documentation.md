@@ -1250,7 +1250,7 @@ Color picker controls combine a clickable color swatch with a free-text hex inpu
 ### Basic Configuration
 
 ```typescript
-import { CONTROL_TYPES, hexColor } from 'crud-builder';
+import { CONTROL_TYPES, hexColor } from 'ngx-crud-builder';
 
 {
   key: 'brandColor',
@@ -1268,7 +1268,7 @@ import { CONTROL_TYPES, hexColor } from 'crud-builder';
 Built-in validator that accepts `#RGB` and `#RRGGBB` formats. Empty values pass (combine with `required` to make the field mandatory).
 
 ```typescript
-import { hexColor, required } from 'crud-builder';
+import { hexColor, required } from 'ngx-crud-builder';
 
 // Format only (optional field)
 validators: [hexColor]

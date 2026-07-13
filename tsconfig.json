@@ -5,12 +5,12 @@
   "compilerOptions": {
     "paths": {
       "@crud/*": [
-        "./projects/crud-builder/src/crud/*"
+        "./projects/ngx-crud-builder/src/crud/*"
       ],
-      "@form/*": ["./projects/crud-builder/src/crud/form/*"],
-      "@table/*": ["./projects/crud-builder/src/crud/table/*"],
-      "@core/*": ["./projects/crud-builder/src/core/*"],
-      "@demo/*": ["./projects/crud-builder-demo/src/app/form-demo/*"]
+      "@form/*": ["./projects/ngx-crud-builder/src/crud/form/*"],
+      "@table/*": ["./projects/ngx-crud-builder/src/crud/table/*"],
+      "@core/*": ["./projects/ngx-crud-builder/src/core/*"],
+      "@demo/*": ["./projects/ngx-crud-builder-demo/src/app/form-demo/*"]
     },
     "strict": true,
     "noImplicitOverride": true,
@@ -34,16 +34,16 @@
   "files": [],
   "references": [
     {
-      "path": "./projects/crud-builder/tsconfig.lib.json"
+      "path": "./projects/ngx-crud-builder/tsconfig.lib.json"
     },
     {
-      "path": "./projects/crud-builder/tsconfig.spec.json"
+      "path": "./projects/ngx-crud-builder/tsconfig.spec.json"
     },
     {
-      "path": "./projects/crud-builder-demo/tsconfig.app.json"
+      "path": "./projects/ngx-crud-builder-demo/tsconfig.app.json"
     },
     {
-      "path": "./projects/crud-builder-demo/tsconfig.spec.json"
+      "path": "./projects/ngx-crud-builder-demo/tsconfig.spec.json"
     }
   ]
 }

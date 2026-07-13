@@ -407,8 +407,8 @@ config: [
 Color picker controls let users pick a CSS hex color via a clickable color swatch combined with a free-text hex input. Use `CONTROL_TYPES.COLOR`.
 
 ```typescript
-import { CONTROL_TYPES } from 'crud-builder';
-import { hexColor } from 'crud-builder';
+import { CONTROL_TYPES } from 'ngx-crud-builder';
+import { hexColor } from 'ngx-crud-builder';
 
 config: [
   {
@@ -470,7 +470,7 @@ config: [
 A built-in validator that checks whether the value is a valid CSS hex color string (`#RGB` or `#RRGGBB`). Empty values pass validation (combine with `required` to make the field mandatory).
 
 ```typescript
-import { hexColor } from 'crud-builder';
+import { hexColor } from 'ngx-crud-builder';
 
 // Validate format only (field is optional)
 validators: [hexColor]
@@ -1326,7 +1326,7 @@ Use `provideCrudLabels()` in your `ApplicationConfig` (or any component/route pr
 
 ```typescript
 // app.config.ts
-import { provideCrudLabels } from '@dwtechs/crud-builder';
+import { provideCrudLabels } from '@dwtechs/ngx-crud-builder';
 
 export const appConfig: ApplicationConfig = {
   providers: [

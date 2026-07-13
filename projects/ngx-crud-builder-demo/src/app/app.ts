@@ -8,5 +8,5 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
   styleUrl: "./app.scss",
 })
 export class App {
-  protected readonly title = signal("crud-builder-demo");
+  protected readonly title = signal("ngx-crud-builder-demo");
 }

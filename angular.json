@@ -7,20 +7,20 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "crud-builder": {
+    "ngx-crud-builder": {
       "projectType": "library",
-      "root": "projects/crud-builder",
-      "sourceRoot": "projects/crud-builder/src",
+      "root": "projects/ngx-crud-builder",
+      "sourceRoot": "projects/ngx-crud-builder/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
           "configurations": {
             "production": {
-              "tsConfig": "projects/crud-builder/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngx-crud-builder/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/crud-builder/tsconfig.lib.json"
+              "tsConfig": "projects/ngx-crud-builder/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -28,39 +28,39 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "projects/crud-builder/tsconfig.spec.json",
-            "setupFiles": ["projects/crud-builder/src/test-setup.ts"]
+            "tsConfig": "projects/ngx-crud-builder/tsconfig.spec.json",
+            "setupFiles": ["projects/ngx-crud-builder/src/test-setup.ts"]
           }
         }
       }
     },
-    "crud-builder-demo": {
+    "ngx-crud-builder-demo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "projects/crud-builder-demo",
-      "sourceRoot": "projects/crud-builder-demo/src",
+      "root": "projects/ngx-crud-builder-demo",
+      "sourceRoot": "projects/ngx-crud-builder-demo/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "browser": "projects/crud-builder-demo/src/main.ts",
-            "tsConfig": "projects/crud-builder-demo/tsconfig.app.json",
+            "browser": "projects/ngx-crud-builder-demo/src/main.ts",
+            "tsConfig": "projects/ngx-crud-builder-demo/tsconfig.app.json",
             "polyfills": ["@angular/localize/init"],
             "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "projects/crud-builder-demo/public"
+                "input": "projects/ngx-crud-builder-demo/public"
               }
             ],
             "styles": [
-              "projects/crud-builder/src/styles/edition-dialog.scss",
-              "projects/crud-builder-demo/src/styles.scss",
+              "projects/ngx-crud-builder/src/styles/edition-dialog.scss",
+              "projects/ngx-crud-builder-demo/src/styles.scss",
               "node_modules/primeicons/primeicons.css"
             ]
           },
@@ -92,10 +92,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "crud-builder-demo:build:production"
+              "buildTarget": "ngx-crud-builder-demo:build:production"
             },
             "development": {
-              "buildTarget": "crud-builder-demo:build:development"
+              "buildTarget": "ngx-crud-builder-demo:build:development"
             }
           },
           "defaultConfiguration": "development"

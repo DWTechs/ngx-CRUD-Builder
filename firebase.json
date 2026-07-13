@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/crud-builder-demo/browser",
+    "public": "dist/ngx-crud-builder-demo/browser",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {

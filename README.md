@@ -60,8 +60,8 @@ To run the demo locally:
 
 ```bash
 # Clone the repository
-git clone https://github.com/estellepicq/crud-builder.git
-cd crud-builder
+git clone https://github.com/DWTechs/ngx-crud-builder.git
+cd ngx-crud-builder
 
 # Install dependencies
 npm install
