@@ -9,6 +9,8 @@ import { FormFieldInteractionEvent } from "./form-field-interaction.event";
 
 export interface ExtendedSelectItem extends SelectItem {
   extraData: unknown;
+  /** Raw color applied to the chip when this option is selected (e.g. `'#e74c3c'`, `'rgb(231,76,60)'`). */
+  color?: string;
 }
 
 type ControlOnSearchFn = (event: string) => Observable<ExtendedSelectItem[]>;

@@ -1,15 +1,19 @@
 import { Pipe, PipeTransform } from "@angular/core";
 import { SelectItem } from "primeng/api";
+import { ExtendedSelectItem } from "../../../../core/models/control-options.model";
 
 @Pipe({
   name: "multiSelectOption",
 })
 export class MultiSelectOptionPipe implements PipeTransform {
-  transform(optionValue: string, options: SelectItem[]): SelectItem {
+  transform(optionValue: string, options: SelectItem[]): ExtendedSelectItem {
     return (
-      options.find((option) => option.value === optionValue) || {
+      (options.find(
+        (option) => option.value === optionValue,
+      ) as ExtendedSelectItem) || {
         label: optionValue,
         value: optionValue,
+        extraData: undefined,
       }
     );
   }

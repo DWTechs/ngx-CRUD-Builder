@@ -25,6 +25,7 @@
         [removable]="true"
         (onRemove)="removeChip(item, $event)"
         [styleClass]="option.styleClass"
+        [style]="option.color ? {'background-color': option.color} : null"
       />
     }
   </ng-template>

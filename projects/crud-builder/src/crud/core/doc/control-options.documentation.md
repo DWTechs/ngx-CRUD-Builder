@@ -432,6 +432,18 @@ The following options are available for autocomplete input fields (`CONTROL_TYPE
 
 ### Search Configuration
 
+### `ExtendedSelectItem` Interface
+
+Options returned by `searchOptionsFn` (and supplied to multi-select controls) follow the `ExtendedSelectItem` shape, which extends PrimeNG's `SelectItem`:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `label` | `string` | Display label for the option |
+| `value` | `any` | Underlying value |
+| `extraData` | `unknown` | Arbitrary payload attached to the option (e.g. a full entity object) |
+| `styleClass` | `string?` | CSS class applied to the chip when this option is selected |
+| `color` | `string?` | Raw background color applied to the chip when this option is selected (e.g. `'#e74c3c'`, `'rgb(231,76,60)'`). Takes precedence over `styleClass` for background color. |
+
 #### `searchOptionsFn?: (query: string) => Observable<ExtendedSelectItem[]>`
 **Required** function that defines how autocomplete suggestions are fetched. Returns an Observable of options based on the search query.
 
