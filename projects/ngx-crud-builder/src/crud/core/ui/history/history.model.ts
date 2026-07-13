@@ -1,3 +1,5 @@
+import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
+
 export type HistorizedData<T> = {
   id: number;
   tstamp: string;
@@ -16,5 +18,6 @@ export interface FullHistoryRow<T> extends HistorizedData<T> {
     propKey: keyof T;
     label: string;
     hasChanged: boolean;
+    confItem: CrudItemOptions;
   }[];
 }

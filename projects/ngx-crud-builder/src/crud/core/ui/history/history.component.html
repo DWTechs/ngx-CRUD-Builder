@@ -49,9 +49,18 @@
               }
               @for (row of entry.changes; track row.propKey) {
                 <div class="changes-cell">{{ row.label }}</div>
-                <div class="changes-cell" [class.has-changed]="row.hasChanged">{{ row.newValue }}</div>
+                <tbl-table-cell  
+                  class="changes-cell" 
+                  [class.has-changed]="row.hasChanged" 
+                  [cellValue]="row.newValue" 
+                  [options]="row.confItem" 
+                />
                 @if (showOldValue()) {
-                  <div class="changes-cell">{{ row.oldValue }}</div>
+                  <tbl-table-cell  
+                    class="changes-cell" 
+                    [cellValue]="row.oldValue" 
+                    [options]="row.confItem" 
+                  />
                 }
               }
             </div>

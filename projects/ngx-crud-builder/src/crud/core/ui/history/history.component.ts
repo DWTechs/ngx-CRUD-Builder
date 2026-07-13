@@ -8,6 +8,7 @@ import {
   signal,
   ViewEncapsulation,
 } from "@angular/core";
+import { TableCellComponent } from "@crud/core/ui/table-cell/table-cell.component";
 import { SharedModule } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { TableModule } from "primeng/table";
@@ -21,7 +22,13 @@ import { FullHistoryRow, HistorizedData } from "./history.model";
   selector: "crd-history",
   templateUrl: "./history.component.html",
   styleUrls: ["./history.component.scss"],
-  imports: [TableModule, SharedModule, DatePipe, ButtonModule],
+  imports: [
+    TableModule,
+    SharedModule,
+    DatePipe,
+    ButtonModule,
+    TableCellComponent,
+  ],
   encapsulation: ViewEncapsulation.None,
 })
 export class HistoryComponent<TData> {
@@ -99,6 +106,7 @@ export class HistoryComponent<TData> {
         oldValue,
         newValue,
         hasChanged: !isEqual(oldValue, newValue),
+        confItem,
       };
     }
     return null;
