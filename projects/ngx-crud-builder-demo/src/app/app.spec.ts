@@ -21,7 +21,7 @@ describe("App", () => {
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector(".logo span")?.textContent).toContain(
-      "CRUD Builder",
+      "ngx-CRUD-Builder",
     );
   });
 });

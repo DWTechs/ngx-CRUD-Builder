@@ -12,7 +12,7 @@ import { Component } from "@angular/core";
       <h2>Overview</h2>
       
       <p>
-        CRUD Builder provides two main components that work together to handle create, read, update, 
+        ngx-CRUD-Builder provides two main components that work together to handle create, read, update, 
         and delete operations through a declarative configuration approach. The library eliminates 
         repetitive boilerplate code by generating forms and tables from configuration objects.
       </p>
