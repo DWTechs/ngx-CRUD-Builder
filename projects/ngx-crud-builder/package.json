@@ -1,6 +1,6 @@
 {
   "name": "@dwtechs/ngx-crud-builder",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An Angular component library providing a full CRUD experience: dynamic reactive forms, configurable data tables, edition dialogs, column management, export, history, and more.",
   "keywords": [
     "angular",

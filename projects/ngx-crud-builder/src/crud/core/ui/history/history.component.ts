@@ -8,7 +8,7 @@ import {
   signal,
   ViewEncapsulation,
 } from "@angular/core";
-import { TableCellComponent } from "@crud/core/ui/table-cell/table-cell.component";
+import { TableCellComponent } from "../table-cell/table-cell.component";
 import { SharedModule } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { TableModule } from "primeng/table";
