@@ -116,6 +116,7 @@ export class ColumnsManagementDialogComponent {
     const conf = columns.map((col) => ({
       key: col.key,
       isVisible: col.isVisible,
+      defaultWidth: col.defaultWidth,
     }));
     this.editedViews.update((views) => {
       return views.map((v) => {
