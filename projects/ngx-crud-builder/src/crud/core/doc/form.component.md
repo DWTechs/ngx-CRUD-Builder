@@ -96,6 +96,15 @@ columnsCount: 3
 <frm-form [showDebug]="true" />
 ```
 
+#### `showLogs`
+**Type:** `boolean` | **Default:** `false`  
+**Description:** Enables console logging for form events such as value changes, field interactions, and form submissions.
+
+```typescript
+// Enable logging during development
+<frm-form [showLogs]="true" />
+```
+
 ### Form Behavior
 
 #### `isReadonly`

@@ -124,6 +124,9 @@ export class FormComponent<
   /** Shows debug information including form values and validation state */
   public readonly showDebug = input<boolean | undefined>(false);
 
+  /** Shows logs on form events */
+  public readonly showLogs = input<boolean | undefined>(false);
+
   /** Shows/hides the reset button */
   public readonly showReset = input<boolean | undefined>(false);
 
@@ -229,8 +232,9 @@ export class FormComponent<
    */
   public onSubmit() {
     if (!this.form()?.valid) {
-      console.warn("Form is invalid, cannot submit.");
-      // TODO: check show errors
+      if (this.showLogs()) {
+        console.log("Form is invalid, cannot submit.", this.formErrors);
+      }
       return;
     }
     // Reset the form to the saved values
@@ -238,6 +242,8 @@ export class FormComponent<
     this.formDir()?.resetForm(newInitialValues);
     this.initialValues = newInitialValues;
     // Emit event for optional parent use
+    if (this.showLogs())
+      console.log("Form submitted with values:", newInitialValues);
     this.submitted.emit(this.model());
   }
 
@@ -249,6 +255,7 @@ export class FormComponent<
   }
 
   public emitInteraction(event: FormFieldInteractionEvent) {
+    if (this.showLogs()) console.log("Field interaction event:", event);
     this.fieldInteraction.emit(event);
     // Add to pending action if one is found for this control
     const action = this.config().find((item) => item.key === event.key)
@@ -324,7 +331,7 @@ export class FormComponent<
       .subscribe(() => {
         // Get raw values to avoid issues with disabled controls
         const values = this.form()?.getRawValue();
-        this.log();
+        this.logFormData();
         const evaluatedValues = this.evaluatePendingActions(values);
         this.pendingActions.set([]);
         this.model.set(evaluatedValues);
@@ -371,10 +378,13 @@ export class FormComponent<
     return evaluatedValue;
   }
 
-  private log() {
+  private logFormData(): void {
     const formDir = this.formDir();
-    if (formDir) {
-      console.log({ value: formDir.value, valid: formDir.valid });
+    if (formDir && this.showLogs()) {
+      console.log("Form data changed", {
+        value: formDir.value,
+        valid: formDir.valid,
+      });
     }
   }
 

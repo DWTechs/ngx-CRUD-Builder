@@ -20,6 +20,7 @@ interface FormGeneralConfig {
   showSubmit?: boolean;
   showReset?: boolean;
   showDebug?: boolean;
+  showLogs?: boolean;
   isReadonly?: boolean;
   submitButtonLabel?: string;
   resetButtonLabel?: string;
@@ -111,6 +112,13 @@ interface FormGeneralConfig {
               binary="true" />
             <label>Show Debug Panel</label>
           </div>
+
+          <div class="demo-control">
+            <p-checkbox 
+              [(ngModel)]="selectedShowLogs"
+              binary="true" />
+            <label>Show Logs</label>
+          </div>
           
           <div class="demo-control">
             <p-checkbox 
@@ -147,6 +155,7 @@ interface FormGeneralConfig {
           [showSubmit]="config.showSubmit"
           [showReset]="config.showReset"
           [showDebug]="config.showDebug"
+          [showLogs]="config.showLogs"
           [isReadonly]="config.isReadonly"
           [submitButtonLabel]="config.submitButtonLabel"
           [resetButtonLabel]="config.resetButtonLabel"
@@ -170,6 +179,7 @@ export class FormGeneralTabComponent {
   protected readonly selectedShowSubmit = signal(true);
   protected readonly selectedShowReset = signal(true);
   protected readonly selectedShowDebug = signal(false);
+  protected readonly selectedShowLogs = signal(false);
   protected readonly selectedIsReadonly = signal(false);
 
   // Form configuration
@@ -182,6 +192,7 @@ export class FormGeneralTabComponent {
     showSubmit: this.selectedShowSubmit(),
     showReset: this.selectedShowReset(),
     showDebug: this.selectedShowDebug(),
+    showLogs: this.selectedShowLogs(),
     isReadonly: this.selectedIsReadonly(),
     submitButtonLabel: this.selectedSubmitButtonLabel(),
     resetButtonLabel: this.selectedResetButtonLabel(),
@@ -221,6 +232,7 @@ export class FormGeneralTabComponent {
       showSubmit: this.selectedShowSubmit(),
       showReset: this.selectedShowReset(),
       showDebug: this.selectedShowDebug(),
+      showLogs: this.selectedShowLogs(),
       isReadonly: this.selectedIsReadonly(),
       submitButtonLabel: this.selectedSubmitButtonLabel(),
       resetButtonLabel: this.selectedResetButtonLabel(),
