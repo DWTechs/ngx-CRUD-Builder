@@ -24,7 +24,7 @@
         [label]="option.label" 
         [removable]="true"
         (onRemove)="removeChip(item, $event)"
-        [styleClass]="option.styleClass"
+        class="{{ option.styleClass }} + basic-colored-chip"
         [style]="option.color ? {'background-color': option.color} : null"
       />
     }

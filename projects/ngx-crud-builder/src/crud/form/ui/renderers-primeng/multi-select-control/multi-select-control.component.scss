@@ -1,4 +1,9 @@
 frm-multi-select-control .p-multiselect-label .p-chip {
     height: 20px;
     line-height: 20px;
+
+    &.basic-colored-chip {
+        font-size: 0.85em;
+        color: #fff;
+    }
 }
