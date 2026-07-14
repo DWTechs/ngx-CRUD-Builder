@@ -126,6 +126,15 @@ export class TableColumnsStorage {
     return this.updateMany(componentViews);
   }
 
+  /** Called immediately when the user confirms deleting a view, independently of Save */
+  public deleteView(viewId: number) {
+    const componentId = this.componentId();
+    if (!componentId) return of([]);
+    return this.preferencesService
+      .deleteOne(componentId, viewId)
+      .pipe(switchMap(() => this.viewsWithColumns$));
+  }
+
   private getMany(componentId: string): Observable<TableConfig[]> {
     if (!this.isViewSystemEnabled()) {
       return of([]);

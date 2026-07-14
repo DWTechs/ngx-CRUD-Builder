@@ -64,6 +64,7 @@
     [views]="views()!"
     (closed)="hideColumnsConfigDialog()"
     (saved)="applyViews($event)"
+    (viewDeleted)="onViewDeleted($event)"
   />
 }
 

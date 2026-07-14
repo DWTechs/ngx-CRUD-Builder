@@ -526,6 +526,10 @@ export class TableComponent<TData extends CrudItemBase>
     });
   }
 
+  public onViewDeleted(viewId: number): void {
+    this.columnsStorage.deleteView(viewId).subscribe();
+  }
+
   public hideColumnsConfigDialog(): void {
     this.isColumnsConfigDialogDisplayed.set(false);
   }

@@ -40,6 +40,7 @@ export class ColumnsManagementDialogComponent {
 
   public readonly closed = output();
   public readonly saved = output<ExtendedTableConfig[]>();
+  public readonly viewDeleted = output<number>();
 
   public readonly editedViews = linkedSignal(() => this.views());
   public readonly activeView = computed(
@@ -77,11 +78,19 @@ export class ColumnsManagementDialogComponent {
   }
 
   public onDeleteView(viewId: number): void {
+    const target = this.editedViews().find((v) => v.id === viewId);
     const views = this.editedViews().filter((v) => v.id !== viewId);
-    if (!views.some((v) => v.isActive) && views.length > 0) {
-      views[0].isActive = true;
+    const hasActive = views.some((v) => v.isActive);
+    this.editedViews.set(
+      hasActive || views.length === 0
+        ? views
+        : views.map((v, i) => (i === 0 ? { ...v, isActive: true } : v)),
+    );
+    // Views that were created but never saved only exist client-side, so
+    // there is nothing to delete on the backend.
+    if (target && !target.isCreation) {
+      this.viewDeleted.emit(viewId);
     }
-    this.editedViews.set(views);
   }
 
   public onCreateView(name: string): void {

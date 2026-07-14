@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
+import { catchError, map, Observable, of } from "rxjs";
 import { APP_CONFIG } from "../../../core/app-config/app-config.token";
 import { Rows, RowsAndCount } from "../../core/utils/crud-service/dto.model";
 import { TableConfig } from "./table-config.model";
-import { catchError, map, Observable, of } from "rxjs";
 
 @Injectable({ providedIn: "root" })
 export class TableConfigService {
@@ -23,5 +23,9 @@ export class TableConfigService {
     return this.http.put<Rows<TableConfig>>(`${this.api}/${componentId}`, {
       rows: views,
     });
+  }
+
+  public deleteOne(componentId: string, id: number): Observable<unknown> {
+    return this.http.delete(`${this.api}/${componentId}/${id}`);
   }
 }

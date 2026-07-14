@@ -77,4 +77,49 @@ describe("ColumnsManagementDialogComponent", () => {
       { key: "name", isVisible: true, defaultWidth: "200px" },
     ]);
   });
+
+  it("should emit viewDeleted and fall back to another view as active when deleting the active saved view", () => {
+    fixture.componentRef.setInput("views", [
+      createView({ id: 1, name: "Archive", isActive: true }),
+      createView({
+        id: 2,
+        name: "Archive (copy)",
+        isActive: false,
+        locked: false,
+      }),
+    ]);
+    fixture.detectChanges();
+
+    let deletedId: number | undefined;
+    component.viewDeleted.subscribe((id) => (deletedId = id));
+
+    component.onDeleteView(1);
+
+    expect(deletedId).toBe(1);
+    const remaining = component.editedViews();
+    expect(remaining.map((v) => v.id)).toEqual([2]);
+    expect(remaining[0].isActive).toBe(true);
+  });
+
+  it("should not emit viewDeleted for a view that was created but never saved", () => {
+    fixture.componentRef.setInput("views", [
+      createView({ id: 1, name: "Archive", isActive: true }),
+      createView({
+        id: 2,
+        name: "New view",
+        isActive: false,
+        locked: false,
+        isCreation: true,
+      }),
+    ]);
+    fixture.detectChanges();
+
+    let deletedId: number | undefined;
+    component.viewDeleted.subscribe((id) => (deletedId = id));
+
+    component.onDeleteView(2);
+
+    expect(deletedId).toBeUndefined();
+    expect(component.editedViews().map((v) => v.id)).toEqual([1]);
+  });
 });
