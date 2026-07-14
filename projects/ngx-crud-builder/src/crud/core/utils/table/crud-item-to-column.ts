@@ -23,18 +23,20 @@ import { TableColumn } from "./table-column.model";
  */
 export function crudItemToColumn(
   item: CrudItemOptions,
-  storedConfig: Pick<TableColumn, "key" | "isVisible">[] = [],
+  storedConfig: Pick<TableColumn, "key" | "isVisible" | "defaultWidth">[] = [],
 ): TableColumn {
   const columnOptions = item.columnOptions || {};
   const isHidden = columnOptions.isSoftHidden || columnOptions.isHardHidden;
-  const isVisible =
-    // biome-ignore lint/suspicious/noDoubleEquals: key may be number or string
-    storedConfig.find((col) => col.key == item.key)?.isVisible ?? !isHidden;
+  // biome-ignore lint/suspicious/noDoubleEquals: key may be number or string
+  const stored = storedConfig.find((col) => col.key == item.key);
+  const isVisible = stored?.isVisible ?? !isHidden;
+  const defaultWidth = stored?.defaultWidth ?? columnOptions.defaultWidth;
   return {
     ...item,
     ...columnOptions,
     key: item.key.toString(),
     isVisible,
+    defaultWidth,
     filterable: columnOptions.filterable !== false,
     sortable: columnOptions.sortable !== false,
     filterType: columnOptions.filterType ?? item.controlType,
