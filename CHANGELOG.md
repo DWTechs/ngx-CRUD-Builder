@@ -3,7 +3,6 @@
 - Improve the columns management experience by keeping the active view in sync when a view is deleted
 - Fix autofocus behavior for the new field input when creating or editing a view
 - Refine the table and toolbar spacing for a cleaner layout
-- Add CI workflows for automated testing and publishing of the library and demo app
 
 # 0.1.2 (Jul 15th 2026)
 
