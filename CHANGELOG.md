@@ -1,3 +1,7 @@
+# 0.1.3 (Jul 16th 2026)
+
+- 
+
 # 0.1.2 (Jul 15th 2026)
 
 - Add `TableColumnsStorage.deleteView()` and `TableConfigService.deleteOne()` to delete a single preference view immediately, independently of saving
