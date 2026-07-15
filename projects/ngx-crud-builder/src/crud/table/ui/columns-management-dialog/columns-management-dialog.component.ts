@@ -54,15 +54,7 @@ export class ColumnsManagementDialogComponent {
 
   // Ensures that there is always an active view
   protected readonly alwaysKeepActiveView = effect(() => {
-    const hasActiveView = this.editedViews().some((view) => view.isActive);
-    if (!hasActiveView && this.editedViews().length > 0) {
-      const firstView = this.editedViews()[0];
-      if (firstView) {
-        this.editedViews.update((views) =>
-          views.map((v) => ({ ...v, isActive: v.id === firstView.id })),
-        );
-      }
-    }
+    this.editedViews.update((views) => this.ensureActiveView(views));
   });
 
   public readonly isViewCreation = signal(false);
@@ -94,9 +86,15 @@ export class ColumnsManagementDialogComponent {
 
   public onDeleteView(viewId: number): void {
     const target = this.editedViews().find((v) => v.id === viewId);
+    if (!target) return;
+
+    this.editedViews.update((views) =>
+      this.ensureActiveView(views.filter((v) => v.id !== viewId)),
+    );
+
     // Views that were created but never saved only exist client-side, so
     // there is nothing to delete on the backend.
-    if (target && !target.isCreation) {
+    if (!target.isCreation) {
       this.viewDeleted.emit(viewId);
     }
   }
@@ -127,6 +125,23 @@ export class ColumnsManagementDialogComponent {
 
   public onCancel(): void {
     this.closed.emit();
+  }
+
+  private ensureActiveView(
+    views: ExtendedTableConfig[],
+  ): ExtendedTableConfig[] {
+    const hasActiveView = views.some((view) => view.isActive);
+    if (!hasActiveView && views.length > 0) {
+      const firstView = views[0];
+      if (firstView) {
+        return views.map((view) => ({
+          ...view,
+          isActive: view.id === firstView.id,
+        }));
+      }
+    }
+
+    return views;
   }
 
   private setColumnsInView(viewId: number, columns: TableColumn[]): void {
