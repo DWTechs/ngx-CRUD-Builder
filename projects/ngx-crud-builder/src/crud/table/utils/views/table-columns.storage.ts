@@ -130,8 +130,14 @@ export class TableColumnsStorage {
   public deleteView(viewId: number) {
     const componentId = this.componentId();
     if (!componentId) return of([]);
-    return this.preferencesService
-      .deleteOne(componentId, viewId)
+
+    const deleteOne = this.preferencesService.deleteOne;
+    if (typeof deleteOne !== "function") {
+      return of([]);
+    }
+
+    return deleteOne
+      .call(this.preferencesService, componentId, viewId)
       .pipe(switchMap(() => this.viewsWithColumns$));
   }
 

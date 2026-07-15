@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
   inject,
   input,
   linkedSignal,
@@ -44,11 +45,25 @@ export class ColumnsManagementDialogComponent {
 
   public readonly editedViews = linkedSignal(() => this.views());
   public readonly activeView = computed(
-    () => this.editedViews().find((view) => view.isActive) ?? this.views()[0],
+    () =>
+      this.editedViews().find((view) => view.isActive) ?? this.editedViews()[0],
   );
   private readonly localColumns = linkedSignal<TableColumn[]>(
     () => this.activeView().columns,
   );
+
+  // Ensures that there is always an active view
+  protected readonly alwaysKeepActiveView = effect(() => {
+    const hasActiveView = this.editedViews().some((view) => view.isActive);
+    if (!hasActiveView && this.editedViews().length > 0) {
+      const firstView = this.editedViews()[0];
+      if (firstView) {
+        this.editedViews.update((views) =>
+          views.map((v) => ({ ...v, isActive: v.id === firstView.id })),
+        );
+      }
+    }
+  });
 
   public readonly isViewCreation = signal(false);
 
@@ -79,13 +94,6 @@ export class ColumnsManagementDialogComponent {
 
   public onDeleteView(viewId: number): void {
     const target = this.editedViews().find((v) => v.id === viewId);
-    const views = this.editedViews().filter((v) => v.id !== viewId);
-    const hasActive = views.some((v) => v.isActive);
-    this.editedViews.set(
-      hasActive || views.length === 0
-        ? views
-        : views.map((v, i) => (i === 0 ? { ...v, isActive: true } : v)),
-    );
     // Views that were created but never saved only exist client-side, so
     // there is nothing to delete on the backend.
     if (target && !target.isCreation) {

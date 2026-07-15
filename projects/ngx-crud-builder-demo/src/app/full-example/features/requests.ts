@@ -31,6 +31,10 @@ import { RequestsService } from "../data-access/requests/requests.service";
             views = updated;
             return of({ rows: updated });
           },
+          deleteOne: (_: string, id: number) => {
+            views = views.filter((view) => view.id !== id);
+            return of(undefined);
+          },
         };
       },
     },
