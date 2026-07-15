@@ -5,12 +5,13 @@ import {
   inject,
   input,
   output,
+  viewChild,
   ViewEncapsulation,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { ConfirmationService } from "primeng/api";
 import { ButtonModule } from "primeng/button";
-import { InputTextModule } from "primeng/inputtext";
+import { InputText, InputTextModule } from "primeng/inputtext";
 import { ListboxModule } from "primeng/listbox";
 import { RadioButtonModule } from "primeng/radiobutton";
 import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
@@ -42,6 +43,8 @@ export class ColumnsViewsComponent {
   public readonly viewCreationClicked = output<void>();
   public readonly viewCreationDone = output<void>();
 
+  private readonly nameInputElt = viewChild("name", { read: InputText });
+
   public readonly activeViewId = computed(() => {
     return this.views().find((view) => view.isActive)?.id ?? null;
   });
@@ -67,6 +70,11 @@ export class ColumnsViewsComponent {
   public showNewViewField(): void {
     this.isNewFieldDisplayed = true;
     this.viewCreationClicked.emit();
+
+    // Focus the input field after it has been displayed
+    setTimeout(() => {
+      this.nameInputElt()?.el.nativeElement.focus();
+    }, 0);
   }
 
   public hideNewViewField(): void {
