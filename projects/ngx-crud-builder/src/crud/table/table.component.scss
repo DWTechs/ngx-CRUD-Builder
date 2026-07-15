@@ -2,6 +2,8 @@ tbl-table {
   height: 100%;
   display: block;
   position: relative;
+  border-radius: 6px;
+  overflow: hidden;
   --p-datatable-body-cell-padding: 0.3rem;
   --p-datatable-header-cell-padding: 0.3rem;
   --p-paginator-border-radius: 0;
@@ -21,7 +23,7 @@ tbl-table {
   }
 
   .table {
-    margin: 0 5px;
+    margin: 0;
     display: block;
 
     .p-datatable-table {
