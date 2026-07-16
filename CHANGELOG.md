@@ -1,3 +1,6 @@
+# 0.1.4 (Jul xxth 2026)
+--
+
 # 0.1.3 (Jul 16th 2026)
 
 - Improve the columns management experience by keeping the active view in sync when a view is deleted

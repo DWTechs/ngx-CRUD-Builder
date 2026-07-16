@@ -1,6 +1,27 @@
 # @dwtechs/ngx-crud-builder
 
-An Angular component library providing a full CRUD experience: dynamic reactive forms, configurable data tables, edition dialogs, column management, export, history, and more.
+An Angular component library for building dynamic forms and data tables with minimal configuration. It provides a declarative approach to creating CRUD interfaces with validation, dialogs, export, history, and column management.
+
+**[View the live demo](https://crud-builder-12c1d.web.app)**
+
+> **Compatibility:** requires Angular **^21.1** and PrimeNG **^21.1** (`@primeng/themes ^21.0`, `@primeuix/themes ^2.0`, `primeicons ^7`). The library version tracks Angular's major version — use the matching major.
+
+> **Native renderer (experimental):** a `provideNativeFormFieldRenderer()` adapter exists to render form fields without PrimeNG. It covers all control types but is not production-ready — styling and edge-case behaviour are incomplete. Use `providePrimengFormFieldRenderer()` for all current integrations.
+
+## Highlights
+
+- Dynamic form generation with 15+ input types and built-in validation
+- Advanced data tables with filtering, pagination, selection, preferences, and export
+- CRUD operations with HTTP integration, archive/restore, and history tracking
+- Customization support for actions, dialogs, labels, and access control
+
+## Demo application
+
+The demo app showcases the library through a form builder, a table playground, and a full end-to-end example.
+
+- `/` — interactive form demo
+- `/table` — table configuration playground
+- `/full-example` — realistic IT request workflow combining forms, tables, access control, and saved views
 
 ## Requirements
 
