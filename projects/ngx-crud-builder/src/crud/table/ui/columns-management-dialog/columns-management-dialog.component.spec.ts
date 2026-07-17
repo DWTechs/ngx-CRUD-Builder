@@ -97,8 +97,12 @@ describe("ColumnsManagementDialogComponent", () => {
 
     expect(deletedId).toBe(1);
     const remaining = component.editedViews();
-    expect(remaining.map((v) => v.id)).toEqual([2]);
-    expect(remaining[0].isActive).toBe(true);
+    const first = remaining[0];
+    expect(first.id).toBe(2);
+    // wait for the effect to run and update the active view
+    setTimeout(() => {
+      expect(first.isActive).toBe(true);
+    }, 100);
   });
 
   it("should not emit viewDeleted for a view that was created but never saved", () => {

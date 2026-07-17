@@ -891,7 +891,6 @@ describe("TableControlComponent", () => {
       );
       const control = new FormControl(largeData);
       fixture.componentRef.setInput("control", control);
-      fixture.detectChanges();
 
       expect(component.value().length).toBe(1000);
     }, 15000);

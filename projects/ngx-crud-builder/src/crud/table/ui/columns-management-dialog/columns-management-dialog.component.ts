@@ -88,9 +88,7 @@ export class ColumnsManagementDialogComponent {
     const target = this.editedViews().find((v) => v.id === viewId);
     if (!target) return;
 
-    this.editedViews.update((views) =>
-      this.ensureActiveView(views.filter((v) => v.id !== viewId)),
-    );
+    this.editedViews.update((views) => views.filter((v) => v.id !== viewId));
 
     // Views that were created but never saved only exist client-side, so
     // there is nothing to delete on the backend.
