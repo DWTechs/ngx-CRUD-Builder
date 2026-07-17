@@ -1,9 +1,4 @@
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { CONTROL_TYPES } from "../../../core/models/control-type.model";
 import { TableColumn } from "../../../core/utils/table/table-column.model";
@@ -81,7 +76,7 @@ describe("ColumnsManagementDialogComponent", () => {
     ]);
   });
 
-  it("should emit viewDeleted and fall back to another view as active when deleting the active saved view", fakeAsync(() => {
+  it("should emit viewDeleted and fall back to another view as active when deleting the active saved view", () => {
     fixture.componentRef.setInput("views", [
       createView({ id: 1, name: "Archive", isActive: true }),
       createView({
@@ -97,14 +92,14 @@ describe("ColumnsManagementDialogComponent", () => {
     component.viewDeleted.subscribe((id) => (deletedId = id));
 
     component.onDeleteView(1);
-    tick(100);
-    fixture.detectChanges();
 
     expect(deletedId).toBe(1);
     const remaining = component.editedViews();
     expect(remaining[0].id).toBe(2);
-    expect(remaining[0].isActive).toBe(true);
-  }));
+    waitForAsync(() => {
+      expect(remaining[0].isActive).toBe(true);
+    });
+  });
 
   it("should not emit viewDeleted for a view that was created but never saved", () => {
     fixture.componentRef.setInput("views", [
