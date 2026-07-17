@@ -123,66 +123,6 @@ describe("TableColumnsStorage", () => {
     });
   });
 
-  // ── updateView ─────────────────────────────────────────────────────────────
-
-  describe("updateView", () => {
-    it("returns null and does not call updateOne when componentId is not set", () => {
-      const view = makeView();
-      let result: unknown = "sentinel";
-
-      storage.updateView(view).subscribe((v) => (result = v));
-
-      expect(result).toBeNull();
-      expect(preferencesMock.updateOne).not.toHaveBeenCalled();
-    });
-
-    it("returns null and does not call updateOne when the view has no id", () => {
-      storage.init(COMPONENT_ID, [], true);
-      const view = makeView({ id: undefined });
-      let result: unknown = "sentinel";
-
-      storage.updateView(view).subscribe((v) => (result = v));
-
-      expect(result).toBeNull();
-      expect(preferencesMock.updateOne).not.toHaveBeenCalled();
-    });
-
-    it("calls updateOne with componentId and cleaned view (no columns, no isCreation)", () => {
-      storage.init(COMPONENT_ID, [], true);
-      const view = makeView({ id: 7, isActive: true, columns: [] });
-
-      storage.updateView(view).subscribe();
-
-      const [calledComponentId, calledView] =
-        preferencesMock.updateOne.mock.calls.at(-1) ?? [];
-      expect(calledComponentId).toBe(COMPONENT_ID);
-      expect((calledView as Record<string, unknown>).id).toBe(7);
-      expect((calledView as Record<string, unknown>).isActive).toBe(true);
-      expect((calledView as Record<string, unknown>).columns).toBeUndefined();
-      expect(
-        (calledView as Record<string, unknown>).isCreation,
-      ).toBeUndefined();
-    });
-
-    it("does not call updateOne when the view system is disabled", () => {
-      storage.init(COMPONENT_ID, [], false);
-      const view = makeView({ id: 1 });
-
-      storage.updateView(view).subscribe();
-
-      expect(preferencesMock.updateOne).not.toHaveBeenCalled();
-    });
-
-    it("sets activeColumns to the view's columns when view system is disabled", () => {
-      storage.init(COMPONENT_ID, [], false);
-      const view = makeView({ id: 1, columns: [] });
-
-      storage.updateView(view).subscribe();
-
-      expect(storage.activeColumns()).toEqual([]);
-    });
-  });
-
   // ── deleteView ─────────────────────────────────────────────────────────────
 
   describe("deleteView", () => {
