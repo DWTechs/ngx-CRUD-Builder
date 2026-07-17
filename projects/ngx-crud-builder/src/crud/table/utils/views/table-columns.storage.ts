@@ -1,5 +1,6 @@
 import { inject, Injectable, signal } from "@angular/core";
 import { takeUntilDestroyed, toObservable } from "@angular/core/rxjs-interop";
+import { ColumnResizeEvent } from "@crud/table/utils/views/table-config.model";
 import {
   combineLatest,
   filter,
@@ -86,6 +87,25 @@ export class TableColumnsStorage {
   }
 
   /*** Backend communication ***/
+
+  /** Called when a single column is resized */
+  public updateOne(updatedColumn: ColumnResizeEvent) {
+    const componentViews = this.viewsWithColumns()?.map((view) => {
+      if (view.isActive) {
+        const updatedConf: ColumnConfig[] = view.conf.map((col) =>
+          col.key === updatedColumn.colKey
+            ? { ...col, defaultWidth: `${updatedColumn.newWidthPx}px` }
+            : col,
+        );
+        return { ...view, conf: updatedConf };
+      }
+      return view;
+    });
+    if (!componentViews) {
+      return of([]);
+    }
+    return this.updateMany(componentViews);
+  }
 
   public updateMany(views: ExtendedTableConfig[]) {
     const componentId = this.componentId();

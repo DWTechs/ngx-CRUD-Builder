@@ -364,6 +364,7 @@ provideCrudLabels({
     title: 'Views',
     add: 'Add',
     delete: 'Delete',
+    rename: 'Rename',
     validate: 'Apply',
     cancel: 'Cancel',
     deleteConfirmation: 'Are you sure you want to delete this view?',

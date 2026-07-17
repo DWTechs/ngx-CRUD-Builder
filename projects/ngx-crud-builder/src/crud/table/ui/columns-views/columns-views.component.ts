@@ -5,6 +5,7 @@ import {
   inject,
   input,
   output,
+  signal,
   viewChild,
   ViewEncapsulation,
 } from "@angular/core";
@@ -39,17 +40,23 @@ export class ColumnsViewsComponent {
 
   public readonly deleteView = output<number>();
   public readonly addView = output<string>();
+  public readonly renameView = output<{ id: number; name: string }>();
   public readonly viewSelected = output<number>();
   public readonly viewCreationClicked = output<void>();
   public readonly viewCreationDone = output<string | null>();
 
   private readonly nameInputElt = viewChild("name", { read: InputText });
+  private readonly renameInputElt = viewChild("renameInput", {
+    read: InputText,
+  });
 
   public readonly activeViewId = computed(() => {
     return this.views().find((view) => view.isActive)?.id ?? null;
   });
 
   public isNewFieldDisplayed = false;
+  public readonly renamingViewId = signal<number | null>(null);
+  public readonly renamingViewName = signal("");
 
   public onSelectView(viewId: number): void {
     this.viewSelected.emit(viewId);
@@ -65,6 +72,29 @@ export class ColumnsViewsComponent {
       message: this.labels.columnsViews.deleteConfirmation,
       accept: () => this.deleteView.emit(viewId),
     });
+  }
+
+  public startRenameView(event: Event, view: TableConfig): void {
+    event.stopPropagation();
+    this.renamingViewId.set(view.id as number);
+    this.renamingViewName.set(view.name);
+    setTimeout(() => {
+      this.renameInputElt()?.el.nativeElement.focus();
+    }, 0);
+  }
+
+  public cancelRename(): void {
+    this.renamingViewId.set(null);
+    this.renamingViewName.set("");
+  }
+
+  public submitRename(viewId: number | null | undefined): void {
+    const name = this.renamingViewName().trim();
+    if (name && viewId != null) {
+      this.renameView.emit({ id: viewId, name });
+    }
+    this.renamingViewId.set(null);
+    this.renamingViewName.set("");
   }
 
   public showNewViewField(): void {

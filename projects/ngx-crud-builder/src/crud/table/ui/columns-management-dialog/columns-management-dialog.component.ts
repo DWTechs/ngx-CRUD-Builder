@@ -97,6 +97,12 @@ export class ColumnsManagementDialogComponent {
     }
   }
 
+  public onRenameView(event: { id: number; name: string }): void {
+    this.editedViews.update((views) =>
+      views.map((v) => (v.id === event.id ? { ...v, name: event.name } : v)),
+    );
+  }
+
   public onViewCreationDone(name: string | null): void {
     this.isViewCreation.set(false);
     if (name) {

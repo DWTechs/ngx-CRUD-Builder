@@ -30,6 +30,11 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
+
+        .view-actions {
+          display: flex;
+          align-items: center;
+        }
       }
     }
 

@@ -429,7 +429,7 @@ export const appConfig: ApplicationConfig = {
 | `toolbar` | `export`, `configureColumns`, `refresh` | Toolbar action buttons |
 | `exportDialog` | `header`, `chooseFormat`, `chooseData`, `all`, `selection`, `cancel`, `export` | Export dialog content |
 | `columnsDialog` | `header`, `cancel`, `save` | Column management dialog |
-| `columnsViews` | `title`, `add`, `delete`, `validate`, `cancel`, `deleteConfirmation` | Saved column views panel |
+| `columnsViews` | `title`, `add`, `delete`, `rename`, `validate`, `cancel`, `deleteConfirmation` | Saved column views panel |
 | `tableActions` | `edit`, `delete` | Row action button tooltips |
 | `tableRegular` | `currentPageReport(first, last, total)` | Pagination report text |
 | `table` | `exportFailedTitle`, `exportFailedDetail`, `deleteConfirmationSingle`, `deleteConfirmationMultiple(count)`, `restoreConfirmationSingle`, `restoreConfirmationMultiple(count)`, `confirmationHeader`, `confirmationCancel`, `confirmationConfirm`, `defaultViewName` | Confirmation dialogs, error toasts, default view name |
@@ -465,6 +465,7 @@ provideCrudLabels({
     title: 'Views',
     add: 'Add',
     delete: 'Delete',
+    rename: 'Rename',
     validate: 'Apply',
     cancel: 'Cancel',
     deleteConfirmation: 'Are you sure you want to delete this view?',

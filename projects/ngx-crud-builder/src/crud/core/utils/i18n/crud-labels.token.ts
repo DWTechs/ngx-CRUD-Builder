@@ -40,6 +40,7 @@ export interface CrudLabels {
     title: string;
     add: string;
     delete: string;
+    rename: string;
     validate: string;
     cancel: string;
     deleteConfirmation: string;
@@ -191,6 +192,7 @@ export const DEFAULT_CRUD_LABELS: CrudLabels = {
     title: "Vues",
     add: "Ajouter",
     delete: "Supprimer",
+    rename: "Renommer",
     validate: "Valider",
     cancel: "Annuler",
     deleteConfirmation: "Êtes-vous sûr de vouloir supprimer cette vue ?",

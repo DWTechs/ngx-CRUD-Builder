@@ -24,16 +24,48 @@
               }
             </div>
             @if (!view.locked) {
-              <p-button
-                  icon="pi pi-trash"
-                  [title]="labels.columnsViews.delete"
-                  [text]="true"
-                  (click)="onDeleteView($event, view.id)"
-              />
+              <div class="view-actions">
+                <p-button
+                    icon="pi pi-pencil"
+                    [title]="labels.columnsViews.rename"
+                    [text]="true"
+                    (click)="startRenameView($event, view)"
+                />
+                <p-button
+                    icon="pi pi-trash"
+                    [title]="labels.columnsViews.delete"
+                    [text]="true"
+                    (click)="onDeleteView($event, view.id)"
+                />
+              </div>
             }
         </div>       
     </ng-template>
   </p-listbox>
+    @if (renamingViewId() !== null) {
+      <div class="new-view">
+        <input #renameInput
+          type="text"
+          pInputText
+          [ngModel]="renamingViewName()"
+          (ngModelChange)="renamingViewName.set($event)"
+          (keyup.enter)="submitRename(renamingViewId())"
+          (keyup.escape)="cancelRename()"
+        />
+        <p-button
+            icon="pi pi-check"
+            [title]="labels.columnsViews.validate"
+            [text]="true"
+            (click)="submitRename(renamingViewId())"
+        />
+        <p-button
+            icon="pi pi-times"
+            [title]="labels.columnsViews.cancel"
+            [text]="true"
+            (click)="cancelRename()"
+        />
+      </div>
+    }
     @if (isNewFieldDisplayed) {
       <div class="new-view">
         <input #name
