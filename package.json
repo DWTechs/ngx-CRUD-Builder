@@ -4,6 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start:demo": "ng serve --project ngx-crud-builder-demo",
+    "start:demo:mock": "ng serve --project ngx-crud-builder-demo --proxy-config proxy.conf.json",
+    "mock": "node mock-server/server.mjs",
     "build:demo": "ng build --project ngx-crud-builder-demo",
     "build:lib": "ng build ngx-crud-builder --configuration production",
     "test": "ng test",

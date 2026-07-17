@@ -40,6 +40,7 @@ import { FilterLevel } from "../core/utils/table/filter-level.model";
 import { TableStateService } from "../core/utils/table/table-state.service";
 import { FileInfo } from "../form/ui/renderers-primeng/file-upload-input/file-info.class";
 import { LabelStrategy } from "../form/utils/label-strategy.model";
+import { TableConfigService } from "../table/data-access/table-config.service";
 import { ExtendedTableConfig } from "./data-access/table-config.model";
 import { ColumnsManagementDialogComponent } from "./ui/columns-management-dialog/columns-management-dialog.component";
 import { TableRegularComponent } from "./ui/table-regular/table-regular.component";
@@ -66,6 +67,7 @@ const MIN_PAGE = 1;
   providers: [
     CrudLoader,
     TableColumnsStorage,
+    TableConfigService,
     TableStateService,
     ExportService,
     ConfirmationService,
@@ -520,10 +522,12 @@ export class TableComponent<TData extends CrudItemBase>
   }
 
   // Public methods
-  public applyViews(newViews: ExtendedTableConfig[]): void {
-    this.columnsStorage.updateMany(newViews).subscribe(() => {
-      this.hideColumnsConfigDialog();
-    });
+  public onViewCreated(view: ExtendedTableConfig): void {
+    this.columnsStorage.createView(view).subscribe();
+  }
+
+  public onViewsUpdated(views: ExtendedTableConfig[]): void {
+    this.columnsStorage.updateMany(views).subscribe();
   }
 
   public onViewDeleted(viewId: number): void {

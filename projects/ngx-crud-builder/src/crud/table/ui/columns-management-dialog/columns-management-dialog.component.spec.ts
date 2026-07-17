@@ -52,27 +52,25 @@ describe("ColumnsManagementDialogComponent", () => {
   });
 
   it("should preserve each column's defaultWidth when saving without any other change", () => {
-    let emitted: ExtendedTableConfig[] | undefined;
-    component.saved.subscribe((views) => (emitted = views));
+    let emitted: ExtendedTableConfig | undefined;
+    component.viewsUpdated.subscribe((views) => (emitted = views[0]));
 
     component.onSaved();
 
-    const savedView = emitted?.find((v) => v.id === 1);
-    expect(savedView?.conf).toEqual([
+    expect(emitted?.conf).toEqual([
       { key: "core", isVisible: true, defaultWidth: "60px" },
       { key: "name", isVisible: true, defaultWidth: "200px" },
     ]);
   });
 
   it("should keep defaultWidth for untouched columns while updating isVisible for the toggled one", () => {
-    let emitted: ExtendedTableConfig[] | undefined;
-    component.saved.subscribe((views) => (emitted = views));
+    let emitted: ExtendedTableConfig | undefined;
+    component.viewsUpdated.subscribe((views) => (emitted = views[0]));
 
     component.onSelectedColumnsKeysChange(["name"]);
     component.onSaved();
 
-    const savedView = emitted?.find((v) => v.id === 1);
-    expect(savedView?.conf).toEqual([
+    expect(emitted?.conf).toEqual([
       { key: "core", isVisible: false, defaultWidth: "60px" },
       { key: "name", isVisible: true, defaultWidth: "200px" },
     ]);

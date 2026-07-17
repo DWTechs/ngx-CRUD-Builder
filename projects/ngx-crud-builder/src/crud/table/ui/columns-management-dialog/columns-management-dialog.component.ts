@@ -12,6 +12,7 @@ import {
   signal,
   ViewEncapsulation,
 } from "@angular/core";
+import { isArray } from "@dwtechs/checkard";
 import { ButtonModule } from "primeng/button";
 import { DialogModule } from "primeng/dialog";
 import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
@@ -40,7 +41,8 @@ export class ColumnsManagementDialogComponent {
   public readonly visible = model(false);
 
   public readonly closed = output();
-  public readonly saved = output<ExtendedTableConfig[]>();
+  public readonly viewCreated = output<ExtendedTableConfig>();
+  public readonly viewsUpdated = output<ExtendedTableConfig[]>();
   public readonly viewDeleted = output<number>();
 
   public readonly editedViews = linkedSignal(() => this.views());
@@ -60,11 +62,9 @@ export class ColumnsManagementDialogComponent {
   public readonly isViewCreation = signal(false);
 
   public onSelectView(viewId: number): void {
-    const view = this.editedViews().find((v) => v.id === viewId);
-    if (!view) return;
-    // Find old active view and update its columns before changing active view
-    const oldActiveView = this.activeView();
-    this.setColumnsInView(oldActiveView.id as number, this.localColumns());
+    if (!this.editedViews().find((v) => v.id === viewId)) return;
+    // Save current columns state in the active view before switching
+    this.setColumnsInView(this.activeView().id as number, this.localColumns());
     // Set new active view
     this.editedViews.update((views) =>
       views.map((v) => ({ ...v, isActive: v.id === viewId })),
@@ -97,14 +97,29 @@ export class ColumnsManagementDialogComponent {
     }
   }
 
+  public onViewCreationDone(name: string | null): void {
+    this.isViewCreation.set(false);
+    if (name) {
+      this.onCreateView(name);
+    }
+  }
+
   public onCreateView(name: string): void {
+    const activeView = this.activeView();
+    const conf = isArray(activeView.conf, ">", 0)
+      ? activeView.conf
+      : activeView.columns.map((col) => ({
+          key: col.key,
+          isVisible: col.isVisible,
+          defaultWidth: col.defaultWidth,
+        }));
     const newView: ExtendedTableConfig = {
       id: Date.now(),
       name,
       isActive: true,
-      columns: this.activeView().columns,
-      conf: this.activeView().conf,
-      component: this.activeView().component,
+      columns: activeView.columns,
+      conf,
+      component: activeView.component,
       locked: false,
       isCreation: true,
     };
@@ -113,12 +128,13 @@ export class ColumnsManagementDialogComponent {
       isActive: false,
     }));
     this.editedViews.update(() => [...currentViews, newView]);
-    this.isViewCreation.set(false);
+    this.viewCreated.emit(newView);
   }
 
   public onSaved(): void {
     this.setColumnsInView(this.activeView().id as number, this.localColumns());
-    this.saved.emit(this.editedViews());
+    this.viewsUpdated.emit(this.editedViews().filter((v) => !v.isCreation));
+    this.closed.emit();
   }
 
   public onCancel(): void {

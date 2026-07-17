@@ -4,7 +4,7 @@
   [modal]="false"
   [focusOnShow]="false"
   [maximizable]="true"
-  [style]="{ width: '70vw' }"
+  [style]="{ width: '90vw', height: '90vh' }"
   styleClass="p-fluid"
   (onHide)="onCancel()">
   
@@ -16,8 +16,7 @@
             [views]="editedViews()"
             (viewSelected)="onSelectView($event)"
             (viewCreationClicked)="isViewCreation.set(true)"
-            (viewCreationDone)="isViewCreation.set(false)"
-            (addView)="onCreateView($event)"
+            (viewCreationDone)="onViewCreationDone($event)"
             (deleteView)="onDeleteView($event)"
           />
         </div>

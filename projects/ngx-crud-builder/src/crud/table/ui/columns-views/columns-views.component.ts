@@ -41,7 +41,7 @@ export class ColumnsViewsComponent {
   public readonly addView = output<string>();
   public readonly viewSelected = output<number>();
   public readonly viewCreationClicked = output<void>();
-  public readonly viewCreationDone = output<void>();
+  public readonly viewCreationDone = output<string | null>();
 
   private readonly nameInputElt = viewChild("name", { read: InputText });
 
@@ -79,13 +79,13 @@ export class ColumnsViewsComponent {
 
   public hideNewViewField(): void {
     this.isNewFieldDisplayed = false;
-    this.viewCreationDone.emit();
+    this.viewCreationDone.emit(null);
   }
 
   public submitNewView(name?: string): void {
     if (name) {
-      this.hideNewViewField();
-      this.addView.emit(name);
+      this.isNewFieldDisplayed = false;
+      this.viewCreationDone.emit(name);
     }
   }
 }

@@ -63,7 +63,8 @@
     [isPreferencesModeEnabled]="isPreferencesModeEnabled()"
     [views]="views()!"
     (closed)="hideColumnsConfigDialog()"
-    (saved)="applyViews($event)"
+    (viewCreated)="onViewCreated($event)"
+    (viewsUpdated)="onViewsUpdated($event)"
     (viewDeleted)="onViewDeleted($event)"
   />
 }

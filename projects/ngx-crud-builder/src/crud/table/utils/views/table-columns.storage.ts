@@ -10,6 +10,7 @@ import {
   tap,
 } from "rxjs";
 import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
+import { Rows } from "../../../core/utils/crud-service/dto.model";
 import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
 import { crudItemToColumn } from "../../../core/utils/table/crud-item-to-column";
 import { TableColumn } from "../../../core/utils/table/table-column.model";
@@ -20,7 +21,6 @@ import {
 } from "../../data-access/table-config.model";
 import { TableConfigService } from "../../data-access/table-config.service";
 import { LocalTableColumnsStorage } from "./local-table-columns.storage";
-import { ColumnResizeEvent } from "./table-config.model";
 
 @Injectable()
 export class TableColumnsStorage {
@@ -107,23 +107,41 @@ export class TableColumnsStorage {
       .pipe(switchMap(() => this.viewsWithColumns$));
   }
 
-  /** Called when a single column is resized */
-  public updateOne(updatedColumn: ColumnResizeEvent) {
-    const componentViews = this.viewsWithColumns()?.map((view) => {
-      if (view.isActive) {
-        const updatedConf: ColumnConfig[] = view.conf.map((col) =>
-          col.key === updatedColumn.colKey
-            ? { ...col, defaultWidth: `${updatedColumn.newWidthPx}px` }
-            : col,
-        );
-        return { ...view, conf: updatedConf };
-      }
-      return view;
-    });
-    if (!componentViews) {
-      return of([]);
-    }
-    return this.updateMany(componentViews);
+  /** Creates a single view on the backend */
+  public createView(
+    view: ExtendedTableConfig,
+  ): Observable<Rows<TableConfig> | null> {
+    const componentId = this.componentId();
+    if (!componentId) return of(null);
+    const { columns: _columns, isCreation: _isCreation, ...cleanView } = view;
+    return this.preferencesService
+      .createOne(componentId, { ...cleanView, id: undefined })
+      .pipe(
+        tap((res) => {
+          const createdView = res.rows[0];
+          if (!createdView) return;
+          this.viewsWithColumns.update((views) => {
+            if (!views) return null;
+            const idx = views.findIndex((v) => v.id === view.id);
+            if (idx !== -1) {
+              // Replace the temporary fake id with the real id from the backend,
+              // and deactivate all other views so the new one stays active.
+              return views.map((v) =>
+                v.id === view.id
+                  ? { ...v, id: createdView.id, isCreation: undefined }
+                  : { ...v, isActive: false },
+              );
+            }
+            // The view was created locally in the dialog and was never added to
+            // viewsWithColumns. Append it now with the real id from the backend,
+            // and deactivate all other views so the new one stays active.
+            return [
+              ...views.map((v) => ({ ...v, isActive: false })),
+              { ...view, id: createdView.id, isCreation: undefined },
+            ];
+          });
+        }),
+      );
   }
 
   /** Called immediately when the user confirms deleting a view, independently of Save */

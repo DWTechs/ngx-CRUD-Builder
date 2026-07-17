@@ -19,6 +19,26 @@ export class TableConfigService {
       );
   }
 
+  public createOne(
+    componentId: string,
+    view: TableConfig,
+  ): Observable<Rows<TableConfig>> {
+    return this.http.post<Rows<TableConfig>>(
+      `${this.api}/${componentId}`,
+      view,
+    );
+  }
+
+  public updateOne(
+    componentId: string,
+    view: TableConfig,
+  ): Observable<Rows<TableConfig>> {
+    return this.http.put<Rows<TableConfig>>(
+      `${this.api}/${componentId}/${view.id}`,
+      view,
+    );
+  }
+
   public updateMany(componentId: string, views: TableConfig[]) {
     return this.http.put<Rows<TableConfig>>(`${this.api}/${componentId}`, {
       rows: views,
