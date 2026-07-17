@@ -8,7 +8,6 @@ import {
   signal,
   ViewEncapsulation,
 } from "@angular/core";
-import { TableCellComponent } from "../table-cell/table-cell.component";
 import { SharedModule } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { TableModule } from "primeng/table";
@@ -16,6 +15,7 @@ import { CrudItemOptions } from "../../models/crud-item-options.model";
 import { isEqual } from "../../utils/arrays/is-equal.utils";
 import { DATE_WITH_SECONDS_FORMAT } from "../../utils/dates/dates.utils";
 import { CRUD_LABELS } from "../../utils/i18n/crud-labels.token";
+import { TableCellComponent } from "../table-cell/table-cell.component";
 import { FullHistoryRow, HistorizedData } from "./history.model";
 
 @Component({
@@ -75,9 +75,9 @@ export class HistoryComponent<TData> {
       const currentRow = row.record;
       const lastRow = rows[rowIndex + 1]?.record;
       const changes = [];
-      for (const propKey in currentRow) {
+      for (const confItem of this.config()) {
         const change = this.buildChangesTable(
-          propKey as keyof TData,
+          confItem.key as keyof TData,
           currentRow,
           lastRow,
         );
