@@ -1,5 +1,8 @@
+# 0.1.5 (Jul 17th 2026)
+- Fix package install
+
 # 0.1.4 (Jul 17th 2026)
-- Fix `history` field ordering to match the form field order
+- Add `history` field ordering to match the form field order
 - Decouple creation and deletion from bulk update in `preferences` management
 - Rename `rows` to `limit` in the GET request parameters
 
