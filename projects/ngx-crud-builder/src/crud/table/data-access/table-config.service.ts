@@ -23,20 +23,16 @@ export class TableConfigService {
     componentId: string,
     view: TableConfig,
   ): Observable<Rows<TableConfig>> {
-    return this.http.post<Rows<TableConfig>>(
-      `${this.api}/${componentId}`,
-      view,
-    );
+    return this.http.post<Rows<TableConfig>>(`${this.api}/${componentId}`, {
+      rows: [view],
+    });
   }
 
   public updateOne(
     componentId: string,
     view: TableConfig,
   ): Observable<Rows<TableConfig>> {
-    return this.http.put<Rows<TableConfig>>(
-      `${this.api}/${componentId}/${view.id}`,
-      view,
-    );
+    return this.updateMany(componentId, [view]);
   }
 
   public updateMany(componentId: string, views: TableConfig[]) {

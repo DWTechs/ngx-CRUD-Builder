@@ -1,5 +1,7 @@
-# 0.1.4 (Jul xxth 2026)
---
+# 0.1.4 (Jul 18th 2026)
+- Fix `history` field ordering to match the form field order
+- Decouple creation and deletion from bulk update in `preferences` management
+- Rename `rows` to `limit` in the GET request parameters
 
 # 0.1.3 (Jul 16th 2026)
 
