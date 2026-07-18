@@ -35,7 +35,12 @@ export class TableConfigService {
     return this.updateMany(componentId, [view]);
   }
 
-  public updateMany(componentId: string, views: TableConfig[]) {
+  // "conf" is optional here: a row can be re-sent to only update other fields
+  // (e.g. "isActive") without echoing back an unchanged "conf" as a real edit.
+  public updateMany(
+    componentId: string,
+    views: (Omit<TableConfig, "conf"> & { conf?: TableConfig["conf"] })[],
+  ) {
     return this.http.put<Rows<TableConfig>>(`${this.api}/${componentId}`, {
       rows: views,
     });

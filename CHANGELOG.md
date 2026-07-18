@@ -1,3 +1,6 @@
+# 0.1.6 (Jul 18th 2026)
+- Fix `TableColumnsStorage.updateMany()` re-sending an unchanged `conf` for every preference view on save, which could make the backend mistake a plain selection change (`isActive`) for a real template edit
+
 # 0.1.5 (Jul 17th 2026)
 - Fix package install
 

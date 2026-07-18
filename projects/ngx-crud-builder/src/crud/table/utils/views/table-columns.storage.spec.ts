@@ -141,4 +141,44 @@ describe("TableColumnsStorage", () => {
       expect(preferencesMock.deleteOne).toHaveBeenCalledWith(COMPONENT_ID, 1);
     });
   });
+
+  // ── updateMany ─────────────────────────────────────────────────────────────
+
+  describe("updateMany", () => {
+    it("strips conf from views whose conf is unchanged from the stored state", () => {
+      storage.init(COMPONENT_ID, [], true);
+      const conf = [{ key: "id", isVisible: true }];
+      const storedView = makeView({ id: 1, conf, isActive: false });
+      storage.viewsWithColumns.set([storedView]);
+
+      const savedView = { ...storedView, conf: [...conf], isActive: true };
+      storage.updateMany([savedView]).subscribe();
+
+      const [, calledViews] =
+        preferencesMock.updateMany.mock.calls.at(-1) ?? [];
+      expect(
+        (calledViews as Record<string, unknown>[])[0].conf,
+      ).toBeUndefined();
+      expect((calledViews as Record<string, unknown>[])[0].isActive).toBe(true);
+    });
+
+    it("keeps conf when it actually differs from the stored state", () => {
+      storage.init(COMPONENT_ID, [], true);
+      const storedView = makeView({
+        id: 1,
+        conf: [{ key: "id", isVisible: true }],
+      });
+      storage.viewsWithColumns.set([storedView]);
+
+      const editedConf = [{ key: "id", isVisible: false }];
+      const savedView = { ...storedView, conf: editedConf };
+      storage.updateMany([savedView]).subscribe();
+
+      const [, calledViews] =
+        preferencesMock.updateMany.mock.calls.at(-1) ?? [];
+      expect((calledViews as Record<string, unknown>[])[0].conf).toEqual(
+        editedConf,
+      );
+    });
+  });
 });

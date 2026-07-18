@@ -116,12 +116,23 @@ export class TableColumnsStorage {
       this.activeColumns.set(defaultView.columns);
       return of(views);
     }
-    const cleanViews = views.map((view) => ({
-      ...view,
-      id: view.isCreation || view.id === null ? undefined : view.id,
-      isCreation: undefined,
-      columns: undefined,
-    }));
+    // Server truth before this save: used to detect views whose "conf" is only
+    // being re-sent unchanged (e.g. switching the active view), so it isn't
+    // mistaken for a real edit on the backend (which would fork templates).
+    const originalViews = this.viewsWithColumns() ?? [];
+    const cleanViews = views.map((view) => {
+      const originalView = originalViews.find((v) => v.id === view.id);
+      const isConfUnchanged =
+        !!originalView &&
+        JSON.stringify(view.conf) === JSON.stringify(originalView.conf);
+      return {
+        ...view,
+        id: view.isCreation || view.id === null ? undefined : view.id,
+        isCreation: undefined,
+        columns: undefined,
+        conf: isConfUnchanged ? undefined : view.conf,
+      };
+    });
     return this.preferencesService
       .updateMany(componentId, cleanViews)
       .pipe(switchMap(() => this.viewsWithColumns$));
