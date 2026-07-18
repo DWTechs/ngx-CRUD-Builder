@@ -1,15 +1,21 @@
-import { getDateRangeWithoutTime } from "../../../core/utils/dates/dates.utils";
 import { isArray } from "@dwtechs/checkard";
 import { FilterMetadata } from "primeng/api";
 import { TableLazyLoadEvent } from "primeng/table";
+import { getDateRangeWithoutTime } from "../../../core/utils/dates/dates.utils";
 
 export function cleanFilters(params: TableLazyLoadEvent | undefined) {
   if (!params) {
     return;
   }
-  const cleanParams: TableLazyLoadEvent = JSON.parse(JSON.stringify(params));
+  const { rows, ...rest } = JSON.parse(
+    JSON.stringify(params),
+  ) as TableLazyLoadEvent & { limit?: number };
+  const cleanParams = { ...rest, limit: rest.limit ?? rows } as Omit<
+    TableLazyLoadEvent,
+    "rows"
+  > & { limit: number | undefined };
   if (!cleanParams.filters) {
-    return;
+    return cleanParams;
   }
   for (const key of Object.keys(cleanParams.filters)) {
     const filter = cleanParams.filters[key];
