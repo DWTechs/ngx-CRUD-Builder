@@ -523,15 +523,21 @@ export class TableComponent<TData extends CrudItemBase>
 
   // Public methods
   public onViewCreated(view: ExtendedTableConfig): void {
-    this.columnsStorage.createView(view).subscribe();
+    this.columnsStorage.createView(view).subscribe(() => {
+      this.clearCachedTableStyles();
+    });
   }
 
   public onViewsUpdated(views: ExtendedTableConfig[]): void {
-    this.columnsStorage.updateMany(views).subscribe();
+    this.columnsStorage.updateMany(views).subscribe(() => {
+      this.clearCachedTableStyles();
+    });
   }
 
   public onViewDeleted(viewId: number): void {
-    this.columnsStorage.deleteView(viewId).subscribe();
+    this.columnsStorage.deleteView(viewId).subscribe(() => {
+      this.clearCachedTableStyles();
+    });
   }
 
   public hideColumnsConfigDialog(): void {
@@ -752,6 +758,10 @@ export class TableComponent<TData extends CrudItemBase>
       queryParamsHandling: "merge",
       replaceUrl: true,
     });
+  }
+
+  private clearCachedTableStyles() {
+    this.tableRegular()?.dataTable()?.destroyStyleElement();
   }
 
   private getFiles(entry: TData): File[] {

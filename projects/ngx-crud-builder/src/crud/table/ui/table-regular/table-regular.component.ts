@@ -141,28 +141,6 @@ export class TableRegularComponent<TData> {
     table.sortOrder = order;
   });
 
-  // PrimeNG's live column resize (columnResizeMode="expand") applies the new width in two
-  // ways that never get cleared on their own:
-  // 1. It injects a `<style>` element with `!important` rules keyed by column POSITION
-  //    (nth-child), not by column key.
-  // 2. It pins the `<table>` element's own `width`/`min-width` inline style to the resized
-  //    total (`setResizeTableWidth`), which then forces the browser to stretch/redistribute
-  //    columns to fill that fixed total width regardless of their individual widths.
-  // So once a column has been resized, switching to another view/preference (which can show
-  // columns in a different order/visibility/total width) keeps forcing the old layout onto
-  // whatever now renders - overriding our own per-view `[style.width]` bindings. Clearing both
-  // whenever our own `columns` change hands width control back to those bindings.
-  readonly clearResizeOverrideEffect = effect(() => {
-    this.columns();
-    const table = this.dataTable();
-    table?.destroyStyleElement();
-    const tableEl = table?.tableViewChild?.nativeElement as
-      | HTMLElement
-      | undefined;
-    tableEl?.style.removeProperty("width");
-    tableEl?.style.removeProperty("min-width");
-  });
-
   public trackCol(col: TableColumn) {
     return col;
   }
