@@ -80,6 +80,6 @@ export class RequestsComponent {
     rows: 20,
     rowsPerPageOptions: [10, 25, 50],
     outsideTableHeight: "200px",
-    isPreferencesModeEnabled: true,
+    isPreferencesModeEnabled: false,
   };
 }

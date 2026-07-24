@@ -1,3 +1,6 @@
+# 0.1.8 (Jul xxth 2026)
+- Fix columns management to enable columns selection when preferences mode is not activated
+
 # 0.1.7 (Jul 19th 2026)
 - Fix PrimeNG column-resize style persisting after switching preference views, by clearing cached table styles whenever a view is created, updated or deleted
 

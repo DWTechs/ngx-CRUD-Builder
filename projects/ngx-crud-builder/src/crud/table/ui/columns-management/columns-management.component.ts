@@ -38,7 +38,7 @@ export class ColumnsManagementComponent {
   public readonly isColumnsEditionDisabled = computed(() => {
     // If preferences mode is not enabled, we can edit the front-end default view
     if (!this.isPreferencesModeEnabled()) {
-      return true;
+      return false;
     }
     // If we are creating a new view, we cannot edit columns
     if (this.isViewCreation()) {
