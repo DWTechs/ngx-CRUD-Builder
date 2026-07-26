@@ -60,6 +60,10 @@ export const DEMO_CONF: CrudItemOptions[] = [
       inputIcon: "pi pi-euro",
       validators: [min(0)],
     },
+    columnOptions: {
+      numberStyle: "currency",
+      currencyCode: "EUR",
+    },
     conditions: {
       controlOptions: {
         hidden: ({ model }) => !model.age || model.age < 18, // Hide salary field if age is less than 18
@@ -122,6 +126,9 @@ export const DEMO_CONF: CrudItemOptions[] = [
     controlOptions: {
       inputIcon: "pi pi-calendar",
       validators: [required],
+    },
+    columnOptions: {
+      dateFormat: "dd/MM/yyyy",
     },
   },
   // SELECT

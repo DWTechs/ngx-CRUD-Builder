@@ -124,6 +124,9 @@ export const REQUEST_CONF: (
       controlOptions: {
         validators: [required, dateValidator],
       },
+      columnOptions: {
+        dateFormat: "dd/MM/yyyy",
+      },
     },
     {
       key: "estimatedBudget",

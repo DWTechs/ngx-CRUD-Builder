@@ -43,6 +43,7 @@ export * from "./crud/core/utils/dates/dates.utils";
 export * from "./crud/core/utils/download/download.service";
 export * from "./crud/core/utils/download/form-data.mapper";
 export * from "./crud/core/utils/i18n/crud-labels.token";
+export * from "./crud/core/utils/numbers/numbers.utils";
 export * from "./crud/core/utils/offline/offline.service";
 export * from "./crud/core/utils/table/export-mode.model";
 export * from "./crud/core/utils/table/filter-level.model";

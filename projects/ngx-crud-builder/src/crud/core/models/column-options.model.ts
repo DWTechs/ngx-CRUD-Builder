@@ -1,6 +1,7 @@
 import { Type } from "@angular/core";
 import { SafeHtml } from "@angular/platform-browser";
 import { FilterMetadata } from "primeng/api";
+import { NumberStyle } from "../utils/numbers/numbers.utils";
 import { ControlType } from "./control-type.model";
 
 export class ColumnOptions {
@@ -53,4 +54,30 @@ export class ColumnOptions {
   headerTooltip?: string;
   /** If the edition of this cell should be disabled in inline-cell edition mode */
   isCellEditionDisabled?: boolean;
+  /**
+   * Format string passed to Angular's `DatePipe` used to render `date` typed columns.
+   * @default 'yyyy-MM-dd' (see `DATE_FORMAT`)
+   * @example `dateFormat: 'dd/MM/yyyy'`
+   */
+  dateFormat?: string;
+  /**
+   * Applies locale-aware number formatting to `number` typed columns (based on the app's `LOCALE_ID`).
+   * - 'decimal' (default): plain locale-formatted number
+   * - 'currency': formatted as a currency amount, see `currencyCode`
+   * - 'percent': formatted as a percentage
+   * @example `numberStyle: 'currency'`
+   */
+  numberStyle?: NumberStyle;
+  /**
+   * `digitsInfo` string passed to Angular's `DecimalPipe`/`CurrencyPipe`/`PercentPipe`
+   * @default '1.0-2'
+   * @example `numberFormat: '1.2-2'` // Always show exactly 2 decimal digits
+   */
+  numberFormat?: string;
+  /**
+   * ISO 4217 currency code used when `numberStyle` is 'currency'
+   * @default 'USD'
+   * @example `currencyCode: 'EUR'`
+   */
+  currencyCode?: string;
 }

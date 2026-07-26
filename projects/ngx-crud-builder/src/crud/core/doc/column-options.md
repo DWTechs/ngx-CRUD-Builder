@@ -8,6 +8,10 @@ Column options allow you to customize how table columns are displayed and behave
 - [Rendering Options](#rendering-options)
   - [`customHeaderRenderer`](#customheaderrenderer)
   - [`customCellRenderer`](#customcellrenderer)
+  - [`dateFormat`](#dateformat)
+  - [`numberStyle`](#numberstyle)
+  - [`numberFormat`](#numberformat)
+  - [`currencyCode`](#currencycode)
 - [Custom Components](#custom-components)
 - [Filter Options](#filter-options)
 - [Display Options](#display-options)
@@ -123,6 +127,75 @@ Cell content will be centered.
   controlType: CONTROL_TYPES.INPUT,
   columnOptions: {
     centered: true
+  }
+}
+```
+
+### `dateFormat`
+**Type:** `string`  
+**Default:** `'yyyy-MM-dd'`
+
+Format string forwarded to Angular's `DatePipe` used to render `date` typed columns. Lets you override the default per column, for example to match a locale-specific display format.
+
+```typescript
+{
+  key: "birthDate",
+  controlType: CONTROL_TYPES.DATE,
+  columnOptions: {
+    dateFormat: "dd/MM/yyyy"
+  }
+}
+```
+
+### `numberStyle`
+**Type:** `'decimal' | 'currency' | 'percent'`  
+**Default:** `'decimal'`
+
+Applies locale-aware number formatting to `number` typed columns (`type: INPUT_TYPES.NUMBER`), based on the app's `LOCALE_ID`. Uses Angular's `DecimalPipe`, `CurrencyPipe` or `PercentPipe` under the hood, so it stays in sync with whichever locale the host app registers (see the `LOCALE_ID` section in the main README).
+
+```typescript
+{
+  key: "salary",
+  controlType: CONTROL_TYPES.INPUT,
+  type: INPUT_TYPES.NUMBER,
+  columnOptions: {
+    numberStyle: "currency",
+    currencyCode: "EUR"
+  }
+}
+```
+
+### `numberFormat`
+**Type:** `string`  
+**Default:** `'1.0-2'`
+
+`digitsInfo` string forwarded to the underlying Angular pipe (`{minIntegerDigits}.{minFractionDigits}-{maxFractionDigits}`).
+
+```typescript
+{
+  key: "rating",
+  controlType: CONTROL_TYPES.INPUT,
+  type: INPUT_TYPES.NUMBER,
+  columnOptions: {
+    numberFormat: "1.2-2" // Always show exactly 2 decimal digits
+  }
+}
+```
+
+### `currencyCode`
+**Type:** `string`  
+**Default:** `'USD'`
+
+ISO 4217 currency code used when `numberStyle` is `'currency'`.
+
+```typescript
+{
+  key: "price",
+  controlType: CONTROL_TYPES.INPUT,
+  type: INPUT_TYPES.NUMBER,
+  columnOptions: {
+    numberStyle: "currency",
+    currencyCode: "USD"
   }
 }
 ```

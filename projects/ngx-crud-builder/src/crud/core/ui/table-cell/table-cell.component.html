@@ -6,7 +6,7 @@
             <tbl-checkbox-cell-renderer [cellValue]="cellValue()" />
         }
         @case (ControlTypes.DATE) {
-            <tbl-date-cell-renderer [cellValue]="cellValue()" />
+            <tbl-date-cell-renderer [cellValue]="cellValue()" [options]="options()" />
         }
         @case (ControlTypes.FILES) {
             <tbl-files-cell-renderer [cellValue]="cellValue()" [options]="options()" />
@@ -28,6 +28,13 @@
         }
         @case (ControlTypes.GROUP) {
             <tbl-group-cell-renderer [cellValue]="cellValue()" />
+        }
+        @case (ControlTypes.INPUT) {
+            @if (isNumberInput()) {
+                <tbl-number-cell-renderer [cellValue]="cellValue()" [options]="options()" />
+            } @else {
+                <span>{{ cellValue() }}</span>
+            }
         }
         @case (ControlTypes.CUSTOM) {
             @let component = options().columnOptions?.customComponent;
