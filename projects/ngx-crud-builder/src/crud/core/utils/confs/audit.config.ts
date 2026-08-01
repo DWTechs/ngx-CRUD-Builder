@@ -14,8 +14,7 @@ export function createAuditConfig(
     {
       key: "createdAt",
       label: labels.createdAt,
-      controlType: CONTROL_TYPES.INPUT,
-      type: INPUT_TYPES.TEXT,
+      controlType: CONTROL_TYPES.DATE,
       controlOptions: { hidden: true },
       columnOptions: { isSoftHidden: true },
     },
@@ -30,8 +29,7 @@ export function createAuditConfig(
     {
       key: "updatedAt",
       label: labels.updatedAt,
-      controlType: CONTROL_TYPES.INPUT,
-      type: INPUT_TYPES.TEXT,
+      controlType: CONTROL_TYPES.DATE,
       controlOptions: { hidden: true },
       columnOptions: { isSoftHidden: true },
     },

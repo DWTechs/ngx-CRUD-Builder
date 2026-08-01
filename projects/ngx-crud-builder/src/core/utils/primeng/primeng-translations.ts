@@ -1,8 +1,10 @@
 import { Translation } from "primeng/api";
+import { DATE_FORMAT_CALENDAR } from "../../../crud/core/utils/dates/dates.utils";
 
 export const PRIMENG_FR: Translation = {
   accept: "Accepter",
   reject: "Annuler",
+  dateFormat: DATE_FORMAT_CALENDAR,
   dayNames: [
     "Dimanche",
     "Lundi",

@@ -57,20 +57,11 @@
 </ng-template>
 
 <ng-template #date>
+  <!-- dateFormat is not a pt/passthrough target: p-columnFilter's internal p-datepicker
+       falls back to PrimeNG's global translation('dateFormat') when its own input isn't set -->
   <p-columnFilter type="date"
     [field]="column.key"
     display="menu"
     [showMenu]="true">
-    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-      <p-datepicker
-        [readonlyInput]="true"
-        [showButtonBar]="true"
-        [dateFormat]="DATE_FORMAT"
-        appendTo="body"
-        dataType="string"
-        (onSelect)="onSelectDate($event, filter)"
-        (onClearClick)="filter('', col, 'equals')"
-      />
-    </ng-template>
   </p-columnFilter>
 </ng-template>

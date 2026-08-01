@@ -438,6 +438,27 @@ export const appConfig: ApplicationConfig = {
 | `archivedConfig` | `label`, `labelAt`, `archived`, `active` | Archive status filter/label |
 | `download` | `noPdfPrintWarning` | Info message when printing a non-PDF file |
 
+### Date filter format
+
+`p-columnFilter type="date"` renders PrimeNG's built-in date filter, which internally
+instantiates its own `p-datepicker`. That internal component isn't exposed through a
+`pt`/passthrough section you can bind `dateFormat` to — `pt` only forwards HTML
+attributes to internal DOM elements, not `@Input()` properties.
+
+When no explicit `dateFormat` input is set, PrimeNG's datepicker falls back to the
+global `translation.dateFormat`. Set it once, application-wide, via the second
+argument of `provideCrudLabels()` (forwarded to `PrimeNG.setTranslation()`):
+
+```typescript
+provideCrudLabels(
+  { /* label overrides */ },
+  { dateFormat: 'yy-mm-dd' }, // matches DATE_FORMAT_CALENDAR
+);
+```
+
+This is the only way to change the format without overriding the filter with a custom
+`pTemplate="filter"` template.
+
 ### English override example
 
 ```typescript

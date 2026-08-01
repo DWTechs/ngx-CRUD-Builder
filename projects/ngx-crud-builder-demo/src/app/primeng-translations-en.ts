@@ -1,8 +1,10 @@
+import { DATE_FORMAT_CALENDAR } from "@crud/core/utils/dates/dates.utils";
 import { Translation } from "primeng/api";
 
 export const PrimeNgTranslationsEn: Translation = {
   accept: "Accept",
   reject: "Cancel",
+  dateFormat: DATE_FORMAT_CALENDAR,
   dayNames: [
     "Sunday",
     "Monday",
