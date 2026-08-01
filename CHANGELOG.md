@@ -1,6 +1,8 @@
-# 0.1.8 (Jul xxth 2026)
+# 0.1.8 (Aug 1st 2026)
 - Fix columns management to enable columns selection when preferences mode is not activated
 - Add number and date formats to column options
+- Fix date prime filter cell to show selected filter value on re-opening
+- Fix createdAt and updatedAt control type
 
 # 0.1.7 (Jul 19th 2026)
 - Fix PrimeNG column-resize style persisting after switching preference views, by clearing cached table styles whenever a view is created, updated or deleted
