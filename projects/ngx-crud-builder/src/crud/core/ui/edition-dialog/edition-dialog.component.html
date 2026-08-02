@@ -71,6 +71,7 @@
         @if (isRestoreBtnDisplayed()) {
           <crd-crud-button
             type="restore"
+            [label]="labels.editionDialog.restore"
             icon="pi pi-bolt"
             [disabled]="isLoading()"
             (click)="onRestore()"

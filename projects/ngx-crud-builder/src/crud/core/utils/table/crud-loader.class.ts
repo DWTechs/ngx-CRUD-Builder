@@ -232,12 +232,12 @@ export class CrudLoader<TData extends CrudItemBase> {
         break;
       }
       case "archive": {
-        rows = rows.filter((r) => {
+        rows = rows.map((r) => {
           const isFound = value.some((val) => val === r.id);
           if (isFound) {
-            total = total - 1;
+            return { ...r, archived: true, archivedAt: new Date() };
           }
-          return !isFound;
+          return r;
         });
         break;
       }
@@ -245,8 +245,7 @@ export class CrudLoader<TData extends CrudItemBase> {
         rows = rows.map((r) => {
           const isFound = value.some((val) => val === r.id);
           if (isFound) {
-            total = total + 1;
-            return { ...r, archived: false };
+            return { ...r, archived: false, archivedAt: null };
           }
           return r;
         });
