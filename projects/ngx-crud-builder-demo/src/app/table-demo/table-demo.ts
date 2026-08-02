@@ -14,6 +14,7 @@ import { CheckboxModule } from "primeng/checkbox";
 import { InputTextModule } from "primeng/inputtext";
 import { SelectModule } from "primeng/select";
 import { TooltipModule } from "primeng/tooltip";
+import { TABLE_ADAPTER_STORAGE_KEY } from "../app.config";
 import { DEMO_CONF } from "../demo.conf";
 import { TableDemoMockService } from "./table-demo-mock.service";
 import {
@@ -42,6 +43,16 @@ import {
 })
 export class TableDemo {
   constructor(protected readonly mockService: TableDemoMockService) {}
+
+  protected readonly currentAdapter = signal(
+    localStorage.getItem(TABLE_ADAPTER_STORAGE_KEY) ?? "primeng",
+  );
+
+  protected switchAdapter(type: string): void {
+    localStorage.setItem(TABLE_ADAPTER_STORAGE_KEY, type);
+    window.location.reload();
+  }
+
   // Temporary values for controls (before applying)
   protected tempEntityLabel = "User";
   protected tempTableTitle = "Users";

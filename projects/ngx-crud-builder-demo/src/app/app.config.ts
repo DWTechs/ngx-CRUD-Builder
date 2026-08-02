@@ -12,6 +12,7 @@ import {
   FormFieldAdapterType,
   provideFormFieldRenderer,
 } from "@crud/form/ui/field-renderer/provide-form-field-renderer";
+import { provideTableRenderer } from "@crud/table/ui/table-renderer/provide-table-renderer";
 import { definePreset } from "@primeuix/themes";
 import Aura from "@primeuix/themes/aura";
 import { ConfirmationService, MessageService } from "primeng/api";
@@ -21,9 +22,13 @@ import { AclService } from "./full-example/data-access/acl.service";
 import { provideAppConfig } from "./provide-app-config";
 
 export const ADAPTER_STORAGE_KEY = "form_builder_adapter";
+export const TABLE_ADAPTER_STORAGE_KEY = "table_builder_adapter";
 
 const adapter = localStorage.getItem(ADAPTER_STORAGE_KEY) ?? "primeng";
+const tableAdapter =
+  localStorage.getItem(TABLE_ADAPTER_STORAGE_KEY) ?? "primeng";
 console.log("Using form adapter:", adapter);
+console.log("Using table adapter:", tableAdapter);
 
 const MyPreset = definePreset(Aura, {
   semantic: {
@@ -55,6 +60,9 @@ export const appConfig: ApplicationConfig = {
     MessageService,
     ConfirmationService,
     { provide: ACL_ADAPTER, useExisting: AclService },
+    // table shell only provided for adapters that have one; other values reproduce
+    // the "no table available" error for the table adapter switcher demo
+    ...(tableAdapter === "primeng" ? provideTableRenderer("primeng") : []),
     provideFormFieldRenderer(adapter as FormFieldAdapterType),
     provideAppConfig(),
     provideAnimationsAsync(),

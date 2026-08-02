@@ -63,8 +63,8 @@ export const appConfig: ApplicationConfig = {
     }),
     MessageService,
     ConfirmationService,
-    // required – choose 'primeng' or 'native'
-    provideFormFieldRenderer('primeng'),
+    // required – both form fields and table shell, choose 'primeng' (the only table shell currently available)
+    ...provideCrudRenderer('primeng'),
     // optional – defaults to French
     provideCrudLabels({ /* your overrides */ }),
   ],
@@ -170,6 +170,44 @@ export const appConfig: ApplicationConfig = {
 };
 ```
 
+### `provideTableRenderer(adapter)`
+
+**Required** when using `TableComponent`. Omitting it throws a `NullInjectorError` at runtime.
+
+Provides the table shell (rows, columns, sorting, filtering, pagination, column resizing).
+
+| Value | Description |
+|---|---|
+| `'primeng'` | PrimeNG table (`p-table`) — the only shell implemented today |
+
+```typescript
+import { provideTableRenderer } from '@dwtechs/ngx-crud-builder';
+
+// app.config.ts
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideTableRenderer('primeng'),
+  ],
+};
+```
+
+### `provideCrudRenderer(adapter)`
+
+Convenience helper that provides both the form field renderer and the table renderer for the same adapter in one call, so the form controls and the table shell stay visually consistent (e.g. a PrimeNG form next to a PrimeNG table). Currently restricted to `'primeng'`, since `provideTableRenderer` has no native/material shell yet.
+
+```typescript
+import { provideCrudRenderer } from '@dwtechs/ngx-crud-builder';
+
+// app.config.ts
+export const appConfig: ApplicationConfig = {
+  providers: [
+    ...provideCrudRenderer('primeng'), // equivalent to provideFormFieldRenderer('primeng') + provideTableRenderer('primeng')
+  ],
+};
+```
+
+> If you only need to swap the form controls (e.g. to `'native'` or `'material'`) while keeping the PrimeNG table, call `provideFormFieldRenderer(adapter)` directly instead of `provideCrudRenderer`.
+
 ### `APP_FORM_CONFIG`
 
 Registers application-level custom validation error messages that are merged with the library's built-in messages (and with field-level `customErrorMessages`). Use this for app-specific validators shared across all forms.
@@ -219,7 +257,7 @@ import {
   APP_CONFIG,
   APP_FORM_CONFIG,
   provideCrudLabels,
-  provideFormFieldRenderer,
+  provideCrudRenderer,
 } from '@dwtechs/crud-builder';
 import { AclService } from './acl.service';
 import { routes } from './app.routes';
@@ -247,7 +285,7 @@ export const appConfig: ApplicationConfig = {
           unsafeWords: 'Texte non autorisé : {words}',
         },
     }},
-    provideFormFieldRenderer('primeng'),
+    ...provideCrudRenderer('primeng'),
     provideCrudLabels({ /* label overrides */ }),
   ],
 };

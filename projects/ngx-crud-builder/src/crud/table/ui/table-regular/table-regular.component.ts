@@ -58,6 +58,9 @@ import { buildContextMenu } from "./context-menu.builder";
     TableHeaderCellComponent,
     Tooltip,
   ],
+  host: {
+    "[class.p-table-no-paginator]": "!paginator()",
+  },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableRegularComponent<TData> {

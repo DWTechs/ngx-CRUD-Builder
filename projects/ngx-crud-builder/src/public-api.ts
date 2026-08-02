@@ -48,7 +48,9 @@ export * from "./crud/core/utils/offline/offline.service";
 export * from "./crud/core/utils/table/export-mode.model";
 export * from "./crud/core/utils/table/filter-level.model";
 export * from "./crud/core/utils/table/table-column.model";
+// --- CRUD: combined renderer adapter ---
 export * from "./crud/form/form/form.component";
+export * from "./crud/provide-crud-renderer";
 // --- Form: main entry points ---
 export * from "./crud/form/form-builder.service";
 // --- Form: renderer adapter ---
@@ -78,3 +80,6 @@ export * from "./crud/table/utils/excel/location-interceptor.service";
 // --- Table: main entry point ---
 export * from "./crud/table/table.component";
 export * from "./crud/table/utils/views/table-config.model";
+// --- Table: renderer adapter ---
+export * from "./crud/table/ui/table-renderer/provide-table-renderer";
+export * from "./crud/table/ui/table-renderer/table-renderer.token";

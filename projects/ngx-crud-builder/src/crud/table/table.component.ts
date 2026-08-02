@@ -1,7 +1,10 @@
+import { NgComponentOutlet } from "@angular/common";
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
   effect,
   inject,
   input,
@@ -38,12 +41,14 @@ import { CrudLoader } from "../core/utils/table/crud-loader.class";
 import { ExcelExportMode } from "../core/utils/table/export-mode.model";
 import { FilterLevel } from "../core/utils/table/filter-level.model";
 import { TableStateService } from "../core/utils/table/table-state.service";
+import { FORM_ADAPTER } from "../form/ui/field-renderer/provide-form-field-renderer";
 import { FileInfo } from "../form/ui/renderers-primeng/file-upload-input/file-info.class";
 import { LabelStrategy } from "../form/utils/label-strategy.model";
 import { TableConfigService } from "../table/data-access/table-config.service";
 import { ExtendedTableConfig } from "./data-access/table-config.model";
 import { ColumnsManagementDialogComponent } from "./ui/columns-management-dialog/columns-management-dialog.component";
-import { TableRegularComponent } from "./ui/table-regular/table-regular.component";
+import type { TableRegularComponent } from "./ui/table-regular/table-regular.component";
+import { TABLE_RENDERER } from "./ui/table-renderer/table-renderer.token";
 import { TableToolbarComponent } from "./ui/table-toolbar/table-toolbar.component";
 import { ExportOptions, ExportService } from "./utils/excel/export.service";
 import { cleanFilters } from "./utils/filters/clean-filters.utils";
@@ -59,6 +64,22 @@ import { TableColumnsStorage } from "./utils/views/table-columns.storage";
 import { ColumnResizeEvent } from "./utils/views/table-config.model";
 
 const MIN_PAGE = 1;
+
+/** Resolves the `TABLE_RENDERER` shell, throwing an adapter-aware error when missing
+ * (e.g. `provideFormFieldRenderer('material')` was used without a matching table shell). */
+function resolveTableRenderer() {
+  const tableRenderer = inject(TABLE_RENDERER, { optional: true });
+  if (tableRenderer) return tableRenderer;
+  const formAdapter = inject(FORM_ADAPTER, { optional: true });
+  if (formAdapter && formAdapter !== "primeng") {
+    throw new Error(
+      `No table available for the '${formAdapter}' adapter (WIP). Provide provideTableRenderer('primeng') to render the table with the PrimeNG shell.`,
+    );
+  }
+  throw new Error(
+    "No table renderer provided. Use provideTableRenderer('primeng') or provideCrudRenderer('primeng').",
+  );
+}
 
 @Component({
   selector: "tbl-table",
@@ -76,7 +97,7 @@ const MIN_PAGE = 1;
     TableToolbarComponent,
     TableModule,
     SharedModule,
-    TableRegularComponent,
+    NgComponentOutlet,
     ColumnsManagementDialogComponent,
     EditionDialogComponent,
     ProgressBarModule,
@@ -87,10 +108,11 @@ const MIN_PAGE = 1;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent<TData extends CrudItemBase>
-  implements OnInit, OnChanges
+  implements OnInit, OnChanges, AfterViewInit
 {
   // Injected services
   private readonly confirmationService = inject(ConfirmationService);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly exportService = inject(ExportService);
   public readonly loader = inject(CrudLoader<TData>);
   private readonly loadingService = inject(TableLoadingService);
@@ -100,6 +122,10 @@ export class TableComponent<TData extends CrudItemBase>
   private readonly columnsStorage = inject(TableColumnsStorage);
   private readonly messageService = inject(MessageService);
   private readonly labels = inject(CRUD_LABELS);
+
+  /** Table shell component resolved from TABLE_RENDERER. Throws at runtime if no
+   * provider is configured — use `provideTableRenderer('primeng')` in your app config. */
+  protected readonly tableRenderer = resolveTableRenderer();
 
   // Inputs
   /**
@@ -398,9 +424,7 @@ export class TableComponent<TData extends CrudItemBase>
   public readonly validityChanged = output<boolean>();
 
   // template references
-  public readonly tableRegular = viewChild("table", {
-    read: TableRegularComponent,
-  });
+  public readonly tableOutlet = viewChild(NgComponentOutlet);
 
   public readonly columns = this.columnsStorage.activeColumns;
 
@@ -499,6 +523,26 @@ export class TableComponent<TData extends CrudItemBase>
     } else {
       this.loader.load();
     }
+  }
+
+  ngAfterViewInit(): void {
+    const instance = this.tableInstance();
+    if (!instance) return;
+    const subs = [
+      instance.lazyLoaded.subscribe((event) => this.onLazyLoad(event)),
+      instance.pageChanged.subscribe((event) => this.onPageChanged(event)),
+      instance.archived.subscribe((id) => this.onArchive(id)),
+      instance.cellClicked.subscribe((event) => this.onCellClick(event)),
+      instance.columnResized.subscribe((event) => this.onColumnResized(event)),
+      instance.selectedEntries.subscribe((entries) => {
+        this.selectedEntries = entries;
+      }),
+    ];
+    this.destroyRef.onDestroy(() => {
+      for (const sub of subs) {
+        sub.unsubscribe();
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -761,7 +805,14 @@ export class TableComponent<TData extends CrudItemBase>
   }
 
   private clearCachedTableStyles() {
-    this.tableRegular()?.dataTable()?.destroyStyleElement();
+    this.tableInstance()?.dataTable()?.destroyStyleElement();
+  }
+
+  /** Resolves the dynamically-rendered `TABLE_RENDERER` instance. */
+  private tableInstance(): TableRegularComponent<TData> | undefined {
+    return this.tableOutlet()?.componentInstance as
+      | TableRegularComponent<TData>
+      | undefined;
   }
 
   private getFiles(entry: TData): File[] {

@@ -20,42 +20,38 @@
   (refreshDataClicked)="refreshData()"
 />
 
-<tbl-table-regular
-  #table
-  [columns]="columns()"
-  [class.p-table-no-paginator]="!paginator()"
-  [data]="data()"
-  [total]="total()"
-  [selectable]="selectable()"
-  [(selectedEntries)]="selectedEntries"
-  [clickableRows]="clickableRows()"
-  [lazy]="lazy()"
-  [features]="features()"
-  [filterable]="filterable()"
-  [defaultFilters]="defaultFilters()"
-  [sortable]="sortable()"
-  [defaultSort]="defaultSort()"
-  [paginator]="paginator()"
-  [filterLevel]="filterLevel()"
-  [customRowStyles]="customRowStyles()"
-  [customActionsTemplate]="customActionsTemplate()"
-  [isContextMenuEnabled]="isContextMenuEnabled()"
-  [entityId]="entityId()"
-  [stateStorage]="stateStorage()"
-  [persistState]="persistState()"
-  [areColumnsResizable]="areColumnsResizable()"
-  [first]="first()"
-  [rows]="rows()"
-  [rowsPerPageOptions]="rowsPerPageOptions()"
-  [outsideTableHeight]="outsideTableHeight()"
-  [stripedRows]="stripedRows()"
-  [additionalReadonlyProperties]="additionalReadonlyProperties()"
-  (lazyLoaded)="onLazyLoad($event)"
-  (pageChanged)="onPageChanged($event)"
-  (archived)="onArchive($event)"
-  (cellClicked)="onCellClick($event)"
-  (columnResized)="onColumnResized($event)"
-/>
+<ng-container *ngComponentOutlet="
+  tableRenderer;
+  inputs: {
+    columns: columns(),
+    data: data(),
+    total: total(),
+    selectable: selectable(),
+    selectedEntries: selectedEntries,
+    clickableRows: clickableRows(),
+    lazy: lazy(),
+    features: features(),
+    filterable: filterable(),
+    defaultFilters: defaultFilters(),
+    sortable: sortable(),
+    defaultSort: defaultSort(),
+    paginator: paginator(),
+    filterLevel: filterLevel(),
+    customRowStyles: customRowStyles(),
+    customActionsTemplate: customActionsTemplate(),
+    isContextMenuEnabled: isContextMenuEnabled(),
+    entityId: entityId(),
+    stateStorage: stateStorage(),
+    persistState: persistState(),
+    areColumnsResizable: areColumnsResizable(),
+    first: first(),
+    rows: rows(),
+    rowsPerPageOptions: rowsPerPageOptions(),
+    outsideTableHeight: outsideTableHeight(),
+    stripedRows: stripedRows(),
+    additionalReadonlyProperties: additionalReadonlyProperties()
+  };
+"/>
 
 @if (isColumnsConfigDialogDisplayed()) {
   <tbl-columns-management-dialog

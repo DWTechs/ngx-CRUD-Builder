@@ -1,5 +1,10 @@
 <div class="table-demo-container">
 
+  <div class="adapter-toggle">
+    <button (click)="switchAdapter('primeng')" [class.active]="currentAdapter() === 'primeng'">PrimeNG</button>
+    <button (click)="switchAdapter('material')" [class.active]="currentAdapter() === 'material'">Material (WIP)</button>
+  </div>
+
   <div class="config-panel">
     <h3>Table Configuration</h3>
     
