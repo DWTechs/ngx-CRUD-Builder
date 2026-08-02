@@ -71,6 +71,7 @@ export interface CrudLabels {
   editionDialog: {
     historyHeader: string;
     archive: string;
+    restore: string;
     validate: string;
     modeCreate: string;
     modeConsult: string;
@@ -223,6 +224,7 @@ export const DEFAULT_CRUD_LABELS: CrudLabels = {
   editionDialog: {
     historyHeader: "Historique des modifications",
     archive: "Archiver",
+    restore: "Restaurer",
     validate: "Valider",
     modeCreate: "Création",
     modeConsult: "Consultation",
