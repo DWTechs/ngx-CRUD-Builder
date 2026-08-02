@@ -4,8 +4,9 @@ import { InjectionToken, Type } from "@angular/core";
  * Injection token used to provide a form field renderer component.
  *
  * **Required** — the application will throw a `NullInjectorError` at runtime
- * if this token is not provided. Use `providePrimengFormFieldRenderer()` to keep
- * the default PrimeNG behaviour, or `provideNativeFormFieldRenderer()` for native HTML.
+ * if this token is not provided. Use `provideFormFieldRenderer('primeng')` to keep
+ * the default PrimeNG behaviour, `provideFormFieldRenderer('native')` for native HTML,
+ * or `provideFormFieldRenderer('material')` for Angular Material controls.
  *
  * The provided value must be an Angular standalone component class that accepts:
  * - `config: CrudItemOptions` (required input)

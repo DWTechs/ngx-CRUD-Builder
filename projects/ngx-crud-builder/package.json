@@ -36,7 +36,17 @@
     "@primeuix/themes": "^2.0.3",
     "primeicons": "^7.0.0",
     "quill": "^2.0.3",
-    "rxjs": "^7.4.0"
+    "rxjs": "^7.4.0",
+    "@angular/material": "^21.0.0",
+    "@angular/animations": "^21.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@angular/material": {
+      "optional": true
+    },
+    "@angular/animations": {
+      "optional": true
+    }
   },
   "dependencies": {
     "tslib": "^2.3.0"

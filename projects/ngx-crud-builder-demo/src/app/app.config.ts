@@ -4,6 +4,8 @@ import {
   ApplicationConfig,
   provideBrowserGlobalErrorListeners,
 } from "@angular/core";
+import { provideNativeDateAdapter } from "@angular/material/core";
+import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 import { provideRouter } from "@angular/router";
 import { ACL_ADAPTER } from "@crud/core/utils/crud-service/acl-adapter";
 import {
@@ -55,6 +57,8 @@ export const appConfig: ApplicationConfig = {
     { provide: ACL_ADAPTER, useExisting: AclService },
     provideFormFieldRenderer(adapter as FormFieldAdapterType),
     provideAppConfig(),
+    provideAnimationsAsync(),
+    provideNativeDateAdapter(),
   ],
 };
 

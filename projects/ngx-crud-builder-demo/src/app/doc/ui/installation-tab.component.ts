@@ -99,7 +99,7 @@ export const appConfig: ApplicationConfig = {{ '{' }}
 
 export const appConfig: ApplicationConfig = {{ '{' }}
   providers: [
-    provideFormFieldRenderer('primeng'), // or 'native'
+    provideFormFieldRenderer('primeng'), // or 'native' or 'material'
   ],
 {{ '}' }};</code></pre>
       <table>
@@ -107,6 +107,7 @@ export const appConfig: ApplicationConfig = {{ '{' }}
         <tbody>
           <tr><td><code>'primeng'</code></td><td>PrimeNG controls with float label, icon field, and full styling support (default)</td></tr>
           <tr><td><code>'native'</code></td><td>Plain HTML controls — no PrimeNG dependency, lighter bundle</td></tr>
+          <tr><td><code>'material'</code></td><td>Angular Material controls. Requires <code>&#64;angular/material</code> and <code>&#64;angular/animations</code>. Controls without a Material equivalent (color, files, picklist, table, custom, wysiwyg) are left unsupported.</td></tr>
         </tbody>
       </table>
       <p>Omitting this provider will throw a <code>NullInjectorError</code> at runtime.</p>
