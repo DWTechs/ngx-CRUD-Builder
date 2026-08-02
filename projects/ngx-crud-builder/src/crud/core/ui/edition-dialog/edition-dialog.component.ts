@@ -334,6 +334,6 @@ export class EditionDialogComponent<TData extends CrudItemBase> {
   }
 
   public onRestore() {
-    this.archived.emit(this.editedEntry());
+    this.restored.emit(this.editedEntry());
   }
 }
