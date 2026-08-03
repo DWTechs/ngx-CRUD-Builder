@@ -21,6 +21,7 @@
     totalCount().toString()
   )"
   [lazy]="lazy()"
+  [lazyLoadOnInit]="false"
   [contextMenu]="isContextMenuEnabled() ? cm : null"
   [stateStorage]="stateStorage()"
   [stateKey]="persistState() ? entityId() + '-table-state' : undefined"

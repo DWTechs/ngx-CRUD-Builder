@@ -520,6 +520,16 @@ export class TableComponent<TData extends CrudItemBase>
         const params = cleanFilters(event);
         this.loader.load({ params, partial: "false" });
       });
+      // PrimeNG's own initial lazy-load emission is disabled (lazyLoadOnInit=false)
+      // because it fires before the dynamically-rendered table's outputs are
+      // subscribed to (see ngAfterViewInit), so the first load is triggered here.
+      this.onLazyLoad({
+        first: this.first(),
+        rows: this.rows(),
+        sortField: this.defaultSort().field,
+        sortOrder: this.defaultSort().order,
+        filters: {},
+      });
     } else {
       this.loader.load();
     }
