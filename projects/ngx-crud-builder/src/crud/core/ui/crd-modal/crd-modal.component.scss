@@ -15,7 +15,9 @@
 .crd-modal-panel {
   max-width: min(90vw, 40rem);
   max-height: 85vh;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   border-radius: 8px;
   // --p-surface-0 is always white in both color schemes; overlay/content background tokens follow prefers-color-scheme
   background-color: var(--crd-surface-color, var(--p-overlay-modal-background, var(--p-content-background, #fff)));

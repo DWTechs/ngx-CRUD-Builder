@@ -8,7 +8,6 @@ import { provideAnimationsAsync } from "@angular/platform-browser/animations/asy
 import { provideRouter } from "@angular/router";
 import { definePreset } from "@primeuix/themes";
 import Aura from "@primeuix/themes/aura";
-import { ConfirmationService, MessageService } from "primeng/api";
 import { providePrimeNG } from "primeng/config";
 import { routes } from "./app.routes";
 import { provideCrudBuilderConfig } from "./provide-crud-builder-config";
@@ -40,8 +39,6 @@ export const appConfig: ApplicationConfig = {
         preset: MyPreset,
       },
     }),
-    MessageService,
-    ConfirmationService,
     provideCrudBuilderConfig(),
     provideAnimationsAsync(),
   ],

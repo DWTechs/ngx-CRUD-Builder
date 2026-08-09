@@ -1,5 +1,6 @@
 crd-edition-dialog {
     .edition-dialog-header {
+        flex-shrink: 0;
         padding: 1rem 1.5rem;
         border-bottom: 1px solid var(--crd-border-color, var(--p-content-border-color, #e5e7eb));
 
@@ -10,7 +11,9 @@ crd-edition-dialog {
     }
 
     .content-container {
+        flex: 1;
         min-height: 300px;
+        overflow-y: auto;
         padding: 1rem 1.5rem;
 
         .accordion {
@@ -42,6 +45,7 @@ crd-edition-dialog {
     }
 
     .dialog-actions-container {
+        flex-shrink: 0;
         padding: 0.5rem 1.5rem 1rem;
 
         .left-actions,
