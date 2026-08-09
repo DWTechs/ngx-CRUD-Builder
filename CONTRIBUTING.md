@@ -138,5 +138,5 @@ Build the library first, then publish the built output from `dist/ngx-crud-build
 npm run build:lib
 cd dist/ngx-crud-builder
 npm publish --dry-run  # simulate the publish
-npm publish             # actual publish (publishConfig.access is already set to public)
+npm publish            # publish
 ```
