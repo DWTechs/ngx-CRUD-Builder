@@ -1,4 +1,5 @@
-# 0.1.10 (Aug 9th 2026)
+# 0.2.0 (Aug 9th 2026)
+- Remove PrimeNG in favor of `@openng/optimus-ui` as the UI component library
 - Decouple toast notifications and confirmation dialogs from PrimeNG: `SnackbarService` and the new `ConfirmService` are now plain signal-based services with no PrimeNG dependency
 - Add framework-agnostic `crd-toast` and `crd-confirm` components, replacing `<p-toast>`/`<p-confirmdialog>` in `TableComponent`
 - `TableComponent` and `ColumnsViewsComponent` now use `ConfirmService`/`SnackbarService` instead of PrimeNG's `ConfirmationService`/`MessageService`

@@ -1,6 +1,6 @@
 {
   "name": "ngx-crud-builder",
-  "version": "0.1.10",
+  "version": "0.2.0",
   "scripts": {
     "ng": "ng",
     "start:demo": "ng serve --project ngx-crud-builder-demo",
