@@ -1,7 +1,10 @@
+import { NgComponentOutlet } from "@angular/common";
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
   effect,
   inject,
   input,
@@ -19,16 +22,17 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { ValidatorFn } from "@angular/forms";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { isArray } from "@dwtechs/checkard";
-import { ConfirmationService, MessageService, SharedModule } from "primeng/api";
-import { ConfirmDialogModule } from "primeng/confirmdialog";
-import { ProgressBarModule } from "primeng/progressbar";
-import { TableLazyLoadEvent, TableModule } from "primeng/table";
-import { ToastModule } from "primeng/toast";
+import { TableLazyLoadEvent } from "primeng/table";
 import { debounceTime, Subject, switchMap } from "rxjs";
+import { ConfirmService } from "../../core/utils/confirm/confirm.service";
+import { SnackbarService } from "../../core/utils/snackbar/snackbar.service";
 import { CONTROL_TYPES } from "../core/models/control-type.model";
 import { CrudItemBase } from "../core/models/crud-item-base.class";
 import { CrudItemFactory } from "../core/models/crud-item-factory.model";
 import { CrudItemOptions } from "../core/models/crud-item-options.model";
+import { CrdConfirmComponent } from "../core/ui/crd-confirm/crd-confirm.component";
+import { CrdProgressComponent } from "../core/ui/crd-progress/crd-progress.component";
+import { CrdToastComponent } from "../core/ui/crd-toast/crd-toast.component";
 import { EditionDialogComponent } from "../core/ui/edition-dialog/edition-dialog.component";
 import { isEqual } from "../core/utils/arrays/is-equal.utils";
 import { Calls } from "../core/utils/crud-service/crud.model";
@@ -38,12 +42,14 @@ import { CrudLoader } from "../core/utils/table/crud-loader.class";
 import { ExcelExportMode } from "../core/utils/table/export-mode.model";
 import { FilterLevel } from "../core/utils/table/filter-level.model";
 import { TableStateService } from "../core/utils/table/table-state.service";
+import { FORM_ADAPTER } from "../form/ui/field-renderer/provide-form-field-renderer";
 import { FileInfo } from "../form/ui/renderers-primeng/file-upload-input/file-info.class";
 import { LabelStrategy } from "../form/utils/label-strategy.model";
 import { TableConfigService } from "../table/data-access/table-config.service";
 import { ExtendedTableConfig } from "./data-access/table-config.model";
 import { ColumnsManagementDialogComponent } from "./ui/columns-management-dialog/columns-management-dialog.component";
-import { TableRegularComponent } from "./ui/table-regular/table-regular.component";
+import type { TableRegularComponent } from "./ui/table-regular/table-regular.component";
+import { TABLE_RENDERER } from "./ui/table-renderer/table-renderer.token";
 import { TableToolbarComponent } from "./ui/table-toolbar/table-toolbar.component";
 import { ExportOptions, ExportService } from "./utils/excel/export.service";
 import { cleanFilters } from "./utils/filters/clean-filters.utils";
@@ -60,6 +66,22 @@ import { ColumnResizeEvent } from "./utils/views/table-config.model";
 
 const MIN_PAGE = 1;
 
+/** Resolves the `TABLE_RENDERER` shell, throwing an adapter-aware error when missing
+ * (e.g. `provideFormFieldRenderer('material')` was used without a matching table shell). */
+function resolveTableRenderer() {
+  const tableRenderer = inject(TABLE_RENDERER, { optional: true });
+  if (tableRenderer) return tableRenderer;
+  const formAdapter = inject(FORM_ADAPTER, { optional: true });
+  if (formAdapter && formAdapter !== "primeng") {
+    throw new Error(
+      `No table available for the '${formAdapter}' adapter (WIP). Provide provideTableRenderer('primeng') to render the table with the PrimeNG shell.`,
+    );
+  }
+  throw new Error(
+    "No table renderer provided. Use provideTableRenderer('primeng') or provideCrudRenderer('primeng').",
+  );
+}
+
 @Component({
   selector: "tbl-table",
   templateUrl: "./table.component.html",
@@ -70,27 +92,25 @@ const MIN_PAGE = 1;
     TableConfigService,
     TableStateService,
     ExportService,
-    ConfirmationService,
   ],
   imports: [
     TableToolbarComponent,
-    TableModule,
-    SharedModule,
-    TableRegularComponent,
+    NgComponentOutlet,
     ColumnsManagementDialogComponent,
     EditionDialogComponent,
-    ProgressBarModule,
-    ConfirmDialogModule,
-    ToastModule,
+    CrdProgressComponent,
+    CrdConfirmComponent,
+    CrdToastComponent,
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent<TData extends CrudItemBase>
-  implements OnInit, OnChanges
+  implements OnInit, OnChanges, AfterViewInit
 {
   // Injected services
-  private readonly confirmationService = inject(ConfirmationService);
+  private readonly confirmService = inject(ConfirmService);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly exportService = inject(ExportService);
   public readonly loader = inject(CrudLoader<TData>);
   private readonly loadingService = inject(TableLoadingService);
@@ -98,8 +118,12 @@ export class TableComponent<TData extends CrudItemBase>
   private readonly router = inject(Router);
   private readonly state = inject(TableStateService);
   private readonly columnsStorage = inject(TableColumnsStorage);
-  private readonly messageService = inject(MessageService);
+  private readonly snackbarService = inject(SnackbarService);
   private readonly labels = inject(CRUD_LABELS);
+
+  /** Table shell component resolved from TABLE_RENDERER. Throws at runtime if no
+   * provider is configured — use `provideTableRenderer('primeng')` in your app config. */
+  protected readonly tableRenderer = resolveTableRenderer();
 
   // Inputs
   /**
@@ -398,9 +422,7 @@ export class TableComponent<TData extends CrudItemBase>
   public readonly validityChanged = output<boolean>();
 
   // template references
-  public readonly tableRegular = viewChild("table", {
-    read: TableRegularComponent,
-  });
+  public readonly tableOutlet = viewChild(NgComponentOutlet);
 
   public readonly columns = this.columnsStorage.activeColumns;
 
@@ -496,9 +518,39 @@ export class TableComponent<TData extends CrudItemBase>
         const params = cleanFilters(event);
         this.loader.load({ params, partial: "false" });
       });
+      // PrimeNG's own initial lazy-load emission is disabled (lazyLoadOnInit=false)
+      // because it fires before the dynamically-rendered table's outputs are
+      // subscribed to (see ngAfterViewInit), so the first load is triggered here.
+      this.onLazyLoad({
+        first: this.first(),
+        rows: this.rows(),
+        sortField: this.defaultSort().field,
+        sortOrder: this.defaultSort().order,
+        filters: {},
+      });
     } else {
       this.loader.load();
     }
+  }
+
+  ngAfterViewInit(): void {
+    const instance = this.tableInstance();
+    if (!instance) return;
+    const subs = [
+      instance.lazyLoaded.subscribe((event) => this.onLazyLoad(event)),
+      instance.pageChanged.subscribe((event) => this.onPageChanged(event)),
+      instance.archived.subscribe((id) => this.onArchive(id)),
+      instance.cellClicked.subscribe((event) => this.onCellClick(event)),
+      instance.columnResized.subscribe((event) => this.onColumnResized(event)),
+      instance.selectedEntries.subscribe((entries) => {
+        this.selectedEntries = entries;
+      }),
+    ];
+    this.destroyRef.onDestroy(() => {
+      for (const sub of subs) {
+        sub.unsubscribe();
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -630,11 +682,10 @@ export class TableComponent<TData extends CrudItemBase>
         this.loadingService.stop();
         this.isExportDialogVisible.set(false);
         if (!success) {
-          this.messageService.add({
-            severity: "error",
-            summary: this.labels.table.exportFailedTitle,
-            detail: this.labels.table.exportFailedDetail,
-          });
+          this.snackbarService.displayError(
+            this.labels.table.exportFailedDetail,
+            this.labels.table.exportFailedTitle,
+          );
         }
       });
   }
@@ -761,7 +812,14 @@ export class TableComponent<TData extends CrudItemBase>
   }
 
   private clearCachedTableStyles() {
-    this.tableRegular()?.dataTable()?.destroyStyleElement();
+    this.tableInstance()?.dataTable()?.destroyStyleElement();
+  }
+
+  /** Resolves the dynamically-rendered `TABLE_RENDERER` instance. */
+  private tableInstance(): TableRegularComponent<TData> | undefined {
+    return this.tableOutlet()?.componentInstance as
+      | TableRegularComponent<TData>
+      | undefined;
   }
 
   private getFiles(entry: TData): File[] {
@@ -811,10 +869,9 @@ export class TableComponent<TData extends CrudItemBase>
   }
 
   private confirm(message: string, acceptFn: () => void): void {
-    this.confirmationService.confirm({
+    this.confirmService.confirm({
       message,
       header: this.labels.table.confirmationHeader,
-      icon: "pi pi-info-circle",
       rejectLabel: this.labels.table.confirmationCancel,
       acceptLabel: this.labels.table.confirmationConfirm,
       accept: acceptFn,

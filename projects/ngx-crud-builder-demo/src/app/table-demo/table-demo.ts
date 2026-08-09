@@ -15,6 +15,7 @@ import { InputTextModule } from "primeng/inputtext";
 import { SelectModule } from "primeng/select";
 import { TooltipModule } from "primeng/tooltip";
 import { DEMO_CONF } from "../demo.conf";
+import { ADAPTER_STORAGE_KEY } from "../provide-crud-builder-config";
 import { TableDemoMockService } from "./table-demo-mock.service";
 import {
   DebugSnippetComponent,
@@ -42,6 +43,16 @@ import {
 })
 export class TableDemo {
   constructor(protected readonly mockService: TableDemoMockService) {}
+
+  protected readonly currentAdapter = signal(
+    localStorage.getItem(ADAPTER_STORAGE_KEY) ?? "primeng",
+  );
+
+  protected switchAdapter(type: string): void {
+    localStorage.setItem(ADAPTER_STORAGE_KEY, type);
+    window.location.reload();
+  }
+
   // Temporary values for controls (before applying)
   protected tempEntityLabel = "User";
   protected tempTableTitle = "Users";
@@ -60,7 +71,8 @@ export class TableDemo {
   protected tempAreColumnsConfigurable = true;
   protected tempAreColumnsResizable = true;
   protected tempSelectable = false;
-  protected tempLazy = true;
+  // Material shell only supports non-lazy mode for now
+  protected tempLazy = this.currentAdapter() !== "material";
   protected tempIsContextMenuEnabled = false;
   protected tempIsDefaultEditionDisabled = false;
   protected tempIsPreferencesModeEnabled = false;
@@ -90,7 +102,7 @@ export class TableDemo {
   protected readonly areColumnsConfigurable = signal(true);
   protected readonly areColumnsResizable = signal(true);
   protected readonly selectable = signal(false);
-  protected readonly lazy = signal(true);
+  protected readonly lazy = signal(this.currentAdapter() !== "material");
   protected readonly isContextMenuEnabled = signal(false);
   protected readonly isDefaultEditionDisabled = signal(false);
   protected readonly isPreferencesModeEnabled = signal(false);

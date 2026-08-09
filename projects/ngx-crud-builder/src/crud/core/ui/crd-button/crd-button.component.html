@@ -1,0 +1,26 @@
+<button
+  type="button"
+  class="crd-btn"
+  [class.crd-btn--solid]="variant() === 'solid'"
+  [class.crd-btn--outlined]="variant() === 'outlined'"
+  [class.crd-btn--ghost]="variant() === 'ghost'"
+  [class.crd-btn--icon-only]="variant() === 'icon-only'"
+  [class.crd-btn--loading]="loading()"
+  [attr.data-severity]="resolvedSeverity()"
+  [disabled]="disabled() || loading()"
+  [attr.aria-label]="variant() === 'icon-only' ? resolvedLabel() || icon() : null"
+  [attr.data-testid]="type() + '-button'"
+  (click)="onClick()">
+  @if (loading()) {
+    <span class="crd-btn-spinner"><crd-progress mode="spinner" /></span>
+  } @else if (icon()) {
+    <i class="crd-btn-icon" [class]="icon()"></i>
+  } @else if (type() === 'cancel') {
+    <svg class="crd-btn-icon" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+      <path d="M18.3 5.71 12 12.01l-6.3-6.3-1.41 1.42 6.3 6.29-6.3 6.29 1.41 1.42 6.3-6.3 6.3 6.3 1.41-1.42-6.3-6.29 6.3-6.29z" fill="currentColor" />
+    </svg>
+  }
+  @if (variant() !== 'icon-only') {
+    <span class="crd-btn-label">{{ resolvedLabel() }}</span>
+  }
+</button>

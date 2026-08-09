@@ -1,9 +1,9 @@
 import { Component, inject } from "@angular/core";
 import { ValidatorFn } from "@angular/forms";
-import { CrudItemOptions } from "../../../../core/models/crud-item-options.model";
-import { CrudButtonComponent } from "../../../../core/ui/crud-buttons/crud-buttons.component";
-import { FormComponent } from "../../../form/form.component";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
+import { CrudItemOptions } from "../../../../core/models/crud-item-options.model";
+import { CrdButtonComponent } from "../../../../core/ui/crd-button/crd-button.component";
+import { FormComponent } from "../../../form/form.component";
 
 interface DialogData {
   config: CrudItemOptions[];
@@ -13,7 +13,7 @@ interface DialogData {
 
 @Component({
   selector: "frm-table-form-wrapper",
-  imports: [FormComponent, CrudButtonComponent],
+  imports: [FormComponent, CrdButtonComponent],
   template: `
         <frm-form
             [config]="config"
@@ -22,15 +22,13 @@ interface DialogData {
             (modelChange)="onModelChange($event)"
         />
         <div class="p-dialog-footer">
-            <crd-crud-button
+            <crd-button
                 type="cancel"
-                icon="pi pi-times"
-                (click)="close()"
+                (clicked)="close()"
             />  
-            <crd-crud-button
+            <crd-button
                 type="validate"
-                icon="pi pi-check"
-                (click)="save()"
+                (clicked)="save()"
             />
         </div>
     `,

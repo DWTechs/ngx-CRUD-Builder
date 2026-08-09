@@ -1,0 +1,106 @@
+:host {
+  display: inline-block;
+}
+
+.crd-btn {
+  --crd-btn-color: var(--crd-primary-color, var(--p-primary-color, #6366f1));
+  --crd-btn-contrast: var(--crd-primary-contrast-color, var(--p-primary-contrast-color, #fff));
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+  background: none;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  &[data-severity="secondary"] {
+    --crd-btn-color: var(--crd-secondary-color, var(--p-surface-500, #64748b));
+  }
+
+  &[data-severity="danger"] {
+    --crd-btn-color: var(--crd-danger-color, var(--p-red-500, #ef4444));
+  }
+
+  &[data-severity="success"] {
+    --crd-btn-color: var(--crd-success-color, var(--p-green-500, #22c55e));
+  }
+
+  &[data-severity="warn"] {
+    --crd-btn-color: var(--crd-warn-color, var(--p-orange-500, #f59e0b));
+  }
+
+  &[data-severity="info"] {
+    --crd-btn-color: var(--crd-info-color, var(--p-blue-500, #0ea5e9));
+  }
+
+  &[data-severity="contrast"] {
+    --crd-btn-color: var(--crd-contrast-color, var(--p-surface-900, #111827));
+  }
+
+  &--solid {
+    background-color: var(--crd-btn-color);
+    color: var(--crd-btn-contrast);
+
+    &:hover:not(:disabled) {
+      filter: brightness(0.92);
+    }
+  }
+
+  &--outlined {
+    border-color: var(--crd-btn-color);
+    color: var(--crd-btn-color);
+
+    &:hover:not(:disabled) {
+      background-color: color-mix(in srgb, var(--crd-btn-color) 10%, transparent);
+    }
+  }
+
+  &--ghost {
+    color: var(--crd-btn-color);
+
+    &:hover:not(:disabled) {
+      background-color: color-mix(in srgb, var(--crd-btn-color) 10%, transparent);
+    }
+  }
+
+  &--icon-only {
+    padding: 0.45rem;
+    border-radius: 50%;
+    color: var(--crd-btn-color);
+
+    &:hover:not(:disabled) {
+      background-color: color-mix(in srgb, var(--crd-btn-color) 10%, transparent);
+    }
+  }
+
+  &--loading {
+    cursor: progress;
+  }
+}
+
+.crd-btn-icon {
+  display: inline-flex;
+  font-size: 0.9rem;
+}
+
+.crd-btn-spinner {
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+
+  crd-progress {
+    width: 100%;
+    height: 100%;
+  }
+}

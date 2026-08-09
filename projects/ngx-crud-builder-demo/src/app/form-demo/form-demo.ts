@@ -1,6 +1,6 @@
 import { Component, signal, ViewEncapsulation } from "@angular/core";
 import { TabsModule } from "primeng/tabs";
-import { ADAPTER_STORAGE_KEY } from "../app.config";
+import { ADAPTER_STORAGE_KEY } from "../provide-crud-builder-config";
 import { AutocompleteInputTabComponent } from "./ui/autocomplete-input-tab.component";
 import { CheckboxInputTabComponent } from "./ui/checkbox-input-tab.component";
 import { ColorPickerTabComponent } from "./ui/color-picker-tab.component";

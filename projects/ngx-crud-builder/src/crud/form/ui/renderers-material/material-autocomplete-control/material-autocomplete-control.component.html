@@ -1,0 +1,44 @@
+@if (isMultiple()) {
+  <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-label>{{ label() }}</mat-label>
+    <mat-chip-grid #chipGrid>
+      @for (chip of selectedChips(); track chip.value) {
+        <mat-chip-row (removed)="removeChip(chip.value)">
+          {{ chip.label }}
+          <button matChipRemove aria-label="Remove">&times;</button>
+        </mat-chip-row>
+      }
+      <input
+        [placeholder]="placeholder()"
+        [formControl]="filterQuery"
+        [matChipInputFor]="chipGrid"
+        [matAutocomplete]="auto"
+        (focus)="emitInteractionEvent('focus')"
+        (blur)="emitInteractionEvent('blur')"
+      />
+    </mat-chip-grid>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+      @for (option of filteredOptions(); track option.value) {
+        <mat-option [value]="option.value">{{ option.label }}</mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+} @else {
+  <mat-form-field appearance="outline" style="width: 100%;">
+    <mat-label>{{ label() }}</mat-label>
+    <input
+      matInput
+      type="text"
+      [placeholder]="placeholder()"
+      [formControl]="filterQuery"
+      [matAutocomplete]="autoSingle"
+      (focus)="emitInteractionEvent('focus')"
+      (blur)="emitInteractionEvent('blur')"
+    />
+    <mat-autocomplete #autoSingle="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+      @for (option of filteredOptions(); track option.value) {
+        <mat-option [value]="option.value">{{ option.label }}</mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+}

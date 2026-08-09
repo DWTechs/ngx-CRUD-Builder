@@ -1,0 +1,19 @@
+@if (features().update) {
+  <button
+    mat-icon-button
+    type="button"
+    [matTooltip]="labels.tableActions.edit"
+    (click)="onEdit()">
+    <mat-icon>edit</mat-icon>
+  </button>
+}
+@if (features().archive) {
+  <button
+    mat-icon-button
+    type="button"
+    color="warn"
+    [matTooltip]="labels.tableActions.delete"
+    (click)="onDelete()">
+    <mat-icon>delete</mat-icon>
+  </button>
+}

@@ -4,24 +4,13 @@ import {
   ApplicationConfig,
   provideBrowserGlobalErrorListeners,
 } from "@angular/core";
+import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 import { provideRouter } from "@angular/router";
-import { ACL_ADAPTER } from "@crud/core/utils/crud-service/acl-adapter";
-import {
-  FormFieldAdapterType,
-  provideFormFieldRenderer,
-} from "@crud/form/ui/field-renderer/provide-form-field-renderer";
 import { definePreset } from "@primeuix/themes";
 import Aura from "@primeuix/themes/aura";
-import { ConfirmationService, MessageService } from "primeng/api";
 import { providePrimeNG } from "primeng/config";
 import { routes } from "./app.routes";
-import { AclService } from "./full-example/data-access/acl.service";
-import { provideAppConfig } from "./provide-app-config";
-
-export const ADAPTER_STORAGE_KEY = "form_builder_adapter";
-
-const adapter = localStorage.getItem(ADAPTER_STORAGE_KEY) ?? "primeng";
-console.log("Using form adapter:", adapter);
+import { provideCrudBuilderConfig } from "./provide-crud-builder-config";
 
 const MyPreset = definePreset(Aura, {
   semantic: {
@@ -50,11 +39,8 @@ export const appConfig: ApplicationConfig = {
         preset: MyPreset,
       },
     }),
-    MessageService,
-    ConfirmationService,
-    { provide: ACL_ADAPTER, useExisting: AclService },
-    provideFormFieldRenderer(adapter as FormFieldAdapterType),
-    provideAppConfig(),
+    provideCrudBuilderConfig(),
+    provideAnimationsAsync(),
   ],
 };
 

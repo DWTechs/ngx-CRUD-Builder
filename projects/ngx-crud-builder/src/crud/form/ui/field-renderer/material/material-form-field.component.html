@@ -1,0 +1,12 @@
+@if (showOuterLabel()) {
+  <label [for]="config().key" [class.mandatory-control]="isRequired()">
+    {{ label() }}
+  </label>
+}
+<frm-material-field-renderer
+  [config]="config()"
+  [control]="control()"
+  [isFormReadonly]="isFormReadonly()"
+  [syncValueInc]="syncValueInc()"
+  (fieldInteraction)="fieldInteraction.emit($event)"
+/>

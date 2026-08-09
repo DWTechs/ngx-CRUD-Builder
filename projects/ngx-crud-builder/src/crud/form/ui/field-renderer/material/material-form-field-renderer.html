@@ -1,0 +1,89 @@
+@switch (config().controlType) {
+  @case (ControlType.AUTOCOMPLETE) {
+    <frm-material-autocomplete-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.CHECKBOX) {
+    <frm-material-checkbox-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.DATE) {
+    <frm-material-date-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      [syncValueInc]="syncValueInc()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.INPUT) {
+    @if (config().type === 'number') {
+      <frm-material-inputnumber-control
+        [config]="config()"
+        [control]="control()"
+        [isFormReadonly]="isFormReadonly()"
+        (fieldInteraction)="fieldInteraction.emit($event)"
+      />
+    } @else {
+      <frm-material-inputtext-control
+        [config]="config()"
+        [control]="control()"
+        [isFormReadonly]="isFormReadonly()"
+        (fieldInteraction)="fieldInteraction.emit($event)"
+      />
+    }
+  }
+  @case (ControlType.MULTISELECT) {
+    <frm-material-multiselect-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.RADIO) {
+    <frm-material-radiogroup-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.SELECT) {
+    <frm-material-select-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.SELECT_BUTTON) {
+    <frm-material-select-button-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.TEXTAREA) {
+    <frm-material-textarea-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @default {
+    <span class="frm-material-unsupported">
+      Material renderer: controlType "{{ config().controlType }}" is not supported.
+    </span>
+  }
+}
