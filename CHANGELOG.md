@@ -1,3 +1,8 @@
+# 0.1.10 (Aug 9th 2026)
+- Decouple toast notifications and confirmation dialogs from PrimeNG: `SnackbarService` and the new `ConfirmService` are now plain signal-based services with no PrimeNG dependency
+- Add framework-agnostic `crd-toast` and `crd-confirm` components, replacing `<p-toast>`/`<p-confirmdialog>` in `TableComponent`
+- `TableComponent` and `ColumnsViewsComponent` now use `ConfirmService`/`SnackbarService` instead of PrimeNG's `ConfirmationService`/`MessageService`
+
 # 0.1.9 (Aug 2nd 2026)
 - Fix `table` local update when archiving a row: default behavior now marks row as archived instead of deleting it from the table
 - Fix `Restore` edition dialog button translation

@@ -8,7 +8,7 @@ An Angular component library for building dynamic forms and data tables with min
 
 ## UI adapters — PrimeNG, Material or Native?
 
-The library renders two independent things, each with its own adapter: the **form fields** (inputs, selects, dates...) and the **table shell** (rows, sorting, pagination...). You pick one adapter per concern via `provideFormFieldRenderer(adapter)` / `provideTableRenderer(adapter)`, or both at once with `provideCrudRenderer(adapter)` when you want them visually consistent.
+The library renders two independent things, each with its own adapter: the **form fields** (inputs, selects, dates...) and the **table shell** (rows, sorting, pagination...). Pick **one** adapter and use it for both — don't mix, e.g. a PrimeNG form with a Material table. Use `provideCrudRenderer(adapter)` to provide both at once; it only accepts `'primeng' | 'material'` since there is no `'native'` table shell yet. Use `provideFormFieldRenderer(adapter)` / `provideTableRenderer(adapter)` individually only if you don't render a `<tbl-table>` (e.g. `provideFormFieldRenderer('native')` for a lighter, PrimeNG-free form).
 
 > ⚠️ **PrimeNG is always required as a peer dependency today**, whichever adapter you choose for forms or tables. `ConfirmationService`, `MessageService`, the confirm dialog, toast, and the table toolbar (export, column management, refresh) are still built with PrimeNG components. Choosing `'material'` or `'native'` only changes how form controls and/or table rows are rendered — it does not remove the PrimeNG dependency.
 
@@ -18,7 +18,7 @@ The library renders two independent things, each with its own adapter: the **for
 | `'material'` | Full support for most control types (requires `@angular/material` + `@angular/animations`, a date adapter, and `provideAnimationsAsync()`) | Minimal shell — data display and pagination only, **non-lazy mode only** (`lazy: false`). No filtering, sorting, column resizing or state persistence yet |
 | `'native'` | Plain HTML controls, no extra dependency, lightest bundle. Covers all control types but is experimental — styling and edge cases are incomplete | **No shell available yet** — using `<tbl-table>` without a table renderer provided throws a `NullInjectorError` at runtime |
 
-Use `provideFormFieldRenderer('native')` if you only want to lighten the form bundle while keeping the PrimeNG table. There is currently no way to use `<tbl-table>` with the `'native'` adapter.
+Use `provideFormFieldRenderer('native')` on its own only if you don't use `<tbl-table>` — there is currently no `'native'` table shell, so it can't be combined with `provideTableRenderer` or `provideCrudRenderer`.
 
 ## Highlights
 

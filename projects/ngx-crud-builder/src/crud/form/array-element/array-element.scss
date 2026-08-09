@@ -35,7 +35,7 @@
         cursor: pointer;
         font-size: 1rem;
         padding: 0.2rem;
-        color: #c00;
+        color: var(--crd-danger-color, var(--p-red-500, #c00));
         flex-shrink: 0;
 
         &:hover:not(:disabled) {
@@ -62,7 +62,7 @@
             position: absolute;
             bottom: -1.1rem;
             left: 0.25rem;
-            color: #c00;
+            color: var(--crd-danger-color, var(--p-red-500, #c00));
         }
     }
 }

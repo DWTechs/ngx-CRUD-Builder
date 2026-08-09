@@ -19,7 +19,7 @@ export * from "./crud/core/models/crud-item-options.model";
 export * from "./crud/core/models/excel.model";
 export * from "./crud/core/models/form-field-interaction.event";
 export * from "./crud/core/models/input-type.model";
-export * from "./crud/core/ui/crud-buttons/crud-buttons.component";
+export * from "./crud/core/ui/crd-button/crd-button.component";
 // --- CRUD: UI components (public-facing) ---
 export * from "./crud/core/ui/edition-dialog/edition-dialog.component";
 export * from "./crud/core/ui/history/history-mapper.token";

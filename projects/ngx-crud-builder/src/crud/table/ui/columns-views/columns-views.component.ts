@@ -10,11 +10,11 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { ConfirmationService } from "primeng/api";
 import { ButtonModule } from "primeng/button";
 import { InputText, InputTextModule } from "primeng/inputtext";
 import { ListboxModule } from "primeng/listbox";
 import { RadioButtonModule } from "primeng/radiobutton";
+import { ConfirmService } from "../../../../core/utils/confirm/confirm.service";
 import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
 import { TableConfig } from "../../data-access/table-config.model";
 
@@ -33,7 +33,7 @@ import { TableConfig } from "../../data-access/table-config.model";
   encapsulation: ViewEncapsulation.None,
 })
 export class ColumnsViewsComponent {
-  private readonly confirmationService = inject(ConfirmationService);
+  private readonly confirmService = inject(ConfirmService);
   protected readonly labels = inject(CRUD_LABELS);
 
   public readonly views = input.required<TableConfig[]>();
@@ -67,7 +67,7 @@ export class ColumnsViewsComponent {
     if (!viewId) {
       return;
     }
-    this.confirmationService.confirm({
+    this.confirmService.confirm({
       header: this.labels.columnsViews.deleteConfirmationHeader,
       message: this.labels.columnsViews.deleteConfirmation,
       accept: () => this.deleteView.emit(viewId),

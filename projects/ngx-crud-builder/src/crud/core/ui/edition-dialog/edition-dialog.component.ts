@@ -11,11 +11,8 @@ import {
 } from "@angular/core";
 import { toObservable } from "@angular/core/rxjs-interop";
 import { FormsModule, ValidatorFn } from "@angular/forms";
-import { SharedModule } from "primeng/api";
-import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
 import { CheckboxModule } from "primeng/checkbox";
-import { DialogModule } from "primeng/dialog";
 import {
   distinctUntilChanged,
   filter,
@@ -31,7 +28,8 @@ import { CrudItemOptions } from "../../models/crud-item-options.model";
 import { NO_ROWS_AND_COUNT } from "../../utils/crud-service/no-rows";
 import { CRUD_LABELS } from "../../utils/i18n/crud-labels.token";
 import { CrudFeatures } from "../../utils/table/crud-loader.class";
-import { CrudButtonComponent } from "../crud-buttons/crud-buttons.component";
+import { CrdButtonComponent } from "../crd-button/crd-button.component";
+import { CrdModalComponent } from "../crd-modal/crd-modal.component";
 import { HISTORY_MAPPER } from "../history/history-mapper.token";
 import { HistoryComponent } from "../history/history.component";
 import { HistorizedData } from "../history/history.model";
@@ -41,16 +39,14 @@ import { HistorizedData } from "../history/history.model";
   templateUrl: "./edition-dialog.component.html",
   styleUrls: ["./edition-dialog.component.scss"],
   imports: [
-    DialogModule,
-    SharedModule,
+    CrdModalComponent,
     FormComponent,
     CardModule,
     HistoryComponent,
     CheckboxModule,
     FormsModule,
-    ButtonModule,
     AsyncPipe,
-    CrudButtonComponent,
+    CrdButtonComponent,
   ],
   encapsulation: ViewEncapsulation.None,
 })

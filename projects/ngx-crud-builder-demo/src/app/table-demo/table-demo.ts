@@ -14,8 +14,8 @@ import { CheckboxModule } from "primeng/checkbox";
 import { InputTextModule } from "primeng/inputtext";
 import { SelectModule } from "primeng/select";
 import { TooltipModule } from "primeng/tooltip";
-import { TABLE_ADAPTER_STORAGE_KEY } from "../app.config";
 import { DEMO_CONF } from "../demo.conf";
+import { ADAPTER_STORAGE_KEY } from "../provide-crud-builder-config";
 import { TableDemoMockService } from "./table-demo-mock.service";
 import {
   DebugSnippetComponent,
@@ -45,11 +45,11 @@ export class TableDemo {
   constructor(protected readonly mockService: TableDemoMockService) {}
 
   protected readonly currentAdapter = signal(
-    localStorage.getItem(TABLE_ADAPTER_STORAGE_KEY) ?? "primeng",
+    localStorage.getItem(ADAPTER_STORAGE_KEY) ?? "primeng",
   );
 
   protected switchAdapter(type: string): void {
-    localStorage.setItem(TABLE_ADAPTER_STORAGE_KEY, type);
+    localStorage.setItem(ADAPTER_STORAGE_KEY, type);
     window.location.reload();
   }
 

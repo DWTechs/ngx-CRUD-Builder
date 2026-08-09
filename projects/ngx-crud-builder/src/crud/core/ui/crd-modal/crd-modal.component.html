@@ -1,0 +1,15 @@
+@if (open()) {
+  <div class="crd-modal-backdrop" (click)="onBackdropClick()">
+    <div
+      class="crd-modal-panel"
+      [class]="panelClass()"
+      [style]="panelStyle()"
+      role="dialog"
+      aria-modal="true"
+      cdkTrapFocus
+      cdkTrapFocusAutoCapture
+      (click)="$event.stopPropagation()">
+      <ng-content />
+    </div>
+  </div>
+}

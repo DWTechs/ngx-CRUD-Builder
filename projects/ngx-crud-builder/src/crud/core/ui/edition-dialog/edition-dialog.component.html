@@ -1,96 +1,87 @@
-<p-dialog
-  [visible]="isVisible()"
-  [style]="{width: calculatedWidth(), height: height()}"
-  [header]="dialogTitle()"
-  [modal]="true"
-  [maximizable]="true"
-  styleClass="p-fluid"
-  (visibleChange)="$event ? false : onHide()"
-  (onHide)="onHide()"
-  appendTo="body">
+<crd-modal
+  [open]="isVisible()"
+  [panelStyle]="{ width: calculatedWidth(), height: height() ?? 'auto' }"
+  panelClass="p-fluid"
+  (closed)="onHide()">
 
-  <ng-template pTemplate="content">
-    <div class="content-container">
-      <frm-form
-        [config]="config()"
-        [model]="editedEntry()"
-        [groupValidator]="groupValidator()"
-        [isReadonly]="isReadonly()"
-        [forceReload]="forceReloadTime()"
-        [columnsCount]="formColumnsCount()"
-        [labelStrategy]="labelStrategy()"
-        [labelStrategyVariant]="labelStrategyVariant()"
-        (modelChange)="onFormChanged($event)"
-        (validityChange)="onValidityChange($event)"
+  <div class="edition-dialog-header">
+    <h2>{{ dialogTitle() }}</h2>
+  </div>
+
+  <div class="content-container">
+    <frm-form
+      [config]="config()"
+      [model]="editedEntry()"
+      [groupValidator]="groupValidator()"
+      [isReadonly]="isReadonly()"
+      [forceReload]="forceReloadTime()"
+      [columnsCount]="formColumnsCount()"
+      [labelStrategy]="labelStrategy()"
+      [labelStrategyVariant]="labelStrategyVariant()"
+      (modelChange)="onFormChanged($event)"
+      (validityChange)="onValidityChange($event)"
+    />
+
+    @if (features().getHistory && !!getHistory()) {
+      @let historyData = history$ | async;
+      @if (historyData) {
+        <p-card>
+          <ng-template #header>
+            <span>
+              {{ labels.editionDialog.historyHeader }} ({{ historyData.total ?? historyData.rows.length }})
+            </span>
+            <!-- <span class="history-header-toggle">
+              <p-checkbox [(ngModel)]="showOldValue" [binary]="true" inputId="showOldValue" />
+              <label for="showOldValue">{{ labels.history.showPreviousValue }}</label>
+            </span> -->
+          </ng-template>
+          <crd-history
+            [data]="historyData"
+            [config]="config()"
+            [showOldValue]="showOldValue()"
+            (selected)="onHistorySelect($event)"
+          />
+        </p-card>
+      }
+    }
+  </div>
+
+  <div class="dialog-actions-container">
+    <div class="left-actions">
+      <crd-button
+        type="cancel"
+        [label]="closeButtonLabel()"
+        [disabled]="isLoading()"
+        (clicked)="onHide()"
       />
-
-      @if (features().getHistory && !!getHistory()) {
-        @let historyData = history$ | async;
-        @if (historyData) {
-          <p-card>
-            <ng-template #header>
-              <span>
-                {{ labels.editionDialog.historyHeader }} ({{ historyData.total ?? historyData.rows.length }})
-              </span>
-              <!-- <span class="history-header-toggle">
-                <p-checkbox [(ngModel)]="showOldValue" [binary]="true" inputId="showOldValue" />
-                <label for="showOldValue">{{ labels.history.showPreviousValue }}</label>
-              </span> -->
-            </ng-template>
-            <crd-history
-              [data]="historyData"
-              [config]="config()"
-              [showOldValue]="showOldValue()"
-              (selected)="onHistorySelect($event)"
-            />
-          </p-card>
-        }
+      @if (isArchiveBtnDisplayed()) {
+        <crd-button
+          type="delete"
+          [label]="labels.editionDialog.archive"
+          [disabled]="isLoading()"
+          (clicked)="onArchive()"
+        />
+      }
+      @if (isRestoreBtnDisplayed()) {
+        <crd-button
+          type="restore"
+          [label]="labels.editionDialog.restore"
+          [disabled]="isLoading()"
+          (clicked)="onRestore()"
+        />
       }
     </div>
-  </ng-template>
 
-  <ng-template pTemplate="footer">
-    <div class="dialog-actions-container">
-      <div class="left-actions">
-        <crd-crud-button
-          type="cancel"
-          [label]="closeButtonLabel()"
-          icon="pi pi-times"
-          [disabled]="isLoading()"
-          (click)="onHide()"
+    <div class="right-actions">
+      @if (canInteract()) {
+        <crd-button
+          type="validate"
+          [label]="labels.editionDialog.validate"
+          [disabled]="isLoading() || invalidForm"
+          [loading]="isLoading()"
+          (clicked)="onSave()"
         />
-        @if (isArchiveBtnDisplayed()) {
-          <crd-crud-button
-            type="delete"
-            [label]="labels.editionDialog.archive"
-            icon="pi pi-trash"
-            [disabled]="isLoading()"
-            (click)="onArchive()"
-          />
-        }
-        @if (isRestoreBtnDisplayed()) {
-          <crd-crud-button
-            type="restore"
-            [label]="labels.editionDialog.restore"
-            icon="pi pi-bolt"
-            [disabled]="isLoading()"
-            (click)="onRestore()"
-          />
-        }
-      </div>
-
-      <div class="right-actions">
-        @if (canInteract()) {
-          <crd-crud-button
-            type="validate"
-            [label]="labels.editionDialog.validate"
-            icon="pi pi-check"
-            [disabled]="isLoading() || invalidForm"
-            (click)="onSave()"
-          />
-        }
-      </div>
-
+      }
     </div>
-  </ng-template>
-</p-dialog>
+  </div>
+</crd-modal>

@@ -1,0 +1,14 @@
+@if (current(); as c) {
+  <crd-modal [open]="true" (closed)="onReject()">
+    <div class="crd-confirm-body">
+      @if (c.header) {
+        <h3 class="crd-confirm-header">{{ c.header }}</h3>
+      }
+      <p class="crd-confirm-message">{{ c.message }}</p>
+    </div>
+    <div class="crd-confirm-actions">
+      <crd-button type="cancel" [label]="c.rejectLabel ?? ''" (clicked)="onReject()" />
+      <crd-button type="validate" [label]="c.acceptLabel ?? ''" (clicked)="onAccept()" />
+    </div>
+  </crd-modal>
+}

@@ -1,6 +1,17 @@
 crd-edition-dialog {
+    .edition-dialog-header {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--crd-border-color, var(--p-content-border-color, #e5e7eb));
+
+        h2 {
+            margin: 0;
+            font-size: 1.125rem;
+        }
+    }
+
     .content-container {
         min-height: 300px;
+        padding: 1rem 1.5rem;
 
         .accordion {
             padding: 0 1rem;
@@ -27,6 +38,16 @@ crd-edition-dialog {
     }
 
     .error {
-        color: red;
+        color: var(--crd-danger-color, var(--p-red-500, red));
+    }
+
+    .dialog-actions-container {
+        padding: 0.5rem 1.5rem 1rem;
+
+        .left-actions,
+        .right-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
     }
 }

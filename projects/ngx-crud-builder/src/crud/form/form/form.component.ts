@@ -26,7 +26,6 @@ import {
   ValidatorFn,
 } from "@angular/forms";
 import { isArray, isFunction, isNil } from "@dwtechs/checkard";
-import { ProgressSpinnerModule } from "primeng/progressspinner";
 import { debounceTime, distinctUntilChanged, Subscription } from "rxjs";
 import {
   ControlActionResult,
@@ -38,7 +37,8 @@ import {
   CrudItemOptions,
 } from "../../core/models/crud-item-options.model";
 import { FormFieldInteractionEvent } from "../../core/models/form-field-interaction.event";
-import { CrudButtonComponent } from "../../core/ui/crud-buttons/crud-buttons.component";
+import { CrdButtonComponent } from "../../core/ui/crd-button/crd-button.component";
+import { CrdProgressComponent } from "../../core/ui/crd-progress/crd-progress.component";
 import { isEqual } from "../../core/utils/arrays/is-equal.utils";
 import { CRUD_LABELS } from "../../core/utils/i18n/crud-labels.token";
 import { supplant } from "../../core/utils/supplant/supplant.utils";
@@ -69,12 +69,12 @@ export const ONE_COLUMN_WIDTH = "100%";
     FormSimpleElement,
     JsonPipe,
     FullJsonPipe,
-    ProgressSpinnerModule,
+    CrdProgressComponent,
     FormGroupByKeyPipe,
     NgTemplateOutlet,
     FormArrayElement,
     ToControlPipe,
-    CrudButtonComponent,
+    CrdButtonComponent,
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,

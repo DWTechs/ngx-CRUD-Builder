@@ -22,16 +22,17 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { ValidatorFn } from "@angular/forms";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { isArray } from "@dwtechs/checkard";
-import { ConfirmationService, MessageService, SharedModule } from "primeng/api";
-import { ConfirmDialogModule } from "primeng/confirmdialog";
-import { ProgressBarModule } from "primeng/progressbar";
-import { TableLazyLoadEvent, TableModule } from "primeng/table";
-import { ToastModule } from "primeng/toast";
+import { TableLazyLoadEvent } from "primeng/table";
 import { debounceTime, Subject, switchMap } from "rxjs";
+import { ConfirmService } from "../../core/utils/confirm/confirm.service";
+import { SnackbarService } from "../../core/utils/snackbar/snackbar.service";
 import { CONTROL_TYPES } from "../core/models/control-type.model";
 import { CrudItemBase } from "../core/models/crud-item-base.class";
 import { CrudItemFactory } from "../core/models/crud-item-factory.model";
 import { CrudItemOptions } from "../core/models/crud-item-options.model";
+import { CrdConfirmComponent } from "../core/ui/crd-confirm/crd-confirm.component";
+import { CrdProgressComponent } from "../core/ui/crd-progress/crd-progress.component";
+import { CrdToastComponent } from "../core/ui/crd-toast/crd-toast.component";
 import { EditionDialogComponent } from "../core/ui/edition-dialog/edition-dialog.component";
 import { isEqual } from "../core/utils/arrays/is-equal.utils";
 import { Calls } from "../core/utils/crud-service/crud.model";
@@ -91,18 +92,15 @@ function resolveTableRenderer() {
     TableConfigService,
     TableStateService,
     ExportService,
-    ConfirmationService,
   ],
   imports: [
     TableToolbarComponent,
-    TableModule,
-    SharedModule,
     NgComponentOutlet,
     ColumnsManagementDialogComponent,
     EditionDialogComponent,
-    ProgressBarModule,
-    ConfirmDialogModule,
-    ToastModule,
+    CrdProgressComponent,
+    CrdConfirmComponent,
+    CrdToastComponent,
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -111,7 +109,7 @@ export class TableComponent<TData extends CrudItemBase>
   implements OnInit, OnChanges, AfterViewInit
 {
   // Injected services
-  private readonly confirmationService = inject(ConfirmationService);
+  private readonly confirmService = inject(ConfirmService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly exportService = inject(ExportService);
   public readonly loader = inject(CrudLoader<TData>);
@@ -120,7 +118,7 @@ export class TableComponent<TData extends CrudItemBase>
   private readonly router = inject(Router);
   private readonly state = inject(TableStateService);
   private readonly columnsStorage = inject(TableColumnsStorage);
-  private readonly messageService = inject(MessageService);
+  private readonly snackbarService = inject(SnackbarService);
   private readonly labels = inject(CRUD_LABELS);
 
   /** Table shell component resolved from TABLE_RENDERER. Throws at runtime if no
@@ -684,11 +682,10 @@ export class TableComponent<TData extends CrudItemBase>
         this.loadingService.stop();
         this.isExportDialogVisible.set(false);
         if (!success) {
-          this.messageService.add({
-            severity: "error",
-            summary: this.labels.table.exportFailedTitle,
-            detail: this.labels.table.exportFailedDetail,
-          });
+          this.snackbarService.displayError(
+            this.labels.table.exportFailedDetail,
+            this.labels.table.exportFailedTitle,
+          );
         }
       });
   }
@@ -872,10 +869,9 @@ export class TableComponent<TData extends CrudItemBase>
   }
 
   private confirm(message: string, acceptFn: () => void): void {
-    this.confirmationService.confirm({
+    this.confirmService.confirm({
       message,
       header: this.labels.table.confirmationHeader,
-      icon: "pi pi-info-circle",
       rejectLabel: this.labels.table.confirmationCancel,
       acceptLabel: this.labels.table.confirmationConfirm,
       accept: acceptFn,

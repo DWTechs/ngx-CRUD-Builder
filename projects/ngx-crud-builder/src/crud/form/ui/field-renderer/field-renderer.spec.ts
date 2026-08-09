@@ -3,7 +3,6 @@ import { Component, input, output, signal } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { provideAnimations } from "@angular/platform-browser/animations";
-import { MessageService } from "primeng/api";
 import { CONTROL_TYPES } from "../../../core/models/control-type.model";
 import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
 import { FormFieldInteractionEvent } from "../../../core/models/form-field-interaction.event";
@@ -59,7 +58,7 @@ describe("FormFieldRenderer", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TestWrapperComponent, ReactiveFormsModule],
-      providers: [provideAnimations(), provideHttpClient(), MessageService],
+      providers: [provideAnimations(), provideHttpClient()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TestWrapperComponent);

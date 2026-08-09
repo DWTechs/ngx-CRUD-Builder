@@ -1,0 +1,22 @@
+<div class="crd-toast-container" aria-live="polite">
+  @for (msg of messages(); track msg.id) {
+    <div class="crd-toast" [attr.data-severity]="msg.severity" role="alert">
+      <div class="crd-toast-content">
+        @if (msg.summary) {
+          <strong class="crd-toast-summary">{{ msg.summary }}</strong>
+        }
+        @if (msg.detail) {
+          <div class="crd-toast-detail">{{ msg.detail }}</div>
+        }
+      </div>
+      <button
+        type="button"
+        class="crd-toast-close"
+        (click)="dismiss(msg.id)"
+        aria-label="Close"
+      >
+        ×
+      </button>
+    </div>
+  }
+</div>

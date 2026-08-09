@@ -44,18 +44,18 @@
   }
   <div class="actions-container">
     @if (showReset()) {
-      <crd-crud-button 
+      <crd-button 
         type="cancel"
         [label]="resetButtonLabel() ?? labels.form.reset" 
-        (click)="onReset()" 
+        (clicked)="onReset()" 
         [disabled]="formGroup.pristine ?? true"
       />
     }
     @if (showSubmit()) {
-      <crd-crud-button 
+      <crd-button 
         type="validate"
         [label]="submitButtonLabel() ?? labels.form.submit" 
-        (click)="onSubmit()" 
+        (clicked)="onSubmit()" 
         [disabled]="formGroup.invalid ?? true" 
       />
     }
@@ -67,7 +67,7 @@
     <pre>{{ config() | fullJson }}</pre>
   } 
 } @else {
-  <p-progressSpinner />
+  <crd-progress mode="spinner" />
 }
 
 

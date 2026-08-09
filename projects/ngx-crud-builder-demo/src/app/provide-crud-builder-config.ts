@@ -40,14 +40,12 @@ const CONFIG: AppConfig = {
   apiPrefix: "/",
 };
 
-export const ADAPTER_STORAGE_KEY = "form_builder_adapter";
-export const TABLE_ADAPTER_STORAGE_KEY = "table_builder_adapter";
+// single adapter for the whole demo: form and table always use the same UI kit, no mixing
+export const ADAPTER_STORAGE_KEY = "crud_builder_adapter";
 
-const adapter = localStorage.getItem(ADAPTER_STORAGE_KEY) ?? "primeng";
-const tableAdapter =
-  localStorage.getItem(TABLE_ADAPTER_STORAGE_KEY) ?? "primeng";
-console.log("Using form adapter:", adapter);
-console.log("Using table adapter:", tableAdapter);
+const adapter = (localStorage.getItem(ADAPTER_STORAGE_KEY) ??
+  "primeng") as FormFieldAdapterType;
+console.log("Using adapter:", adapter);
 
 export function provideCrudBuilderConfig() {
   return makeEnvironmentProviders([
@@ -70,12 +68,12 @@ export function provideCrudBuilderConfig() {
       },
     },
     { provide: ACL_ADAPTER, useExisting: AclService },
-    // table shell only provided for adapters that have one; other values reproduce
-    // the "no table available" error for the table adapter switcher demo
-    ...(tableAdapter === "primeng" || tableAdapter === "material"
-      ? provideTableRenderer(tableAdapter)
+    // table shell only exists for primeng/material; native reproduces the
+    // "no table available" error for the adapter switcher demo
+    ...(adapter === "primeng" || adapter === "material"
+      ? provideTableRenderer(adapter)
       : []),
-    provideFormFieldRenderer(adapter as FormFieldAdapterType),
+    provideFormFieldRenderer(adapter),
     provideNativeDateAdapter(),
   ]);
 }
