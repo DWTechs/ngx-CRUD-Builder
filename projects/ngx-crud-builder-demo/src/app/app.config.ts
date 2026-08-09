@@ -6,9 +6,9 @@ import {
 } from "@angular/core";
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 import { provideRouter } from "@angular/router";
-import { definePreset } from "@primeuix/themes";
-import Aura from "@primeuix/themes/aura";
-import { providePrimeNG } from "primeng/config";
+import { definePreset } from "@openng/optimus-ui-themes";
+import Aura from "@openng/optimus-ui-themes/aura";
+import { provideOptimus } from "@openng/optimus-ui/config";
 import { routes } from "./app.routes";
 import { provideCrudBuilderConfig } from "./provide-crud-builder-config";
 
@@ -34,7 +34,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    providePrimeNG({
+    provideOptimus({
       theme: {
         preset: MyPreset,
       },

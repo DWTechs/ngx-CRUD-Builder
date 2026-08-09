@@ -4,9 +4,9 @@ import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
 import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
 import { hexColor } from "@crud/form/utils/common.validators";
 import { FormComponent } from "@form/form/form.component";
-import { ButtonModule } from "primeng/button";
-import { CheckboxModule } from "primeng/checkbox";
-import { InputTextModule } from "primeng/inputtext";
+import { ButtonModule } from "@openng/optimus-ui/button";
+import { CheckboxModule } from "@openng/optimus-ui/checkbox";
+import { InputTextModule } from "@openng/optimus-ui/inputtext";
 
 @Component({
   selector: "frm-color-picker-tab",

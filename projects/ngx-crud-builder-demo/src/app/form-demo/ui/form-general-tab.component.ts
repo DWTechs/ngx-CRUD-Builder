@@ -4,11 +4,11 @@ import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
 import { FormFieldInteractionEvent } from "@crud/core/models/form-field-interaction.event";
 import { FormComponent } from "@form/form/form.component";
 import { LabelStrategy } from "@form/utils/label-strategy.model";
-import { ButtonModule } from "primeng/button";
-import { CheckboxModule } from "primeng/checkbox";
-import { InputTextModule } from "primeng/inputtext";
-import { PanelModule } from "primeng/panel";
-import { SelectModule } from "primeng/select";
+import { ButtonModule } from "@openng/optimus-ui/button";
+import { CheckboxModule } from "@openng/optimus-ui/checkbox";
+import { InputTextModule } from "@openng/optimus-ui/inputtext";
+import { PanelModule } from "@openng/optimus-ui/panel";
+import { SelectModule } from "@openng/optimus-ui/select";
 import { DEMO_CONF } from "../../demo.conf";
 
 interface FormGeneralConfig {

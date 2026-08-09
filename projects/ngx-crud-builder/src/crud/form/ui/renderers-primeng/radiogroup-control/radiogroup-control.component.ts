@@ -5,8 +5,8 @@ import {
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { FormFieldBaseComponent } from "../form-field-base.component";
-import { SharedModule } from "primeng/api";
-import { RadioButtonClickEvent, RadioButtonModule } from "primeng/radiobutton";
+import { SharedModule } from "@openng/optimus-ui/api";
+import { RadioButtonClickEvent, RadioButtonModule } from "@openng/optimus-ui/radiobutton";
 
 @Component({
   selector: "frm-radiogroup-control",

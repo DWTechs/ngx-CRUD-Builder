@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from "@angular/core";
-import { TabsModule } from "primeng/tabs";
+import { TabsModule } from "@openng/optimus-ui/tabs";
 import { ExampleFormTabComponent } from "./ui/form-tab.component";
 import { InstallationTabComponent } from "./ui/installation-tab.component";
 import { PresentationTabComponent } from "./ui/presentation-tab.component";

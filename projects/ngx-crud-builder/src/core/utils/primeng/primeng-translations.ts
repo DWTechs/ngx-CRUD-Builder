@@ -1,4 +1,4 @@
-import { Translation } from "primeng/api";
+import { Translation } from "@openng/optimus-ui/api";
 import { DATE_FORMAT_CALENDAR } from "../../../crud/core/utils/dates/dates.utils";
 
 export const PRIMENG_FR: Translation = {

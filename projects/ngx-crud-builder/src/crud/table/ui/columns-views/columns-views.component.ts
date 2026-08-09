@@ -10,10 +10,10 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { ButtonModule } from "primeng/button";
-import { InputText, InputTextModule } from "primeng/inputtext";
-import { ListboxModule } from "primeng/listbox";
-import { RadioButtonModule } from "primeng/radiobutton";
+import { ButtonModule } from "@openng/optimus-ui/button";
+import { InputText, InputTextModule } from "@openng/optimus-ui/inputtext";
+import { ListboxModule } from "@openng/optimus-ui/listbox";
+import { RadioButtonModule } from "@openng/optimus-ui/radiobutton";
 import { ConfirmService } from "../../../../core/utils/confirm/confirm.service";
 import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
 import { TableConfig } from "../../data-access/table-config.model";

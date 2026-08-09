@@ -10,7 +10,7 @@ import {
   required,
   requiredTrue,
 } from "@form/utils/common.validators";
-import { SelectItem } from "primeng/api";
+import { SelectItem } from "@openng/optimus-ui/api";
 import {
   ItRequest,
   RequestAccessoryType,

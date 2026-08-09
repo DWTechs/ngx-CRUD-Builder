@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from "@angular/core";
-import { TooltipModule } from "primeng/tooltip";
+import { TooltipModule } from "@openng/optimus-ui/tooltip";
 
 @Component({
   selector: "frm-field-tooltip",

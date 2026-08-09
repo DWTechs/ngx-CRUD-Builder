@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { Table } from "primeng/table";
+import { Table } from "@openng/optimus-ui/table";
 
 @Pipe({
   name: "lastRow",

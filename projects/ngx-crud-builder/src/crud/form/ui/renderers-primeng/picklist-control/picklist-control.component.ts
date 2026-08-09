@@ -7,8 +7,8 @@ import {
   signal,
   viewChild,
 } from "@angular/core";
-import { SelectItem } from "primeng/api";
-import { PickList, PickListModule } from "primeng/picklist";
+import { SelectItem } from "@openng/optimus-ui/api";
+import { PickList, PickListModule } from "@openng/optimus-ui/picklist";
 import { isEqual } from "../../../../core/utils/arrays/is-equal.utils";
 import { CRUD_LABELS } from "../../../../core/utils/i18n/crud-labels.token";
 import { FormFieldBaseComponent } from "../form-field-base.component";

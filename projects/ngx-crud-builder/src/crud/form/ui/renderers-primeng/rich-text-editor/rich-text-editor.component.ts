@@ -7,8 +7,8 @@ import {
   ViewChild,
 } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
-import { ButtonModule } from "primeng/button";
-import { Editor, EditorModule } from "primeng/editor";
+import { ButtonModule } from "@openng/optimus-ui/button";
+import { Editor, EditorModule } from "@openng/optimus-ui/editor";
 import { CRUD_LABELS } from "../../../../core/utils/i18n/crud-labels.token";
 import { FormFieldBaseComponent } from "../form-field-base.component";
 

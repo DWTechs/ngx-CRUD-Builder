@@ -1,5 +1,5 @@
 import { computed, inject, signal } from "@angular/core";
-import { TableLazyLoadEvent } from "primeng/table";
+import { TableLazyLoadEvent } from "@openng/optimus-ui/table";
 import { catchError, delay, map, Observable, of, tap, throwError } from "rxjs";
 import { FileInfo } from "../../../form/ui/renderers-primeng/file-upload-input/file-info.class";
 import { CrudItemBase } from "../../models/crud-item-base.class";

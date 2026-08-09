@@ -5,9 +5,9 @@ import {
   inject,
   linkedSignal,
 } from "@angular/core";
-import { ButtonModule } from "primeng/button";
-import { DividerModule } from "primeng/divider";
-import { TooltipModule } from "primeng/tooltip";
+import { ButtonModule } from "@openng/optimus-ui/button";
+import { DividerModule } from "@openng/optimus-ui/divider";
+import { TooltipModule } from "@openng/optimus-ui/tooltip";
 import { SnackbarService } from "../../../../../core/utils/snackbar/snackbar.service";
 import { DownloadService } from "../../../../core/utils/download/download.service";
 import { CRUD_LABELS } from "../../../../core/utils/i18n/crud-labels.token";

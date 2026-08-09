@@ -1,6 +1,6 @@
 import { Type } from "@angular/core";
 import { SafeHtml } from "@angular/platform-browser";
-import { FilterMetadata } from "primeng/api";
+import { FilterMetadata } from "@openng/optimus-ui/api";
 import { NumberStyle } from "../utils/numbers/numbers.utils";
 import { ControlType } from "./control-type.model";
 

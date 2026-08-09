@@ -15,7 +15,7 @@ import {
 } from "../../../core/models/form-field-interaction.event";
 import { isArray } from "@dwtechs/checkard";
 import { required, requiredTrue } from "../../utils/common.validators";
-import { SelectItem } from "primeng/api";
+import { SelectItem } from "@openng/optimus-ui/api";
 
 @Component({
   selector: "frm-field-base",

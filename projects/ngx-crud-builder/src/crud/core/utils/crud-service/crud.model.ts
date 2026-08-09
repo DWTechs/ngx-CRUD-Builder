@@ -1,4 +1,4 @@
-import { TableLazyLoadEvent } from "primeng/table";
+import { TableLazyLoadEvent } from "@openng/optimus-ui/table";
 import { Observable } from "rxjs";
 import { ExcelParams } from "../../models/excel.model";
 import { Rows, RowsAndCount } from "./dto.model";

@@ -1,6 +1,6 @@
 import { Component, inject } from "@angular/core";
 import { ValidatorFn } from "@angular/forms";
-import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
+import { DynamicDialogConfig, DynamicDialogRef } from "@openng/optimus-ui/dynamicdialog";
 import { CrudItemOptions } from "../../../../core/models/crud-item-options.model";
 import { CrdButtonComponent } from "../../../../core/ui/crd-button/crd-button.component";
 import { FormComponent } from "../../../form/form.component";

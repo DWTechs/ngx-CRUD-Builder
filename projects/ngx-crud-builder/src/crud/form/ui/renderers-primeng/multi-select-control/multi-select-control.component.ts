@@ -4,9 +4,9 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
-import { ChipModule } from "primeng/chip";
-import { IftaLabelModule } from "primeng/iftalabel";
-import { MultiSelectModule } from "primeng/multiselect";
+import { ChipModule } from "@openng/optimus-ui/chip";
+import { IftaLabelModule } from "@openng/optimus-ui/iftalabel";
+import { MultiSelectModule } from "@openng/optimus-ui/multiselect";
 import { FormFieldBaseComponent } from "../form-field-base.component";
 import { MultiSelectOptionPipe } from "./multi-select-option.pipe";
 

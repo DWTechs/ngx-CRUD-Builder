@@ -22,7 +22,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { ValidatorFn } from "@angular/forms";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { isArray } from "@dwtechs/checkard";
-import { TableLazyLoadEvent } from "primeng/table";
+import { TableLazyLoadEvent } from "@openng/optimus-ui/table";
 import { debounceTime, Subject, switchMap } from "rxjs";
 import { ConfirmService } from "../../core/utils/confirm/confirm.service";
 import { SnackbarService } from "../../core/utils/snackbar/snackbar.service";

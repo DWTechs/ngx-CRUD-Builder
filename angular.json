@@ -61,7 +61,7 @@
             "styles": [
               "projects/ngx-crud-builder/src/styles/edition-dialog.scss",
               "projects/ngx-crud-builder-demo/src/styles.scss",
-              "node_modules/primeicons/primeicons.css"
+              "node_modules/@openng/icons/openng-icons.css"
             ]
           },
           "configurations": {

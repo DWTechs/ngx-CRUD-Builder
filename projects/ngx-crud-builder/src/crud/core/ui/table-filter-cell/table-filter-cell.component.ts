@@ -16,13 +16,13 @@ import {
 import { FilterLevel } from "../../utils/table/filter-level.model";
 import { TableColumn } from "../../utils/table/table-column.model";
 import { isArray } from "@dwtechs/checkard";
-import { FilterService, SharedModule } from "primeng/api";
-import { DatePickerModule } from "primeng/datepicker";
-import { InputTextModule } from "primeng/inputtext";
-import { MultiSelectModule } from "primeng/multiselect";
-import { SelectModule } from "primeng/select";
-import { SliderModule } from "primeng/slider";
-import { Table, TableModule } from "primeng/table";
+import { FilterService, SharedModule } from "@openng/optimus-ui/api";
+import { DatePickerModule } from "@openng/optimus-ui/datepicker";
+import { InputTextModule } from "@openng/optimus-ui/inputtext";
+import { MultiSelectModule } from "@openng/optimus-ui/multiselect";
+import { SelectModule } from "@openng/optimus-ui/select";
+import { SliderModule } from "@openng/optimus-ui/slider";
+import { Table, TableModule } from "@openng/optimus-ui/table";
 
 @Component({
   selector: "crd-table-filter-cell",

@@ -1,5 +1,5 @@
 import { isArray, isNil } from "@dwtechs/checkard";
-import { TableLazyLoadEvent } from "primeng/table";
+import { TableLazyLoadEvent } from "@openng/optimus-ui/table";
 import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
 import { FilterLevel } from "../../../core/utils/table/filter-level.model";
 

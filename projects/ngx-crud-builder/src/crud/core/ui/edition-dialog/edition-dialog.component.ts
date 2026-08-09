@@ -11,8 +11,8 @@ import {
 } from "@angular/core";
 import { toObservable } from "@angular/core/rxjs-interop";
 import { FormsModule, ValidatorFn } from "@angular/forms";
-import { CardModule } from "primeng/card";
-import { CheckboxModule } from "primeng/checkbox";
+import { CardModule } from "@openng/optimus-ui/card";
+import { CheckboxModule } from "@openng/optimus-ui/checkbox";
 import {
   distinctUntilChanged,
   filter,

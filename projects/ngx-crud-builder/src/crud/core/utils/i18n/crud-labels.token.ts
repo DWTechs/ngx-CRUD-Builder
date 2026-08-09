@@ -5,8 +5,8 @@ import {
   inject,
   provideAppInitializer,
 } from "@angular/core";
-import { Translation } from "primeng/api";
-import { PrimeNG } from "primeng/config";
+import { Translation } from "@openng/optimus-ui/api";
+import { Optimus } from "@openng/optimus-ui/config";
 
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends (...args: unknown[]) => unknown
@@ -369,7 +369,7 @@ export function provideCrudLabels(
   if (primeNGTranslation) {
     providers.push(
       provideAppInitializer(() => {
-        inject(PrimeNG).setTranslation(primeNGTranslation);
+        inject(Optimus).setTranslation(primeNGTranslation);
       }),
     );
   }

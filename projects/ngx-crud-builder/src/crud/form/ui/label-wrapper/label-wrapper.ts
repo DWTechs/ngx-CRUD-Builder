@@ -7,10 +7,10 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { FloatLabelModule } from "primeng/floatlabel";
-import { IconFieldModule } from "primeng/iconfield";
-import { IftaLabelModule } from "primeng/iftalabel";
-import { InputIconModule } from "primeng/inputicon";
+import { FloatLabelModule } from "@openng/optimus-ui/floatlabel";
+import { IconFieldModule } from "@openng/optimus-ui/iconfield";
+import { IftaLabelModule } from "@openng/optimus-ui/iftalabel";
+import { InputIconModule } from "@openng/optimus-ui/inputicon";
 import { ControlOptions } from "../../../core/models/control-options.model";
 import {
   CONTROL_TYPES,

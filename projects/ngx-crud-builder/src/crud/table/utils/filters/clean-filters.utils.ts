@@ -1,6 +1,6 @@
 import { isArray } from "@dwtechs/checkard";
-import { FilterMetadata } from "primeng/api";
-import { TableLazyLoadEvent } from "primeng/table";
+import { FilterMetadata } from "@openng/optimus-ui/api";
+import { TableLazyLoadEvent } from "@openng/optimus-ui/table";
 import { getDateRangeWithoutTime } from "../../../core/utils/dates/dates.utils";
 
 export function cleanFilters(params: TableLazyLoadEvent | undefined) {

@@ -5,7 +5,7 @@ import {
 } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { FormFieldBaseComponent } from "../form-field-base.component";
-import { CheckboxModule } from "primeng/checkbox";
+import { CheckboxModule } from "@openng/optimus-ui/checkbox";
 
 @Component({
   selector: "frm-checkbox-control",

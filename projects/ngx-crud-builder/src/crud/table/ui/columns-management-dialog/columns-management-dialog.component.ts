@@ -12,8 +12,8 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { isArray } from "@dwtechs/checkard";
-import { ButtonModule } from "primeng/button";
-import { DialogModule } from "primeng/dialog";
+import { ButtonModule } from "@openng/optimus-ui/button";
+import { DialogModule } from "@openng/optimus-ui/dialog";
 import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
 import { TableColumn } from "../../../core/utils/table/table-column.model";
 import { ExtendedTableConfig } from "../../data-access/table-config.model";

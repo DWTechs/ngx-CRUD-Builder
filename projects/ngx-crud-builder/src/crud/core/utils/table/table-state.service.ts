@@ -1,7 +1,7 @@
 import { computed, Injectable, signal } from "@angular/core";
 import { RowsAndCount } from "../crud-service/dto.model";
 import { ExcelExportMode } from "./export-mode.model";
-import { TableLazyLoadEvent } from "primeng/table";
+import { TableLazyLoadEvent } from "@openng/optimus-ui/table";
 
 export interface TableState<TData> {
   currentTime: number;

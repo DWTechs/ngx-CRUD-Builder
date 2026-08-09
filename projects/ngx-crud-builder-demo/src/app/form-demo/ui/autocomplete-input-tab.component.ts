@@ -4,10 +4,10 @@ import { ExtendedSelectItem } from "@crud/core/models/control-options.model";
 import { CONTROL_TYPES } from "@crud/core/models/control-type.model";
 import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
 import { FormComponent } from "@form/form/form.component";
-import { ButtonModule } from "primeng/button";
-import { CheckboxModule } from "primeng/checkbox";
-import { InputTextModule } from "primeng/inputtext";
-import { SelectModule } from "primeng/select";
+import { ButtonModule } from "@openng/optimus-ui/button";
+import { CheckboxModule } from "@openng/optimus-ui/checkbox";
+import { InputTextModule } from "@openng/optimus-ui/inputtext";
+import { SelectModule } from "@openng/optimus-ui/select";
 import { Observable, of } from "rxjs";
 import { delay } from "rxjs/operators";
 

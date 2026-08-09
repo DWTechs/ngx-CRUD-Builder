@@ -7,7 +7,7 @@ import {
 } from "@angular/core";
 import { toObservable, toSignal } from "@angular/core/rxjs-interop";
 import { ReactiveFormsModule } from "@angular/forms";
-import { InputTextModule } from "primeng/inputtext";
+import { InputTextModule } from "@openng/optimus-ui/inputtext";
 import { startWith, switchMap } from "rxjs";
 import { FormFieldBaseComponent } from "../form-field-base.component";
 

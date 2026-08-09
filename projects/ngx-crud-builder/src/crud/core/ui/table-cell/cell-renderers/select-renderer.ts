@@ -5,7 +5,7 @@ import {
   input,
 } from "@angular/core";
 import { CrudItemOptions } from "../../../models/crud-item-options.model";
-import { SelectItem } from "primeng/api";
+import { SelectItem } from "@openng/optimus-ui/api";
 
 @Component({
   selector: "tbl-select-cell-renderer",

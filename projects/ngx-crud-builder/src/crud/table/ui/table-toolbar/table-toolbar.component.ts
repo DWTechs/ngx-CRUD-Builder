@@ -6,11 +6,11 @@ import {
   model,
   output,
 } from "@angular/core";
-import { SharedModule } from "primeng/api";
-import { ButtonModule } from "primeng/button";
-import { ButtonGroupModule } from "primeng/buttongroup";
-import { FileUploadModule } from "primeng/fileupload";
-import { ToolbarModule } from "primeng/toolbar";
+import { SharedModule } from "@openng/optimus-ui/api";
+import { ButtonModule } from "@openng/optimus-ui/button";
+import { ButtonGroupModule } from "@openng/optimus-ui/buttongroup";
+import { FileUploadModule } from "@openng/optimus-ui/fileupload";
+import { ToolbarModule } from "@openng/optimus-ui/toolbar";
 import { CrudItemBase } from "../../../core/models/crud-item-base.class";
 import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
 import { CrudFeatures } from "../../../core/utils/table/crud-loader.class";

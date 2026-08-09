@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { FormFieldBaseComponent } from "../form-field-base.component";
-import { InputNumberModule } from "primeng/inputnumber";
+import { InputNumberModule } from "@openng/optimus-ui/inputnumber";
 
 @Component({
   selector: "frm-inputnumber-control",

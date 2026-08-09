@@ -8,10 +8,10 @@ import {
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { isArray } from "@dwtechs/checkard";
-import { SharedModule } from "primeng/api";
-import { ButtonModule } from "primeng/button";
-import { DatePickerModule } from "primeng/datepicker";
-import { DividerModule } from "primeng/divider";
+import { SharedModule } from "@openng/optimus-ui/api";
+import { ButtonModule } from "@openng/optimus-ui/button";
+import { DatePickerModule } from "@openng/optimus-ui/datepicker";
+import { DividerModule } from "@openng/optimus-ui/divider";
 import { DATE_FORMAT_CALENDAR } from "../../../../core/utils/dates/dates.utils";
 import { CRUD_LABELS } from "../../../../core/utils/i18n/crud-labels.token";
 import { FormFieldBaseComponent } from "../form-field-base.component";

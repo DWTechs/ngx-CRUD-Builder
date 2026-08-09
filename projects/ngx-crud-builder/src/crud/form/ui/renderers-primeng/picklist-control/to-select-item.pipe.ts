@@ -1,5 +1,5 @@
 import { Pipe } from "@angular/core";
-import { SelectItem } from "primeng/api";
+import { SelectItem } from "@openng/optimus-ui/api";
 
 @Pipe({
   standalone: true,

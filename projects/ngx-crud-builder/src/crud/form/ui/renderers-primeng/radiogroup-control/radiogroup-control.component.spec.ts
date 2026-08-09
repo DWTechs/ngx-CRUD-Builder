@@ -4,7 +4,7 @@ import { provideAnimations } from "@angular/platform-browser/animations";
 import { CONTROL_TYPES } from "../../../../core/models/control-type.model";
 import { CrudItemOptions } from "../../../../core/models/crud-item-options.model";
 import { FormFieldInteractionEvent } from "../../../../core/models/form-field-interaction.event";
-import { RadioButtonClickEvent } from "primeng/radiobutton";
+import { RadioButtonClickEvent } from "@openng/optimus-ui/radiobutton";
 import { RadioGroupComponent } from "./radiogroup-control.component";
 
 describe("RadioGroupComponent", () => {

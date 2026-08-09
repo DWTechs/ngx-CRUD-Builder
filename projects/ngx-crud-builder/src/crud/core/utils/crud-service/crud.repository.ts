@@ -13,7 +13,7 @@ import {
   NO_ROWS_AND_COUNT,
 } from "./no-rows";
 import { isArray } from "@dwtechs/checkard";
-import { TableLazyLoadEvent } from "primeng/table";
+import { TableLazyLoadEvent } from "@openng/optimus-ui/table";
 import { catchError, map, Observable, of, shareReplay, tap } from "rxjs";
 
 @Injectable({ providedIn: "root" })

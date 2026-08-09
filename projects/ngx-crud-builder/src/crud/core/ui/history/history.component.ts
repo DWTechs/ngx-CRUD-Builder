@@ -8,9 +8,9 @@ import {
   signal,
   ViewEncapsulation,
 } from "@angular/core";
-import { SharedModule } from "primeng/api";
-import { ButtonModule } from "primeng/button";
-import { TableModule } from "primeng/table";
+import { SharedModule } from "@openng/optimus-ui/api";
+import { ButtonModule } from "@openng/optimus-ui/button";
+import { TableModule } from "@openng/optimus-ui/table";
 import { CrudItemOptions } from "../../models/crud-item-options.model";
 import { isEqual } from "../../utils/arrays/is-equal.utils";
 import { DATE_WITH_SECONDS_FORMAT } from "../../utils/dates/dates.utils";

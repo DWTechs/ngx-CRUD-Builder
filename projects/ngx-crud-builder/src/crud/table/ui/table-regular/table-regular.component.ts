@@ -12,16 +12,16 @@ import {
   signal,
   viewChild,
 } from "@angular/core";
-import { FilterMetadata } from "primeng/api";
-import { ContextMenuModule } from "primeng/contextmenu";
+import { FilterMetadata } from "@openng/optimus-ui/api";
+import { ContextMenuModule } from "@openng/optimus-ui/contextmenu";
 import {
   Table,
   TableColResizeEvent,
   TableLazyLoadEvent,
   TableModule,
   TablePageEvent,
-} from "primeng/table";
-import { Tooltip } from "primeng/tooltip";
+} from "@openng/optimus-ui/table";
+import { Tooltip } from "@openng/optimus-ui/tooltip";
 import { CONTROL_TYPES } from "../../../core/models/control-type.model";
 import { TableCellComponent } from "../../../core/ui/table-cell/table-cell.component";
 import { TableFilterCellPrimeComponent } from "../../../core/ui/table-filter-cell-prime/table-filter-cell-prime.component";

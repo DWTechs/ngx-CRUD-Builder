@@ -8,12 +8,12 @@ import {
   Signal,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { SelectItem, SharedModule } from "primeng/api";
-import { ButtonModule } from "primeng/button";
-import { CardModule } from "primeng/card";
-import { DialogModule } from "primeng/dialog";
-import { RippleModule } from "primeng/ripple";
-import { SelectButtonModule } from "primeng/selectbutton";
+import { SelectItem, SharedModule } from "@openng/optimus-ui/api";
+import { ButtonModule } from "@openng/optimus-ui/button";
+import { CardModule } from "@openng/optimus-ui/card";
+import { DialogModule } from "@openng/optimus-ui/dialog";
+import { RippleModule } from "@openng/optimus-ui/ripple";
+import { SelectButtonModule } from "@openng/optimus-ui/selectbutton";
 import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
 import { TableLoadingService } from "../../../core/utils/loading/table-loading.service";
 import { TableColumn } from "../../../core/utils/table/table-column.model";

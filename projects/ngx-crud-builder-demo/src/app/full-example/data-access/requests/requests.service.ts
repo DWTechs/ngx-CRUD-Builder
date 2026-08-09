@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot } from "@angular/router";
 import { Calls } from "@crud/core/utils/crud-service/crud.model";
 import { CrudRepository } from "@crud/core/utils/crud-service/crud.repository";
-import { FilterMetadata } from "primeng/api";
+import { FilterMetadata } from "@openng/optimus-ui/api";
 import { of } from "rxjs";
 import { budgetValidator } from "./request-group.validator";
 import { REQUEST_CONF } from "./request.conf";

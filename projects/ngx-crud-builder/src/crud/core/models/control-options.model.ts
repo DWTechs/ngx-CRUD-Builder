@@ -1,6 +1,6 @@
 import { Type } from "@angular/core";
 import { AsyncValidatorFn, ValidatorFn } from "@angular/forms";
-import { SelectItem } from "primeng/api";
+import { SelectItem } from "@openng/optimus-ui/api";
 import { Observable } from "rxjs";
 import { TableCtrlConfig } from "../../form/ui/renderers-primeng/table-control/table-control-config.model";
 import { ControlArrayConfig } from "./control-array-config.model";
