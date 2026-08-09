@@ -4,3 +4,12 @@
     max-height: calc(100vh - 100px);
     overflow: auto;
 }
+
+.adapter-note {
+    margin: 0.75rem 1rem 0;
+    padding: 0.65rem 1rem;
+    border-radius: 6px;
+    background-color: var(--p-yellow-100, #fff8e1);
+    color: var(--p-yellow-900, #7a5c00);
+    font-size: 0.875rem;
+}

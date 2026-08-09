@@ -71,7 +71,8 @@ export class TableDemo {
   protected tempAreColumnsConfigurable = true;
   protected tempAreColumnsResizable = true;
   protected tempSelectable = false;
-  protected tempLazy = true;
+  // Material shell only supports non-lazy mode for now
+  protected tempLazy = this.currentAdapter() !== "material";
   protected tempIsContextMenuEnabled = false;
   protected tempIsDefaultEditionDisabled = false;
   protected tempIsPreferencesModeEnabled = false;
@@ -101,7 +102,7 @@ export class TableDemo {
   protected readonly areColumnsConfigurable = signal(true);
   protected readonly areColumnsResizable = signal(true);
   protected readonly selectable = signal(false);
-  protected readonly lazy = signal(true);
+  protected readonly lazy = signal(this.currentAdapter() !== "material");
   protected readonly isContextMenuEnabled = signal(false);
   protected readonly isDefaultEditionDisabled = signal(false);
   protected readonly isPreferencesModeEnabled = signal(false);

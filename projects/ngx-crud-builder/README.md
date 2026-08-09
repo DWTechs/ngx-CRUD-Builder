@@ -6,7 +6,19 @@ An Angular component library for building dynamic forms and data tables with min
 
 > **Compatibility:** requires Angular **^21.1** and PrimeNG **^21.1** (`@primeng/themes ^21.0`, `@primeuix/themes ^2.0`, `primeicons ^7`). The library version tracks Angular's major version — use the matching major.
 
-> **Native renderer (experimental):** a `provideNativeFormFieldRenderer()` adapter exists to render form fields without PrimeNG. It covers all control types but is not production-ready — styling and edge-case behaviour are incomplete. Use `providePrimengFormFieldRenderer()` for all current integrations.
+## UI adapters — PrimeNG, Material or Native?
+
+The library renders two independent things, each with its own adapter: the **form fields** (inputs, selects, dates...) and the **table shell** (rows, sorting, pagination...). You pick one adapter per concern via `provideFormFieldRenderer(adapter)` / `provideTableRenderer(adapter)`, or both at once with `provideCrudRenderer(adapter)` when you want them visually consistent.
+
+> ⚠️ **PrimeNG is always required as a peer dependency today**, whichever adapter you choose for forms or tables. `ConfirmationService`, `MessageService`, the confirm dialog, toast, and the table toolbar (export, column management, refresh) are still built with PrimeNG components. Choosing `'material'` or `'native'` only changes how form controls and/or table rows are rendered — it does not remove the PrimeNG dependency.
+
+| Adapter | Form fields | Table shell |
+|---|---|---|
+| `'primeng'` | Full support — float labels, icon fields, all control types | Full-featured: sorting, filtering, lazy loading, column resizing, state persistence |
+| `'material'` | Full support for most control types (requires `@angular/material` + `@angular/animations`, a date adapter, and `provideAnimationsAsync()`) | Minimal shell — data display and pagination only, **non-lazy mode only** (`lazy: false`). No filtering, sorting, column resizing or state persistence yet |
+| `'native'` | Plain HTML controls, no extra dependency, lightest bundle. Covers all control types but is experimental — styling and edge cases are incomplete | **No shell available yet** — using `<tbl-table>` without a table renderer provided throws a `NullInjectorError` at runtime |
+
+Use `provideFormFieldRenderer('native')` if you only want to lighten the form bundle while keeping the PrimeNG table. There is currently no way to use `<tbl-table>` with the `'native'` adapter.
 
 ## Highlights
 
@@ -26,7 +38,8 @@ The demo app showcases the library through a form builder, a table playground, a
 ## Requirements
 
 - Angular ≥ 21
-- PrimeNG ≥ 21
+- PrimeNG ≥ 21 — **always required**, regardless of the form/table adapter you pick (see [UI adapters](#ui-adapters--primeng-material-or-native))
+- `@angular/material` + `@angular/animations` ≥ 21 — only if you use `provideFormFieldRenderer('material')` and/or `provideTableRenderer('material')`
 
 ## Installation
 
@@ -38,7 +51,17 @@ npm install @dwtechs/ngx-crud-builder
 
 ### 1. Add the required providers
 
-The library relies on PrimeNG's `ConfirmationService` and `MessageService`, and requires a PrimeNG theme to be configured via `providePrimeNG()`.
+Every app using this library needs, **regardless of the adapter chosen**:
+
+| Provider | Why |
+|---|---|
+| `providePrimeNG({ theme: ... })` | PrimeNG theme, used by the toolbar/dialogs/toast even with `'material'` or `'native'` form fields |
+| `MessageService` (from `primeng/api`) | Export-failure toast notification |
+| `ConfirmationService` (from `primeng/api`) | Table's archive/restore confirmation dialogs |
+| `provideFormFieldRenderer(adapter)` | **Required** to render form fields — throws `NullInjectorError` if omitted |
+| `provideTableRenderer(adapter)` | **Required** if you use `<tbl-table>` — throws `NullInjectorError` if omitted (no shell exists for `'native'`, see [UI adapters](#ui-adapters--primeng-material-or-native)) |
+
+`provideCrudRenderer(adapter)` is a shortcut that calls both `provideFormFieldRenderer(adapter)` and `provideTableRenderer(adapter)` for the same adapter, so forms and tables stay visually consistent.
 
 ```typescript
 // app.config.ts
@@ -63,17 +86,15 @@ export const appConfig: ApplicationConfig = {
     }),
     MessageService,
     ConfirmationService,
-    // required – both form fields and table shell, choose 'primeng' (the only table shell currently available)
-    ...provideCrudRenderer('primeng'),
+    // required – picks the adapter for both form fields and the table shell
+    ...provideCrudRenderer('primeng'), // or 'material' — see "UI adapters" above
     // optional – defaults to French
     provideCrudLabels({ /* your overrides */ }),
   ],
 };
 ```
 
-> **`ConfirmationService`** is used by the table's archive/restore confirmation dialogs.  
-> **`MessageService`** is used for the export-failure toast notification.  
-> Both must be provided at the root level (or at the level of the component tree that hosts `<tbl-table>`).
+> Using `'material'` instead of `'primeng'` above additionally requires `provideAnimationsAsync()` (or `provideNoopAnimations()`) and a date adapter such as `provideNativeDateAdapter()` from `@angular/material/core`.
 
 ### 2. Add the components
 
@@ -157,7 +178,8 @@ Choose the adapter that matches your UI stack:
 | Value | Description |
 |---|---|
 | `'primeng'` | PrimeNG controls — float labels, icon fields, full styling support |
-| `'native'` | Plain HTML controls — no PrimeNG dependency, lighter bundle |
+| `'material'` | Angular Material controls — requires `@angular/material`, `@angular/animations`, `provideAnimationsAsync()` and a date adapter. A few control types (color, files, picklist, table, custom, wysiwyg) have no Material equivalent yet |
+| `'native'` | Plain HTML controls — no PrimeNG dependency, lighter bundle, experimental |
 
 ```typescript
 import { provideFormFieldRenderer } from '@dwtechs/ngx-crud-builder';
@@ -178,7 +200,8 @@ Provides the table shell (rows, columns, sorting, filtering, pagination, column 
 
 | Value | Description |
 |---|---|
-| `'primeng'` | PrimeNG table (`p-table`) — the only shell implemented today |
+| `'primeng'` | Full-featured PrimeNG table (`p-table`) — sorting, filtering, lazy loading, column resizing, state persistence |
+| `'material'` | Minimal Angular Material table (`mat-table`) — **non-lazy mode only** (`lazy = false`); no filtering, sorting, column resizing or state persistence yet |
 
 ```typescript
 import { provideTableRenderer } from '@dwtechs/ngx-crud-builder';
@@ -193,7 +216,7 @@ export const appConfig: ApplicationConfig = {
 
 ### `provideCrudRenderer(adapter)`
 
-Convenience helper that provides both the form field renderer and the table renderer for the same adapter in one call, so the form controls and the table shell stay visually consistent (e.g. a PrimeNG form next to a PrimeNG table). Currently restricted to `'primeng'`, since `provideTableRenderer` has no native/material shell yet.
+Convenience helper that provides both the form field renderer and the table renderer for the same adapter in one call, so the form controls and the table shell stay visually consistent (e.g. a PrimeNG form next to a PrimeNG table). Restricted to `'primeng' | 'material'`, since `provideTableRenderer` has no native shell yet.
 
 ```typescript
 import { provideCrudRenderer } from '@dwtechs/ngx-crud-builder';

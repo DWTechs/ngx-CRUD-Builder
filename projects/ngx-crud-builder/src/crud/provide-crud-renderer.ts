@@ -8,10 +8,11 @@ import { provideTableRenderer } from "./table/ui/table-renderer/provide-table-re
  * next to a PrimeNG table).
  *
  * Equivalent to calling `provideFormFieldRenderer(adapter)` and
- * `provideTableRenderer(adapter)` together. Restricted to `'primeng'` since
- * `provideTableRenderer` has no native/material shell yet — use
- * `provideFormFieldRenderer('native' | 'material')` directly if you only need to
- * swap the form controls.
+ * `provideTableRenderer(adapter)` together. Restricted to `'primeng' | 'material'`
+ * since `provideTableRenderer` has no native shell yet — use
+ * `provideFormFieldRenderer('native')` directly if you only need to swap the form
+ * controls. The `'material'` table shell only supports non-lazy mode (`lazy = false`)
+ * and has no filtering, sorting, column resizing or state persistence yet.
  *
  * @example
  * // app.config.ts
@@ -19,7 +20,9 @@ import { provideTableRenderer } from "./table/ui/table-renderer/provide-table-re
  *   providers: [...provideCrudRenderer('primeng')]
  * };
  */
-export function provideCrudRenderer(adapter: "primeng"): Provider[] {
+export function provideCrudRenderer(
+  adapter: "primeng" | "material",
+): Provider[] {
   return [
     ...provideFormFieldRenderer(adapter),
     ...provideTableRenderer(adapter),

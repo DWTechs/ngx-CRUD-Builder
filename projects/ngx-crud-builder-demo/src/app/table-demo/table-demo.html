@@ -3,7 +3,18 @@
   <div class="adapter-toggle">
     <button (click)="switchAdapter('primeng')" [class.active]="currentAdapter() === 'primeng'">PrimeNG</button>
     <button (click)="switchAdapter('material')" [class.active]="currentAdapter() === 'material'">Material (WIP)</button>
+    <button (click)="switchAdapter('native')" [class.active]="currentAdapter() === 'native'">Native (WIP)</button>
   </div>
+
+  @if (currentAdapter() === 'material') {
+    <div class="adapter-note">
+      L'adaptateur Material est une version simplifiée : affichage des données et pagination uniquement, en mode non-lazy. Le filtrage, le tri, le redimensionnement de colonnes, le menu contextuel et la persistance d'état ne sont pas disponibles.
+    </div>
+  } @else if (currentAdapter() === 'native') {
+    <div class="adapter-note">
+      La fonctionnalité table n'existe pas en mode Native pour l'instant — aucun shell de table n'est fourni pour cet adaptateur.
+    </div>
+  }
 
   <div class="config-panel">
     <h3>Table Configuration</h3>
@@ -151,8 +162,9 @@
         <div class="demo-control">
           <p-checkbox 
             [(ngModel)]="tempLazy"
+            [disabled]="currentAdapter() === 'material'"
             binary="true" />
-          <label>Lazy Loading</label>
+          <label>Lazy Loading{{ currentAdapter() === 'material' ? ' (not supported by Material shell)' : '' }}</label>
         </div>
 
         <div class="demo-control">
@@ -226,7 +238,7 @@
 
   <div class="live-demo">
     <h3>Preview</h3>
-    @if (tableConfig()) {
+    @if (tableConfig() && currentAdapter() !== 'native') {
       <tbl-table
         [config]="tableConfig()!"
         [entityId]="'demo-user'"
