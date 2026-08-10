@@ -7,7 +7,7 @@
     "crud",
     "table",
     "form",
-    "primeng",
+    "optimus-ui",
     "data-table",
     "reactive-forms"
   ],
@@ -22,24 +22,21 @@
   "license": "MIT",
   "author": "DWTechs",
   "peerDependencies": {
-    "@angular/common": "^21.0.0",
-    "@angular/core": "^21.0.0",
-    "@angular/forms": "^21.0.0",
-    "@angular/router": "^21.0.0",
-    "@angular/localize": "^21.0.0",
-    "@angular/cdk": "^21.0.0",
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "@angular/forms": "^22.0.0",
+    "@angular/router": "^22.0.0",
+    "@angular/localize": "^22.0.0",
+    "@angular/cdk": "^22.0.0",
     "@dwtechs/checkard": "^3.6.1",
     "@dwtechs/csvx": "^0.3.1",
     "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",
-    "primeng": "^21.0.0",
-    "@primeng/themes": "^21.0.0",
-    "@primeuix/themes": "^2.0.3",
-    "primeicons": "^7.0.0",
+    "@openng/optimus-ui": "^2.0.0-rc.0",
     "quill": "^2.0.3",
     "rxjs": "^7.4.0",
-    "@angular/material": "^21.0.0",
-    "@angular/animations": "^21.0.0"
+    "@angular/material": "^22.0.0",
+    "@angular/animations": "^22.0.0"
   },
   "peerDependenciesMeta": {
     "@angular/material": {

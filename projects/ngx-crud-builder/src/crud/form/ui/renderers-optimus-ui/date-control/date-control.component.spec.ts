@@ -358,7 +358,7 @@ describe("DateControlComponent", () => {
      * ========================================
      */
     describe("Template Features", () => {
-        it("should render with PrimeNG DatePicker component", () => {
+        it("should render with Optimus UI DatePicker component", () => {
             fixture.detectChanges();
             const datepicker = fixture.nativeElement.querySelector("p-datepicker");
             expect(datepicker).toBeTruthy();

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
-import { FormFieldBaseComponent } from "../../renderers-primeng/form-field-base.component";
+import { FormFieldBaseComponent } from "../../renderers-optimus-ui/form-field-base.component";
 
 @Component({
   selector: "frm-material-select-button-control",

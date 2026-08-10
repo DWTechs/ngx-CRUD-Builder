@@ -1,11 +1,11 @@
 /**
  * Global test setup for the ngx-crud-builder library.
  * Polyfills APIs that jsdom does not implement but are required by
- * PrimeNG components and some specs.
+ * Optimus UI components and some specs.
  */
 
 // ── ResizeObserver ────────────────────────────────────────────────────────────
-// PrimeNG's FrozenColumn (and other components) call ResizeObserver in
+// Optimus UI's FrozenColumn (and other components) call ResizeObserver in
 // ngAfterViewInit. jsdom does not implement it.
 if (typeof ResizeObserver === "undefined") {
   (globalThis as unknown as Record<string, unknown>).ResizeObserver = class {
@@ -68,7 +68,7 @@ if (typeof DataTransfer === "undefined") {
 }
 
 // ── matchMedia ────────────────────────────────────────────────────────────────
-// jsdom does not implement window.matchMedia. PrimeNG PickList (and others) call
+// jsdom does not implement window.matchMedia. Optimus UI PickList (and others) call
 // it during component initialization.
 if (typeof window !== "undefined" && typeof window.matchMedia === "undefined") {
   Object.defineProperty(window, "matchMedia", {

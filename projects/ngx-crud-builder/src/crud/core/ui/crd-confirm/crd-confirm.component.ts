@@ -5,7 +5,7 @@ import { CrdModalComponent } from "../crd-modal/crd-modal.component";
 
 /**
  * Framework-agnostic confirmation dialog for `ConfirmService`. Plain HTML/CSS — no
- * PrimeNG/Material dependency, used regardless of the form field / table adapter chosen.
+ * Optimus UI/Material dependency, used regardless of the form field / table adapter chosen.
  */
 @Component({
   selector: "crd-confirm",

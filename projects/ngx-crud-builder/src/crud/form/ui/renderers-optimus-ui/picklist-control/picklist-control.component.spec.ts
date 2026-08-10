@@ -341,7 +341,7 @@ describe("PicklistControlComponent", () => {
    * ========================================
    */
   describe("Template Features", () => {
-    it("should render with PrimeNG PickList component", () => {
+    it("should render with Optimus UI PickList component", () => {
       fixture.detectChanges();
       const picklist = fixture.nativeElement.querySelector("p-picklist");
       expect(picklist).toBeTruthy();

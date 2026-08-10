@@ -8,12 +8,12 @@ import {
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
-import { TableComponent } from "@table/table.component";
 import { ButtonModule } from "@openng/optimus-ui/button";
 import { CheckboxModule } from "@openng/optimus-ui/checkbox";
 import { InputTextModule } from "@openng/optimus-ui/inputtext";
 import { SelectModule } from "@openng/optimus-ui/select";
 import { TooltipModule } from "@openng/optimus-ui/tooltip";
+import { TableComponent } from "@table/table.component";
 import { DEMO_CONF } from "../demo.conf";
 import { ADAPTER_STORAGE_KEY } from "../provide-crud-builder-config";
 import { TableDemoMockService } from "./table-demo-mock.service";
@@ -45,7 +45,7 @@ export class TableDemo {
   constructor(protected readonly mockService: TableDemoMockService) {}
 
   protected readonly currentAdapter = signal(
-    localStorage.getItem(ADAPTER_STORAGE_KEY) ?? "primeng",
+    localStorage.getItem(ADAPTER_STORAGE_KEY) ?? "optimus-ui",
   );
 
   protected switchAdapter(type: string): void {

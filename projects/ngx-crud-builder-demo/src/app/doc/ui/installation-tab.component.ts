@@ -8,18 +8,16 @@ import { Component } from "@angular/core";
       <h2>Prerequisites</h2>
 
       <h3>Framework version</h3>
-      <p>Angular version must be <code>^20</code>.</p>
+      <p>Angular version must be <code>^22</code>.</p>
 
       <h3>Peer Dependencies</h3>
       <p>Required peer dependencies that must be installed:</p>
-      <pre><code>// PrimeNG dependencies
-"primeng": "20.3.0",
-"primeicons": "7.0.0",
-"&#64;primeng/themes": "20.3.0",
+      <pre><code>// Optimus UI dependencies
+"&#64;openng/optimus-ui": "^2.0.0-rc.0",
 // Required by table module
 "exceljs": "4.4.0",
 "file-saver": "2.0.5",
-// Required by PrimeNG
+// Required by Optimus UI
 "chart.js": "3.3.2",
 "quill": "2.0.2",
 // Dev dependencies
@@ -34,15 +32,15 @@ import { Component } from "@angular/core";
         <li>Paste it in your project</li>
       </ul>
 
-      <h3>2. Import styles from PrimeNG</h3>
-      <p>In your main.ts file, where you provide the root configuration for the application, add the PrimeNG provider:</p>
+      <h3>2. Import styles from Optimus UI</h3>
+      <p>In your main.ts file, where you provide the root configuration for the application, add the Optimus UI provider:</p>
       <pre><code>import {{ '{' }} ApplicationConfig {{ '}' }} from '&#64;angular/core';
-import {{ '{' }} providePrimeNG {{ '}' }} from 'primeng/config';
-import Aura from '&#64;primeuix/themes/aura';
+import {{ '{' }} provideOptimus {{ '}' }} from '&#64;openng/optimus-ui/config';
+import Aura from '&#64;openng/optimus-ui-themes/aura';
 
 export const appConfig: ApplicationConfig = {{ '{' }}
     providers: [
-        providePrimeNG({{ '{' }}
+        provideOptimus({{ '{' }}
             theme: {{ '{' }}
                 preset: Aura
             {{ '}' }}
@@ -50,16 +48,16 @@ export const appConfig: ApplicationConfig = {{ '{' }}
     ]
 {{ '}' }};</code></pre>
 
-      <p><strong>Note:</strong> Check documentation if you need more customization: <a href="https://primeng.org/installation" target="_blank">https://primeng.org/installation</a></p>
+      <p><strong>Note:</strong> Check documentation if you need more customization: <a href="https://www.openng.org/" target="_blank">https://www.openng.org/</a></p>
 
-      <p>Then, in your angular.json file, add styles needed by PrimeNG:</p>
+      <p>Then, in your angular.json file, add styles needed by Optimus UI:</p>
       <pre><code>"styles": [
-    "node_modules/primeicons/primeicons.css",
+    "node_modules/&#64;openng/icons/openng-icons.css",
     "node_modules/quill/dist/quill.core.css",
     "node_modules/quill/dist/quill.snow.css",
 ]</code></pre>
 
-      <p><strong>Note:</strong> Quill dependencies is used by primeng to make the rich-text editor work</p>
+      <p><strong>Note:</strong> Quill dependencies is used by Optimus UI to make the rich-text editor work</p>
 
       <h3>3. Add paths to TSConfig</h3>
       <p>Add crud lib paths to tsconfig.json:</p>
@@ -93,26 +91,26 @@ export const appConfig: ApplicationConfig = {{ '{' }}
       <h3>2. Choose an adapter</h3>
       <p>
         Form fields and the table shell are decoupled from the library core and each need an adapter. Pick <strong>one</strong>
-        adapter and use it for both — don't mix, e.g. a PrimeNG form with a Material table — via <code>provideCrudRenderer()</code>:
+        adapter and use it for both — don't mix, e.g. an Optimus UI form with a Material table — via <code>provideCrudRenderer()</code>:
       </p>
       <pre><code>import {{ '{' }} provideCrudRenderer {{ '}' }} from '&#64;dwtechs/ngx-crud-builder';
 
 export const appConfig: ApplicationConfig = {{ '{' }}
   providers: [
-    ...provideCrudRenderer('primeng'), // or 'material'
+    ...provideCrudRenderer('optimus-ui'), // or 'material'
   ],
 {{ '}' }};</code></pre>
       <table>
         <thead><tr><th>Value</th><th>Description</th></tr></thead>
         <tbody>
-          <tr><td><code>'primeng'</code></td><td>PrimeNG controls with float label, icon field, and full styling support (default)</td></tr>
+          <tr><td><code>'optimus-ui'</code></td><td>Optimus UI controls with float label, icon field, and full styling support (default)</td></tr>
           <tr><td><code>'material'</code></td><td>Angular Material controls. Requires <code>&#64;angular/material</code> and <code>&#64;angular/animations</code>. Controls without a Material equivalent (color, files, picklist, table, custom, wysiwyg) are left unsupported. Table shell is non-lazy only.</td></tr>
         </tbody>
       </table>
       <p>
         There is no <code>'native'</code> table shell yet, so <code>provideCrudRenderer</code> only accepts
-        <code>'primeng'</code> or <code>'material'</code>. If you don't use <code>&lt;tbl-table&gt;</code>, you can use
-        <code>provideFormFieldRenderer('native')</code> instead for a lighter, PrimeNG-free form.
+        <code>'optimus-ui'</code> or <code>'material'</code>. If you don't use <code>&lt;tbl-table&gt;</code>, you can use
+        <code>provideFormFieldRenderer('native')</code> instead for a lighter, Optimus UI-free form.
       </p>
       <p>Omitting the adapter provider will throw a <code>NullInjectorError</code> at runtime.</p>
 

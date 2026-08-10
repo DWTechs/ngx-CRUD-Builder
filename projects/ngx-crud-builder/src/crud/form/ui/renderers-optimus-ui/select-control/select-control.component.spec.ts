@@ -4,16 +4,17 @@ import { provideAnimations } from "@angular/platform-browser/animations";
 import { CONTROL_TYPES } from "../../../../core/models/control-type.model";
 import { CrudItemOptions } from "../../../../core/models/crud-item-options.model";
 import { FormFieldInteractionEvent } from "../../../../core/models/form-field-interaction.event";
-import { MultiSelectControlComponent } from "./multi-select-control.component";
+import { required } from "../../../utils/common.validators";
+import { SelectControlComponent } from "./select-control.component";
 
-describe("MultiSelectControlComponent", () => {
-    let component: MultiSelectControlComponent;
-    let fixture: ComponentFixture<MultiSelectControlComponent>;
+describe("SelectControlComponent", () => {
+    let component: SelectControlComponent;
+    let fixture: ComponentFixture<SelectControlComponent>;
 
     const createDefaultConfig = (): CrudItemOptions => ({
-        key: "testMultiSelect",
-        label: "Test Multi Select",
-        controlType: CONTROL_TYPES.MULTISELECT,
+        key: "testSelect",
+        label: "Test Select",
+        controlType: CONTROL_TYPES.SELECT,
         options: [
             { label: "Option 1", value: "opt1" },
             { label: "Option 2", value: "opt2" },
@@ -23,15 +24,15 @@ describe("MultiSelectControlComponent", () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [MultiSelectControlComponent, ReactiveFormsModule],
+            imports: [SelectControlComponent, ReactiveFormsModule],
             providers: [provideAnimations()],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(MultiSelectControlComponent);
+        fixture = TestBed.createComponent(SelectControlComponent);
         component = fixture.componentInstance;
 
         fixture.componentRef.setInput("config", createDefaultConfig());
-        fixture.componentRef.setInput("control", new FormControl([]));
+        fixture.componentRef.setInput("control", new FormControl(""));
         fixture.componentRef.setInput("isFormReadonly", false);
     });
 
@@ -64,22 +65,22 @@ describe("MultiSelectControlComponent", () => {
      * ========================================
      */
     describe("Rendering & DOM", () => {
-        it("should render p-multiSelect element", () => {
+        it("should render p-select element", () => {
             fixture.detectChanges();
-            const multiSelect = fixture.nativeElement.querySelector("p-multiselect");
-            expect(multiSelect).toBeTruthy();
+            const select = fixture.nativeElement.querySelector("p-select");
+            expect(select).toBeTruthy();
         });
 
         it("should append dropdown to body", () => {
             fixture.detectChanges();
-            const multiSelect = fixture.nativeElement.querySelector("p-multiselect");
-            expect(multiSelect.getAttribute("appendto")).toBe("body");
+            const select = fixture.nativeElement.querySelector("p-select");
+            expect(select.getAttribute("appendto")).toBe("body");
         });
 
-        it("should set display mode to chip", () => {
+        it("should set filter placeholder", () => {
             fixture.detectChanges();
-            const multiSelect = fixture.nativeElement.querySelector("p-multiselect");
-            expect(multiSelect.getAttribute("display")).toBe("chip");
+            const select = fixture.nativeElement.querySelector("p-select");
+            expect(select.getAttribute("filterplaceholder")).toBe("---");
         });
     });
 
@@ -90,21 +91,21 @@ describe("MultiSelectControlComponent", () => {
      */
     describe("Input Binding & Configuration", () => {
         it("should bind formControl to the component control", () => {
-            const testControl = new FormControl(["opt1", "opt2"]);
+            const testControl = new FormControl("opt1");
             fixture.componentRef.setInput("control", testControl);
             fixture.detectChanges();
 
             expect(component.control()).toBe(testControl);
-            expect(component.control().value).toEqual(["opt1", "opt2"]);
+            expect(component.control().value).toBe("opt1");
         });
 
         it("should display placeholder from config", () => {
             const config = createDefaultConfig();
-            config.controlOptions = { placeholder: "Select options..." };
+            config.controlOptions = { placeholder: "Choose option..." };
             fixture.componentRef.setInput("config", config);
             fixture.detectChanges();
 
-            expect(component.placeholder()).toBe("Select options...");
+            expect(component.placeholder()).toBe("Choose option...");
         });
 
         it("should handle empty placeholder", () => {
@@ -116,31 +117,23 @@ describe("MultiSelectControlComponent", () => {
             fixture.detectChanges();
             expect(component.selectOptions().length).toBe(3);
             expect(component.selectOptions()[0].label).toBe("Option 1");
+            expect(component.selectOptions()[0].value).toBe("opt1");
         });
 
-        it("should set maxSelectedLabels with default value", () => {
+        it("should show clear button when not required", () => {
             fixture.detectChanges();
-            // Default is 5, accessed via options()
-            expect(component.options().maxSelectedLabels ?? 5).toBe(5);
+            expect(component.isRequired()).toBe(false);
         });
 
-        it("should set maxSelectedLabels from config", () => {
+        it("should hide clear button when required", () => {
             const config = createDefaultConfig();
-            config.controlOptions = { maxSelectedLabels: 3 };
+            config.controlOptions = { validators: [required] };
+            const control = new FormControl("", [required]);
             fixture.componentRef.setInput("config", config);
+            fixture.componentRef.setInput("control", control);
             fixture.detectChanges();
 
-            expect(component.options().maxSelectedLabels).toBe(3);
-        });
-
-        it("should enable filter by default", () => {
-            fixture.detectChanges();
-            expect(component.options().areOptionsFilterable ?? true).toBe(true);
-        });
-
-        it("should enable toggle all by default", () => {
-            fixture.detectChanges();
-            expect(component.options().isSelectAllEnabled ?? true).toBe(true);
+            expect(component.isRequired()).toBe(true);
         });
     });
 
@@ -155,7 +148,7 @@ describe("MultiSelectControlComponent", () => {
 
             component.fieldInteraction.subscribe((event: FormFieldInteractionEvent) => {
                 expect(event.interactionType).toBe("valueChange");
-                expect(event.key).toBe("testMultiSelect");
+                expect(event.key).toBe("testSelect");
                 ;
             });
 
@@ -220,93 +213,65 @@ describe("MultiSelectControlComponent", () => {
 
     /**
      * ========================================
-     * SECTION 5: MULTISELECT-SPECIFIC FEATURES
+     * SECTION 5: SELECT-SPECIFIC FEATURES
      * ========================================
      */
-    describe("MultiSelect-Specific Features", () => {
-        it("should handle multiple selections", () => {
-            const control = new FormControl(["opt1", "opt3"]);
+    describe("Select-Specific Features", () => {
+        it("should handle single selection", () => {
+            const control = new FormControl("opt2");
             fixture.componentRef.setInput("control", control);
             fixture.detectChanges();
 
-            expect(control.value).toEqual(["opt1", "opt3"]);
-            expect(control.value?.length).toBe(2);
+            expect(control.value).toBe("opt2");
         });
 
-        it("should handle empty selection", () => {
-            const control = new FormControl([]);
+        it("should allow clearing selection when not required", () => {
+            const control = new FormControl("opt1");
             fixture.componentRef.setInput("control", control);
             fixture.detectChanges();
 
-            expect(control.value).toEqual([]);
+            expect(component.isRequired()).toBe(false);
+
+            control.setValue(null);
+            expect(control.value).toBeNull();
         });
 
-        it("should handle all items selected", () => {
-            const control = new FormControl<string[]>(["opt1", "opt2", "opt3"]);
-            fixture.componentRef.setInput("control", control);
-            fixture.detectChanges();
-
-            expect(control.value?.length).toBe(3);
-        });
-
-        it("should allow adding selections", () => {
-            const control = new FormControl(["opt1"]);
-            fixture.componentRef.setInput("control", control);
-            fixture.detectChanges();
-
-            control.setValue(["opt1", "opt2"]);
-            expect(control.value).toEqual(["opt1", "opt2"]);
-        });
-
-        it("should allow removing selections", () => {
-            const control = new FormControl(["opt1", "opt2"]);
-            fixture.componentRef.setInput("control", control);
-            fixture.detectChanges();
-
-            control.setValue(["opt1"]);
-            expect(control.value).toEqual(["opt1"]);
-        });
-
-        it("should display selections as chips", () => {
-            fixture.detectChanges();
-            const multiSelect = fixture.nativeElement.querySelector("p-multiselect");
-            expect(multiSelect.getAttribute("display")).toBe("chip");
-        });
-
-        it("should support filtering options", () => {
+        it("should handle disabled options", () => {
             const config = createDefaultConfig();
-            config.controlOptions = { areOptionsFilterable: true };
+            config.options = [
+                { label: "Option 1", value: "opt1" },
+                { label: "Option 2", value: "opt2", disabled: true },
+                { label: "Option 3", value: "opt3" },
+            ];
             fixture.componentRef.setInput("config", config);
             fixture.detectChanges();
 
-            expect(component.options().areOptionsFilterable).toBe(true);
+            const disabledOption = component
+                .selectOptions()
+                .find((o) => o.value === "opt2");
+            expect(disabledOption?.disabled).toBe(true);
         });
 
-        it("should disable filtering when configured", () => {
+        it("should render options with icons", () => {
             const config = createDefaultConfig();
-            config.controlOptions = { areOptionsFilterable: false };
+            config.options = [
+                { label: "Option 1", value: "opt1", icon: "pi pi-star" },
+                { label: "Option 2", value: "opt2" },
+            ];
             fixture.componentRef.setInput("config", config);
             fixture.detectChanges();
 
-            expect(component.options().areOptionsFilterable).toBe(false);
+            const optionWithIcon = component.selectOptions()[0];
+            expect(optionWithIcon.icon).toBe("pi pi-star");
         });
 
-        it("should support select all toggle", () => {
+        it("should handle empty options array", () => {
             const config = createDefaultConfig();
-            config.controlOptions = { isSelectAllEnabled: true };
+            config.options = [];
             fixture.componentRef.setInput("config", config);
             fixture.detectChanges();
 
-            expect(component.options().isSelectAllEnabled).toBe(true);
-        });
-
-        it("should disable select all when configured", () => {
-            const config = createDefaultConfig();
-            config.controlOptions = { isSelectAllEnabled: false };
-            fixture.componentRef.setInput("config", config);
-            fixture.detectChanges();
-
-            expect(component.options().isSelectAllEnabled).toBe(false);
+            expect(component.selectOptions().length).toBe(0);
         });
     });
 
@@ -324,7 +289,7 @@ describe("MultiSelectControlComponent", () => {
         });
 
         it("should reflect disabled state from control", () => {
-            const disabledControl = new FormControl({ value: [], disabled: true });
+            const disabledControl = new FormControl({ value: "", disabled: true });
             fixture.componentRef.setInput("control", disabledControl);
             fixture.detectChanges();
 
@@ -343,16 +308,36 @@ describe("MultiSelectControlComponent", () => {
      * ========================================
      */
     describe("Template Features", () => {
-        it("should render with PrimeNG MultiSelect component", () => {
+        it("should use custom template for selected item with icon", () => {
+            const config = createDefaultConfig();
+            config.options = [{ label: "Star", value: "star", icon: "pi pi-star" }];
+            const control = new FormControl("star");
+            fixture.componentRef.setInput("config", config);
+            fixture.componentRef.setInput("control", control);
             fixture.detectChanges();
-            const multiSelect = fixture.nativeElement.querySelector("p-multiselect");
-            expect(multiSelect).toBeTruthy();
+
+            // Template rendering is handled by Optimus UI internally
+            expect(component.selectOptions()[0].icon).toBe("pi pi-star");
         });
 
-        it("should set filter placeholder", () => {
+        it("should use custom template for dropdown items with icon", () => {
+            const config = createDefaultConfig();
+            config.options = [
+                { label: "Item 1", value: "item1", icon: "pi pi-home" },
+                { label: "Item 2", value: "item2", icon: "pi pi-user" },
+            ];
+            fixture.componentRef.setInput("config", config);
             fixture.detectChanges();
-            const multiSelect = fixture.nativeElement.querySelector("p-multiselect");
-            expect(multiSelect.getAttribute("filterplaceholder")).toBe("---");
+
+            expect(component.selectOptions()[0].icon).toBeDefined();
+            expect(component.selectOptions()[1].icon).toBeDefined();
+        });
+
+        it("should handle items without icons", () => {
+            fixture.detectChanges();
+
+            const optionWithoutIcon = component.selectOptions()[0];
+            expect(optionWithoutIcon.icon).toBeUndefined();
         });
     });
 
@@ -379,44 +364,33 @@ describe("MultiSelectControlComponent", () => {
             expect(component.selectOptions()).toEqual([]);
         });
 
-        it("should handle empty options array", () => {
-            const config = createDefaultConfig();
-            config.options = [];
-            fixture.componentRef.setInput("config", config);
-            fixture.detectChanges();
-
-            expect(component.selectOptions().length).toBe(0);
-        });
-
-        it("should handle selections with invalid values", () => {
-            const control = new FormControl(["opt1", "invalid"]);
+        it("should handle invalid selected value", () => {
+            const control = new FormControl("invalid-value");
             fixture.componentRef.setInput("control", control);
             fixture.detectChanges();
 
-            expect(control.value).toEqual(["opt1", "invalid"]);
+            expect(control.value).toBe("invalid-value");
         });
 
-        it("should handle duplicate selections", () => {
-            const control = new FormControl(["opt1", "opt1"]);
-            fixture.componentRef.setInput("control", control);
-            fixture.detectChanges();
-
-            expect(control.value).toEqual(["opt1", "opt1"]);
-        });
-
-        it("should handle disabled options", () => {
+        it("should handle options with duplicate values", () => {
             const config = createDefaultConfig();
             config.options = [
-                { label: "Option 1", value: "opt1" },
-                { label: "Option 2", value: "opt2", disabled: true },
+                { label: "Option 1", value: "duplicate" },
+                { label: "Option 2", value: "duplicate" },
             ];
             fixture.componentRef.setInput("config", config);
             fixture.detectChanges();
 
-            const disabledOption = component
-                .selectOptions()
-                .find((o) => o.value === "opt2");
-            expect(disabledOption?.disabled).toBe(true);
+            expect(component.selectOptions().length).toBe(2);
+        });
+
+        it("should handle very long option labels", () => {
+            const config = createDefaultConfig();
+            config.options = [{ label: "A".repeat(200), value: "long" }];
+            fixture.componentRef.setInput("config", config);
+            fixture.detectChanges();
+
+            expect(component.selectOptions()[0].label?.length).toBe(200);
         });
     });
 });

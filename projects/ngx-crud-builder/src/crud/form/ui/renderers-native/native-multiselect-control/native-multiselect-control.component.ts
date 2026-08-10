@@ -10,7 +10,7 @@ import {
 import { toObservable, toSignal } from "@angular/core/rxjs-interop";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { startWith, switchMap } from "rxjs";
-import { FormFieldBaseComponent } from "../../renderers-primeng/form-field-base.component";
+import { FormFieldBaseComponent } from "../../renderers-optimus-ui/form-field-base.component";
 
 @Component({
   selector: "frm-native-multiselect-control",

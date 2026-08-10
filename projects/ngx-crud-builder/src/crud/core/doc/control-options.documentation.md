@@ -434,7 +434,7 @@ The following options are available for autocomplete input fields (`CONTROL_TYPE
 
 ### `ExtendedSelectItem` Interface
 
-Options returned by `searchOptionsFn` (and supplied to multi-select controls) follow the `ExtendedSelectItem` shape, which extends PrimeNG's `SelectItem`:
+Options returned by `searchOptionsFn` (and supplied to multi-select controls) follow the `ExtendedSelectItem` shape, which extends Optimus UI's `SelectItem`:
 
 | Property | Type | Description |
 |----------|------|-------------|

@@ -140,9 +140,6 @@ export class FormComponent<
   /** Emitted when user interacts with form fields */
   public readonly fieldInteraction = output<FormFieldInteractionEvent>();
 
-  /** Emitted when form values change (two-way binding) */
-  public readonly modelChange = output<any>();
-
   /** Emitted when form is reset (if showReset is true) */
   public readonly reset = output<void>();
 
@@ -335,7 +332,6 @@ export class FormComponent<
         const evaluatedValues = this.evaluatePendingActions(values);
         this.pendingActions.set([]);
         this.model.set(evaluatedValues);
-        this.modelChange.emit(evaluatedValues);
         this.updateControlsWithConditions();
         this.validityChange.emit(this.form()?.valid ?? false);
       });

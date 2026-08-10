@@ -16,7 +16,7 @@ import {
 import { provideTableRenderer } from "@crud/table/ui/table-renderer/provide-table-renderer";
 import { CRUD_LABELS_CONFIG } from "./crud-labels-en";
 import { AclService } from "./full-example/data-access/acl.service";
-import { PrimeNgTranslationsEn } from "./primeng-translations-en";
+import { OptimusUiTranslationsEn } from "./optimus-ui-translations-en";
 import { RawHistoryRow } from "./table-demo/table-demo-mock.service";
 
 const FORM_CONFIG: FormTokenData = {
@@ -44,14 +44,14 @@ const CONFIG: AppConfig = {
 export const ADAPTER_STORAGE_KEY = "crud_builder_adapter";
 
 const adapter = (localStorage.getItem(ADAPTER_STORAGE_KEY) ??
-  "primeng") as FormFieldAdapterType;
+  "optimus-ui") as FormFieldAdapterType;
 console.log("Using adapter:", adapter);
 
 export function provideCrudBuilderConfig() {
   return makeEnvironmentProviders([
     { provide: LOCALE_ID, useValue: "fr" },
     { provide: APP_CONFIG, useValue: CONFIG },
-    provideCrudLabels(CRUD_LABELS_CONFIG, PrimeNgTranslationsEn),
+    provideCrudLabels(CRUD_LABELS_CONFIG, OptimusUiTranslationsEn),
     { provide: APP_FORM_CONFIG, useValue: FORM_CONFIG }, // remove if no @form
     {
       provide: HISTORY_MAPPER,
@@ -68,9 +68,9 @@ export function provideCrudBuilderConfig() {
       },
     },
     { provide: ACL_ADAPTER, useExisting: AclService },
-    // table shell only exists for primeng/material; native reproduces the
+    // table shell only exists for optimus-ui/material; native reproduces the
     // "no table available" error for the adapter switcher demo
-    ...(adapter === "primeng" || adapter === "material"
+    ...(adapter === "optimus-ui" || adapter === "material"
       ? provideTableRenderer(adapter)
       : []),
     provideFormFieldRenderer(adapter),

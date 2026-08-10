@@ -8,9 +8,9 @@ import {
 import { SnackbarService } from "../../../../../core/utils/snackbar/snackbar.service";
 import { DownloadService } from "../../../../core/utils/download/download.service";
 import { CRUD_LABELS } from "../../../../core/utils/i18n/crud-labels.token";
-import { FileInfo } from "../../renderers-primeng/file-upload-input/file-info.class";
-import { FileNamePipe } from "../../renderers-primeng/file-upload-input/file-name.pipe";
-import { FormFieldBaseComponent } from "../../renderers-primeng/form-field-base.component";
+import { FileInfo } from "../../renderers-optimus-ui/file-upload-input/file-info.class";
+import { FileNamePipe } from "../../renderers-optimus-ui/file-upload-input/file-name.pipe";
+import { FormFieldBaseComponent } from "../../renderers-optimus-ui/form-field-base.component";
 
 @Component({
   selector: "frm-native-file-upload-input",

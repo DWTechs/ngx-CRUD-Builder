@@ -43,7 +43,7 @@ import { ExcelExportMode } from "../core/utils/table/export-mode.model";
 import { FilterLevel } from "../core/utils/table/filter-level.model";
 import { TableStateService } from "../core/utils/table/table-state.service";
 import { FORM_ADAPTER } from "../form/ui/field-renderer/provide-form-field-renderer";
-import { FileInfo } from "../form/ui/renderers-primeng/file-upload-input/file-info.class";
+import { FileInfo } from "../form/ui/renderers-optimus-ui/file-upload-input/file-info.class";
 import { LabelStrategy } from "../form/utils/label-strategy.model";
 import { TableConfigService } from "../table/data-access/table-config.service";
 import { ExtendedTableConfig } from "./data-access/table-config.model";
@@ -56,11 +56,11 @@ import { cleanFilters } from "./utils/filters/clean-filters.utils";
 import {
   applyDefaultFilters,
   getFilters,
-} from "./utils/filters/primeng-filters.builder";
+} from "./utils/filters/table-filters.builder";
 import {
   applyDefaultSort,
   getDefaultSort,
-} from "./utils/sort/primeng-sort.builder";
+} from "./utils/sort/table-sort.builder";
 import { TableColumnsStorage } from "./utils/views/table-columns.storage";
 import { ColumnResizeEvent } from "./utils/views/table-config.model";
 
@@ -72,13 +72,13 @@ function resolveTableRenderer() {
   const tableRenderer = inject(TABLE_RENDERER, { optional: true });
   if (tableRenderer) return tableRenderer;
   const formAdapter = inject(FORM_ADAPTER, { optional: true });
-  if (formAdapter && formAdapter !== "primeng") {
+  if (formAdapter && formAdapter !== "optimus-ui") {
     throw new Error(
-      `No table available for the '${formAdapter}' adapter (WIP). Provide provideTableRenderer('primeng') to render the table with the PrimeNG shell.`,
+      `No table available for the '${formAdapter}' adapter (WIP). Provide provideTableRenderer('optimus-ui') to render the table with the Optimus UI shell.`,
     );
   }
   throw new Error(
-    "No table renderer provided. Use provideTableRenderer('primeng') or provideCrudRenderer('primeng').",
+    "No table renderer provided. Use provideTableRenderer('optimus-ui') or provideCrudRenderer('optimus-ui').",
   );
 }
 
@@ -122,7 +122,7 @@ export class TableComponent<TData extends CrudItemBase>
   private readonly labels = inject(CRUD_LABELS);
 
   /** Table shell component resolved from TABLE_RENDERER. Throws at runtime if no
-   * provider is configured — use `provideTableRenderer('primeng')` in your app config. */
+   * provider is configured — use `provideTableRenderer('optimus-ui')` in your app config. */
   protected readonly tableRenderer = resolveTableRenderer();
 
   // Inputs
@@ -518,7 +518,7 @@ export class TableComponent<TData extends CrudItemBase>
         const params = cleanFilters(event);
         this.loader.load({ params, partial: "false" });
       });
-      // PrimeNG's own initial lazy-load emission is disabled (lazyLoadOnInit=false)
+      // Optimus UI's own initial lazy-load emission is disabled (lazyLoadOnInit=false)
       // because it fires before the dynamically-rendered table's outputs are
       // subscribed to (see ngAfterViewInit), so the first load is triggered here.
       this.onLazyLoad({

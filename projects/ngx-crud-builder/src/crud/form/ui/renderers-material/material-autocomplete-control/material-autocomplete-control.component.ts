@@ -15,7 +15,7 @@ import { MatChipsModule } from "@angular/material/chips";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { startWith, switchMap } from "rxjs";
-import { FormFieldBaseComponent } from "../../renderers-primeng/form-field-base.component";
+import { FormFieldBaseComponent } from "../../renderers-optimus-ui/form-field-base.component";
 
 /** Material autocomplete adapter: single value uses matAutocomplete, multiple uses a mat-chip-grid. */
 @Component({

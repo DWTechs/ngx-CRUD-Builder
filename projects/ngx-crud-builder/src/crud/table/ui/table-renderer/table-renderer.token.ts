@@ -6,8 +6,8 @@ import { InjectionToken, Type } from "@angular/core";
  * and column resizing).
  *
  * **Required** — the application will throw a `NullInjectorError` at runtime
- * if this token is not provided. Use `provideTableRenderer('primeng')` to keep
- * the default PrimeNG behaviour.
+ * if this token is not provided. Use `provideTableRenderer('optimus-ui')` to keep
+ * the default Optimus UI behaviour.
  *
  * The provided component must accept the same inputs/outputs as `TableRegularComponent`.
  *

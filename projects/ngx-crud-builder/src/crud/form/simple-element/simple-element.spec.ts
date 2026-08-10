@@ -22,7 +22,7 @@ describe("FormSimpleElement", () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FormSimpleElement, ReactiveFormsModule],
-      providers: [provideAnimations(), provideFormFieldRenderer("primeng")],
+      providers: [provideAnimations(), provideFormFieldRenderer("optimus-ui")],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FormSimpleElement);
@@ -685,11 +685,11 @@ describe("FormSimpleElement — FORM_FIELD_COMPONENT adapter", () => {
     f.componentRef.setInput("syncValueInc", 0);
   };
 
-  describe("with PrimengFormFieldComponent (default)", () => {
+  describe("with OptimusUiFormFieldComponent (default)", () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [FormSimpleElement, ReactiveFormsModule],
-        providers: [provideAnimations(), provideFormFieldRenderer("primeng")],
+        providers: [provideAnimations(), provideFormFieldRenderer("optimus-ui")],
       }).compileComponents();
 
       fixture = TestBed.createComponent(FormSimpleElement);
@@ -697,9 +697,9 @@ describe("FormSimpleElement — FORM_FIELD_COMPONENT adapter", () => {
       setDefaultInputs(fixture);
     });
 
-    it("should render frm-primeng-form-field", () => {
+    it("should render frm-optimus-ui-form-field", () => {
       fixture.detectChanges();
-      const el = fixture.nativeElement.querySelector("frm-primeng-form-field");
+      const el = fixture.nativeElement.querySelector("frm-optimus-ui-form-field");
       expect(el).toBeTruthy();
     });
 
@@ -709,19 +709,19 @@ describe("FormSimpleElement — FORM_FIELD_COMPONENT adapter", () => {
       expect(el).toBeNull();
     });
 
-    it("should render label-wrapper inside PrimeNG form field", () => {
+    it("should render label-wrapper inside Optimus UI form field", () => {
       fixture.detectChanges();
       const el = fixture.nativeElement.querySelector("frm-label-wrapper");
       expect(el).toBeTruthy();
     });
 
-    it("should render frm-field-renderer inside PrimeNG form field", () => {
+    it("should render frm-field-renderer inside Optimus UI form field", () => {
       fixture.detectChanges();
       const el = fixture.nativeElement.querySelector("frm-field-renderer");
       expect(el).toBeTruthy();
     });
 
-    it("should forward fieldInteraction from PrimeNG form field", async () => {
+    it("should forward fieldInteraction from Optimus UI form field", async () => {
       fixture.detectChanges();
       await fixture.whenStable();
 
@@ -729,7 +729,7 @@ describe("FormSimpleElement — FORM_FIELD_COMPONENT adapter", () => {
       component.fieldInteraction.subscribe((e) => emitted.push(e));
 
       const el = fixture.debugElement.query(
-        (d) => d.name === "frm-primeng-form-field",
+        (d) => d.name === "frm-optimus-ui-form-field",
       );
       if (el) {
         const mockEvent: FormFieldInteractionEvent = {
@@ -764,9 +764,9 @@ describe("FormSimpleElement — FORM_FIELD_COMPONENT adapter", () => {
       expect(el).toBeTruthy();
     });
 
-    it("should not render PrimeNG form field", () => {
+    it("should not render Optimus UI form field", () => {
       fixture.detectChanges();
-      const el = fixture.nativeElement.querySelector("frm-primeng-form-field");
+      const el = fixture.nativeElement.querySelector("frm-optimus-ui-form-field");
       expect(el).toBeNull();
     });
 

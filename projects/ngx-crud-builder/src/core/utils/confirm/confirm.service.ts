@@ -3,7 +3,7 @@ import { ConfirmOptions } from "./confirm-options.model";
 
 /**
  * Framework-agnostic confirmation dialog state, rendered by `CrdConfirmComponent`.
- * No PrimeNG/Material dependency, used regardless of the form field / table adapter chosen.
+ * No Optimus UI/Material dependency, used regardless of the form field / table adapter chosen.
  */
 @Injectable({ providedIn: "root" })
 export class ConfirmService {

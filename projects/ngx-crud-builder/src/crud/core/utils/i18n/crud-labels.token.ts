@@ -353,7 +353,7 @@ export const CRUD_LABELS = new InjectionToken<CrudLabels>("CRUD_LABELS", {
  */
 export function provideCrudLabels(
   labels: DeepPartial<CrudLabels>,
-  primeNGTranslation?: Partial<Translation>,
+  optimusUiTranslation?: Partial<Translation>,
 ): (Provider | EnvironmentProviders)[] {
   const merged = Object.fromEntries(
     (Object.keys(DEFAULT_CRUD_LABELS) as (keyof CrudLabels)[]).map((key) => [
@@ -366,10 +366,10 @@ export function provideCrudLabels(
     { provide: CRUD_LABELS, useValue: merged },
   ];
 
-  if (primeNGTranslation) {
+  if (optimusUiTranslation) {
     providers.push(
       provideAppInitializer(() => {
-        inject(Optimus).setTranslation(primeNGTranslation);
+        inject(Optimus).setTranslation(optimusUiTranslation);
       }),
     );
   }

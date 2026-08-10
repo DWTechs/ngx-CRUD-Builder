@@ -40,7 +40,7 @@ import { Component } from "@angular/core";
         <li><strong>Configuration-driven:</strong> Define your data structure once and use it for both forms and tables</li>
         <li><strong>Type-safe:</strong> Full TypeScript support with comprehensive type definitions</li>
         <li><strong>Reactive forms:</strong> Built on Angular's reactive forms for proper validation and state management</li>
-        <li><strong>PrimeNG integration:</strong> Uses PrimeNG components for consistent UI/UX</li>
+        <li><strong>Optimus UI integration:</strong> Uses Optimus UI components for consistent UI/UX</li>
         <li><strong>Conditional logic:</strong> Show or hide fields based on form values with declarative conditions</li>
         <li><strong>Nested structures:</strong> Support for complex nested objects and arrays</li>
         <li><strong>Custom rendering:</strong> Extend default behavior with custom templates and renderers</li>
@@ -97,10 +97,10 @@ import { Component } from "@angular/core";
       <h2>Technical Requirements</h2>
 
       <ul>
-        <li>Angular 21+</li>
-        <li>PrimeNG 21+</li>
+        <li>Angular 22+</li>
+        <li>Optimus UI 2+</li>
         <li>RxJS 7+</li>
-        <li>TypeScript 5+</li>
+        <li>TypeScript 6+</li>
       </ul>
     </div>
   `,

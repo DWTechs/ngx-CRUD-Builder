@@ -31,7 +31,7 @@ import { TableActionsCellMaterialComponent } from "../table-actions-cell-materia
  * and the context menu are not implemented yet — the matching inputs are accepted
  * (to satisfy the shared contract) but have no effect.
  *
- * @see TableRegularComponent for the full-featured PrimeNG reference implementation.
+ * @see TableRegularComponent for the full-featured Optimus UI reference implementation.
  */
 @Component({
   selector: "tbl-table-regular-material",

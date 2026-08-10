@@ -4,31 +4,34 @@ import { provideAnimations } from "@angular/platform-browser/animations";
 import { CONTROL_TYPES } from "../../../../core/models/control-type.model";
 import { CrudItemOptions } from "../../../../core/models/crud-item-options.model";
 import { FormFieldInteractionEvent } from "../../../../core/models/form-field-interaction.event";
-import { INPUT_TYPES } from "../../../../core/models/input-type.model";
-import { InputNumberControlComponent } from "./inputnumber-control.component";
+import { SelectButtonControlComponent } from "./select-button-control.component";
 
-describe("InputNumberControlComponent", () => {
-    let component: InputNumberControlComponent;
-    let fixture: ComponentFixture<InputNumberControlComponent>;
+describe("SelectButtonControlComponent", () => {
+    let component: SelectButtonControlComponent;
+    let fixture: ComponentFixture<SelectButtonControlComponent>;
 
     const createDefaultConfig = (): CrudItemOptions => ({
-        key: "testNumber",
-        label: "Test Number",
-        controlType: CONTROL_TYPES.INPUT,
-        type: INPUT_TYPES.NUMBER,
+        key: "testSelectButton",
+        label: "Test Select Button",
+        controlType: CONTROL_TYPES.SELECT_BUTTON,
+        options: [
+            { label: "Option 1", value: "opt1" },
+            { label: "Option 2", value: "opt2" },
+            { label: "Option 3", value: "opt3" },
+        ],
     });
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [InputNumberControlComponent, ReactiveFormsModule],
+            imports: [SelectButtonControlComponent, ReactiveFormsModule],
             providers: [provideAnimations()],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(InputNumberControlComponent);
+        fixture = TestBed.createComponent(SelectButtonControlComponent);
         component = fixture.componentInstance;
 
         fixture.componentRef.setInput("config", createDefaultConfig());
-        fixture.componentRef.setInput("control", new FormControl(0));
+        fixture.componentRef.setInput("control", new FormControl(""));
         fixture.componentRef.setInput("isFormReadonly", false);
     });
 
@@ -61,10 +64,10 @@ describe("InputNumberControlComponent", () => {
      * ========================================
      */
     describe("Rendering & DOM", () => {
-        it("should render p-inputnumber element", () => {
+        it("should render p-selectButton element", () => {
             fixture.detectChanges();
-            const inputNumber = fixture.nativeElement.querySelector("p-inputnumber");
-            expect(inputNumber).toBeTruthy();
+            const selectButton = fixture.nativeElement.querySelector("p-selectbutton");
+            expect(selectButton).toBeTruthy();
         });
     });
 
@@ -75,53 +78,30 @@ describe("InputNumberControlComponent", () => {
      */
     describe("Input Binding & Configuration", () => {
         it("should bind formControl to the component control", () => {
-            const testControl = new FormControl(42);
+            const testControl = new FormControl("opt1");
             fixture.componentRef.setInput("control", testControl);
             fixture.detectChanges();
 
             expect(component.control()).toBe(testControl);
-            expect(component.control().value).toBe(42);
+            expect(component.control().value).toBe("opt1");
         });
 
-        it("should display placeholder from config", () => {
+        it("should use options from config", () => {
+            fixture.detectChanges();
+            expect(component.selectOptions().length).toBe(3);
+            expect(component.selectOptions()[0].label).toBe("Option 1");
+            expect(component.selectOptions()[0].value).toBe("opt1");
+        });
+
+        it("should handle multiple selection mode", () => {
             const config = createDefaultConfig();
-            config.controlOptions = { placeholder: "Enter number..." };
+            config.controlOptions = { multiple: true };
+            const control = new FormControl(["opt1", "opt2"]);
             fixture.componentRef.setInput("config", config);
+            fixture.componentRef.setInput("control", control);
             fixture.detectChanges();
 
-            expect(component.placeholder()).toBe("Enter number...");
-        });
-
-        it("should handle empty placeholder", () => {
-            fixture.detectChanges();
-            expect(component.placeholder()).toBe("");
-        });
-
-        it("should set min value from config", () => {
-            const config = createDefaultConfig();
-            config.controlOptions = { min: 0 };
-            fixture.componentRef.setInput("config", config);
-            fixture.detectChanges();
-
-            expect(component.options().min).toBe(0);
-        });
-
-        it("should set max value from config", () => {
-            const config = createDefaultConfig();
-            config.controlOptions = { max: 100 };
-            fixture.componentRef.setInput("config", config);
-            fixture.detectChanges();
-
-            expect(component.options().max).toBe(100);
-        });
-
-        it("should set step value from config", () => {
-            const config = createDefaultConfig();
-            config.controlOptions = { step: 5 };
-            fixture.componentRef.setInput("config", config);
-            fixture.detectChanges();
-
-            expect(component.options().step).toBe(5);
+            expect(control.value).toEqual(["opt1", "opt2"]);
         });
     });
 
@@ -131,16 +111,16 @@ describe("InputNumberControlComponent", () => {
      * ========================================
      */
     describe("User Interactions & Events", () => {
-        it("should emit fieldInteraction on input", async () => {
+        it("should emit fieldInteraction on value change", async () => {
             fixture.detectChanges();
 
             component.fieldInteraction.subscribe((event: FormFieldInteractionEvent) => {
-                expect(event.interactionType).toBe("keyup");
-                expect(event.key).toBe("testNumber");
+                expect(event.interactionType).toBe("valueChange");
+                expect(event.key).toBe("testSelectButton");
                 ;
             });
 
-            component.emitInteractionEvent("keyup");
+            component.emitInteractionEvent("valueChange");
         });
 
         it("should emit fieldInteraction on focus", async () => {
@@ -168,80 +148,70 @@ describe("InputNumberControlComponent", () => {
 
     /**
      * ========================================
-     * SECTION 5: INPUTNUMBER-SPECIFIC FEATURES
+     * SECTION 5: SELECTBUTTON-SPECIFIC FEATURES
      * ========================================
      */
-    describe("InputNumber-Specific Features", () => {
-        it("should handle integer values", () => {
-            const control = new FormControl(123);
+    describe("SelectButton-Specific Features", () => {
+        it("should handle single selection", () => {
+            const control = new FormControl("opt2");
             fixture.componentRef.setInput("control", control);
             fixture.detectChanges();
 
-            expect(control.value).toBe(123);
+            expect(control.value).toBe("opt2");
         });
 
-        it("should handle decimal values", () => {
-            const control = new FormControl(123.45);
-            fixture.componentRef.setInput("control", control);
-            fixture.detectChanges();
-
-            expect(control.value).toBe(123.45);
-        });
-
-        it("should handle negative values", () => {
-            const control = new FormControl(-50);
-            fixture.componentRef.setInput("control", control);
-            fixture.detectChanges();
-
-            expect(control.value).toBe(-50);
-        });
-
-        it("should handle zero value", () => {
-            const control = new FormControl(0);
-            fixture.componentRef.setInput("control", control);
-            fixture.detectChanges();
-
-            expect(control.value).toBe(0);
-        });
-
-        it("should respect min constraint", () => {
+        it("should handle multiple selection when configured", () => {
             const config = createDefaultConfig();
-            config.controlOptions = { min: 10 };
-            fixture.componentRef.setInput("config", config);
-            fixture.detectChanges();
-
-            expect(component.options().min).toBe(10);
-        });
-
-        it("should respect max constraint", () => {
-            const config = createDefaultConfig();
-            config.controlOptions = { max: 100 };
-            fixture.componentRef.setInput("config", config);
-            fixture.detectChanges();
-
-            expect(component.options().max).toBe(100);
-        });
-
-        it("should increment by step value", () => {
-            const config = createDefaultConfig();
-            config.controlOptions = { step: 10 };
-            const control = new FormControl(0);
+            config.controlOptions = { multiple: true };
+            const control = new FormControl(["opt1", "opt3"]);
             fixture.componentRef.setInput("config", config);
             fixture.componentRef.setInput("control", control);
             fixture.detectChanges();
 
-            control.setValue(10);
-            expect(control.value).toBe(10);
+            expect(control.value).toEqual(["opt1", "opt3"]);
         });
 
-        it("should handle decimal places configuration", () => {
+        it("should toggle selection in multiple mode", () => {
             const config = createDefaultConfig();
-            config.controlOptions = { minFractionDigits: 2, maxFractionDigits: 2 };
+            config.controlOptions = { multiple: true };
+            const control = new FormControl(["opt1"]);
+            fixture.componentRef.setInput("config", config);
+            fixture.componentRef.setInput("control", control);
+            fixture.detectChanges();
+
+            control.setValue(["opt1", "opt2"]);
+            expect(control.value).toEqual(["opt1", "opt2"]);
+        });
+
+        it("should allow unselection when configured", () => {
+            const config = createDefaultConfig();
+            config.controlOptions = { isSelectButtonOptionToggleable: true };
+            const control = new FormControl("opt1");
+            fixture.componentRef.setInput("config", config);
+            fixture.componentRef.setInput("control", control);
+            fixture.detectChanges();
+
+            control.setValue(null);
+            expect(control.value).toBeNull();
+        });
+
+        it("should handle options with icons", () => {
+            const config = createDefaultConfig();
+            config.options = [
+                { label: "Left", value: "left", icon: "pi pi-align-left" },
+                { label: "Center", value: "center", icon: "pi pi-align-center" },
+            ];
             fixture.componentRef.setInput("config", config);
             fixture.detectChanges();
 
-            expect(component.options().minFractionDigits).toBe(2);
-            expect(component.options().maxFractionDigits).toBe(2);
+            expect(component.selectOptions()[0].icon).toBe("pi pi-align-left");
+            expect(component.selectOptions()[1].icon).toBe("pi pi-align-center");
+        });
+
+        it("should display as button group", () => {
+            fixture.detectChanges();
+            const selectButton = fixture.nativeElement.querySelector("p-selectbutton");
+            expect(selectButton).toBeTruthy();
         });
     });
 
@@ -259,7 +229,7 @@ describe("InputNumberControlComponent", () => {
         });
 
         it("should reflect disabled state from control", () => {
-            const disabledControl = new FormControl({ value: 0, disabled: true });
+            const disabledControl = new FormControl({ value: "", disabled: true });
             fixture.componentRef.setInput("control", disabledControl);
             fixture.detectChanges();
 
@@ -270,6 +240,21 @@ describe("InputNumberControlComponent", () => {
             fixture.detectChanges();
             expect(component.isDisabled()).toBe(false);
         });
+
+        it("should handle disabled options", () => {
+            const config = createDefaultConfig();
+            config.options = [
+                { label: "Option 1", value: "opt1" },
+                { label: "Option 2", value: "opt2", disabled: true },
+            ];
+            fixture.componentRef.setInput("config", config);
+            fixture.detectChanges();
+
+            const disabledOption = component
+                .selectOptions()
+                .find((o) => o.value === "opt2");
+            expect(disabledOption?.disabled).toBe(true);
+        });
     });
 
     /**
@@ -278,10 +263,10 @@ describe("InputNumberControlComponent", () => {
      * ========================================
      */
     describe("Template Features", () => {
-        it("should render with PrimeNG InputNumber component", () => {
+        it("should render with Optimus UI SelectButton component", () => {
             fixture.detectChanges();
-            const inputNumber = fixture.nativeElement.querySelector("p-inputnumber");
-            expect(inputNumber).toBeTruthy();
+            const selectButton = fixture.nativeElement.querySelector("p-selectbutton");
+            expect(selectButton).toBeTruthy();
         });
     });
 
@@ -291,7 +276,7 @@ describe("InputNumberControlComponent", () => {
      * ========================================
      */
     describe("Edge Cases & Error Handling", () => {
-        it("should handle null value", () => {
+        it("should handle null value in single mode", () => {
             const control = new FormControl(null);
             fixture.componentRef.setInput("control", control);
             fixture.detectChanges();
@@ -299,39 +284,41 @@ describe("InputNumberControlComponent", () => {
             expect(control.value).toBeNull();
         });
 
-        it("should handle undefined value", () => {
-            const control = new FormControl(undefined);
-            fixture.componentRef.setInput("control", control);
-            fixture.detectChanges();
-
-            // InputNumber control converts undefined to null
-            expect(control.value).toBeNull();
-        });
-
-        it("should handle very large numbers", () => {
-            const control = new FormControl(9999999999);
-            fixture.componentRef.setInput("control", control);
-            fixture.detectChanges();
-
-            expect(control.value).toBe(9999999999);
-        });
-
-        it("should handle very small decimal numbers", () => {
-            const control = new FormControl(0.0001);
-            fixture.componentRef.setInput("control", control);
-            fixture.detectChanges();
-
-            expect(control.value).toBe(0.0001);
-        });
-
-        it("should handle negative min and max", () => {
+        it("should handle empty array in multiple mode", () => {
             const config = createDefaultConfig();
-            config.controlOptions = { min: -100, max: -10 };
+            config.controlOptions = { multiple: true };
+            const control = new FormControl([]);
+            fixture.componentRef.setInput("config", config);
+            fixture.componentRef.setInput("control", control);
+            fixture.detectChanges();
+
+            expect(control.value).toEqual([]);
+        });
+
+        it("should handle undefined options", () => {
+            const config = createDefaultConfig();
+            delete config.options;
             fixture.componentRef.setInput("config", config);
             fixture.detectChanges();
 
-            expect(component.options().min).toBe(-100);
-            expect(component.options().max).toBe(-10);
+            expect(component.selectOptions()).toEqual([]);
+        });
+
+        it("should handle empty options array", () => {
+            const config = createDefaultConfig();
+            config.options = [];
+            fixture.componentRef.setInput("config", config);
+            fixture.detectChanges();
+
+            expect(component.selectOptions().length).toBe(0);
+        });
+
+        it("should handle invalid selected value", () => {
+            const control = new FormControl("invalid-value");
+            fixture.componentRef.setInput("control", control);
+            fixture.detectChanges();
+
+            expect(control.value).toBe("invalid-value");
         });
     });
 });

@@ -14,21 +14,21 @@ import { Subscription } from "rxjs";
 import { CONTROL_TYPES } from "../../../core/models/control-type.model";
 import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
 import { FormFieldInteractionEvent } from "../../../core/models/form-field-interaction.event";
-import { AutocompleteControlComponent } from "../renderers-primeng/autocomplete-control/autocomplete-control.component";
-import { CheckboxControlComponent } from "../renderers-primeng/checkbox-control/checkbox-control.component";
-import { ColorPickerControlComponent } from "../renderers-primeng/colorpicker-control/colorpicker-control.component";
-import { DateControlComponent } from "../renderers-primeng/date-control/date-control.component";
-import { FileUploadInputComponent } from "../renderers-primeng/file-upload-input/file-upload-input.component";
-import { InputNumberControlComponent } from "../renderers-primeng/inputnumber-control/inputnumber-control.component";
-import { InputTextControlComponent } from "../renderers-primeng/inputtext-control/inputtext-control.component";
-import { MultiSelectControlComponent } from "../renderers-primeng/multi-select-control/multi-select-control.component";
-import { PicklistControlComponent } from "../renderers-primeng/picklist-control/picklist-control.component";
-import { RadioGroupComponent } from "../renderers-primeng/radiogroup-control/radiogroup-control.component";
-import { RichTextEditorComponent } from "../renderers-primeng/rich-text-editor/rich-text-editor.component";
-import { SelectButtonControlComponent } from "../renderers-primeng/select-button-control/select-button-control.component";
-import { SelectControlComponent } from "../renderers-primeng/select-control/select-control.component";
-import { TableControlComponent } from "../renderers-primeng/table-control/table-control.component";
-import { TextareaControlComponent } from "../renderers-primeng/textarea-control/textarea-control.component";
+import { AutocompleteControlComponent } from "../renderers-optimus-ui/autocomplete-control/autocomplete-control.component";
+import { CheckboxControlComponent } from "../renderers-optimus-ui/checkbox-control/checkbox-control.component";
+import { ColorPickerControlComponent } from "../renderers-optimus-ui/colorpicker-control/colorpicker-control.component";
+import { DateControlComponent } from "../renderers-optimus-ui/date-control/date-control.component";
+import { FileUploadInputComponent } from "../renderers-optimus-ui/file-upload-input/file-upload-input.component";
+import { InputNumberControlComponent } from "../renderers-optimus-ui/inputnumber-control/inputnumber-control.component";
+import { InputTextControlComponent } from "../renderers-optimus-ui/inputtext-control/inputtext-control.component";
+import { MultiSelectControlComponent } from "../renderers-optimus-ui/multi-select-control/multi-select-control.component";
+import { PicklistControlComponent } from "../renderers-optimus-ui/picklist-control/picklist-control.component";
+import { RadioGroupComponent } from "../renderers-optimus-ui/radiogroup-control/radiogroup-control.component";
+import { RichTextEditorComponent } from "../renderers-optimus-ui/rich-text-editor/rich-text-editor.component";
+import { SelectButtonControlComponent } from "../renderers-optimus-ui/select-button-control/select-button-control.component";
+import { SelectControlComponent } from "../renderers-optimus-ui/select-control/select-control.component";
+import { TableControlComponent } from "../renderers-optimus-ui/table-control/table-control.component";
+import { TextareaControlComponent } from "../renderers-optimus-ui/textarea-control/textarea-control.component";
 
 @Component({
   selector: "frm-field-renderer",

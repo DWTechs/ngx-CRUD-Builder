@@ -4,17 +4,17 @@ An Angular component library for building dynamic forms and data tables with min
 
 **[View the live demo](https://crud-builder-12c1d.web.app)**
 
-> **Compatibility:** requires Angular **^21.1** and PrimeNG **^21.1** (`@primeng/themes ^21.0`, `@primeuix/themes ^2.0`, `primeicons ^7`). The library version tracks Angular's major version — use the matching major.
+> **Compatibility:** requires Angular **^22.0** and `@openng/optimus-ui` **^2.0.0-rc.0**. The library version tracks Angular's major version — use the matching major.
 
-## UI adapters — PrimeNG, Material or Native?
+## UI adapters — Optimus UI, Material or Native?
 
-The library renders two independent things, each with its own adapter: the **form fields** (inputs, selects, dates...) and the **table shell** (rows, sorting, pagination...). Pick **one** adapter and use it for both — don't mix, e.g. a PrimeNG form with a Material table. Use `provideCrudRenderer(adapter)` to provide both at once; it only accepts `'primeng' | 'material'` since there is no `'native'` table shell yet. Use `provideFormFieldRenderer(adapter)` / `provideTableRenderer(adapter)` individually only if you don't render a `<tbl-table>` (e.g. `provideFormFieldRenderer('native')` for a lighter, PrimeNG-free form).
+The library renders two independent things, each with its own adapter: the **form fields** (inputs, selects, dates...) and the **table shell** (rows, sorting, pagination...). Pick **one** adapter and use it for both — don't mix, e.g. an Optimus UI form with a Material table. Use `provideCrudRenderer(adapter)` to provide both at once; it only accepts `'optimus-ui' | 'material'` since there is no `'native'` table shell yet. Use `provideFormFieldRenderer(adapter)` / `provideTableRenderer(adapter)` individually only if you don't render a `<tbl-table>` (e.g. `provideFormFieldRenderer('native')` for a lighter, Optimus UI-free form).
 
-> ⚠️ **PrimeNG is always required as a peer dependency today**, whichever adapter you choose for forms or tables. `ConfirmationService`, `MessageService`, the confirm dialog, toast, and the table toolbar (export, column management, refresh) are still built with PrimeNG components. Choosing `'material'` or `'native'` only changes how form controls and/or table rows are rendered — it does not remove the PrimeNG dependency.
+> ⚠️ **Optimus UI is always required as a peer dependency today**, whichever adapter you choose for forms or tables. `ConfirmService`, `SnackbarService`, the confirm dialog, toast, and the table toolbar (export, column management, refresh) are still built with Optimus UI components. Choosing `'material'` or `'native'` only changes how form controls and/or table rows are rendered — it does not remove the Optimus UI dependency.
 
 | Adapter | Form fields | Table shell |
 |---|---|---|
-| `'primeng'` | Full support — float labels, icon fields, all control types | Full-featured: sorting, filtering, lazy loading, column resizing, state persistence |
+| `'optimus-ui'` | Full support — float labels, icon fields, all control types | Full-featured: sorting, filtering, lazy loading, column resizing, state persistence |
 | `'material'` | Full support for most control types (requires `@angular/material` + `@angular/animations`, a date adapter, and `provideAnimationsAsync()`) | Minimal shell — data display and pagination only, **non-lazy mode only** (`lazy: false`). No filtering, sorting, column resizing or state persistence yet |
 | `'native'` | Plain HTML controls, no extra dependency, lightest bundle. Covers all control types but is experimental — styling and edge cases are incomplete | **No shell available yet** — using `<tbl-table>` without a table renderer provided throws a `NullInjectorError` at runtime |
 
@@ -37,9 +37,9 @@ The demo app showcases the library through a form builder, a table playground, a
 
 ## Requirements
 
-- Angular ≥ 21
-- PrimeNG ≥ 21 — **always required**, regardless of the form/table adapter you pick (see [UI adapters](#ui-adapters--primeng-material-or-native))
-- `@angular/material` + `@angular/animations` ≥ 21 — only if you use `provideFormFieldRenderer('material')` and/or `provideTableRenderer('material')`
+- Angular ≥ 22
+- `@openng/optimus-ui` ≥ 2.0.0-rc.0 — **always required**, regardless of the form/table adapter you pick (see [UI adapters](#ui-adapters--optimus-ui-material-or-native))
+- `@angular/material` + `@angular/animations` ≥ 22 — only if you use `provideFormFieldRenderer('material')` and/or `provideTableRenderer('material')`
 
 ## Installation
 
@@ -55,21 +55,18 @@ Every app using this library needs, **regardless of the adapter chosen**:
 
 | Provider | Why |
 |---|---|
-| `providePrimeNG({ theme: ... })` | PrimeNG theme, used by the toolbar/dialogs/toast even with `'material'` or `'native'` form fields |
-| `MessageService` (from `primeng/api`) | Export-failure toast notification |
-| `ConfirmationService` (from `primeng/api`) | Table's archive/restore confirmation dialogs |
+| `provideOptimus({ theme: ... })` | Optimus UI theme, used by the toolbar/dialogs/toast even with `'material'` or `'native'` form fields |
 | `provideFormFieldRenderer(adapter)` | **Required** to render form fields — throws `NullInjectorError` if omitted |
-| `provideTableRenderer(adapter)` | **Required** if you use `<tbl-table>` — throws `NullInjectorError` if omitted (no shell exists for `'native'`, see [UI adapters](#ui-adapters--primeng-material-or-native)) |
+| `provideTableRenderer(adapter)` | **Required** if you use `<tbl-table>` — throws `NullInjectorError` if omitted (no shell exists for `'native'`, see [UI adapters](#ui-adapters--optimus-ui-material-or-native)) |
 
 `provideCrudRenderer(adapter)` is a shortcut that calls both `provideFormFieldRenderer(adapter)` and `provideTableRenderer(adapter)` for the same adapter, so forms and tables stay visually consistent.
 
 ```typescript
 // app.config.ts
 import { ApplicationConfig } from '@angular/core';
-import { providePrimeNG } from 'primeng/config';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { definePreset } from '@primeuix/themes';
-import Aura from '@primeuix/themes/aura';
+import { provideOptimus } from '@openng/optimus-ui/config';
+import { definePreset } from '@openng/optimus-ui-themes';
+import Aura from '@openng/optimus-ui-themes/aura';
 import { provideCrudLabels } from '@dwtechs/ngx-crud-builder';
 
 const MyPreset = definePreset(Aura, {
@@ -81,20 +78,18 @@ const MyPreset = definePreset(Aura, {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    providePrimeNG({
+    provideOptimus({
       theme: { preset: MyPreset },
     }),
-    MessageService,
-    ConfirmationService,
     // required – picks the adapter for both form fields and the table shell
-    ...provideCrudRenderer('primeng'), // or 'material' — see "UI adapters" above
+    ...provideCrudRenderer('optimus-ui'), // or 'material' — see "UI adapters" above
     // optional – defaults to French
     provideCrudLabels({ /* your overrides */ }),
   ],
 };
 ```
 
-> Using `'material'` instead of `'primeng'` above additionally requires `provideAnimationsAsync()` (or `provideNoopAnimations()`) and a date adapter such as `provideNativeDateAdapter()` from `@angular/material/core`.
+> Using `'material'` instead of `'optimus-ui'` above additionally requires `provideAnimationsAsync()` (or `provideNoopAnimations()`) and a date adapter such as `provideNativeDateAdapter()` from `@angular/material/core`.
 
 ### 2. Add the components
 
@@ -177,9 +172,9 @@ Choose the adapter that matches your UI stack:
 
 | Value | Description |
 |---|---|
-| `'primeng'` | PrimeNG controls — float labels, icon fields, full styling support |
+| `'optimus-ui'` | Optimus UI controls — float labels, icon fields, full styling support |
 | `'material'` | Angular Material controls — requires `@angular/material`, `@angular/animations`, `provideAnimationsAsync()` and a date adapter. A few control types (color, files, picklist, table, custom, wysiwyg) have no Material equivalent yet |
-| `'native'` | Plain HTML controls — no PrimeNG dependency, lighter bundle, experimental |
+| `'native'` | Plain HTML controls — no Optimus UI dependency, lighter bundle, experimental |
 
 ```typescript
 import { provideFormFieldRenderer } from '@dwtechs/ngx-crud-builder';
@@ -187,7 +182,7 @@ import { provideFormFieldRenderer } from '@dwtechs/ngx-crud-builder';
 // app.config.ts
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideFormFieldRenderer('primeng'), // spread: returns Provider[]
+    provideFormFieldRenderer('optimus-ui'), // spread: returns Provider[]
   ],
 };
 ```
@@ -200,7 +195,7 @@ Provides the table shell (rows, columns, sorting, filtering, pagination, column 
 
 | Value | Description |
 |---|---|
-| `'primeng'` | Full-featured PrimeNG table (`p-table`) — sorting, filtering, lazy loading, column resizing, state persistence |
+| `'optimus-ui'` | Full-featured Optimus UI table (`p-table`) — sorting, filtering, lazy loading, column resizing, state persistence |
 | `'material'` | Minimal Angular Material table (`mat-table`) — **non-lazy mode only** (`lazy = false`); no filtering, sorting, column resizing or state persistence yet |
 
 ```typescript
@@ -209,14 +204,14 @@ import { provideTableRenderer } from '@dwtechs/ngx-crud-builder';
 // app.config.ts
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideTableRenderer('primeng'),
+    provideTableRenderer('optimus-ui'),
   ],
 };
 ```
 
 ### `provideCrudRenderer(adapter)`
 
-Convenience helper that provides both the form field renderer and the table renderer for the same adapter in one call, so the form controls and the table shell stay visually consistent (e.g. a PrimeNG form next to a PrimeNG table). Restricted to `'primeng' | 'material'`, since `provideTableRenderer` has no native shell yet.
+Convenience helper that provides both the form field renderer and the table renderer for the same adapter in one call, so the form controls and the table shell stay visually consistent (e.g. an Optimus UI form next to an Optimus UI table). Restricted to `'optimus-ui' | 'material'`, since `provideTableRenderer` has no native shell yet.
 
 ```typescript
 import { provideCrudRenderer } from '@dwtechs/ngx-crud-builder';
@@ -224,12 +219,12 @@ import { provideCrudRenderer } from '@dwtechs/ngx-crud-builder';
 // app.config.ts
 export const appConfig: ApplicationConfig = {
   providers: [
-    ...provideCrudRenderer('primeng'), // equivalent to provideFormFieldRenderer('primeng') + provideTableRenderer('primeng')
+    ...provideCrudRenderer('optimus-ui'), // equivalent to provideFormFieldRenderer('optimus-ui') + provideTableRenderer('optimus-ui')
   ],
 };
 ```
 
-> If you only need to swap the form controls (e.g. to `'native'` or `'material'`) while keeping the PrimeNG table, call `provideFormFieldRenderer(adapter)` directly instead of `provideCrudRenderer`.
+> If you only need to swap the form controls (e.g. to `'native'` or `'material'`) while keeping the Optimus UI table, call `provideFormFieldRenderer(adapter)` directly instead of `provideCrudRenderer`.
 
 ### `APP_FORM_CONFIG`
 
@@ -251,7 +246,7 @@ import { APP_FORM_CONFIG } from '@dwtechs/ngx-crud-builder';
 
 ### `LOCALE_ID` (Angular standard)
 
-Set Angular's locale to match the language of your `CRUD_LABELS` override. This affects date/number formatting in PrimeNG controls.
+Set Angular's locale to match the language of your `CRUD_LABELS` override. This affects date/number formatting in Optimus UI controls.
 
 ```typescript
 import { LOCALE_ID } from '@angular/core';
@@ -271,10 +266,9 @@ import { ApplicationConfig, LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { provideRouter } from '@angular/router';
-import { providePrimeNG } from 'primeng/config';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { definePreset } from '@primeuix/themes';
-import Aura from '@primeuix/themes/aura';
+import { provideOptimus } from '@openng/optimus-ui/config';
+import { definePreset } from '@openng/optimus-ui-themes';
+import Aura from '@openng/optimus-ui-themes/aura';
 import {
   ACL_ADAPTER,
   APP_CONFIG,
@@ -292,9 +286,7 @@ const MyPreset = definePreset(Aura, {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    providePrimeNG({ theme: { preset: MyPreset } }),
-    MessageService,
-    ConfirmationService,
+    provideOptimus({ theme: { preset: MyPreset } }),
     { provide: LOCALE_ID, useValue: 'fr' },
     { provide: APP_CONFIG, useValue: {
         title: 'My App',
@@ -308,7 +300,7 @@ export const appConfig: ApplicationConfig = {
           unsafeWords: 'Texte non autorisé : {words}',
         },
     }},
-    ...provideCrudRenderer('primeng'),
+    ...provideCrudRenderer('optimus-ui'),
     provideCrudLabels({ /* label overrides */ }),
   ],
 };

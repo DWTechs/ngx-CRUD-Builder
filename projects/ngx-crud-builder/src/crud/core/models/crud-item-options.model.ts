@@ -1,5 +1,5 @@
 import { SelectItem } from "@openng/optimus-ui/api";
-import { FileInfo } from "../../form/ui/renderers-primeng/file-upload-input/file-info.class";
+import { FileInfo } from "../../form/ui/renderers-optimus-ui/file-upload-input/file-info.class";
 import { ColumnOptions } from "./column-options.model";
 import { ControlOptions } from "./control-options.model";
 import { ControlType } from "./control-type.model";

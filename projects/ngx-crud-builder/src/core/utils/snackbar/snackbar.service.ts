@@ -5,7 +5,7 @@ import { ToastMessage, ToastSeverity } from "./toast-message.model";
 const DEFAULT_LIFE = 3000;
 
 /**
- * Framework-agnostic toast queue, rendered by `CrdToastComponent`. No PrimeNG/Material
+ * Framework-agnostic toast queue, rendered by `CrdToastComponent`. No Optimus UI/Material
  * dependency, used regardless of the form field / table adapter chosen.
  */
 @Injectable({ providedIn: "root" })

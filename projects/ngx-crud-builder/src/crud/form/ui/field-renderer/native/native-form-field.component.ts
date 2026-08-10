@@ -6,7 +6,7 @@ import { NativeFormFieldRenderer } from "./native-form-field-renderer";
  * Native HTML full form field component.
  *
  * Renders a plain `<label>` + `NativeFormFieldRenderer` (native HTML controls).
- * No PrimeNG dependency. Provided by `provideNativeFormFieldRenderer()`.
+ * No Optimus UI dependency. Provided by `provideNativeFormFieldRenderer()`.
  */
 @Component({
   selector: "frm-native-form-field",

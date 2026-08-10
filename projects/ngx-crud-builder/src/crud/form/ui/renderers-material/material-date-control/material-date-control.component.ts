@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
-import { FormFieldBaseComponent } from "../../renderers-primeng/form-field-base.component";
+import { FormFieldBaseComponent } from "../../renderers-optimus-ui/form-field-base.component";
 
 @Component({
   selector: "frm-material-date-control",

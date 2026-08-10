@@ -2,7 +2,7 @@ import { Type } from "@angular/core";
 import { AsyncValidatorFn, ValidatorFn } from "@angular/forms";
 import { SelectItem } from "@openng/optimus-ui/api";
 import { Observable } from "rxjs";
-import { TableCtrlConfig } from "../../form/ui/renderers-primeng/table-control/table-control-config.model";
+import { TableCtrlConfig } from "../../form/ui/renderers-optimus-ui/table-control/table-control-config.model";
 import { ControlArrayConfig } from "./control-array-config.model";
 import { CrudItemOptions } from "./crud-item-options.model";
 import { FormFieldInteractionEvent } from "./form-field-interaction.event";
@@ -139,7 +139,7 @@ export class ControlOptions {
    */
   dateReadonlyInput?: boolean;
   /**
-   * PrimeNG calendar mode: 'single' for one date, 'multiple' for several dates, 'range' for date range
+   * Calendar mode: 'single' for one date, 'multiple' for several dates, 'range' for date range
    * @default 'single'
    * @example `dateSelectionMode: 'range'` // Allows selecting a start and end date
    */
@@ -199,7 +199,7 @@ export class ControlOptions {
    */
   hidden?: boolean;
   /**
-   * Displays an icon in the left side of the input using PrimeNG icon classes
+   * Displays an icon in the left side of the input using Optimus UI icon classes
    * @example `inputIcon: 'pi pi-user'` // Shows a user icon inside the input field
    */
   inputIcon?: string;

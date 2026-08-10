@@ -1,7 +1,7 @@
 import { DATE_FORMAT_CALENDAR } from "@crud/core/utils/dates/dates.utils";
 import { Translation } from "@openng/optimus-ui/api";
 
-export const PrimeNgTranslationsEn: Translation = {
+export const OptimusUiTranslationsEn: Translation = {
   accept: "Accept",
   reject: "Cancel",
   dateFormat: DATE_FORMAT_CALENDAR,

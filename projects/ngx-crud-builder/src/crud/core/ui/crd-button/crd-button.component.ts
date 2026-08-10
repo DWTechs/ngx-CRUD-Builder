@@ -27,7 +27,7 @@ const DEFAULT_LABELS: Record<ButtonType, string> = {
   "simple-icon": "",
 };
 
-// Visual treatment per button type — mirrors the previous PrimeNG variants (solid/outlined/ghost/icon-only)
+// Visual treatment per button type — mirrors the previous Optimus UI variants (solid/outlined/ghost/icon-only)
 const TYPE_VARIANT: Record<
   ButtonType,
   "solid" | "outlined" | "ghost" | "icon-only"
@@ -42,7 +42,7 @@ const TYPE_VARIANT: Record<
 
 /**
  * Framework-agnostic button used throughout the library's own chrome (toolbar,
- * edition dialog, confirmation actions). Plain HTML/CSS — no PrimeNG/Material
+ * edition dialog, confirmation actions). Plain HTML/CSS — no Optimus UI/Material
  * dependency, used regardless of the form field / table adapter chosen.
  */
 @Component({

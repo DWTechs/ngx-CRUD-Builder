@@ -6,9 +6,9 @@ import { MaterialFormFieldRenderer } from "./material/material-form-field-render
 import { MaterialFormFieldComponent } from "./material/material-form-field.component";
 import { NativeFormFieldRenderer } from "./native/native-form-field-renderer";
 import { NativeFormFieldComponent } from "./native/native-form-field.component";
-import { PrimengFormFieldComponent } from "./primeng/primeng-form-field.component";
+import { OptimusUiFormFieldComponent } from "./optimus-ui/optimus-ui-form-field.component";
 
-export type FormFieldAdapterType = "primeng" | "native" | "material";
+export type FormFieldAdapterType = "optimus-ui" | "native" | "material";
 
 /** The form field adapter registered via `provideFormFieldRenderer`, used e.g. by
  * `TableComponent` to give an adapter-aware error when no table shell is available. */
@@ -23,7 +23,7 @@ export const FORM_ADAPTER = new InjectionToken<FormFieldAdapterType>(
  * - `FORM_FIELD_COMPONENT` — the full field component (label + control) used by `FormSimpleElement`
  * - `FORM_FIELD_RENDERER` — the bare control renderer used by `FormArrayElement`
  *
- * @param adapter `"primeng"` for PrimeNG controls, `"native"` for plain HTML controls,
+ * @param adapter `"optimus-ui"` for Optimus UI controls, `"native"` for plain HTML controls,
  * `"material"` for Angular Material controls. The `"material"` adapter requires
  * `@angular/material` and `@angular/animations` to be installed, and leaves controls
  * with no Material equivalent (color, files, picklist, table, custom, wysiwyg) unsupported.
@@ -31,7 +31,7 @@ export const FORM_ADAPTER = new InjectionToken<FormFieldAdapterType>(
  * @example
  * // app.config.ts
  * export const appConfig: ApplicationConfig = {
- *   providers: [...provideFormFieldRenderer('primeng')]
+ *   providers: [...provideFormFieldRenderer('optimus-ui')]
  * };
  */
 export function provideFormFieldRenderer(
@@ -41,11 +41,11 @@ export function provideFormFieldRenderer(
     provide: FORM_ADAPTER,
     useValue: adapter,
   };
-  if (adapter === "primeng") {
+  if (adapter === "optimus-ui") {
     return [
       adapterProvider,
       { provide: FORM_FIELD_RENDERER, useValue: FormFieldRenderer },
-      { provide: FORM_FIELD_COMPONENT, useValue: PrimengFormFieldComponent },
+      { provide: FORM_FIELD_COMPONENT, useValue: OptimusUiFormFieldComponent },
     ];
   }
   if (adapter === "material") {

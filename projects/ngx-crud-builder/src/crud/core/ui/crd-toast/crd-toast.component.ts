@@ -3,7 +3,7 @@ import { SnackbarService } from "../../../../core/utils/snackbar/snackbar.servic
 
 /**
  * Framework-agnostic toast display for `SnackbarService`. Plain HTML/CSS — no
- * PrimeNG/Material dependency, used regardless of the form field / table adapter chosen.
+ * Optimus UI/Material dependency, used regardless of the form field / table adapter chosen.
  */
 @Component({
   selector: "crd-toast",

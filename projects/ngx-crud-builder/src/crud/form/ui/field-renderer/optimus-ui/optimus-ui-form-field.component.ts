@@ -4,16 +4,16 @@ import { FormFieldRenderer } from "../field-renderer";
 import { FormFieldComponentBase } from "../form-field-component-base";
 
 /**
- * Default PrimeNG full form field component.
+ * Default Optimus UI full form field component.
  *
  * Composes `LabelWrapperComponent` (float/ifta/normal label strategies,
- * icon field) with `FormFieldRenderer` (PrimeNG control components).
- * Provided by `providePrimengFormFieldRenderer()`.
+ * icon field) with `FormFieldRenderer` (Optimus UI control components).
+ * Provided by `provideFormFieldRenderer('optimus-ui')`.
  */
 @Component({
-  selector: "frm-primeng-form-field",
-  templateUrl: "./primeng-form-field.component.html",
+  selector: "frm-optimus-ui-form-field",
+  templateUrl: "./optimus-ui-form-field.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [LabelWrapperComponent, FormFieldRenderer],
 })
-export class PrimengFormFieldComponent extends FormFieldComponentBase {}
+export class OptimusUiFormFieldComponent extends FormFieldComponentBase {}

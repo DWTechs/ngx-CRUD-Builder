@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
-import { FormFieldBaseComponent } from "../../renderers-primeng/form-field-base.component";
+import { FormFieldBaseComponent } from "../../renderers-optimus-ui/form-field-base.component";
 
 @Component({
   selector: "frm-material-multiselect-control",

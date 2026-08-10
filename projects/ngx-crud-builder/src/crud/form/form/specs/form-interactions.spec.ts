@@ -2,400 +2,439 @@ import { ComponentFixture } from "@angular/core/testing";
 import { CONTROL_TYPES } from "../../../core/models/control-type.model";
 import { FormFieldInteractionEvent } from "../../../core/models/form-field-interaction.event";
 import { FormComponent } from "../form.component";
-import { createInputConfig, createInteractionEvent, setupFormTest, TestWrapperComponent, } from "./form.component.spec-helpers";
+import {
+  createInputConfig,
+  createInteractionEvent,
+  setupFormTest,
+  TestWrapperComponent,
+  watchModelChange,
+} from "./form.component.spec-helpers";
 
 describe("FormComponent - Actions and Interactions", () => {
-    let fixture: ComponentFixture<TestWrapperComponent>;
-    let component: FormComponent;
+  let fixture: ComponentFixture<TestWrapperComponent>;
+  let component: FormComponent;
 
-    beforeEach(async () => {
-        ({ fixture, component } = await setupFormTest());
+  beforeEach(async () => {
+    ({ fixture, component } = await setupFormTest());
+  });
+
+  it("should emit fieldInteraction when emitInteraction is called", async () => {
+    // Arrange
+    fixture.componentInstance.config = [
+      createInputConfig("sourceField", "Source Field"),
+    ];
+    fixture.componentInstance.model = { sourceField: "" };
+    fixture.detectChanges();
+
+    const event: FormFieldInteractionEvent = createInteractionEvent(
+      "sourceField",
+      "test value",
+      CONTROL_TYPES.INPUT,
+    );
+
+    // Subscribe to fieldInteraction
+    component.fieldInteraction.subscribe((emittedEvent) => {
+      expect(emittedEvent.key).toBe(event.key);
+      expect(emittedEvent.value).toBe(event.value);
     });
 
-    it("should emit fieldInteraction when emitInteraction is called", async () => {
-        // Arrange
-        fixture.componentInstance.config = [
-            createInputConfig("sourceField", "Source Field"),
-        ];
-        fixture.componentInstance.model = { sourceField: "" };
-        fixture.detectChanges();
+    // Act
+    component.emitInteraction(event);
+  });
 
-        const event: FormFieldInteractionEvent = createInteractionEvent("sourceField", "test value", CONTROL_TYPES.INPUT);
+  it("should execute action and add to pending actions with set mode", () => {
+    // Arrange
+    fixture.componentInstance.config = [
+      {
+        key: "sourceField",
+        label: "Source Field",
+        controlType: CONTROL_TYPES.INPUT,
+        controlOptions: {
+          action: (event) => {
+            return [
+              {
+                key: "targetField",
+                value: `Processed: ${event.value}`,
+                mode: "set",
+              },
+            ];
+          },
+        },
+      },
+      createInputConfig("targetField", "Target Field"),
+    ];
+    fixture.componentInstance.model = {
+      sourceField: "",
+      targetField: "",
+    };
+    fixture.detectChanges();
 
-        // Subscribe to fieldInteraction
-        component.fieldInteraction.subscribe((emittedEvent) => {
-            expect(emittedEvent.key).toBe(event.key);
-            expect(emittedEvent.value).toBe(event.value);
-            ;
-        });
+    const event: FormFieldInteractionEvent = createInteractionEvent(
+      "sourceField",
+      "test",
+      CONTROL_TYPES.INPUT,
+    );
 
-        // Act
-        component.emitInteraction(event);
+    // Act
+    component.emitInteraction(event);
+
+    // Assert - Action should be in pending actions
+    const pendingActions = component["pendingActions"]();
+    expect(pendingActions.length).toBe(1);
+    expect(pendingActions[0].key).toBe("targetField");
+    expect(pendingActions[0].value).toBe("Processed: test");
+    expect(pendingActions[0].mode).toBe("set");
+  });
+
+  it("should handle action with push mode on empty array", () => {
+    // Arrange
+    fixture.componentInstance.config = [
+      {
+        key: "addButton",
+        label: "Add Item",
+        controlType: CONTROL_TYPES.INPUT,
+        controlOptions: {
+          action: (event) => {
+            return [
+              {
+                key: "tags",
+                value: event.value,
+                mode: "push",
+              },
+            ];
+          },
+        },
+      },
+      createInputConfig("tags", "Tags"),
+    ];
+    fixture.componentInstance.model = {
+      addButton: "",
+      tags: null,
+    };
+    fixture.detectChanges();
+
+    const event: FormFieldInteractionEvent = createInteractionEvent(
+      "addButton",
+      "newTag",
+      CONTROL_TYPES.INPUT,
+    );
+
+    // Act
+    component.emitInteraction(event);
+
+    // Assert - Action should be in pending actions with push mode
+    const pendingActions = component["pendingActions"]();
+    expect(pendingActions.length).toBe(1);
+    expect(pendingActions[0].mode).toBe("push");
+    expect(pendingActions[0].key).toBe("tags");
+    expect(pendingActions[0].value).toBe("newTag");
+  });
+
+  it("should handle action with push mode on existing array", async () => {
+    // Arrange
+    fixture.componentInstance.config = [
+      {
+        key: "addButton",
+        label: "Add Item",
+        controlType: CONTROL_TYPES.INPUT,
+        controlOptions: {
+          action: (event) => {
+            return [
+              {
+                key: "tags",
+                value: event.value,
+                mode: "push",
+              },
+            ];
+          },
+        },
+      },
+      createInputConfig("tags", "Tags"),
+    ];
+    fixture.componentInstance.model = {
+      addButton: "",
+      tags: ["tag1", "tag2"],
+    };
+    fixture.detectChanges();
+
+    watchModelChange(fixture, component, (newModel) => {
+      expect(newModel.tags).toEqual(["tag1", "tag2", "tag3"]);
     });
 
-    it("should execute action and add to pending actions with set mode", () => {
-        // Arrange
-        fixture.componentInstance.config = [
-            {
-                key: "sourceField",
-                label: "Source Field",
-                controlType: CONTROL_TYPES.INPUT,
-                controlOptions: {
-                    action: (event) => {
-                        return [
-                            {
-                                key: "targetField",
-                                value: `Processed: ${event.value}`,
-                                mode: "set",
-                            },
-                        ];
-                    },
-                },
-            },
-            createInputConfig("targetField", "Target Field"),
-        ];
-        fixture.componentInstance.model = {
-            sourceField: "",
-            targetField: "",
-        };
-        fixture.detectChanges();
+    // Act
+    const event: FormFieldInteractionEvent = createInteractionEvent(
+      "addButton",
+      "tag3",
+      CONTROL_TYPES.INPUT,
+    );
+    component.emitInteraction(event);
 
-        const event: FormFieldInteractionEvent = createInteractionEvent("sourceField", "test", CONTROL_TYPES.INPUT);
+    // Trigger value change
+    const form = component.form();
+    form?.get("addButton")?.setValue("trigger");
+  });
 
-        // Act
-        component.emitInteraction(event);
+  it("should handle action with remove mode", async () => {
+    // Arrange
+    fixture.componentInstance.config = [
+      {
+        key: "removeButton",
+        label: "Remove Item",
+        controlType: CONTROL_TYPES.INPUT,
+        controlOptions: {
+          action: (event) => {
+            return [
+              {
+                key: "tags",
+                value: event.value,
+                mode: "remove",
+              },
+            ];
+          },
+        },
+      },
+      createInputConfig("tags", "Tags"),
+    ];
+    fixture.componentInstance.model = {
+      removeButton: "",
+      tags: ["tag1", "tag2", "tag3"],
+    };
+    fixture.detectChanges();
 
-        // Assert - Action should be in pending actions
-        const pendingActions = component["pendingActions"]();
-        expect(pendingActions.length).toBe(1);
-        expect(pendingActions[0].key).toBe("targetField");
-        expect(pendingActions[0].value).toBe("Processed: test");
-        expect(pendingActions[0].mode).toBe("set");
+    // Act
+    const event: FormFieldInteractionEvent = createInteractionEvent(
+      "removeButton",
+      "tag2",
+      CONTROL_TYPES.INPUT,
+    );
+    component.emitInteraction(event);
+
+    watchModelChange(fixture, component, (newModel) => {
+      expect(newModel.tags).toEqual(["tag1", "tag3"]);
     });
 
-    it("should handle action with push mode on empty array", () => {
-        // Arrange
-        fixture.componentInstance.config = [
-            {
-                key: "addButton",
-                label: "Add Item",
-                controlType: CONTROL_TYPES.INPUT,
-                controlOptions: {
-                    action: (event) => {
-                        return [
-                            {
-                                key: "tags",
-                                value: event.value,
-                                mode: "push",
-                            },
-                        ];
-                    },
-                },
-            },
-            createInputConfig("tags", "Tags"),
-        ];
-        fixture.componentInstance.model = {
-            addButton: "",
-            tags: null,
-        };
-        fixture.detectChanges();
+    // Trigger value change
+    const form = component.form();
+    form?.get("removeButton")?.setValue("trigger");
+  });
 
-        const event: FormFieldInteractionEvent = createInteractionEvent("addButton", "newTag", CONTROL_TYPES.INPUT);
+  it("should handle soft action that does not override existing value", async () => {
+    // Arrange
+    fixture.componentInstance.config = [
+      {
+        key: "sourceField",
+        label: "Source Field",
+        controlType: CONTROL_TYPES.INPUT,
+        controlOptions: {
+          action: () => {
+            return [
+              {
+                key: "targetField",
+                value: "default value",
+                soft: true,
+              },
+            ];
+          },
+        },
+      },
+      createInputConfig("targetField", "Target Field"),
+    ];
+    fixture.componentInstance.model = {
+      sourceField: "",
+      targetField: "existing value",
+    };
+    fixture.detectChanges();
 
-        // Act
-        component.emitInteraction(event);
-
-        // Assert - Action should be in pending actions with push mode
-        const pendingActions = component["pendingActions"]();
-        expect(pendingActions.length).toBe(1);
-        expect(pendingActions[0].mode).toBe("push");
-        expect(pendingActions[0].key).toBe("tags");
-        expect(pendingActions[0].value).toBe("newTag");
+    watchModelChange(fixture, component, (newModel) => {
+      // Soft action should not override existing value
+      expect(newModel.targetField).toBe("existing value");
     });
 
-    it("should handle action with push mode on existing array", async () => {
-        // Arrange
-        fixture.componentInstance.config = [
-            {
-                key: "addButton",
-                label: "Add Item",
-                controlType: CONTROL_TYPES.INPUT,
-                controlOptions: {
-                    action: (event) => {
-                        return [
-                            {
-                                key: "tags",
-                                value: event.value,
-                                mode: "push",
-                            },
-                        ];
-                    },
-                },
-            },
-            createInputConfig("tags", "Tags"),
-        ];
-        fixture.componentInstance.model = {
-            addButton: "",
-            tags: ["tag1", "tag2"],
-        };
-        fixture.detectChanges();
+    // Act
+    const event: FormFieldInteractionEvent = createInteractionEvent(
+      "sourceField",
+      CONTROL_TYPES.INPUT,
+      "test",
+    );
+    component.emitInteraction(event);
 
-        component.modelChange.subscribe((newModel) => {
-            expect(newModel.tags).toEqual(["tag1", "tag2", "tag3"]);
-            ;
-        });
+    // Trigger value change
+    const form = component.form();
+    form?.get("sourceField")?.setValue("trigger");
+  });
 
-        // Act
-        const event: FormFieldInteractionEvent = createInteractionEvent("addButton", "tag3", CONTROL_TYPES.INPUT);
-        component.emitInteraction(event);
+  it("should handle soft action that sets value when field is empty", async () => {
+    // Arrange
+    fixture.componentInstance.config = [
+      {
+        key: "sourceField",
+        label: "Source Field",
+        controlType: CONTROL_TYPES.INPUT,
+        controlOptions: {
+          action: () => {
+            return [
+              {
+                key: "targetField",
+                value: "default value",
+                soft: true,
+              },
+            ];
+          },
+        },
+      },
+      createInputConfig("targetField", "Target Field"),
+    ];
+    fixture.componentInstance.model = {
+      sourceField: "",
+      targetField: "",
+    };
+    fixture.detectChanges();
 
-        // Trigger value change
-        const form = component.form();
-        form?.get("addButton")?.setValue("trigger");
+    watchModelChange(fixture, component, (newModel) => {
+      // Soft action should set value when field is empty
+      expect(newModel.targetField).toBe("default value");
     });
 
-    it("should handle action with remove mode", async () => {
-        // Arrange
-        fixture.componentInstance.config = [
-            {
-                key: "removeButton",
-                label: "Remove Item",
-                controlType: CONTROL_TYPES.INPUT,
-                controlOptions: {
-                    action: (event) => {
-                        return [
-                            {
-                                key: "tags",
-                                value: event.value,
-                                mode: "remove",
-                            },
-                        ];
-                    },
-                },
-            },
-            createInputConfig("tags", "Tags"),
-        ];
-        fixture.componentInstance.model = {
-            removeButton: "",
-            tags: ["tag1", "tag2", "tag3"],
-        };
-        fixture.detectChanges();
+    // Act
+    const event: FormFieldInteractionEvent = createInteractionEvent(
+      "sourceField",
+      CONTROL_TYPES.INPUT,
+      "test",
+    );
+    component.emitInteraction(event);
 
-        // Act
-        const event: FormFieldInteractionEvent = createInteractionEvent("removeButton", "tag2", CONTROL_TYPES.INPUT);
-        component.emitInteraction(event);
+    // Trigger value change
+    const form = component.form();
+    form?.get("sourceField")?.setValue("trigger");
+  });
 
-        component.modelChange.subscribe((newModel) => {
-            expect(newModel.tags).toEqual(["tag1", "tag3"]);
-            ;
-        });
+  it("should handle action returning multiple results", async () => {
+    // Arrange
+    fixture.componentInstance.config = [
+      {
+        key: "sourceField",
+        label: "Source Field",
+        controlType: CONTROL_TYPES.INPUT,
+        controlOptions: {
+          action: (event) => {
+            return [
+              {
+                key: "targetField1",
+                value: `Value1: ${event.value}`,
+              },
+              {
+                key: "targetField2",
+                value: `Value2: ${event.value}`,
+              },
+            ];
+          },
+        },
+      },
+      createInputConfig("targetField1", "Target Field 1"),
+      createInputConfig("targetField2", "Target Field 2"),
+    ];
+    fixture.componentInstance.model = {
+      sourceField: "",
+      targetField1: "",
+      targetField2: "",
+    };
+    fixture.detectChanges();
 
-        // Trigger value change
-        const form = component.form();
-        form?.get("removeButton")?.setValue("trigger");
+    watchModelChange(fixture, component, (newModel) => {
+      expect(newModel.targetField1).toBe("Value1: test");
+      expect(newModel.targetField2).toBe("Value2: test");
     });
 
-    it("should handle soft action that does not override existing value", async () => {
-        // Arrange
-        fixture.componentInstance.config = [
-            {
-                key: "sourceField",
-                label: "Source Field",
-                controlType: CONTROL_TYPES.INPUT,
-                controlOptions: {
-                    action: () => {
-                        return [
-                            {
-                                key: "targetField",
-                                value: "default value",
-                                soft: true,
-                            },
-                        ];
-                    },
-                },
-            },
-            createInputConfig("targetField", "Target Field"),
-        ];
-        fixture.componentInstance.model = {
-            sourceField: "",
-            targetField: "existing value",
-        };
-        fixture.detectChanges();
+    // Act
+    const event: FormFieldInteractionEvent = createInteractionEvent(
+      "sourceField",
+      "test",
+      CONTROL_TYPES.INPUT,
+    );
+    component.emitInteraction(event);
 
-        component.modelChange.subscribe((newModel) => {
-            // Soft action should not override existing value
-            expect(newModel.targetField).toBe("existing value");
-            ;
-        });
+    // Trigger value change
+    const form = component.form();
+    form?.get("sourceField")?.setValue("trigger");
+  });
 
-        // Act
-        const event: FormFieldInteractionEvent = createInteractionEvent("sourceField", CONTROL_TYPES.INPUT, "test");
-        component.emitInteraction(event);
+  it("should handle action returning undefined", () => {
+    // Arrange
+    fixture.componentInstance.config = [
+      {
+        key: "sourceField",
+        label: "Source Field",
+        controlType: CONTROL_TYPES.INPUT,
+        controlOptions: {
+          action: () => {
+            return undefined;
+          },
+        },
+      },
+    ];
+    fixture.componentInstance.model = {
+      sourceField: "",
+    };
+    fixture.detectChanges();
 
-        // Trigger value change
-        const form = component.form();
-        form?.get("sourceField")?.setValue("trigger");
-    });
+    const event: FormFieldInteractionEvent = createInteractionEvent(
+      "sourceField",
+      CONTROL_TYPES.INPUT,
+      "test",
+    );
 
-    it("should handle soft action that sets value when field is empty", async () => {
-        // Arrange
-        fixture.componentInstance.config = [
-            {
-                key: "sourceField",
-                label: "Source Field",
-                controlType: CONTROL_TYPES.INPUT,
-                controlOptions: {
-                    action: () => {
-                        return [
-                            {
-                                key: "targetField",
-                                value: "default value",
-                                soft: true,
-                            },
-                        ];
-                    },
-                },
-            },
-            createInputConfig("targetField", "Target Field"),
-        ];
-        fixture.componentInstance.model = {
-            sourceField: "",
-            targetField: "",
-        };
-        fixture.detectChanges();
+    // Act
+    component.emitInteraction(event);
 
-        component.modelChange.subscribe((newModel) => {
-            // Soft action should set value when field is empty
-            expect(newModel.targetField).toBe("default value");
-            ;
-        });
+    // Assert - No pending actions should be added
+    const pendingActions = component["pendingActions"]();
+    expect(pendingActions.length).toBe(0);
+  });
 
-        // Act
-        const event: FormFieldInteractionEvent = createInteractionEvent("sourceField", CONTROL_TYPES.INPUT, "test");
-        component.emitInteraction(event);
+  it("should clear pending actions after processing", async () => {
+    // Arrange
+    fixture.componentInstance.config = [
+      {
+        key: "sourceField",
+        label: "Source Field",
+        controlType: CONTROL_TYPES.INPUT,
+        controlOptions: {
+          action: (event) => {
+            return [
+              {
+                key: "targetField",
+                value: event.value,
+              },
+            ];
+          },
+        },
+      },
+      createInputConfig("targetField", "Target Field"),
+    ];
+    fixture.componentInstance.model = {
+      sourceField: "",
+      targetField: "",
+    };
+    fixture.detectChanges();
 
-        // Trigger value change
-        const form = component.form();
-        form?.get("sourceField")?.setValue("trigger");
-    });
-
-    it("should handle action returning multiple results", async () => {
-        // Arrange
-        fixture.componentInstance.config = [
-            {
-                key: "sourceField",
-                label: "Source Field",
-                controlType: CONTROL_TYPES.INPUT,
-                controlOptions: {
-                    action: (event) => {
-                        return [
-                            {
-                                key: "targetField1",
-                                value: `Value1: ${event.value}`,
-                            },
-                            {
-                                key: "targetField2",
-                                value: `Value2: ${event.value}`,
-                            },
-                        ];
-                    },
-                },
-            },
-            createInputConfig("targetField1", "Target Field 1"),
-            createInputConfig("targetField2", "Target Field 2"),
-        ];
-        fixture.componentInstance.model = {
-            sourceField: "",
-            targetField1: "",
-            targetField2: "",
-        };
-        fixture.detectChanges();
-
-        component.modelChange.subscribe((newModel) => {
-            expect(newModel.targetField1).toBe("Value1: test");
-            expect(newModel.targetField2).toBe("Value2: test");
-            ;
-        });
-
-        // Act
-        const event: FormFieldInteractionEvent = createInteractionEvent("sourceField", "test", CONTROL_TYPES.INPUT);
-        component.emitInteraction(event);
-
-        // Trigger value change
-        const form = component.form();
-        form?.get("sourceField")?.setValue("trigger");
-    });
-
-    it("should handle action returning undefined", () => {
-        // Arrange
-        fixture.componentInstance.config = [
-            {
-                key: "sourceField",
-                label: "Source Field",
-                controlType: CONTROL_TYPES.INPUT,
-                controlOptions: {
-                    action: () => {
-                        return undefined;
-                    },
-                },
-            },
-        ];
-        fixture.componentInstance.model = {
-            sourceField: "",
-        };
-        fixture.detectChanges();
-
-        const event: FormFieldInteractionEvent = createInteractionEvent("sourceField", CONTROL_TYPES.INPUT, "test");
-
-        // Act
-        component.emitInteraction(event);
-
-        // Assert - No pending actions should be added
+    watchModelChange(fixture, component, () => {
+      // Check pending actions are cleared after processing
+      setTimeout(() => {
         const pendingActions = component["pendingActions"]();
         expect(pendingActions.length).toBe(0);
+      }, 50);
     });
 
-    it("should clear pending actions after processing", async () => {
-        // Arrange
-        fixture.componentInstance.config = [
-            {
-                key: "sourceField",
-                label: "Source Field",
-                controlType: CONTROL_TYPES.INPUT,
-                controlOptions: {
-                    action: (event) => {
-                        return [
-                            {
-                                key: "targetField",
-                                value: event.value,
-                            },
-                        ];
-                    },
-                },
-            },
-            createInputConfig("targetField", "Target Field"),
-        ];
-        fixture.componentInstance.model = {
-            sourceField: "",
-            targetField: "",
-        };
-        fixture.detectChanges();
+    // Act
+    const event: FormFieldInteractionEvent = createInteractionEvent(
+      "sourceField",
+      CONTROL_TYPES.INPUT,
+      "test",
+    );
+    component.emitInteraction(event);
 
-        component.modelChange.subscribe(() => {
-            // Check pending actions are cleared after processing
-            setTimeout(() => {
-                const pendingActions = component["pendingActions"]();
-                expect(pendingActions.length).toBe(0);
-                ;
-            }, 50);
-        });
-
-        // Act
-        const event: FormFieldInteractionEvent = createInteractionEvent("sourceField", CONTROL_TYPES.INPUT, "test");
-        component.emitInteraction(event);
-
-        // Trigger value change
-        const form = component.form();
-        form?.get("sourceField")?.setValue("trigger");
-    });
+    // Trigger value change
+    const form = component.form();
+    form?.get("sourceField")?.setValue("trigger");
+  });
 });

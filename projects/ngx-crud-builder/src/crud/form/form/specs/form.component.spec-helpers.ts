@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, effect, runInInjectionContext } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { ReactiveFormsModule } from "@angular/forms";
 import { provideAnimations } from "@angular/platform-browser/animations";
@@ -51,6 +51,21 @@ export async function setupFormTest(): Promise<{
     .componentInstance as FormComponent;
 
   return { fixture, component };
+}
+
+/**
+ * Watches the `model` signal's companion `modelChange` output (no direct
+ * output property exists on the component since it's synthesized by `model()`)
+ */
+export function watchModelChange(
+  fixture: ComponentFixture<TestWrapperComponent>,
+  component: FormComponent,
+  // biome-ignore lint/suspicious/noExplicitAny: mirrors the loosely-typed model signal used in tests
+  callback: (model: any) => void,
+): void {
+  runInInjectionContext(fixture.debugElement.injector, () => {
+    effect(() => callback(component.model()));
+  });
 }
 
 /**

@@ -60,7 +60,7 @@ export class FormSimpleElement implements OnInit, AfterViewInit, OnDestroy {
   public readonly ControlType = CONTROL_TYPES;
 
   /** Full field component (label + control) resolved from FORM_FIELD_COMPONENT token.
-   * Throws at runtime if no provider is configured — use `providePrimengFormFieldRenderer()`
+   * Throws at runtime if no provider is configured — use `provideFormFieldRenderer('optimus-ui')`
    * or `provideNativeFormFieldRenderer()` in your application config. */
   protected readonly fieldComponent = inject(FORM_FIELD_COMPONENT);
 

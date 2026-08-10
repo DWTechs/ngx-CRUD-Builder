@@ -176,7 +176,7 @@ describe("FormFieldTooltip", () => {
       component.tooltipValue.set("Template content");
       fixture.detectChanges();
 
-      // Template content is rendered by PrimeNG tooltip directive
+      // Template content is rendered by Optimus UI tooltip directive
       const tooltipComponent =
         fixture.debugElement.children[0].componentInstance;
       expect(tooltipComponent.value()).toBe("Template content");

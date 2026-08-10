@@ -4,7 +4,7 @@ export type CrdProgressMode = "spinner" | "bar";
 
 /**
  * Framework-agnostic loading indicator (circular spinner or linear bar).
- * Plain CSS animation — no PrimeNG/Material dependency.
+ * Plain CSS animation — no Optimus UI/Material dependency.
  */
 @Component({
   selector: "crd-progress",

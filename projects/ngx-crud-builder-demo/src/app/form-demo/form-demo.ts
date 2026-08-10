@@ -44,7 +44,7 @@ import { TextareaInputTabComponent } from "./ui/textarea-input-tab.component";
 })
 export class FormDemo {
   protected readonly currentAdapter = signal(
-    localStorage.getItem(ADAPTER_STORAGE_KEY) ?? "primeng",
+    localStorage.getItem(ADAPTER_STORAGE_KEY) ?? "optimus-ui",
   );
 
   protected switchAdapter(type: string): void {

@@ -413,7 +413,7 @@ describe("AutocompleteControlComponent", () => {
       fixture.componentRef.setInput("config", config);
       fixture.detectChanges();
 
-      // Template is rendered by PrimeNG internally
+      // Template is rendered by Optimus UI internally
       expect(component.selectOptions()[0].icon).toBeDefined();
     });
   });
