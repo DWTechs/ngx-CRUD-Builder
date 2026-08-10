@@ -21,7 +21,7 @@ Thank you for your interest in contributing! This document explains how to set u
 
 - **Node.js** ≥ 20
 - **npm** ≥ 10
-- **Angular CLI** ≥ 21 (`npm install -g @angular/cli`)
+- **Angular CLI** ≥ 22 (`npm install -g @angular/cli`)
 
 ---
 
@@ -96,7 +96,7 @@ npx biome check --write .  # auto-fix
 
 ## Coding conventions
 
-- **Angular 21+** patterns: standalone components, `input()` / `output()` / `model()` signals, `OnPush` change detection, `inject()` for dependency injection.
+- **Angular 22+** patterns: standalone components, `input()` / `output()` / `model()` signals, `OnPush` change detection, `inject()` for dependency injection.
 - **No `ngModules`** — every component and directive must be standalone.
 - **No `any`** — prefer explicit types or `unknown`.
 - Keep public API surface minimal: only export from `public-api.ts` what consumers genuinely need.

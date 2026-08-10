@@ -1,8 +1,8 @@
 # 0.2.0 (Aug 9th 2026)
 - Remove PrimeNG in favor of `@openng/optimus-ui` as the UI component library
-- Decouple toast notifications and confirmation dialogs from PrimeNG: `SnackbarService` and the new `ConfirmService` are now plain signal-based services with no PrimeNG dependency
-- Add framework-agnostic `crd-toast` and `crd-confirm` components, replacing `<p-toast>`/`<p-confirmdialog>` in `TableComponent`
-- `TableComponent` and `ColumnsViewsComponent` now use `ConfirmService`/`SnackbarService` instead of PrimeNG's `ConfirmationService`/`MessageService`
+- **Breaking:** require Angular **^22.0** (was ^21.0); bump `@openng/optimus-ui` peer dependency to `^2.0.0-rc.0`
+- **Breaking:** rename the `'primeng'` adapter literal to `'optimus-ui'` in `FormFieldAdapterType`, `TableAdapterType`, `provideCrudRenderer()`, `provideFormFieldRenderer()` and `provideTableRenderer()`
+- Update README and inline docs to reflect the Optimus UI adapter name and setup (`provideOptimus`, `@openng/optimus-ui-themes`)
 
 # 0.1.9 (Aug 2nd 2026)
 - Fix `table` local update when archiving a row: default behavior now marks row as archived instead of deleting it from the table
