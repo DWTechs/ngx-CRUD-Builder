@@ -1,5 +1,4 @@
 import { Provider } from "@angular/core";
-import { TableRegularMaterialComponent } from "../table-regular-material/table-regular-material.component";
 import { TableRegularComponent } from "../table-regular/table-regular.component";
 import { TABLE_RENDERER } from "./table-renderer.token";
 
@@ -7,7 +6,7 @@ import { TABLE_RENDERER } from "./table-renderer.token";
  * Adapters supported by `provideTableRenderer`. `'native'` has no shell yet —
  * the token exists so it can be added later without changing `TableComponent`.
  */
-export type TableAdapterType = "optimus-ui" | "material";
+export type TableAdapterType = "optimus-ui";
 
 /**
  * Provides the table renderer shell used by `TableComponent`.
@@ -15,9 +14,10 @@ export type TableAdapterType = "optimus-ui" | "material";
  * Registers `TABLE_RENDERER` — the component rendering rows, columns, sorting,
  * filtering, pagination and column resizing.
  *
- * @param adapter `"optimus-ui"` for the full-featured Optimus UI table shell, or
- * `"material"` for a minimal Angular Material shell (non-lazy mode only —
- * no filtering, sorting, column resizing or state persistence yet).
+ * @param adapter `"optimus-ui"` for the full-featured Optimus UI table shell.
+ * For a minimal Angular Material shell, use `provideMaterialTableRenderer()` from
+ * `@dwtechs/ngx-crud-builder/material` instead — kept in a separate entry point so
+ * `@angular/material` is never resolved by apps that don't use it.
  *
  * @example
  * // app.config.ts
@@ -25,10 +25,6 @@ export type TableAdapterType = "optimus-ui" | "material";
  *   providers: [...provideTableRenderer('optimus-ui')]
  * };
  */
-export function provideTableRenderer(adapter: TableAdapterType): Provider[] {
-  const shell =
-    adapter === "material"
-      ? TableRegularMaterialComponent
-      : TableRegularComponent;
-  return [{ provide: TABLE_RENDERER, useValue: shell }];
+export function provideTableRenderer(_adapter: TableAdapterType): Provider[] {
+  return [{ provide: TABLE_RENDERER, useValue: TableRegularComponent }];
 }

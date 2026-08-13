@@ -4,12 +4,16 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
+      "@dwtechs/ngx-crud-builder": [
+        "./projects/ngx-crud-builder/src/public-api.ts"
+      ],
       "@crud/*": [
         "./projects/ngx-crud-builder/src/crud/*"
       ],
       "@form/*": ["./projects/ngx-crud-builder/src/crud/form/*"],
       "@table/*": ["./projects/ngx-crud-builder/src/crud/table/*"],
       "@core/*": ["./projects/ngx-crud-builder/src/core/*"],
+      "@material/*": ["./projects/ngx-crud-builder/material/src/*"],
       "@demo/*": ["./projects/ngx-crud-builder-demo/src/app/form-demo/*"]
     },
     "strict": true,

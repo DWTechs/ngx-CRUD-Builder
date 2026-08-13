@@ -25,6 +25,8 @@ export * from "./crud/core/ui/edition-dialog/edition-dialog.component";
 export * from "./crud/core/ui/history/history-mapper.token";
 export * from "./crud/core/ui/history/history.component";
 export * from "./crud/core/ui/history/history.model";
+// exported so the material secondary entry point (table-regular-material) can reuse it
+export * from "./crud/core/ui/table-cell/table-cell.component";
 // --- CRUD: shared utilities ---
 export * from "./crud/core/utils/adapter/adapter.model";
 // --- CRUD: shared configs ---
@@ -45,6 +47,8 @@ export * from "./crud/core/utils/download/form-data.mapper";
 export * from "./crud/core/utils/i18n/crud-labels.token";
 export * from "./crud/core/utils/numbers/numbers.utils";
 export * from "./crud/core/utils/offline/offline.service";
+// exported so the material secondary entry point (table-regular-material) can reuse it
+export * from "./crud/core/utils/table/crud-loader.class";
 export * from "./crud/core/utils/table/export-mode.model";
 export * from "./crud/core/utils/table/filter-level.model";
 export * from "./crud/core/utils/table/table-column.model";
@@ -61,6 +65,8 @@ export * from "./crud/form/ui/field-renderer/provide-form-field-renderer";
 
 // --- Form: file upload ---
 export * from "./crud/form/ui/renderers-optimus-ui/file-upload-input/file-info.class";
+// exported so the material secondary entry point (renderer controls) can reuse it
+export * from "./crud/form/ui/renderers-optimus-ui/form-field-base.component";
 
 // --- Form: validators & utilities ---
 export * from "./crud/form/utils/common.validators";

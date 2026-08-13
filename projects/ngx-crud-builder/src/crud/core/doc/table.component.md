@@ -98,7 +98,7 @@ lazy: true
 lazy: false
 ```
 
-> With `provideTableRenderer('material')`, only `lazy: false` is supported for now — the Material shell throws if `lazy: true` is used.
+> With `provideMaterialTableRenderer()` (from `@dwtechs/ngx-crud-builder/material`), only `lazy: false` is supported for now — the Material shell throws if `lazy: true` is used.
 
 #### `selectable`
 **Type:** `boolean` | **Default:** `false`  

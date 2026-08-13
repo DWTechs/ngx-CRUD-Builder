@@ -2,19 +2,17 @@ import { InjectionToken, Provider } from "@angular/core";
 import { FormFieldRenderer } from "./field-renderer";
 import { FORM_FIELD_COMPONENT } from "./form-field-component.token";
 import { FORM_FIELD_RENDERER } from "./form-field-renderer.token";
-import { MaterialFormFieldRenderer } from "./material/material-form-field-renderer";
-import { MaterialFormFieldComponent } from "./material/material-form-field.component";
 import { NativeFormFieldRenderer } from "./native/native-form-field-renderer";
 import { NativeFormFieldComponent } from "./native/native-form-field.component";
 import { OptimusUiFormFieldComponent } from "./optimus-ui/optimus-ui-form-field.component";
 
-export type FormFieldAdapterType = "optimus-ui" | "native" | "material";
+export type FormFieldAdapterType = "optimus-ui" | "native";
 
-/** The form field adapter registered via `provideFormFieldRenderer`, used e.g. by
- * `TableComponent` to give an adapter-aware error when no table shell is available. */
-export const FORM_ADAPTER = new InjectionToken<FormFieldAdapterType>(
-  "FORM_ADAPTER",
-);
+/** Also set to `"material"` by `provideMaterialFormFieldRenderer` (`@dwtechs/ngx-crud-builder/material`),
+ * which is why the token type is wider than `FormFieldAdapterType`. */
+export const FORM_ADAPTER = new InjectionToken<
+  FormFieldAdapterType | "material"
+>("FORM_ADAPTER");
 
 /**
  * Provides the form field renderer for the given adapter type.
@@ -23,10 +21,10 @@ export const FORM_ADAPTER = new InjectionToken<FormFieldAdapterType>(
  * - `FORM_FIELD_COMPONENT` — the full field component (label + control) used by `FormSimpleElement`
  * - `FORM_FIELD_RENDERER` — the bare control renderer used by `FormArrayElement`
  *
- * @param adapter `"optimus-ui"` for Optimus UI controls, `"native"` for plain HTML controls,
- * `"material"` for Angular Material controls. The `"material"` adapter requires
- * `@angular/material` and `@angular/animations` to be installed, and leaves controls
- * with no Material equivalent (color, files, picklist, table, custom, wysiwyg) unsupported.
+ * @param adapter `"optimus-ui"` for Optimus UI controls, `"native"` for plain HTML controls.
+ * For Angular Material controls, use `provideMaterialFormFieldRenderer()` from
+ * `@dwtechs/ngx-crud-builder/material` instead — kept in a separate entry point so
+ * `@angular/material` is never resolved by apps that don't use it.
  *
  * @example
  * // app.config.ts
@@ -46,13 +44,6 @@ export function provideFormFieldRenderer(
       adapterProvider,
       { provide: FORM_FIELD_RENDERER, useValue: FormFieldRenderer },
       { provide: FORM_FIELD_COMPONENT, useValue: OptimusUiFormFieldComponent },
-    ];
-  }
-  if (adapter === "material") {
-    return [
-      adapterProvider,
-      { provide: FORM_FIELD_RENDERER, useValue: MaterialFormFieldRenderer },
-      { provide: FORM_FIELD_COMPONENT, useValue: MaterialFormFieldComponent },
     ];
   }
   return [

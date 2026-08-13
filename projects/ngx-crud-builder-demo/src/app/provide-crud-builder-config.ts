@@ -5,19 +5,22 @@ import { HISTORY_MAPPER } from "@crud/core/ui/history/history-mapper.token";
 import { HistorizedData } from "@crud/core/ui/history/history.model";
 import { ACL_ADAPTER } from "@crud/core/utils/crud-service/acl-adapter";
 import { provideCrudLabels } from "@crud/core/utils/i18n/crud-labels.token";
-import {
-  FormFieldAdapterType,
-  provideFormFieldRenderer,
-} from "@crud/form/ui/field-renderer/provide-form-field-renderer";
+import { provideFormFieldRenderer } from "@crud/form/ui/field-renderer/provide-form-field-renderer";
 import {
   APP_FORM_CONFIG,
   FormTokenData,
 } from "@crud/form/utils/form.injection-token";
 import { provideTableRenderer } from "@crud/table/ui/table-renderer/provide-table-renderer";
+import { provideMaterialFormFieldRenderer } from "@material/form/provide-material-form-field-renderer";
+import { provideMaterialTableRenderer } from "@material/table/provide-material-table-renderer";
 import { CRUD_LABELS_CONFIG } from "./crud-labels-en";
 import { AclService } from "./full-example/data-access/acl.service";
 import { OptimusUiTranslationsEn } from "./optimus-ui-translations-en";
 import { RawHistoryRow } from "./table-demo/table-demo-mock.service";
+
+/** Adapters offered by the demo's adapter switcher — wider than `FormFieldAdapterType`
+ * since `'material'` now lives in the separate `@dwtechs/ngx-crud-builder/material` entry point. */
+export type DemoAdapterType = "optimus-ui" | "native" | "material";
 
 const FORM_CONFIG: FormTokenData = {
   customErrorMessages: {
@@ -44,7 +47,7 @@ const CONFIG: AppConfig = {
 export const ADAPTER_STORAGE_KEY = "crud_builder_adapter";
 
 const adapter = (localStorage.getItem(ADAPTER_STORAGE_KEY) ??
-  "optimus-ui") as FormFieldAdapterType;
+  "optimus-ui") as DemoAdapterType;
 console.log("Using adapter:", adapter);
 
 export function provideCrudBuilderConfig() {
@@ -70,10 +73,14 @@ export function provideCrudBuilderConfig() {
     { provide: ACL_ADAPTER, useExisting: AclService },
     // table shell only exists for optimus-ui/material; native reproduces the
     // "no table available" error for the adapter switcher demo
-    ...(adapter === "optimus-ui" || adapter === "material"
-      ? provideTableRenderer(adapter)
-      : []),
-    provideFormFieldRenderer(adapter),
+    ...(adapter === "optimus-ui"
+      ? provideTableRenderer("optimus-ui")
+      : adapter === "material"
+        ? provideMaterialTableRenderer()
+        : []),
+    ...(adapter === "material"
+      ? provideMaterialFormFieldRenderer()
+      : provideFormFieldRenderer(adapter)),
     provideNativeDateAdapter(),
   ]);
 }

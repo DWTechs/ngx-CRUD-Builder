@@ -8,14 +8,16 @@ An Angular component library for building dynamic forms and data tables with min
 
 ## UI adapters — Optimus UI, Material or Native?
 
-The library renders two independent things, each with its own adapter: the **form fields** (inputs, selects, dates...) and the **table shell** (rows, sorting, pagination...). Pick **one** adapter and use it for both — don't mix, e.g. an Optimus UI form with a Material table. Use `provideCrudRenderer(adapter)` to provide both at once; it only accepts `'optimus-ui' | 'material'` since there is no `'native'` table shell yet. Use `provideFormFieldRenderer(adapter)` / `provideTableRenderer(adapter)` individually only if you don't render a `<tbl-table>` (e.g. `provideFormFieldRenderer('native')` for a lighter, Optimus UI-free form).
+The library renders two independent things, each with its own adapter: the **form fields** (inputs, selects, dates...) and the **table shell** (rows, sorting, pagination...). Pick **one** adapter and use it for both — don't mix, e.g. an Optimus UI form with a Material table. Use `provideCrudRenderer('optimus-ui')` to provide both at once, or `provideMaterialCrudRenderer()` (from the separate `@dwtechs/ngx-crud-builder/material` entry point) for Material. Use `provideFormFieldRenderer(adapter)` / `provideTableRenderer('optimus-ui')` individually only if you don't render a `<tbl-table>` (e.g. `provideFormFieldRenderer('native')` for a lighter, Optimus UI-free form).
 
 > ⚠️ **Optimus UI is always required as a peer dependency today**, whichever adapter you choose for forms or tables. `ConfirmService`, `SnackbarService`, the confirm dialog, toast, and the table toolbar (export, column management, refresh) are still built with Optimus UI components. Choosing `'material'` or `'native'` only changes how form controls and/or table rows are rendered — it does not remove the Optimus UI dependency.
+
+> ℹ️ **Angular Material is opt-in.** Its providers, `provideMaterialFormFieldRenderer()` / `provideMaterialTableRenderer()` / `provideMaterialCrudRenderer()`, live in the separate `@dwtechs/ngx-crud-builder/material` entry point (not the root `@dwtechs/ngx-crud-builder` import). `@angular/material` and `@angular/animations` are declared as **optional** peer dependencies and are only ever resolved by apps that actually import that entry point.
 
 | Adapter | Form fields | Table shell |
 |---|---|---|
 | `'optimus-ui'` | Full support — float labels, icon fields, all control types | Full-featured: sorting, filtering, lazy loading, column resizing, state persistence |
-| `'material'` | Full support for most control types (requires `@angular/material` + `@angular/animations`, a date adapter, and `provideAnimationsAsync()`) | Minimal shell — data display and pagination only, **non-lazy mode only** (`lazy: false`). No filtering, sorting, column resizing or state persistence yet |
+| Material (`@dwtechs/ngx-crud-builder/material`) | Full support for most control types (requires `@angular/material` + `@angular/animations`, a date adapter, and `provideAnimationsAsync()`) | Minimal shell — data display and pagination only, **non-lazy mode only** (`lazy: false`). No filtering, sorting, column resizing or state persistence yet |
 | `'native'` | Plain HTML controls, no extra dependency, lightest bundle. Covers all control types but is experimental — styling and edge cases are incomplete | **No shell available yet** — using `<tbl-table>` without a table renderer provided throws a `NullInjectorError` at runtime |
 
 Use `provideFormFieldRenderer('native')` on its own only if you don't use `<tbl-table>` — there is currently no `'native'` table shell, so it can't be combined with `provideTableRenderer` or `provideCrudRenderer`.
@@ -39,7 +41,7 @@ The demo app showcases the library through a form builder, a table playground, a
 
 - Angular ≥ 22
 - `@openng/optimus-ui` ≥ 2.0.0-rc.0 — **always required**, regardless of the form/table adapter you pick (see [UI adapters](#ui-adapters--optimus-ui-material-or-native))
-- `@angular/material` + `@angular/animations` ≥ 22 — only if you use `provideFormFieldRenderer('material')` and/or `provideTableRenderer('material')`
+- `@angular/material` + `@angular/animations` ≥ 22 — only if you import `@dwtechs/ngx-crud-builder/material` (i.e. use `provideMaterialFormFieldRenderer()` and/or `provideMaterialTableRenderer()`)
 
 ## Installation
 
@@ -55,11 +57,11 @@ Every app using this library needs, **regardless of the adapter chosen**:
 
 | Provider | Why |
 |---|---|
-| `provideOptimus({ theme: ... })` | Optimus UI theme, used by the toolbar/dialogs/toast even with `'material'` or `'native'` form fields |
+| `provideOptimus({ theme: ... })` | Optimus UI theme, used by the toolbar/dialogs/toast even with Material or `'native'` form fields |
 | `provideFormFieldRenderer(adapter)` | **Required** to render form fields — throws `NullInjectorError` if omitted |
-| `provideTableRenderer(adapter)` | **Required** if you use `<tbl-table>` — throws `NullInjectorError` if omitted (no shell exists for `'native'`, see [UI adapters](#ui-adapters--optimus-ui-material-or-native)) |
+| `provideTableRenderer('optimus-ui')` | **Required** if you use `<tbl-table>` — throws `NullInjectorError` if omitted (no shell exists for `'native'`, see [UI adapters](#ui-adapters--optimus-ui-material-or-native)) |
 
-`provideCrudRenderer(adapter)` is a shortcut that calls both `provideFormFieldRenderer(adapter)` and `provideTableRenderer(adapter)` for the same adapter, so forms and tables stay visually consistent.
+`provideCrudRenderer('optimus-ui')` is a shortcut that calls both `provideFormFieldRenderer('optimus-ui')` and `provideTableRenderer('optimus-ui')`, so forms and tables stay visually consistent. For Angular Material, use `provideMaterialCrudRenderer()` from the separate `@dwtechs/ngx-crud-builder/material` entry point instead.
 
 ```typescript
 // app.config.ts
@@ -82,14 +84,14 @@ export const appConfig: ApplicationConfig = {
       theme: { preset: MyPreset },
     }),
     // required – picks the adapter for both form fields and the table shell
-    ...provideCrudRenderer('optimus-ui'), // or 'material' — see "UI adapters" above
+    ...provideCrudRenderer('optimus-ui'), // see "UI adapters" above for the Material equivalent
     // optional – defaults to French
     provideCrudLabels({ /* your overrides */ }),
   ],
 };
 ```
 
-> Using `'material'` instead of `'optimus-ui'` above additionally requires `provideAnimationsAsync()` (or `provideNoopAnimations()`) and a date adapter such as `provideNativeDateAdapter()` from `@angular/material/core`.
+> For Angular Material, replace `...provideCrudRenderer('optimus-ui')` with `...provideMaterialCrudRenderer()` (imported from `@dwtechs/ngx-crud-builder/material`). It additionally requires `provideAnimationsAsync()` (or `provideNoopAnimations()`) and a date adapter such as `provideNativeDateAdapter()` from `@angular/material/core`.
 
 ### 2. Add the components
 
@@ -173,8 +175,9 @@ Choose the adapter that matches your UI stack:
 | Value | Description |
 |---|---|
 | `'optimus-ui'` | Optimus UI controls — float labels, icon fields, full styling support |
-| `'material'` | Angular Material controls — requires `@angular/material`, `@angular/animations`, `provideAnimationsAsync()` and a date adapter. A few control types (color, files, picklist, table, custom, wysiwyg) have no Material equivalent yet |
 | `'native'` | Plain HTML controls — no Optimus UI dependency, lighter bundle, experimental |
+
+> For Angular Material controls, use `provideMaterialFormFieldRenderer()` from the separate `@dwtechs/ngx-crud-builder/material` entry point instead — it requires `@angular/material`, `@angular/animations`, `provideAnimationsAsync()` and a date adapter. A few control types (color, files, picklist, table, custom, wysiwyg) have no Material equivalent yet.
 
 ```typescript
 import { provideFormFieldRenderer } from '@dwtechs/ngx-crud-builder';
@@ -196,7 +199,8 @@ Provides the table shell (rows, columns, sorting, filtering, pagination, column 
 | Value | Description |
 |---|---|
 | `'optimus-ui'` | Full-featured Optimus UI table (`p-table`) — sorting, filtering, lazy loading, column resizing, state persistence |
-| `'material'` | Minimal Angular Material table (`mat-table`) — **non-lazy mode only** (`lazy = false`); no filtering, sorting, column resizing or state persistence yet |
+
+> For Angular Material, use `provideMaterialTableRenderer()` from the separate `@dwtechs/ngx-crud-builder/material` entry point instead — a minimal Angular Material table (`mat-table`), **non-lazy mode only** (`lazy = false`); no filtering, sorting, column resizing or state persistence yet.
 
 ```typescript
 import { provideTableRenderer } from '@dwtechs/ngx-crud-builder';
@@ -211,7 +215,7 @@ export const appConfig: ApplicationConfig = {
 
 ### `provideCrudRenderer(adapter)`
 
-Convenience helper that provides both the form field renderer and the table renderer for the same adapter in one call, so the form controls and the table shell stay visually consistent (e.g. an Optimus UI form next to an Optimus UI table). Restricted to `'optimus-ui' | 'material'`, since `provideTableRenderer` has no native shell yet.
+Convenience helper that provides both the form field renderer and the table renderer for the same adapter in one call, so the form controls and the table shell stay visually consistent. Only accepts `'optimus-ui'`, since `provideTableRenderer` has no native shell yet. For Angular Material, use `provideMaterialCrudRenderer()` from `@dwtechs/ngx-crud-builder/material` instead.
 
 ```typescript
 import { provideCrudRenderer } from '@dwtechs/ngx-crud-builder';
@@ -224,7 +228,32 @@ export const appConfig: ApplicationConfig = {
 };
 ```
 
-> If you only need to swap the form controls (e.g. to `'native'` or `'material'`) while keeping the Optimus UI table, call `provideFormFieldRenderer(adapter)` directly instead of `provideCrudRenderer`.
+> If you only need to swap the form controls (e.g. to `'native'`) while keeping the Optimus UI table, call `provideFormFieldRenderer(adapter)` directly instead of `provideCrudRenderer`.
+
+### `@dwtechs/ngx-crud-builder/material` — Angular Material adapter
+
+A separate secondary entry point that provides the Material equivalents of the three functions above. It is kept apart from the root entry point so `@angular/material` and `@angular/animations` are only ever resolved by apps that actually import it — they stay genuinely optional otherwise.
+
+| Function | Equivalent to |
+|---|---|
+| `provideMaterialFormFieldRenderer()` | `provideFormFieldRenderer('material')` |
+| `provideMaterialTableRenderer()` | `provideTableRenderer('material')` |
+| `provideMaterialCrudRenderer()` | `provideCrudRenderer('material')` (both of the above combined) |
+
+```typescript
+import { provideMaterialCrudRenderer } from '@dwtechs/ngx-crud-builder/material';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideNativeDateAdapter } from '@angular/material/core';
+
+// app.config.ts
+export const appConfig: ApplicationConfig = {
+  providers: [
+    ...provideMaterialCrudRenderer(),
+    provideAnimationsAsync(),
+    provideNativeDateAdapter(),
+  ],
+};
+```
 
 ### `APP_FORM_CONFIG`
 

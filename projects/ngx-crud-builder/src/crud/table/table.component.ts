@@ -67,11 +67,16 @@ import { ColumnResizeEvent } from "./utils/views/table-config.model";
 const MIN_PAGE = 1;
 
 /** Resolves the `TABLE_RENDERER` shell, throwing an adapter-aware error when missing
- * (e.g. `provideFormFieldRenderer('material')` was used without a matching table shell). */
+ * (e.g. `provideMaterialFormFieldRenderer()` was used without `provideMaterialTableRenderer()`). */
 function resolveTableRenderer() {
   const tableRenderer = inject(TABLE_RENDERER, { optional: true });
   if (tableRenderer) return tableRenderer;
   const formAdapter = inject(FORM_ADAPTER, { optional: true });
+  if (formAdapter === "material") {
+    throw new Error(
+      "No table available for the 'material' adapter. Provide provideMaterialTableRenderer() (from '@dwtechs/ngx-crud-builder/material') or provideMaterialCrudRenderer().",
+    );
+  }
   if (formAdapter && formAdapter !== "optimus-ui") {
     throw new Error(
       `No table available for the '${formAdapter}' adapter (WIP). Provide provideTableRenderer('optimus-ui') to render the table with the Optimus UI shell.`,
