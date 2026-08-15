@@ -10,15 +10,17 @@ Suivi des chantiers issus de l'audit du 2026-08-15. Chaque chantier est traité 
   - Objectif : créer une suite de specs (sur le modèle de `crud/form/form/specs/`) couvrant pagination, filtres, sélection, export, gestion des colonnes.
   - Fait : suite créée dans `crud/table/specs/` (helpers + 4 fichiers, 25 tests) couvrant création, édition, archivage/restauration, synchronisation URL et chargement paresseux initial.
 
-- [ ] **2. Tests unitaires pour `crud.repository.ts`**
+- [x] **2. Tests unitaires pour `crud.repository.ts`**
   - Fichier : `projects/ngx-crud-builder/src/crud/core/utils/crud-service/crud.repository.ts`
   - Constat : logique CRUD centrale (get/create/update/archive/restore/cache) sans couverture.
   - Objectif : mock `HttpClient`, tester chaque opération + le cache (`getAndCacheAll` / `invalidateCache`) + gestion d'erreurs (`catchError`).
+  - Fait : `crud.repository.spec.ts` (15 tests) via `HttpTestingController` — get/getAll/getById, create/update (+ serializer), archive/restore, getHistory, updateFiles (succès + erreur), cache et invalidation.
 
-- [ ] **3. Remplacer la sanitisation HTML manuelle**
+- [x] **3. Remplacer la sanitisation HTML manuelle**
   - Fichiers : `crud/core/ui/table-cell/cell-renderers/wysiwyg-renderer.ts`, `crud/core/utils/table/cell-text-content.class.ts`
   - Constat : suppression des `<script>` sur un `<div>` détaché, comportement implicite fragile.
   - Objectif : utiliser `DomSanitizer.sanitize(SecurityContext.HTML, value)` (ou équivalent) au lieu de la manipulation DOM manuelle.
+  - Fait : remplacement par `DOMParser` (document inerte — aucun script ne s'exécute, aucune ressource `img`/`svg` n'est chargée, contrairement à `innerHTML` sur un élément détaché qui peut déclencher `onerror`/`onload`). Ajout de `wysiwyg-renderer.spec.ts` et `cell-text-content.class.spec.ts` (9 tests) vérifiant l'extraction du texte et la neutralisation des vecteurs XSS (`<script>`, `onerror`).
 
 ## Priorité moyenne
 
