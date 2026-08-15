@@ -20,11 +20,8 @@ import {
 } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { ValidatorFn } from "@angular/forms";
-import { ActivatedRoute, Params, Router } from "@angular/router";
-import { isArray } from "@dwtechs/checkard";
 import { TableLazyLoadEvent } from "@openng/optimus-ui/table";
 import { debounceTime, Subject, switchMap } from "rxjs";
-import { ConfirmService } from "../../core/utils/confirm/confirm.service";
 import { SnackbarService } from "../../core/utils/snackbar/snackbar.service";
 import { CONTROL_TYPES } from "../core/models/control-type.model";
 import { CrudItemBase } from "../core/models/crud-item-base.class";
@@ -43,15 +40,17 @@ import { ExcelExportMode } from "../core/utils/table/export-mode.model";
 import { FilterLevel } from "../core/utils/table/filter-level.model";
 import { TableStateService } from "../core/utils/table/table-state.service";
 import { FORM_ADAPTER } from "../form/ui/field-renderer/provide-form-field-renderer";
-import { FileInfo } from "../form/ui/renderers-optimus-ui/file-upload-input/file-info.class";
 import { LabelStrategy } from "../form/utils/label-strategy.model";
 import { TableConfigService } from "../table/data-access/table-config.service";
 import { ExtendedTableConfig } from "./data-access/table-config.model";
+import { TableConfirmActionsService } from "./data-access/table-confirm-actions.service";
+import { TableUrlSyncService } from "./data-access/table-url-sync.service";
 import { ColumnsManagementDialogComponent } from "./ui/columns-management-dialog/columns-management-dialog.component";
 import type { TableRegularComponent } from "./ui/table-regular/table-regular.component";
 import { TABLE_RENDERER } from "./ui/table-renderer/table-renderer.token";
 import { TableToolbarComponent } from "./ui/table-toolbar/table-toolbar.component";
 import { ExportOptions, ExportService } from "./utils/excel/export.service";
+import { extractUploadedFiles } from "./utils/files/extract-uploaded-files.utils";
 import { cleanFilters } from "./utils/filters/clean-filters.utils";
 import {
   applyDefaultFilters,
@@ -63,8 +62,6 @@ import {
 } from "./utils/sort/table-sort.builder";
 import { TableColumnsStorage } from "./utils/views/table-columns.storage";
 import { ColumnResizeEvent } from "./utils/views/table-config.model";
-
-const MIN_PAGE = 1;
 
 /** Resolves the `TABLE_RENDERER` shell, throwing an adapter-aware error when missing
  * (e.g. `provideMaterialFormFieldRenderer()` was used without `provideMaterialTableRenderer()`). */
@@ -114,13 +111,12 @@ export class TableComponent<TData extends CrudItemBase>
   implements OnInit, OnChanges, AfterViewInit
 {
   // Injected services
-  private readonly confirmService = inject(ConfirmService);
+  private readonly confirmActions = inject(TableConfirmActionsService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly exportService = inject(ExportService);
   public readonly loader = inject(CrudLoader<TData>);
   private readonly loadingService = inject(TableLoadingService);
-  private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
+  private readonly urlSync = inject(TableUrlSyncService);
   private readonly state = inject(TableStateService);
   private readonly columnsStorage = inject(TableColumnsStorage);
   private readonly snackbarService = inject(SnackbarService);
@@ -493,18 +489,16 @@ export class TableComponent<TData extends CrudItemBase>
 
   ngOnInit() {
     if (this.shouldSyncPageWithUrl() && this.paginator()) {
-      const rawPage = this.route.snapshot.queryParamMap.get("page");
-      const parsedPage = Number.parseInt(rawPage ?? "", 10);
-      if (!Number.isNaN(parsedPage) && parsedPage >= MIN_PAGE) {
-        this.first.set((parsedPage - 1) * this.rows());
+      const initialFirst = this.urlSync.readInitialFirst(this.rows());
+      if (initialFirst !== null) {
+        this.first.set(initialFirst);
       }
     }
 
     if (this.shouldSyncIdWithUrl()) {
-      const rawId = this.route.snapshot.queryParams.id;
-      const parsedId = Number.parseInt(rawId, 10);
-      if (!Number.isNaN(parsedId)) {
-        this.targetIdFromUrl.set(parsedId);
+      const targetId = this.urlSync.readTargetId();
+      if (targetId !== null) {
+        this.targetIdFromUrl.set(targetId);
       }
     }
 
@@ -669,7 +663,7 @@ export class TableComponent<TData extends CrudItemBase>
       .pipe(
         // TODO: this might not be the only strategy to update files.
         switchMap((res) => {
-          const files = this.getFiles(entry);
+          const files = extractUploadedFiles(this.config(), entry);
           const id = res?.rows[0]?.id || entry.id;
           return this.loader.updateFiles(files, id);
         }),
@@ -794,7 +788,7 @@ export class TableComponent<TData extends CrudItemBase>
     if (!this.shouldSyncIdWithUrl()) {
       return;
     }
-    this.updateQueryParams({ id });
+    this.urlSync.updateQueryParams({ id });
   }
 
   private syncPageToUrl(first?: number | null, rows?: number | null): void {
@@ -805,15 +799,7 @@ export class TableComponent<TData extends CrudItemBase>
     const currentFirst = Math.max(first ?? this.first(), 0);
     this.first.set(currentFirst);
     const page = Math.floor(currentFirst / safeRows) + 1;
-    this.updateQueryParams({ page });
-  }
-
-  private updateQueryParams(params: Params): void {
-    this.router.navigate([], {
-      queryParams: params,
-      queryParamsHandling: "merge",
-      replaceUrl: true,
-    });
+    this.urlSync.updateQueryParams({ page });
   }
 
   private clearCachedTableStyles() {
@@ -827,59 +813,19 @@ export class TableComponent<TData extends CrudItemBase>
       | undefined;
   }
 
-  private getFiles(entry: TData): File[] {
-    // TODO: test if multiple files controls. Tested only with one for now.
-    const fileControls = this.config().filter(
-      (item) => item.controlType === CONTROL_TYPES.FILES,
-    );
-    const files = fileControls.flatMap((control) => {
-      const key = control.key as keyof TData;
-      const value = entry[key] as FileInfo[];
-      if (isArray(value)) {
-        return value
-          .map((v) => v.file)
-          .filter((v): v is File => v instanceof File);
-      }
-      return [];
-    });
-    return files;
-  }
-
   private handleArchive(ids: number[]) {
-    const count = ids.length;
-    const message =
-      count === 1
-        ? this.labels.table.deleteConfirmationSingle
-        : this.labels.table.deleteConfirmationMultiple(count);
-    const acceptFn = () => {
+    this.confirmActions.confirmArchive(ids.length, () => {
       this.loader.archive(ids).subscribe(() => {
         this.hideEditionDialog();
       });
-    };
-    this.confirm(message, acceptFn);
+    });
   }
 
   private handleRestore(ids: number[]) {
-    const count = ids.length;
-    const message =
-      count === 1
-        ? this.labels.table.restoreConfirmationSingle
-        : this.labels.table.restoreConfirmationMultiple(count);
-    const acceptFn = () => {
+    this.confirmActions.confirmRestore(ids.length, () => {
       this.loader.restore(ids).subscribe(() => {
         this.hideEditionDialog();
       });
-    };
-    this.confirm(message, acceptFn);
-  }
-
-  private confirm(message: string, acceptFn: () => void): void {
-    this.confirmService.confirm({
-      message,
-      header: this.labels.table.confirmationHeader,
-      rejectLabel: this.labels.table.confirmationCancel,
-      acceptLabel: this.labels.table.confirmationConfirm,
-      accept: acceptFn,
     });
   }
 }

@@ -24,9 +24,11 @@ Suivi des chantiers issus de l'audit du 2026-08-15. Chaque chantier est traité 
 
 ## Priorité moyenne
 
-- [ ] **4. Découper `table.component.ts`**
+- [x] **4. Découper `table.component.ts`**
   - Objectif : extraire des services dédiés (ex: sélection, export, colonnes) pour réduire la responsabilité du composant et faciliter les tests du chantier 1.
   - Dépend du chantier 1 (avoir des tests avant de refactorer).
+  - Fait : la sélection/l'export/les colonnes étaient déjà délégués (`ExportService`, `TableColumnsStorage`, `TableStateService`). Extraction de ce qui restait inline : `TableUrlSyncService` (`data-access/table-url-sync.service.ts`, lecture/écriture des query params `page`/`id`, retire `ActivatedRoute`/`Router` du composant), `extractUploadedFiles` (`utils/files/extract-uploaded-files.utils.ts`, fonction pure remplaçant la méthode privée `getFiles`) et `TableConfirmActionsService` (`data-access/table-confirm-actions.service.ts`, retire `ConfirmService` du composant). 15 nouveaux tests ; suite complète et tests table.component.ts (chantier 1) toujours verts après le refactor.
+  - Note : le composant reste ~830 lignes, dont ~290 (34%) sont les déclarations `input()`/`output()` et leur JSDoc (documentation d'API publique, cohérente avec le reste de la lib — cf. `form.component.ts`) : cette partie ne peut pas être déplacée hors de la classe (contrainte Angular sur les signal inputs) sans perdre la doc IDE des consommateurs. Le reste est désormais de l'orchestration de cycle de vie et des handlers CRUD fins qui délèguent tous à des services dédiés — il n'y a plus de bloc de logique substantiel à extraire.
 
 - [ ] **5. Lint strict + CI**
   - Fichiers : `biome.json`, `.github/workflows/ci.yml`
