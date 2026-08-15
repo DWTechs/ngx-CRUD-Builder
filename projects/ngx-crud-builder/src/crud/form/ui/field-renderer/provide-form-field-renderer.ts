@@ -2,8 +2,8 @@ import { InjectionToken, Provider } from "@angular/core";
 import { FormFieldRenderer } from "./field-renderer";
 import { FORM_FIELD_COMPONENT } from "./form-field-component.token";
 import { FORM_FIELD_RENDERER } from "./form-field-renderer.token";
-import { NativeFormFieldRenderer } from "./native/native-form-field-renderer";
 import { NativeFormFieldComponent } from "./native/native-form-field.component";
+import { NativeFormFieldRenderer } from "./native/native-form-field-renderer";
 import { OptimusUiFormFieldComponent } from "./optimus-ui/optimus-ui-form-field.component";
 
 export type FormFieldAdapterType = "optimus-ui" | "native";

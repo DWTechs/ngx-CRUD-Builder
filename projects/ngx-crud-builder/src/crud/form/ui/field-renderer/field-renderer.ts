@@ -5,8 +5,8 @@ import {
   Component,
   input,
   OnDestroy,
-  output,
   OutputEmitterRef,
+  output,
   viewChild,
 } from "@angular/core";
 import { FormControl } from "@angular/forms";

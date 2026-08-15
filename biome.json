@@ -1,5 +1,10 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
   "assist": {
     "actions": {
       "source": {
@@ -13,6 +18,13 @@
       "recommended": true,
       "style": {
         "useImportType": "off"
+      },
+      "suspicious": {
+        "noConsole": "warn",
+        "noExplicitAny": "warn"
+      },
+      "complexity": {
+        "noExcessiveCognitiveComplexity": "warn"
       }
     }
   },

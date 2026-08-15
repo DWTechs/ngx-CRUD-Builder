@@ -15,8 +15,8 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatPaginatorModule, PageEvent } from "@angular/material/paginator";
 import { MatTableModule } from "@angular/material/table";
 import {
-  ColumnResizeEvent,
   CONTROL_TYPES,
+  ColumnResizeEvent,
   CRUD_LABELS,
   CrudFeatures,
   FilterLevel,

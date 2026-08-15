@@ -7,9 +7,7 @@
       "@dwtechs/ngx-crud-builder": [
         "./projects/ngx-crud-builder/src/public-api.ts"
       ],
-      "@crud/*": [
-        "./projects/ngx-crud-builder/src/crud/*"
-      ],
+      "@crud/*": ["./projects/ngx-crud-builder/src/crud/*"],
       "@form/*": ["./projects/ngx-crud-builder/src/crud/form/*"],
       "@table/*": ["./projects/ngx-crud-builder/src/crud/table/*"],
       "@core/*": ["./projects/ngx-crud-builder/src/core/*"],
@@ -27,7 +25,7 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "preserve",
-    "lib": ["ES2023", "dom"],
+    "lib": ["ES2023", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

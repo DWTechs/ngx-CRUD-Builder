@@ -4,15 +4,15 @@ import { Calls } from "@crud/core/utils/crud-service/crud.model";
 import { CrudRepository } from "@crud/core/utils/crud-service/crud.repository";
 import { FilterMetadata } from "@openng/optimus-ui/api";
 import { of } from "rxjs";
-import { budgetValidator } from "./request-group.validator";
 import { REQUEST_CONF } from "./request.conf";
 import { ItRequest, itRequestFactory } from "./request.model";
+import { budgetValidator } from "./request-group.validator";
 import {
   accessoryTypes,
   itRequests,
   osTypes,
-  requestTypes,
   requestsHistory,
+  requestTypes,
 } from "./requests-data";
 
 @Injectable({ providedIn: "root" })

@@ -8,13 +8,6 @@ import {
   OnInit,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { CONTROL_TYPES } from "../../models/control-type.model";
-import {
-  DATE_FORMAT_CALENDAR,
-  getMidnightTimeStamp,
-} from "../../utils/dates/dates.utils";
-import { FilterLevel } from "../../utils/table/filter-level.model";
-import { TableColumn } from "../../utils/table/table-column.model";
 import { isArray } from "@dwtechs/checkard";
 import { FilterService, SharedModule } from "@openng/optimus-ui/api";
 import { DatePickerModule } from "@openng/optimus-ui/datepicker";
@@ -23,6 +16,13 @@ import { MultiSelectModule } from "@openng/optimus-ui/multiselect";
 import { SelectModule } from "@openng/optimus-ui/select";
 import { SliderModule } from "@openng/optimus-ui/slider";
 import { Table, TableModule } from "@openng/optimus-ui/table";
+import { CONTROL_TYPES } from "../../models/control-type.model";
+import {
+  DATE_FORMAT_CALENDAR,
+  getMidnightTimeStamp,
+} from "../../utils/dates/dates.utils";
+import { FilterLevel } from "../../utils/table/filter-level.model";
+import { TableColumn } from "../../utils/table/table-column.model";
 
 @Component({
   selector: "crd-table-filter-cell",

@@ -6,8 +6,8 @@ import {
   input,
   output,
   signal,
-  viewChild,
   ViewEncapsulation,
+  viewChild,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { ButtonModule } from "@openng/optimus-ui/button";

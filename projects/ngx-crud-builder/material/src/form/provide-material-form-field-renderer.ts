@@ -4,8 +4,8 @@ import {
   FORM_FIELD_COMPONENT,
   FORM_FIELD_RENDERER,
 } from "@dwtechs/ngx-crud-builder";
-import { MaterialFormFieldRenderer } from "./field-renderer/material-form-field-renderer";
 import { MaterialFormFieldComponent } from "./field-renderer/material-form-field.component";
+import { MaterialFormFieldRenderer } from "./field-renderer/material-form-field-renderer";
 
 /**
  * Provides Angular Material form field controls. Only exported from

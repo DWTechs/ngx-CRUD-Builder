@@ -4,8 +4,8 @@ import {
   computed,
   input,
 } from "@angular/core";
-import { CrudItemOptions } from "../../../models/crud-item-options.model";
 import { SelectItem } from "@openng/optimus-ui/api";
+import { CrudItemOptions } from "../../../models/crud-item-options.model";
 
 @Component({
   selector: "tbl-select-cell-renderer",

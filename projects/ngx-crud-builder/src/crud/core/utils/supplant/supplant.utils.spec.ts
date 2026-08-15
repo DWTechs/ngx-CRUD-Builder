@@ -1,4 +1,5 @@
 import { supplant } from "./supplant.utils";
+
 describe("Supplant", () => {
   it("should replace a single interpolation when given a valid object map", () => {
     const str = "I'm {age} years old!";

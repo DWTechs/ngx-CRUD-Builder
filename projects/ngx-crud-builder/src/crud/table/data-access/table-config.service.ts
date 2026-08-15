@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { catchError, map, Observable, of } from "rxjs";
 import { APP_CONFIG } from "../../../core/app-config/app-config.token";
 import { Rows, RowsAndCount } from "../../core/utils/crud-service/dto.model";

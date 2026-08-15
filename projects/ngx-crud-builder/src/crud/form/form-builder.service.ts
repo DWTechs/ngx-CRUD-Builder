@@ -6,9 +6,9 @@ import {
   UntypedFormGroup,
   ValidatorFn,
 } from "@angular/forms";
+import { isArray, isNil } from "@dwtechs/checkard";
 import { ControlOptions } from "../core/models/control-options.model";
 import { CrudItemOptions } from "../core/models/crud-item-options.model";
-import { isArray, isNil } from "@dwtechs/checkard";
 import { GroupValidatorFn } from "./utils/group-validator.model";
 
 @Injectable({ providedIn: "root" })

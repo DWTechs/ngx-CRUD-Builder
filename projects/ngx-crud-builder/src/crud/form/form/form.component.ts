@@ -11,8 +11,8 @@ import {
   OnInit,
   output,
   signal,
-  viewChild,
   ViewEncapsulation,
+  viewChild,
 } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import {

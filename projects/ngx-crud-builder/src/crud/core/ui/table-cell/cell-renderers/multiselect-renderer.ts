@@ -4,9 +4,9 @@ import {
   computed,
   input,
 } from "@angular/core";
-import { CrudItemOptions } from "../../../models/crud-item-options.model";
 import { isArray } from "@dwtechs/checkard";
 import { SelectItem } from "@openng/optimus-ui/api";
+import { CrudItemOptions } from "../../../models/crud-item-options.model";
 
 @Component({
   selector: "tbl-multiselect-cell-renderer",

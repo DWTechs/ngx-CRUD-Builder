@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
-import { FormFieldBaseComponent } from "../form-field-base.component";
 import { InputNumberModule } from "@openng/optimus-ui/inputnumber";
+import { FormFieldBaseComponent } from "../form-field-base.component";
 
 @Component({
   selector: "frm-inputnumber-control",
@@ -10,7 +10,8 @@ import { InputNumberModule } from "@openng/optimus-ui/inputnumber";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputNumberControlComponent extends FormFieldBaseComponent {
-
   public readonly currency = computed(() => this.options().numberCurrency);
-  public readonly mode = computed(() => this.currency() ? 'currency' : undefined);
+  public readonly mode = computed(() =>
+    this.currency() ? "currency" : undefined,
+  );
 }

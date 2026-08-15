@@ -8,8 +8,8 @@ import {
 import { FormControl } from "@angular/forms";
 import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
 import { supplant } from "../../../core/utils/supplant/supplant.utils";
-import { BASE_FORM_ERROR_MESSAGES } from "../../utils/form-error-messages";
 import { APP_FORM_CONFIG } from "../../utils/form.injection-token";
+import { BASE_FORM_ERROR_MESSAGES } from "../../utils/form-error-messages";
 
 @Component({
   selector: "frm-error-message",

@@ -1,8 +1,8 @@
 import {
   EnvironmentProviders,
   InjectionToken,
-  Provider,
   inject,
+  Provider,
   provideAppInitializer,
 } from "@angular/core";
 import { Translation } from "@openng/optimus-ui/api";

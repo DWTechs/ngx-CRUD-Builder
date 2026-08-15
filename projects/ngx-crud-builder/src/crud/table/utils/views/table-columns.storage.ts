@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from "@angular/core";
+import { Injectable, inject, signal } from "@angular/core";
 import { takeUntilDestroyed, toObservable } from "@angular/core/rxjs-interop";
 import { ColumnResizeEvent } from "@crud/table/utils/views/table-config.model";
 import {
