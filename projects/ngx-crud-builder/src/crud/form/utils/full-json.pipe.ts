@@ -6,7 +6,7 @@ import { isFunction } from "@dwtechs/checkard";
   name: "fullJson",
 })
 export class FullJsonPipe implements PipeTransform {
-  transform(value: any): string {
+  transform(value: unknown): string {
     return JSON.stringify(value, replacer, 2);
   }
 }

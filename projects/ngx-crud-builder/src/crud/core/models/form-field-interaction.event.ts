@@ -28,11 +28,13 @@ export interface FormFieldInteractionEvent {
   /** The type of control (input, select, etc.) */
   controlType: string;
   /** The current value after interaction */
+  // biome-ignore lint/suspicious/noExplicitAny: value can hold any control value type; unknown would break existing consumer code reading event.value without a cast
   value: any;
   /** The type of interaction that occurred */
   interactionType: FormFieldInteraction;
   /** Timestamp of the interaction */
   timestamp: Date;
   /** Can store any additional data related to the interaction */
+  // biome-ignore lint/suspicious/noExplicitAny: intentionally arbitrary payload, same rationale as value above
   extraData?: any;
 }

@@ -513,6 +513,7 @@ describe("LabelWrapperComponent", () => {
       component.config.set({
         label: "No Key",
         controlType: CONTROL_TYPES.INPUT,
+        // biome-ignore lint/suspicious/noExplicitAny: intentionally forcing an invalid/incomplete config to test edge-case handling
       } as any);
       fixture.detectChanges();
 

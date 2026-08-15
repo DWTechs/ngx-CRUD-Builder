@@ -1,8 +1,8 @@
 import { LOCALE_ID, makeEnvironmentProviders } from "@angular/core";
 import { provideNativeDateAdapter } from "@angular/material/core";
 import { APP_CONFIG, AppConfig } from "@core/app-config/app-config.token";
-import { HistorizedData } from "@crud/core/ui/history/history.model";
 import { HISTORY_MAPPER } from "@crud/core/ui/history/history-mapper.token";
+import { HistorizedData } from "@crud/core/ui/history/history.model";
 import { ACL_ADAPTER } from "@crud/core/utils/crud-service/acl-adapter";
 import { provideCrudLabels } from "@crud/core/utils/i18n/crud-labels.token";
 import { provideFormFieldRenderer } from "@crud/form/ui/field-renderer/provide-form-field-renderer";
@@ -48,7 +48,6 @@ export const ADAPTER_STORAGE_KEY = "crud_builder_adapter";
 
 const adapter = (localStorage.getItem(ADAPTER_STORAGE_KEY) ??
   "optimus-ui") as DemoAdapterType;
-console.log("Using adapter:", adapter);
 
 export function provideCrudBuilderConfig() {
   return makeEnvironmentProviders([

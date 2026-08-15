@@ -62,7 +62,6 @@ export class DownloadService {
     filename = "",
     openPrintModule = false,
   ) {
-    console.log("Downloading file from:", location, filename);
     return this.http.get(location, { responseType: "blob" }).pipe(
       delay(delayBetweenTries),
       tap((blob) => {

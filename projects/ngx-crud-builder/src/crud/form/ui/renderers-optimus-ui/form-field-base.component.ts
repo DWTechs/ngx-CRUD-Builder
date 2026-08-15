@@ -81,6 +81,7 @@ export class FormFieldBaseComponent implements OnInit {
 
   public emitInteractionEvent(
     interactionType: FormFieldInteraction,
+    // biome-ignore lint/suspicious/noExplicitAny: mirrors FormFieldInteractionEvent.extraData
     extraData?: any,
   ) {
     const event = this.buildInteractionEvent(interactionType, extraData);
@@ -89,6 +90,7 @@ export class FormFieldBaseComponent implements OnInit {
 
   private buildInteractionEvent(
     interactionType: FormFieldInteraction,
+    // biome-ignore lint/suspicious/noExplicitAny: mirrors FormFieldInteractionEvent.extraData
     extraData?: any,
   ): FormFieldInteractionEvent {
     return {

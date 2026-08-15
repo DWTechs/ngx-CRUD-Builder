@@ -185,6 +185,7 @@ describe("FormFieldTooltip", () => {
 
   describe("Edge Cases", () => {
     it("should handle null value safely", () => {
+      // biome-ignore lint/suspicious/noExplicitAny: intentionally forcing an invalid runtime value to test edge-case handling
       component.tooltipValue.set(null as any);
       fixture.detectChanges();
 
