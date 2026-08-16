@@ -45,14 +45,18 @@ Suivi des chantiers issus de l'audit du 2026-08-15. Chaque chantier est traité 
 
 ## Priorité basse
 
-- [ ] **7. Scinder les peer dependencies optionnelles**
+- [~] **7. Scinder les peer dependencies optionnelles**
   - Constat : `exceljs`, `quill`, etc. sont des `peerDependencies` obligatoires alors qu'ils ne sont utilisés que par certaines features (export Excel, rich-text).
   - Objectif : créer des secondary entry points (sur le modèle de `material/`) pour rendre ces dépendances réellement optionnelles.
   - Note : vérifier aussi la dépendance `@openng/optimus-ui@^2.0.0-rc.0` (pre-release en peer dependency).
+  - **Non retenu** : jugé pas assez prioritaire pour le moment, passé directement au chantier 8.
 
-- [ ] **8. Nettoyage divers**
+- [x] **8. Nettoyage divers**
   - Dédoublonnage de `@angular/cdk` dans `package.json` (présent en `dependencies` et `devDependencies` avec des ranges différents).
   - Trier les 7 marqueurs `TODO`/`FIXME` restants (dont celui de `crud.repository.ts`) : résoudre ou transformer en issues GitHub.
+  - Fait :
+    - `package.json` : `@angular/cdk` était dupliqué (`~22.1.1` en `dependencies`, `22.1.1` en `devDependencies`) — même constat trouvé en plus pour `@angular/material` (`~22.1.1` vs `^22.1.1`). Les deux sont des dépendances runtime réelles (utilisées par la demo et l'entry point `material/`), donc conservées uniquement en `dependencies`, avec une version exacte `22.1.1` alignée sur le reste des packages `@angular/*`. `npm install` relancé pour mettre à jour le lockfile.
+    - TODO/FIXME (7 trouvés, 0 `FIXME`) : 2 résolus directement — renommage de `CrudLoader` → `CrudTableLoader` (classe + fichier `crud-loader.class.ts` → `crud-table-loader.class.ts`, non exposée séparément dans un README/doc, seulement via le barrel `public-api.ts` ; à noter dans le changelog de la prochaine version comme changement de nom d'export) ; ajout de 2 tests couvrant plusieurs contrôles `FILES` et plusieurs fichiers sur un même contrôle dans `extract-uploaded-files.utils.spec.ts` (6 tests désormais, TODO supprimé). Les 5 autres (renderer personnalisé pour les colonnes, valeur de filtre par défaut, test bloqué par un backend indisponible, stratégie de mise à jour des fichiers, hauteur de table calculée) nécessitent une décision produit/design que je ne peux pas trancher seul et restent en l'état — je n'ai pas d'outil pour créer des issues GitHub à votre place, donc ce sont des candidats à convertir manuellement en issues si voulu.
 
 ---
 

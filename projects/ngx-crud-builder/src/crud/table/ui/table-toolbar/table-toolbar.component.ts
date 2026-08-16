@@ -13,7 +13,7 @@ import { FileUploadModule } from "@openng/optimus-ui/fileupload";
 import { ToolbarModule } from "@openng/optimus-ui/toolbar";
 import { CrudItemBase } from "../../../core/models/crud-item-base.class";
 import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
-import { CrudFeatures } from "../../../core/utils/table/crud-loader.class";
+import { CrudFeatures } from "../../../core/utils/table/crud-table-loader.class";
 import { TableColumn } from "../../../core/utils/table/table-column.model";
 import { ExportOptions } from "../../utils/excel/export.service";
 import { ExportDialogComponent } from "../export-dialog/export-dialog.component";

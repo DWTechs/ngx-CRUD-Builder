@@ -12,11 +12,11 @@ import {
   OnChanges,
   OnInit,
   output,
-  SimpleChanges,
   signal,
+  SimpleChanges,
   TemplateRef,
-  ViewEncapsulation,
   viewChild,
+  ViewEncapsulation,
 } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { ValidatorFn } from "@angular/forms";
@@ -35,7 +35,7 @@ import { isEqual } from "../core/utils/arrays/is-equal.utils";
 import { Calls } from "../core/utils/crud-service/crud.model";
 import { CRUD_LABELS } from "../core/utils/i18n/crud-labels.token";
 import { TableLoadingService } from "../core/utils/loading/table-loading.service";
-import { CrudLoader } from "../core/utils/table/crud-loader.class";
+import { CrudTableLoader } from "../core/utils/table/crud-table-loader.class";
 import { ExcelExportMode } from "../core/utils/table/export-mode.model";
 import { FilterLevel } from "../core/utils/table/filter-level.model";
 import { TableStateService } from "../core/utils/table/table-state.service";
@@ -89,7 +89,7 @@ function resolveTableRenderer() {
   templateUrl: "./table.component.html",
   styleUrls: ["./table.component.scss"],
   providers: [
-    CrudLoader,
+    CrudTableLoader,
     TableColumnsStorage,
     TableConfigService,
     TableStateService,
@@ -114,7 +114,7 @@ export class TableComponent<TData extends CrudItemBase>
   private readonly confirmActions = inject(TableConfirmActionsService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly exportService = inject(ExportService);
-  public readonly loader = inject(CrudLoader<TData>);
+  public readonly loader = inject(CrudTableLoader<TData>);
   private readonly loadingService = inject(TableLoadingService);
   private readonly urlSync = inject(TableUrlSyncService);
   private readonly state = inject(TableStateService);

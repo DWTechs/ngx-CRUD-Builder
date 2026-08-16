@@ -7,6 +7,7 @@ import { extractUploadedFiles } from "./extract-uploaded-files.utils";
 class TestEntity extends CrudItemBase {
   name = "";
   pictures: FileInfo[] = [];
+  documents: FileInfo[] = [];
 }
 
 describe("extractUploadedFiles", () => {
@@ -55,5 +56,36 @@ describe("extractUploadedFiles", () => {
     const files = extractUploadedFiles(noFilesConfig, entry);
 
     expect(files).toEqual([]);
+  });
+
+  it("should extract and flatten files from multiple FILES controls", () => {
+    const multiControlConfig: CrudItemOptions[] = [
+      ...config,
+      {
+        key: "documents",
+        label: "Documents",
+        controlType: CONTROL_TYPES.FILES,
+      },
+    ];
+    const picture = new File(["content"], "photo.png");
+    const document = new File(["content"], "doc.pdf");
+    const entry = new TestEntity();
+    entry.pictures = [createFileInfo(picture)];
+    entry.documents = [createFileInfo(document)];
+
+    const files = extractUploadedFiles(multiControlConfig, entry);
+
+    expect(files).toEqual([picture, document]);
+  });
+
+  it("should extract multiple files from a single FILES control", () => {
+    const fileA = new File(["a"], "a.png");
+    const fileB = new File(["b"], "b.png");
+    const entry = new TestEntity();
+    entry.pictures = [createFileInfo(fileA), createFileInfo(fileB)];
+
+    const files = extractUploadedFiles(config, entry);
+
+    expect(files).toEqual([fileA, fileB]);
   });
 });

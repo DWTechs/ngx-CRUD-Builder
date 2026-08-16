@@ -2,7 +2,7 @@ import { Component, inject, input, output } from "@angular/core";
 import { ButtonModule } from "@openng/optimus-ui/button";
 import { TooltipModule } from "@openng/optimus-ui/tooltip";
 import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
-import { CrudFeatures } from "../../../core/utils/table/crud-loader.class";
+import { CrudFeatures } from "../../../core/utils/table/crud-table-loader.class";
 
 @Component({
   selector: "tbl-table-actions-cell",

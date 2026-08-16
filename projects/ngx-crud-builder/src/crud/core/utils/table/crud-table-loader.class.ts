@@ -26,8 +26,7 @@ export class CrudFeatures {
   restore = false;
 }
 
-// TODO: rename to CrudTableLoader // rename file accordingly
-export class CrudLoader<TData extends CrudItemBase> {
+export class CrudTableLoader<TData extends CrudItemBase> {
   private readonly loadingService = inject(TableLoadingService);
   private readonly state = inject(TableStateService);
 

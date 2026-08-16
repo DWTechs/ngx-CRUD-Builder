@@ -4,7 +4,6 @@ import { CrudItemBase } from "../../../core/models/crud-item-base.class";
 import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
 import { FileInfo } from "../../../form/ui/renderers-optimus-ui/file-upload-input/file-info.class";
 
-// TODO: test if multiple files controls. Tested only with one for now.
 export function extractUploadedFiles<TData extends CrudItemBase>(
   config: CrudItemOptions[],
   entry: TData,
