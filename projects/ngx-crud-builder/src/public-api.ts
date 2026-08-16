@@ -22,9 +22,9 @@ export * from "./crud/core/models/input-type.model";
 export * from "./crud/core/ui/crd-button/crd-button.component";
 // --- CRUD: UI components (public-facing) ---
 export * from "./crud/core/ui/edition-dialog/edition-dialog.component";
-export * from "./crud/core/ui/history/history-mapper.token";
 export * from "./crud/core/ui/history/history.component";
 export * from "./crud/core/ui/history/history.model";
+export * from "./crud/core/ui/history/history-mapper.token";
 // exported so the material secondary entry point (table-regular-material) can reuse it
 export * from "./crud/core/ui/table-cell/table-cell.component";
 // --- CRUD: shared utilities ---
@@ -68,8 +68,8 @@ export * from "./crud/form/ui/renderers-optimus-ui/form-field-base.component";
 // --- Form: validators & utilities ---
 export * from "./crud/form/utils/common.validators";
 export * from "./crud/form/utils/email.validator";
-export * from "./crud/form/utils/form-error-messages";
 export * from "./crud/form/utils/form.injection-token";
+export * from "./crud/form/utils/form-error-messages";
 export * from "./crud/form/utils/group-validator.model";
 export * from "./crud/form/utils/label-strategy.model";
 export * from "./crud/form/utils/location.config";
