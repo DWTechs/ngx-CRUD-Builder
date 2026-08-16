@@ -7,15 +7,15 @@ import {
   output,
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
+import { isArray } from "@dwtechs/checkard";
+import { SelectItem } from "@openng/optimus-ui/api";
 import { ControlOptions } from "../../../core/models/control-options.model";
 import { CrudItemOptions } from "../../../core/models/crud-item-options.model";
 import {
   FormFieldInteraction,
   FormFieldInteractionEvent,
 } from "../../../core/models/form-field-interaction.event";
-import { isArray } from "@dwtechs/checkard";
 import { required, requiredTrue } from "../../utils/common.validators";
-import { SelectItem } from "@openng/optimus-ui/api";
 
 @Component({
   selector: "frm-field-base",
@@ -81,6 +81,7 @@ export class FormFieldBaseComponent implements OnInit {
 
   public emitInteractionEvent(
     interactionType: FormFieldInteraction,
+    // biome-ignore lint/suspicious/noExplicitAny: mirrors FormFieldInteractionEvent.extraData
     extraData?: any,
   ) {
     const event = this.buildInteractionEvent(interactionType, extraData);
@@ -89,6 +90,7 @@ export class FormFieldBaseComponent implements OnInit {
 
   private buildInteractionEvent(
     interactionType: FormFieldInteraction,
+    // biome-ignore lint/suspicious/noExplicitAny: mirrors FormFieldInteractionEvent.extraData
     extraData?: any,
   ): FormFieldInteractionEvent {
     return {

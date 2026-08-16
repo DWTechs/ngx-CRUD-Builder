@@ -1,5 +1,8 @@
 import { HttpClient } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
+import { isArray } from "@dwtechs/checkard";
+import { TableLazyLoadEvent } from "@openng/optimus-ui/table";
+import { catchError, map, Observable, of, shareReplay, tap } from "rxjs";
 import { APP_CONFIG } from "../../../../core/app-config/app-config.token";
 import { HistorizedData } from "../../ui/history/history.model";
 import {
@@ -8,13 +11,7 @@ import {
   Repository,
 } from "./crud.model";
 import { Rows, RowsAndCount } from "./dto.model";
-import {
-  NO_ROWS,
-  NO_ROWS_AND_COUNT,
-} from "./no-rows";
-import { isArray } from "@dwtechs/checkard";
-import { TableLazyLoadEvent } from "@openng/optimus-ui/table";
-import { catchError, map, Observable, of, shareReplay, tap } from "rxjs";
+import { NO_ROWS, NO_ROWS_AND_COUNT } from "./no-rows";
 
 @Injectable({ providedIn: "root" })
 export class CrudRepository<T> {

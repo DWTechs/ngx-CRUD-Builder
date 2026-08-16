@@ -16,7 +16,6 @@ export class OfflineService {
   }
 
   private updateOnlineStatus() {
-    console.log("updateOnlineStatus", window.navigator.onLine);
     this._isOnline.set(window.navigator.onLine);
   }
 }

@@ -6,7 +6,8 @@ import { InjectionToken, Type } from "@angular/core";
  * **Required** — the application will throw a `NullInjectorError` at runtime
  * if this token is not provided. Use `provideFormFieldRenderer('optimus-ui')` to keep
  * the default Optimus UI behaviour, `provideFormFieldRenderer('native')` for native HTML,
- * or `provideFormFieldRenderer('material')` for Angular Material controls.
+ * or `provideMaterialFormFieldRenderer()` (from `@dwtechs/ngx-crud-builder/material`)
+ * for Angular Material controls.
  *
  * The provided component must accept the following inputs:
  * - `config: CrudItemOptions` (required)

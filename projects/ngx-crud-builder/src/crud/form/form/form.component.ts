@@ -11,8 +11,8 @@ import {
   OnInit,
   output,
   signal,
-  viewChild,
   ViewEncapsulation,
+  viewChild,
 } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import {
@@ -116,6 +116,7 @@ export class FormComponent<
   >("on");
 
   /** Two-way binding for form values */
+  // biome-ignore lint/suspicious/noExplicitAny: consumers' model types (e.g. CrudItemBase subtypes) don't satisfy T's {[key:string]: unknown} constraint; tightening would be a breaking change
   public readonly model = model.required<any>();
 
   /** Custom label for the reset button */
@@ -144,6 +145,7 @@ export class FormComponent<
   public readonly reset = output<void>();
 
   /** Emitted when form is submitted (if showSubmit is true) */
+  // biome-ignore lint/suspicious/noExplicitAny: mirrors the model input above
   public readonly submitted = output<any>();
 
   /** Emitted when form validation state changes */
@@ -229,9 +231,7 @@ export class FormComponent<
    */
   public onSubmit() {
     if (!this.form()?.valid) {
-      if (this.showLogs()) {
-        console.log("Form is invalid, cannot submit.", this.formErrors);
-      }
+      this.log("Form is invalid, cannot submit.", this.formErrors);
       return;
     }
     // Reset the form to the saved values
@@ -239,8 +239,7 @@ export class FormComponent<
     this.formDir()?.resetForm(newInitialValues);
     this.initialValues = newInitialValues;
     // Emit event for optional parent use
-    if (this.showLogs())
-      console.log("Form submitted with values:", newInitialValues);
+    this.log("Form submitted with values:", newInitialValues);
     this.submitted.emit(this.model());
   }
 
@@ -252,7 +251,7 @@ export class FormComponent<
   }
 
   public emitInteraction(event: FormFieldInteractionEvent) {
-    if (this.showLogs()) console.log("Field interaction event:", event);
+    this.log("Field interaction event:", event);
     this.fieldInteraction.emit(event);
     // Add to pending action if one is found for this control
     const action = this.config().find((item) => item.key === event.key)
@@ -376,12 +375,18 @@ export class FormComponent<
 
   private logFormData(): void {
     const formDir = this.formDir();
-    if (formDir && this.showLogs()) {
-      console.log("Form data changed", {
+    if (formDir) {
+      this.log("Form data changed", {
         value: formDir.value,
         valid: formDir.valid,
       });
     }
+  }
+
+  /** Opt-in debug logging, enabled via the showLogs input */
+  private log(...args: unknown[]): void {
+    // biome-ignore lint/suspicious/noConsole: intentional opt-in debug logging feature
+    if (this.showLogs()) console.log(...args);
   }
 
   /**
@@ -418,6 +423,7 @@ export class FormComponent<
       const value = control.conditions[prop];
       if (isFunction(value)) {
         const result = (value as ConditionFn)({ control, model });
+        // biome-ignore lint/suspicious/noExplicitAny: dynamic key assignment, result type depends on prop
         (control[prop] as any) = result;
       } else {
         if (!control.controlOptions) control.controlOptions = {};
@@ -426,6 +432,7 @@ export class FormComponent<
           const subValue = (value as ControlOptionsCondition)[subProp];
           if (isFunction(subValue)) {
             const result = (subValue as ConditionFn)({ control, model });
+            // biome-ignore lint/suspicious/noExplicitAny: dynamic key assignment, result type depends on subProp
             (control.controlOptions[subProp] as any) = result;
             this.applyCondition(control.key, subProp, result, parentForm);
           }

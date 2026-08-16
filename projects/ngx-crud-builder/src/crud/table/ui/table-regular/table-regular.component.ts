@@ -2,7 +2,6 @@ import { NgStyle, NgTemplateOutlet } from "@angular/common";
 import {
   ChangeDetectionStrategy,
   Component,
-  TemplateRef,
   computed,
   effect,
   inject,
@@ -10,6 +9,7 @@ import {
   model,
   output,
   signal,
+  TemplateRef,
   viewChild,
 } from "@angular/core";
 import { FilterMetadata } from "@openng/optimus-ui/api";
@@ -24,10 +24,10 @@ import {
 import { Tooltip } from "@openng/optimus-ui/tooltip";
 import { CONTROL_TYPES } from "../../../core/models/control-type.model";
 import { TableCellComponent } from "../../../core/ui/table-cell/table-cell.component";
-import { TableFilterCellPrimeComponent } from "../../../core/ui/table-filter-cell-prime/table-filter-cell-prime.component";
 import { TableFilterCellComponent } from "../../../core/ui/table-filter-cell/table-filter-cell.component";
+import { TableFilterCellPrimeComponent } from "../../../core/ui/table-filter-cell-prime/table-filter-cell-prime.component";
 import { CRUD_LABELS } from "../../../core/utils/i18n/crud-labels.token";
-import { CrudFeatures } from "../../../core/utils/table/crud-loader.class";
+import { CrudFeatures } from "../../../core/utils/table/crud-table-loader.class";
 import { FilterLevel } from "../../../core/utils/table/filter-level.model";
 import { TableColumn } from "../../../core/utils/table/table-column.model";
 import { FirstRowPipe } from "../../utils/pipes/first-row.pipe";

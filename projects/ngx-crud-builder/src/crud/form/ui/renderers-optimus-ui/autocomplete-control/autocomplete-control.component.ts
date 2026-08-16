@@ -8,7 +8,10 @@ import {
 } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { SelectItem } from "@openng/optimus-ui/api";
-import { AutoComplete, AutoCompleteModule } from "@openng/optimus-ui/autocomplete";
+import {
+  AutoComplete,
+  AutoCompleteModule,
+} from "@openng/optimus-ui/autocomplete";
 import {
   BehaviorSubject,
   catchError,

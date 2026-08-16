@@ -4,9 +4,12 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { FormFieldBaseComponent } from "../form-field-base.component";
 import { SharedModule } from "@openng/optimus-ui/api";
-import { RadioButtonClickEvent, RadioButtonModule } from "@openng/optimus-ui/radiobutton";
+import {
+  RadioButtonClickEvent,
+  RadioButtonModule,
+} from "@openng/optimus-ui/radiobutton";
+import { FormFieldBaseComponent } from "../form-field-base.component";
 
 @Component({
   selector: "frm-radiogroup-control",

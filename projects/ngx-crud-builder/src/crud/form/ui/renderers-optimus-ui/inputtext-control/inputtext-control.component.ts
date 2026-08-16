@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
-import { FormFieldBaseComponent } from "../form-field-base.component";
 import { InputTextModule } from "@openng/optimus-ui/inputtext";
+import { FormFieldBaseComponent } from "../form-field-base.component";
 
 @Component({
   selector: "frm-inputtext-control",

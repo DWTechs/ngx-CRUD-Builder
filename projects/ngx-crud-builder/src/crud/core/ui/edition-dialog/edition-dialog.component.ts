@@ -27,12 +27,12 @@ import { CrudItemBase } from "../../models/crud-item-base.class";
 import { CrudItemOptions } from "../../models/crud-item-options.model";
 import { NO_ROWS_AND_COUNT } from "../../utils/crud-service/no-rows";
 import { CRUD_LABELS } from "../../utils/i18n/crud-labels.token";
-import { CrudFeatures } from "../../utils/table/crud-loader.class";
+import { CrudFeatures } from "../../utils/table/crud-table-loader.class";
 import { CrdButtonComponent } from "../crd-button/crd-button.component";
 import { CrdModalComponent } from "../crd-modal/crd-modal.component";
-import { HISTORY_MAPPER } from "../history/history-mapper.token";
 import { HistoryComponent } from "../history/history.component";
 import { HistorizedData } from "../history/history.model";
+import { HISTORY_MAPPER } from "../history/history-mapper.token";
 
 @Component({
   selector: "crd-edition-dialog",

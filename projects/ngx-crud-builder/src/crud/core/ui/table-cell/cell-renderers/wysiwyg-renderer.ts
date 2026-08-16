@@ -30,15 +30,12 @@ export class WysiwygCellRendererComponent {
   });
 
   private cleanWysiwygContent(value: string): string {
-    // Simple sanitization: remove script tags and potentially harmful attributes
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = value;
-    // Remove script tags
-    const scripts = tempDiv.getElementsByTagName("script");
-    for (let i = scripts.length - 1; i >= 0; i--) {
-      scripts[i].parentNode?.removeChild(scripts[i]);
+    // DOMParser produces an inert document: no scripts run and no resources (img/svg) load,
+    // unlike assigning innerHTML on a live/detached element which can still trigger onerror handlers.
+    const doc = new DOMParser().parseFromString(value, "text/html");
+    for (const script of doc.querySelectorAll("script")) {
+      script.remove();
     }
-    // Return text content only
-    return tempDiv.textContent || tempDiv.innerText || "";
+    return doc.body.textContent || "";
   }
 }

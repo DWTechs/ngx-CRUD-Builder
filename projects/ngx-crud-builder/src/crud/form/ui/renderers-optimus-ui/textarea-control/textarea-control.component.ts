@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
-import { FormFieldBaseComponent } from "../form-field-base.component";
 import { TextareaModule } from "@openng/optimus-ui/textarea";
+import { FormFieldBaseComponent } from "../form-field-base.component";
 
 @Component({
   selector: "frm-textarea-control",

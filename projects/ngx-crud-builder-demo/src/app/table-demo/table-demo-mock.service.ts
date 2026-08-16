@@ -219,8 +219,7 @@ export class TableDemoMockService {
           tstamp: new Date(now - oneMonth).toISOString(),
           operation: "UPDATE",
           updaterId: user.id,
-          updaterName:
-            user.name.toLowerCase().replace(" ", ".") + "@example.com",
+          updaterName: `${user.name.toLowerCase().replace(" ", ".")}@example.com`,
         },
         // Even older - active status and languages changed
         {

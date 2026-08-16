@@ -22,11 +22,9 @@
   },
   "editor.codeActionsOnSave": {
     "source.organizeImports": "always",
-    "biome.quickFix": "always"      
+    "biome.quickFix": "always"
   },
-  "yaml.customTags": [
-    "!reference sequence"
-  ],
+  "yaml.customTags": ["!reference sequence"],
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,

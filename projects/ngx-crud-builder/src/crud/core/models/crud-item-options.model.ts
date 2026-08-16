@@ -38,6 +38,7 @@ export interface CrudItemOptions {
    * - set the download path when user clicks to download
    * @example `filesPathResolver: (model) => ({src:`${environment.apiGateway}/model.uuid`, name: model.name}) // Extracts file path from model object
    */;
+  // biome-ignore lint/suspicious/noExplicitAny: model is the consumer's entity type, inferred contextually from the inline resolver; unknown would break the documented usage (model.uuid) and require a breaking API change
   filesPathResolver?: (model: any) => FileInfo[];
   /** Defines the options specific to the datatable column */
   columnOptions?: ColumnOptions;
@@ -67,14 +68,17 @@ export interface CrudItemOptions {
  * This type is used to define the structure of the conditions
  * that can be used in the CrudItemOptions.
  */
+// biome-ignore lint/suspicious/noExplicitAny: default generic for consumer-authored condition functions; unknown would break the documented inline usage (model.age) when the generic is omitted
 export type ItemCondition<T = any> = {
   [Prop in keyof CrudItemOptions]?: ConditionFn<T> | ControlOptionsCondition<T>;
 };
 
+// biome-ignore lint/suspicious/noExplicitAny: see ItemCondition above
 export type ControlOptionsCondition<T = any> = {
   [Prop in keyof ControlOptions]?: ConditionFn<T>;
 };
 
+// biome-ignore lint/suspicious/noExplicitAny: see ItemCondition above
 export type ConditionFn<T = any> = (conditionsArgs: {
   control: CrudItemOptions;
   model: T;

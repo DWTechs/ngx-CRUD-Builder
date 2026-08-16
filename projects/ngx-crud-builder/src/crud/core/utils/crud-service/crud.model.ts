@@ -40,7 +40,7 @@ export interface FileOperationConfig<T> {
   serializer?: (item: T) => FormData;
 }
 
-export interface CrudRepositoryConfig<T = any> {
+export interface CrudRepositoryConfig<T = unknown> {
   endpoint: string;
   fileOperationsConfig?: FileOperationConfig<T>;
 }

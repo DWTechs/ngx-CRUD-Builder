@@ -22,9 +22,11 @@ export * from "./crud/core/models/input-type.model";
 export * from "./crud/core/ui/crd-button/crd-button.component";
 // --- CRUD: UI components (public-facing) ---
 export * from "./crud/core/ui/edition-dialog/edition-dialog.component";
-export * from "./crud/core/ui/history/history-mapper.token";
 export * from "./crud/core/ui/history/history.component";
 export * from "./crud/core/ui/history/history.model";
+export * from "./crud/core/ui/history/history-mapper.token";
+// exported so the material secondary entry point (table-regular-material) can reuse it
+export * from "./crud/core/ui/table-cell/table-cell.component";
 // --- CRUD: shared utilities ---
 export * from "./crud/core/utils/adapter/adapter.model";
 // --- CRUD: shared configs ---
@@ -45,41 +47,43 @@ export * from "./crud/core/utils/download/form-data.mapper";
 export * from "./crud/core/utils/i18n/crud-labels.token";
 export * from "./crud/core/utils/numbers/numbers.utils";
 export * from "./crud/core/utils/offline/offline.service";
+// exported so the material secondary entry point (table-regular-material) can reuse it
+export * from "./crud/core/utils/table/crud-table-loader.class";
 export * from "./crud/core/utils/table/export-mode.model";
 export * from "./crud/core/utils/table/filter-level.model";
 export * from "./crud/core/utils/table/table-column.model";
 // --- CRUD: combined renderer adapter ---
 export * from "./crud/form/form/form.component";
-export * from "./crud/provide-crud-renderer";
 // --- Form: main entry points ---
 export * from "./crud/form/form-builder.service";
+export * from "./crud/form/ui/field-renderer/form-field-component.token";
 // --- Form: renderer adapter ---
 export * from "./crud/form/ui/field-renderer/form-field-component-base";
-export * from "./crud/form/ui/field-renderer/form-field-component.token";
 export * from "./crud/form/ui/field-renderer/form-field-renderer.token";
 export * from "./crud/form/ui/field-renderer/provide-form-field-renderer";
-
 // --- Form: file upload ---
 export * from "./crud/form/ui/renderers-optimus-ui/file-upload-input/file-info.class";
-
+// exported so the material secondary entry point (renderer controls) can reuse it
+export * from "./crud/form/ui/renderers-optimus-ui/form-field-base.component";
 // --- Form: validators & utilities ---
 export * from "./crud/form/utils/common.validators";
 export * from "./crud/form/utils/email.validator";
-export * from "./crud/form/utils/form-error-messages";
 export * from "./crud/form/utils/form.injection-token";
+export * from "./crud/form/utils/form-error-messages";
 export * from "./crud/form/utils/group-validator.model";
 export * from "./crud/form/utils/label-strategy.model";
 export * from "./crud/form/utils/location.config";
 export * from "./crud/form/utils/pattern.validator";
 export * from "./crud/form/utils/patterns";
 export * from "./crud/form/utils/socials.config";
+export * from "./crud/provide-crud-renderer";
 // --- Table: data access ---
 export * from "./crud/table/data-access/table-config.model";
 export * from "./crud/table/data-access/table-config.service";
-export * from "./crud/table/utils/excel/location-interceptor.service";
 // --- Table: main entry point ---
 export * from "./crud/table/table.component";
-export * from "./crud/table/utils/views/table-config.model";
 // --- Table: renderer adapter ---
 export * from "./crud/table/ui/table-renderer/provide-table-renderer";
 export * from "./crud/table/ui/table-renderer/table-renderer.token";
+export * from "./crud/table/utils/excel/location-interceptor.service";
+export * from "./crud/table/utils/views/table-config.model";

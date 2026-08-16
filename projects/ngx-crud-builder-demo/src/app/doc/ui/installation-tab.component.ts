@@ -97,19 +97,32 @@ export const appConfig: ApplicationConfig = {{ '{' }}
 
 export const appConfig: ApplicationConfig = {{ '{' }}
   providers: [
-    ...provideCrudRenderer('optimus-ui'), // or 'material'
+    ...provideCrudRenderer('optimus-ui'),
+  ],
+{{ '}' }};</code></pre>
+      <p>
+        For Angular Material, import <code>provideMaterialCrudRenderer</code> from the separate
+        <code>&#64;dwtechs/ngx-crud-builder/material</code> entry point instead — kept apart so
+        <code>&#64;angular/material</code> and <code>&#64;angular/animations</code> are only ever resolved by apps that
+        actually import it:
+      </p>
+      <pre><code>import {{ '{' }} provideMaterialCrudRenderer {{ '}' }} from '&#64;dwtechs/ngx-crud-builder/material';
+
+export const appConfig: ApplicationConfig = {{ '{' }}
+  providers: [
+    ...provideMaterialCrudRenderer(),
   ],
 {{ '}' }};</code></pre>
       <table>
         <thead><tr><th>Value</th><th>Description</th></tr></thead>
         <tbody>
           <tr><td><code>'optimus-ui'</code></td><td>Optimus UI controls with float label, icon field, and full styling support (default)</td></tr>
-          <tr><td><code>'material'</code></td><td>Angular Material controls. Requires <code>&#64;angular/material</code> and <code>&#64;angular/animations</code>. Controls without a Material equivalent (color, files, picklist, table, custom, wysiwyg) are left unsupported. Table shell is non-lazy only.</td></tr>
+          <tr><td><code>provideMaterialCrudRenderer()</code></td><td>Angular Material controls. Requires <code>&#64;angular/material</code> and <code>&#64;angular/animations</code>. Controls without a Material equivalent (color, files, picklist, table, custom, wysiwyg) are left unsupported. Table shell is non-lazy only.</td></tr>
         </tbody>
       </table>
       <p>
         There is no <code>'native'</code> table shell yet, so <code>provideCrudRenderer</code> only accepts
-        <code>'optimus-ui'</code> or <code>'material'</code>. If you don't use <code>&lt;tbl-table&gt;</code>, you can use
+        <code>'optimus-ui'</code>. If you don't use <code>&lt;tbl-table&gt;</code>, you can use
         <code>provideFormFieldRenderer('native')</code> instead for a lighter, Optimus UI-free form.
       </p>
       <p>Omitting the adapter provider will throw a <code>NullInjectorError</code> at runtime.</p>

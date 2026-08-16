@@ -23,7 +23,7 @@ Objectif : pouvoir utiliser `ngx-crud-builder` sans dépendance obligatoire à O
 
 ### 5. Cellules de filtre (`filter-cells`)
 - Les filtres de colonnes (texte, date, select, etc.) utilisent des composants Optimus UI (`Calendar`, `Dropdown`, `MultiSelect`...).
-- C'est la partie la plus large : chaque type de filtre a un équivalent Optimus UI à découpler, potentiellement avec un adaptateur similaire à celui déjà en place pour les form fields (`renderers-optimus-ui` / `renderers-material` / `renderers-native`).
+- C'est la partie la plus large : chaque type de filtre a un équivalent Optimus UI à découpler, potentiellement avec un adaptateur similaire à celui déjà en place pour les form fields (`renderers-optimus-ui` / `material/src/form/renderers` / `renderers-native`).
 
 ### 6. `edition-dialog` — `CardModule` / `CheckboxModule`
 - Encore deux imports Optimus UI résiduels dans le dialog d'édition (mise en page en carte + une checkbox).

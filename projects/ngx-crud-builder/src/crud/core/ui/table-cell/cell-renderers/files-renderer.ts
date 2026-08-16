@@ -5,9 +5,9 @@ import {
   inject,
   input,
 } from "@angular/core";
+import { isArray } from "@dwtechs/checkard";
 import { APP_CONFIG } from "../../../../../core/app-config/app-config.token";
 import { CrudItemOptions } from "../../../models/crud-item-options.model";
-import { isArray } from "@dwtechs/checkard";
 
 @Component({
   selector: "tbl-files-cell-renderer",

@@ -689,7 +689,10 @@ describe("FormSimpleElement — FORM_FIELD_COMPONENT adapter", () => {
     beforeEach(async () => {
       await TestBed.configureTestingModule({
         imports: [FormSimpleElement, ReactiveFormsModule],
-        providers: [provideAnimations(), provideFormFieldRenderer("optimus-ui")],
+        providers: [
+          provideAnimations(),
+          provideFormFieldRenderer("optimus-ui"),
+        ],
       }).compileComponents();
 
       fixture = TestBed.createComponent(FormSimpleElement);
@@ -699,7 +702,9 @@ describe("FormSimpleElement — FORM_FIELD_COMPONENT adapter", () => {
 
     it("should render frm-optimus-ui-form-field", () => {
       fixture.detectChanges();
-      const el = fixture.nativeElement.querySelector("frm-optimus-ui-form-field");
+      const el = fixture.nativeElement.querySelector(
+        "frm-optimus-ui-form-field",
+      );
       expect(el).toBeTruthy();
     });
 
@@ -766,7 +771,9 @@ describe("FormSimpleElement — FORM_FIELD_COMPONENT adapter", () => {
 
     it("should not render Optimus UI form field", () => {
       fixture.detectChanges();
-      const el = fixture.nativeElement.querySelector("frm-optimus-ui-form-field");
+      const el = fixture.nativeElement.querySelector(
+        "frm-optimus-ui-form-field",
+      );
       expect(el).toBeNull();
     });
 

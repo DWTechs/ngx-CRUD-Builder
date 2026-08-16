@@ -89,9 +89,13 @@ export class CellTextContent {
     if (!isString(this.cellValue)) {
       return "";
     }
-    const tmp = document.createElement("DIV");
-    tmp.innerHTML = this.cellValue;
-    return tmp.textContent || tmp.innerText || "";
+    // DOMParser produces an inert document: no scripts run and no resources (img/svg) load,
+    // unlike assigning innerHTML on a live/detached element which can still trigger onerror handlers.
+    const doc = new DOMParser().parseFromString(this.cellValue, "text/html");
+    for (const script of doc.querySelectorAll("script")) {
+      script.remove();
+    }
+    return doc.body.textContent || "";
   }
 
   private dateCellRenderer(): string {

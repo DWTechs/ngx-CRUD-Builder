@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { provideAnimations } from "@angular/platform-browser/animations";
+import { of, throwError } from "rxjs";
 import { CONTROL_TYPES } from "../../../../core/models/control-type.model";
 import { CrudItemOptions } from "../../../../core/models/crud-item-options.model";
 import { FormFieldInteractionEvent } from "../../../../core/models/form-field-interaction.event";
-import { of, throwError } from "rxjs";
 import { AutocompleteControlComponent } from "./autocomplete-control.component";
 
 describe("AutocompleteControlComponent", () => {

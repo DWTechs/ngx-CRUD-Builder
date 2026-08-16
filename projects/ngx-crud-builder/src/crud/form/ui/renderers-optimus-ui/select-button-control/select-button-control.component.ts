@@ -6,8 +6,8 @@ import {
 } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { isNil } from "@dwtechs/checkard";
-import { FormFieldBaseComponent } from "../form-field-base.component";
 import { SelectButtonModule } from "@openng/optimus-ui/selectbutton";
+import { FormFieldBaseComponent } from "../form-field-base.component";
 
 @Component({
   selector: "frm-select-button-control",

@@ -4,12 +4,14 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "@crud/*": [
-        "./projects/ngx-crud-builder/src/crud/*"
+      "@dwtechs/ngx-crud-builder": [
+        "./projects/ngx-crud-builder/src/public-api.ts"
       ],
+      "@crud/*": ["./projects/ngx-crud-builder/src/crud/*"],
       "@form/*": ["./projects/ngx-crud-builder/src/crud/form/*"],
       "@table/*": ["./projects/ngx-crud-builder/src/crud/table/*"],
       "@core/*": ["./projects/ngx-crud-builder/src/core/*"],
+      "@material/*": ["./projects/ngx-crud-builder/material/src/*"],
       "@demo/*": ["./projects/ngx-crud-builder-demo/src/app/form-demo/*"]
     },
     "strict": true,
@@ -23,7 +25,7 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "preserve",
-    "lib": ["ES2023", "dom"],
+    "lib": ["ES2023", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

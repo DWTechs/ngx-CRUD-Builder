@@ -1,5 +1,5 @@
-import { TableRegularComponent } from "./table-regular.component";
 import { MenuItem } from "@openng/optimus-ui/api";
+import { TableRegularComponent } from "./table-regular.component";
 
 export function buildContextMenu<TData>(
   tableRegular: TableRegularComponent<TData>,

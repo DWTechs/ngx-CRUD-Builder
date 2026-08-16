@@ -6,9 +6,9 @@ import {
 } from "@angular/core";
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 import { provideRouter } from "@angular/router";
+import { provideOptimus } from "@openng/optimus-ui/config";
 import { definePreset } from "@openng/optimus-ui-themes";
 import Aura from "@openng/optimus-ui-themes/aura";
-import { provideOptimus } from "@openng/optimus-ui/config";
 import { routes } from "./app.routes";
 import { provideCrudBuilderConfig } from "./provide-crud-builder-config";
 

@@ -3,8 +3,8 @@ import {
   computed,
   signal,
   TemplateRef,
-  viewChild,
   ViewEncapsulation,
+  viewChild,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
