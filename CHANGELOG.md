@@ -3,6 +3,7 @@
 - Add a new `@dwtechs/ngx-crud-builder/material` secondary entry point exposing `provideMaterialFormFieldRenderer()`, `provideMaterialTableRenderer()` and `provideMaterialCrudRenderer()` for Angular Material support
 - `@angular/material` and `@angular/animations` are now genuinely optional: they are only resolved by apps that import the `/material` entry point, instead of being pulled in by every app regardless of adapter choice
 - Update README and inline docs to reference the new Material entry point
+- Fix `edition-dialog` to focus on cancel button instead of first editable field
 
 # 0.2.0 (Aug 9th 2026)
 - Remove PrimeNG in favor of `@openng/optimus-ui` as the UI component library
