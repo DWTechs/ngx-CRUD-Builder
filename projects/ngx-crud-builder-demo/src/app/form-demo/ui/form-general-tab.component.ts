@@ -247,14 +247,16 @@ export class FormGeneralTabComponent {
    * @param {Record<string, unknown>} event - Form submission data
    */
   protected onFormSubmit(event: Record<string, unknown>): void {
-    // this.formSubmit.emit(event);
+    // biome-ignore lint/suspicious/noConsole: demo
+    console.log(event);
   }
 
   /**
    * Handle form reset event
    */
   protected onFormReset(): void {
-    // this.formReset.emit();
+    // biome-ignore lint/suspicious/noConsole: demo
+    console.log("Form reset");
   }
 
   /**
@@ -262,7 +264,8 @@ export class FormGeneralTabComponent {
    * @param {boolean} isValid - Form validity status
    */
   protected onValidityChange(isValid: boolean): void {
-    // this.validityChange.emit(isValid);
+    // biome-ignore lint/suspicious/noConsole: demo
+    console.log("Form validity changed:", isValid);
   }
 
   /**
@@ -270,6 +273,7 @@ export class FormGeneralTabComponent {
    * @param {FormFieldInteractionEvent} event - Field interaction event
    */
   protected onFieldInteraction(event: FormFieldInteractionEvent): void {
-    // this.fieldInteraction.emit(event);
+    // biome-ignore lint/suspicious/noConsole: demo
+    console.log("Field interaction:", event);
   }
 }

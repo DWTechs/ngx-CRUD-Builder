@@ -89,6 +89,7 @@ describe("FormArrayElement", () => {
 
     it("should compute formArray from formGroup", () => {
       fixture.detectChanges();
+      // biome-ignore lint/complexity/useLiteralKeys: <private member>
       const formArray = component["formArray"]();
       expect(formArray).toBeInstanceOf(FormArray);
       expect(formArray.length).toBe(2);
