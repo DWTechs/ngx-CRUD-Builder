@@ -135,6 +135,8 @@ Open a [GitHub issue](https://github.com/DWTechs/ngx-crud-builder/issues) with a
 Build the library first, then publish the built output from `dist/ngx-crud-builder/` — never from `projects/ngx-crud-builder/` (the source folder) or `dist/` directly.
 
 ```bash
+npm i
+ng test
 npm run build:lib
 cd dist/ngx-crud-builder
 npm publish --dry-run  # simulate the publish
