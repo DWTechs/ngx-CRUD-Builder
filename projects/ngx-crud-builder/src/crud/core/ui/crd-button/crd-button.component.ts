@@ -58,6 +58,8 @@ export class CrdButtonComponent {
   public readonly label = input("");
   public readonly icon = input<string>();
   public readonly severity = input<CrdButtonSeverity>();
+  /** When true, marks the native button as the element a cdkTrapFocusAutoCapture ancestor should focus */
+  public readonly focusInitial = input(false);
 
   public readonly clicked = output();
 

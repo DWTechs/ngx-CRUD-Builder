@@ -10,6 +10,7 @@
   [disabled]="disabled() || loading()"
   [attr.aria-label]="variant() === 'icon-only' ? resolvedLabel() || icon() : null"
   [attr.data-testid]="type() + '-button'"
+  [attr.cdkFocusInitial]="focusInitial() ? '' : null"
   (click)="onClick()">
   @if (loading()) {
     <span class="crd-btn-spinner"><crd-progress mode="spinner" /></span>

@@ -50,7 +50,7 @@
     <div class="left-actions">
       <crd-button
         type="cancel"
-        cdkFocusInitial
+        [focusInitial]="true"
         [label]="closeButtonLabel()"
         [disabled]="isLoading()"
         (clicked)="onHide()"

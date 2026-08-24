@@ -1,4 +1,3 @@
-import { A11yModule } from "@angular/cdk/a11y";
 import { AsyncPipe } from "@angular/common";
 import {
   Component,
@@ -40,7 +39,6 @@ import { HistorizedData } from "../history/history.model";
   templateUrl: "./edition-dialog.component.html",
   styleUrls: ["./edition-dialog.component.scss"],
   imports: [
-    A11yModule,
     CrdModalComponent,
     FormComponent,
     CardModule,
