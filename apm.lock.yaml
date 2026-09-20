@@ -1,0 +1,27 @@
+lockfile_version: '1'
+generated_at: '2026-08-31T08:33:41.323161+00:00'
+apm_version: 0.26.0
+dependencies:
+- repo_url: alten-group/coding-pal
+  name: coding-pal-sharp-agent
+  host: github.com
+  resolved_commit: eaaf307548e631e5aa84437e862df9876a011a8c
+  version: 1.0.0
+  virtual_path: instructions/sharp-agent.instructions.md
+  is_virtual: true
+  package_type: apm_package
+  deployed_files:
+  - .github/instructions/sharp-agent.instructions.md
+  deployed_file_hashes:
+    .github/instructions/sharp-agent.instructions.md: sha256:93d883b43984a04bf5eab5b9de1272ea7ba31d3f0998ffe95c6167774f3cec13
+  content_hash: sha256:367c204b195dcdd852ba69e618b553dbee635c0c26000e69fbb48fe8119cd80a
+deployments:
+- kind: project-relative
+  target: copilot
+  value: .github/instructions/sharp-agent.instructions.md
+  runtime: null
+  scope: project
+  owners:
+  - alten-group/coding-pal/instructions/sharp-agent.instructions.md
+  active_owner: alten-group/coding-pal/instructions/sharp-agent.instructions.md
+  content_hash: sha256:93d883b43984a04bf5eab5b9de1272ea7ba31d3f0998ffe95c6167774f3cec13

@@ -17,7 +17,7 @@ The library renders two independent things, each with its own adapter: the **for
 | Adapter | Form fields | Table shell |
 |---|---|---|
 | `'optimus-ui'` | Full support — float labels, icon fields, all control types | Full-featured: sorting, filtering, lazy loading, column resizing, state persistence |
-| Material (`@dwtechs/ngx-crud-builder/material`) | Full support for most control types (requires `@angular/material` + `@angular/animations`, a date adapter, and `provideAnimationsAsync()`) | Minimal shell — data display and pagination only, **non-lazy mode only** (`lazy: false`). No filtering, sorting, column resizing or state persistence yet |
+| Material (`@dwtechs/ngx-crud-builder/material`) | Full support for all control types (requires `@angular/material` + `@angular/animations`, a date adapter, and `provideAnimationsAsync()`) | Minimal shell — data display, pagination, sorting and lazy loading. No filtering, column resizing, state persistence or context menu yet |
 | `'native'` | Plain HTML controls, no extra dependency, lightest bundle. Covers all control types but is experimental — styling and edge cases are incomplete | **No shell available yet** — using `<tbl-table>` without a table renderer provided throws a `NullInjectorError` at runtime |
 
 Use `provideFormFieldRenderer('native')` on its own only if you don't use `<tbl-table>` — there is currently no `'native'` table shell, so it can't be combined with `provideTableRenderer` or `provideCrudRenderer`.
@@ -177,7 +177,7 @@ Choose the adapter that matches your UI stack:
 | `'optimus-ui'` | Optimus UI controls — float labels, icon fields, full styling support |
 | `'native'` | Plain HTML controls — no Optimus UI dependency, lighter bundle, experimental |
 
-> For Angular Material controls, use `provideMaterialFormFieldRenderer()` from the separate `@dwtechs/ngx-crud-builder/material` entry point instead — it requires `@angular/material`, `@angular/animations`, `provideAnimationsAsync()` and a date adapter. A few control types (color, files, picklist, table, custom, wysiwyg) have no Material equivalent yet.
+> For Angular Material controls, use `provideMaterialFormFieldRenderer()` from the separate `@dwtechs/ngx-crud-builder/material` entry point instead — it requires `@angular/material`, `@angular/animations`, `provideAnimationsAsync()` and a date adapter. All control types are supported; the `table` control does not implement per-column filtering yet.
 
 ```typescript
 import { provideFormFieldRenderer } from '@dwtechs/ngx-crud-builder';
@@ -200,7 +200,7 @@ Provides the table shell (rows, columns, sorting, filtering, pagination, column 
 |---|---|
 | `'optimus-ui'` | Full-featured Optimus UI table (`p-table`) — sorting, filtering, lazy loading, column resizing, state persistence |
 
-> For Angular Material, use `provideMaterialTableRenderer()` from the separate `@dwtechs/ngx-crud-builder/material` entry point instead — a minimal Angular Material table (`mat-table`), **non-lazy mode only** (`lazy = false`); no filtering, sorting, column resizing or state persistence yet.
+> For Angular Material, use `provideMaterialTableRenderer()` from the separate `@dwtechs/ngx-crud-builder/material` entry point instead — a minimal Angular Material table (`mat-table`) with pagination, sorting and lazy loading; no filtering, column resizing, state persistence or context menu yet.
 
 ```typescript
 import { provideTableRenderer } from '@dwtechs/ngx-crud-builder';

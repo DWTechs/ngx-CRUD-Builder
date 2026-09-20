@@ -117,7 +117,7 @@ export const appConfig: ApplicationConfig = {{ '{' }}
         <thead><tr><th>Value</th><th>Description</th></tr></thead>
         <tbody>
           <tr><td><code>'optimus-ui'</code></td><td>Optimus UI controls with float label, icon field, and full styling support (default)</td></tr>
-          <tr><td><code>provideMaterialCrudRenderer()</code></td><td>Angular Material controls. Requires <code>&#64;angular/material</code> and <code>&#64;angular/animations</code>. Controls without a Material equivalent (color, files, picklist, table, custom, wysiwyg) are left unsupported. Table shell is non-lazy only.</td></tr>
+          <tr><td><code>provideMaterialCrudRenderer()</code></td><td>Angular Material controls. Requires <code>&#64;angular/material</code> and <code>&#64;angular/animations</code>. All control types are supported. The table shell handles pagination, sorting and lazy mode, but not filtering, column resizing, state persistence or the context menu.</td></tr>
         </tbody>
       </table>
       <p>

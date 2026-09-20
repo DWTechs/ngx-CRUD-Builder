@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   inject,
   input,
   linkedSignal,
@@ -13,6 +12,7 @@ import {
 } from "@angular/core";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatPaginatorModule, PageEvent } from "@angular/material/paginator";
+import { MatSortModule, Sort } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import {
   CONTROL_TYPES,
@@ -28,10 +28,10 @@ import { TableActionsCellMaterialComponent } from "../table-actions-cell-materia
 /**
  * Minimal Angular Material table shell satisfying the `TABLE_RENDERER` contract.
  *
- * Only supports non-lazy mode (`lazy = false`): all rows are fetched once and
- * paginated client-side. Filtering, sorting, column resizing, state persistence
- * and the context menu are not implemented yet — the matching inputs are accepted
- * (to satisfy the shared contract) but have no effect.
+ * Supports client-side pagination and sorting, plus lazy mode (`lazy = true`) where
+ * paging and sorting are delegated to the server through `lazyLoaded`. Filtering,
+ * column resizing, state persistence and the context menu are not implemented yet —
+ * the matching inputs are accepted (to satisfy the shared contract) but have no effect.
  *
  * @see TableRegularComponent for the full-featured Optimus UI reference implementation.
  */
@@ -42,6 +42,7 @@ import { TableActionsCellMaterialComponent } from "../table-actions-cell-materia
     MatTableModule,
     MatPaginatorModule,
     MatCheckboxModule,
+    MatSortModule,
     NgStyle,
     NgTemplateOutlet,
     TableCellComponent,
@@ -97,11 +98,14 @@ export class TableRegularMaterialComponent<TData> {
   }>();
   public readonly columnResized = output<ColumnResizeEvent>();
 
-  // No lazy-loading support yet: this shell always fetches everything upfront,
-  // so lazyLoaded is only declared to satisfy TableComponent's generic subscription.
+  // Structurally compatible with Optimus UI's `TableLazyLoadEvent`; declared inline so this
+  // entry point does not have to depend on the Optimus UI table package.
   readonly lazyLoaded = output<{
     first: number;
     rows: number;
+    sortField?: string;
+    sortOrder?: 1 | -1;
+    filters?: Record<string, unknown>;
   }>();
 
   public readonly visibleColumns = computed(() =>
@@ -123,33 +127,81 @@ export class TableRegularMaterialComponent<TData> {
     this.rows() > 0 ? Math.floor(this.first() / this.rows()) : 0,
   );
 
-  public readonly pagedData = computed(() => {
+  public readonly sortState = linkedSignal(() => this.defaultSort());
+
+  public readonly sortDirection = computed<"asc" | "desc">(() =>
+    this.sortState().order === -1 ? "desc" : "asc",
+  );
+
+  // In lazy mode the server already returns the sorted page, so data() is passed through as-is.
+  private readonly sortedData = computed(() => {
     const data = this.data();
-    if (!this.paginator()) return data;
+    const { field, order } = this.sortState();
+    if (this.lazy() || !this.sortable() || !field) return data;
+    return [...data].sort(
+      (a, b) =>
+        this.compareValues(
+          (a as Record<string, unknown>)[field],
+          (b as Record<string, unknown>)[field],
+        ) * order,
+    );
+  });
+
+  public readonly pagedData = computed(() => {
+    const data = this.sortedData();
+    if (this.lazy() || !this.paginator()) return data;
     const pageSize = this.rows();
     const start = this.pageIndex() * pageSize;
     return data.slice(start, start + pageSize);
-  });
-
-  // Fail fast: this shell only supports non-lazy mode for now.
-  private readonly lazyGuard = effect(() => {
-    if (this.lazy()) {
-      throw new Error(
-        "The Material table shell only supports non-lazy mode (lazy = false) for now.",
-      );
-    }
   });
 
   public trackCol(col: TableColumn) {
     return col;
   }
 
+  public isColSortable(col: TableColumn): boolean {
+    return this.sortable() && col.sortable !== false;
+  }
+
+  public onSortChange(sort: Sort): void {
+    const field = sort.direction ? sort.active : this.defaultSort().field;
+    const order: 1 | -1 = sort.direction === "desc" ? -1 : 1;
+    this.sortState.set({ field, order });
+    this.pageIndex.set(0);
+    if (this.lazy()) {
+      this.emitLazyLoad(0, this.rows());
+    }
+  }
+
   public onPage(event: PageEvent): void {
     this.pageIndex.set(event.pageIndex);
-    this.pageChanged.emit({
-      first: event.pageIndex * event.pageSize,
-      rows: event.pageSize,
+    const first = event.pageIndex * event.pageSize;
+    this.pageChanged.emit({ first, rows: event.pageSize });
+    if (this.lazy()) {
+      this.emitLazyLoad(first, event.pageSize);
+    }
+  }
+
+  private emitLazyLoad(first: number, rows: number): void {
+    const { field, order } = this.sortState();
+    this.lazyLoaded.emit({
+      first,
+      rows,
+      sortField: field,
+      sortOrder: order,
+      filters: {},
     });
+  }
+
+  private compareValues(a: unknown, b: unknown): number {
+    if (a === b) return 0;
+    if (a === null || a === undefined) return -1;
+    if (b === null || b === undefined) return 1;
+    if (typeof a === "number" && typeof b === "number") return a - b;
+    if (a instanceof Date && b instanceof Date) {
+      return a.getTime() - b.getTime();
+    }
+    return String(a).localeCompare(String(b));
   }
 
   public onCellClick(rowData: TData, col: TableColumn) {

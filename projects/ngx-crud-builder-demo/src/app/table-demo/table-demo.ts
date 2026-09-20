@@ -3,8 +3,8 @@ import {
   computed,
   signal,
   TemplateRef,
-  ViewEncapsulation,
   viewChild,
+  ViewEncapsulation,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
@@ -71,8 +71,7 @@ export class TableDemo {
   protected tempAreColumnsConfigurable = true;
   protected tempAreColumnsResizable = true;
   protected tempSelectable = false;
-  // Material shell only supports non-lazy mode for now
-  protected tempLazy = this.currentAdapter() !== "material";
+  protected tempLazy = true;
   protected tempIsContextMenuEnabled = false;
   protected tempIsDefaultEditionDisabled = false;
   protected tempIsPreferencesModeEnabled = false;
@@ -102,7 +101,7 @@ export class TableDemo {
   protected readonly areColumnsConfigurable = signal(true);
   protected readonly areColumnsResizable = signal(true);
   protected readonly selectable = signal(false);
-  protected readonly lazy = signal(this.currentAdapter() !== "material");
+  protected readonly lazy = signal(true);
   protected readonly isContextMenuEnabled = signal(false);
   protected readonly isDefaultEditionDisabled = signal(false);
   protected readonly isPreferencesModeEnabled = signal(false);

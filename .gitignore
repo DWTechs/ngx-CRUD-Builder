@@ -44,3 +44,6 @@ __screenshots__/
 Thumbs.db
 
 .firebase
+
+# APM dependencies
+apm_modules/

@@ -1,5 +1,12 @@
 <div class="tbl-material-wrapper">
-  <table mat-table [dataSource]="pagedData()" class="tbl-material-table">
+  <table
+    mat-table
+    matSort
+    class="tbl-material-table"
+    [dataSource]="pagedData()"
+    [matSortActive]="sortState().field"
+    [matSortDirection]="sortDirection()"
+    (matSortChange)="onSortChange($event)">
     @if (selectable()) {
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
@@ -19,7 +26,11 @@
 
     @for (col of visibleColumns(); track trackCol(col)) {
       <ng-container [matColumnDef]="col.key">
-        <th mat-header-cell *matHeaderCellDef>{{ col.label }}</th>
+        <th
+          mat-header-cell
+          mat-sort-header
+          *matHeaderCellDef
+          [disabled]="!isColSortable(col)">{{ col.label }}</th>
         <td
           mat-cell
           *matCellDef="let row"

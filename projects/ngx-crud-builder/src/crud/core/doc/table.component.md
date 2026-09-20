@@ -98,7 +98,7 @@ lazy: true
 lazy: false
 ```
 
-> With `provideMaterialTableRenderer()` (from `@dwtechs/ngx-crud-builder/material`), only `lazy: false` is supported for now — the Material shell throws if `lazy: true` is used.
+> With `provideMaterialTableRenderer()` (from `@dwtechs/ngx-crud-builder/material`), `lazy: true` is supported for paging and sorting, but the Material shell has no filtering yet, so filters are never sent to the server.
 
 #### `selectable`
 **Type:** `boolean` | **Default:** `false`  

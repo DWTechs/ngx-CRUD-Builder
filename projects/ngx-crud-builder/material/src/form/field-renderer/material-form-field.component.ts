@@ -8,6 +8,7 @@ import { MaterialFormFieldRenderer } from "./material-form-field-renderer";
 /** Control types rendered with their own floating `mat-label` (no outer `<label>` needed). */
 const FLOATING_LABEL_CONTROL_TYPES: string[] = [
   CONTROL_TYPES.AUTOCOMPLETE,
+  CONTROL_TYPES.COLOR,
   CONTROL_TYPES.DATE,
   CONTROL_TYPES.INPUT,
   CONTROL_TYPES.MULTISELECT,
@@ -19,9 +20,9 @@ const FLOATING_LABEL_CONTROL_TYPES: string[] = [
  * Material full form field component.
  *
  * Renders `MaterialFormFieldRenderer` (Angular Material controls). Controls backed by a
- * `mat-form-field` (input, textarea, select, date, autocomplete) carry their own floating
- * `mat-label`; other controls (checkbox, radio, select-button) get a plain `<label>` above them.
- * Provided by `provideMaterialFormFieldRenderer()`.
+ * `mat-form-field` (input, textarea, select, date, autocomplete, color) carry their own floating
+ * `mat-label`; other controls (checkbox, radio, select-button, files, picklist, wysiwyg, custom)
+ * get a plain `<label>` above them. Provided by `provideMaterialFormFieldRenderer()`.
  *
  * Requires the host app to provide a date adapter (e.g. `provideNativeDateAdapter()`
  * from `@angular/material/core`) for the DATE control type, and an animations

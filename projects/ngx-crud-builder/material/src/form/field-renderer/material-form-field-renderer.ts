@@ -1,3 +1,4 @@
+import { NgComponentOutlet } from "@angular/common";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -12,13 +13,18 @@ import {
 } from "@dwtechs/ngx-crud-builder";
 import { MaterialAutocompleteControlComponent } from "../renderers/material-autocomplete-control/material-autocomplete-control.component";
 import { MaterialCheckboxControlComponent } from "../renderers/material-checkbox-control/material-checkbox-control.component";
+import { MaterialColorpickerControlComponent } from "../renderers/material-colorpicker-control/material-colorpicker-control.component";
 import { MaterialDateControlComponent } from "../renderers/material-date-control/material-date-control.component";
+import { MaterialFileUploadInputComponent } from "../renderers/material-file-upload-input/material-file-upload-input.component";
 import { MaterialInputNumberControlComponent } from "../renderers/material-inputnumber-control/material-inputnumber-control.component";
 import { MaterialInputTextControlComponent } from "../renderers/material-inputtext-control/material-inputtext-control.component";
 import { MaterialMultiselectControlComponent } from "../renderers/material-multiselect-control/material-multiselect-control.component";
+import { MaterialPicklistControlComponent } from "../renderers/material-picklist-control/material-picklist-control.component";
 import { MaterialRadiogroupControlComponent } from "../renderers/material-radiogroup-control/material-radiogroup-control.component";
+import { MaterialRichTextEditorComponent } from "../renderers/material-rich-text-editor/material-rich-text-editor.component";
 import { MaterialSelectButtonControlComponent } from "../renderers/material-select-button-control/material-select-button-control.component";
 import { MaterialSelectControlComponent } from "../renderers/material-select-control/material-select-control.component";
+import { MaterialTableControlComponent } from "../renderers/material-table-control/material-table-control.component";
 import { MaterialTextareaControlComponent } from "../renderers/material-textarea-control/material-textarea-control.component";
 
 @Component({
@@ -32,15 +38,21 @@ import { MaterialTextareaControlComponent } from "../renderers/material-textarea
     }
   `,
   imports: [
+    NgComponentOutlet,
     MaterialAutocompleteControlComponent,
     MaterialCheckboxControlComponent,
+    MaterialColorpickerControlComponent,
     MaterialDateControlComponent,
+    MaterialFileUploadInputComponent,
     MaterialInputNumberControlComponent,
     MaterialInputTextControlComponent,
     MaterialMultiselectControlComponent,
+    MaterialPicklistControlComponent,
     MaterialRadiogroupControlComponent,
+    MaterialRichTextEditorComponent,
     MaterialSelectButtonControlComponent,
     MaterialSelectControlComponent,
+    MaterialTableControlComponent,
     MaterialTextareaControlComponent,
   ],
 })

@@ -1,3 +1,8 @@
+# 0.3.1 (Sep 20th 2026)
+- Add Material renderers for the `color`, `custom`, `files`, `picklist`, `table` and `wysiwyg` control types — the Material adapter now covers every control type (the `table` control has no per-column filtering yet)
+- Add sorting and lazy mode to the Material table shell; `provideMaterialTableRenderer()` no longer throws when `lazy: true`
+- Export `crudItemToColumn` and `TableCtrlConfig` from the public API
+
 # 0.3.0 (Aug 23th 2026)
 - **Breaking:** remove the `'material'` adapter literal from `FormFieldAdapterType`, `TableAdapterType`, `provideFormFieldRenderer()`, `provideTableRenderer()` and `provideCrudRenderer()` — these now only accept `'optimus-ui'` (and `'native'` for form fields)
 - Add a new `@dwtechs/ngx-crud-builder/material` secondary entry point exposing `provideMaterialFormFieldRenderer()`, `provideMaterialTableRenderer()` and `provideMaterialCrudRenderer()` for Angular Material support

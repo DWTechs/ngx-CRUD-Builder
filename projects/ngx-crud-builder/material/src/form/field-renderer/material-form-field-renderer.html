@@ -15,12 +15,46 @@
       (fieldInteraction)="fieldInteraction.emit($event)"
     />
   }
+  @case (ControlType.COLOR) {
+    <frm-material-colorpicker-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.CUSTOM) {
+    @let component = config().controlOptions?.customComponent;
+    @if (component) {
+      <ng-container *ngComponentOutlet="
+        component;
+        inputs: {
+          config: config(),
+          control: control(),
+          isFormReadonly: isFormReadonly(),
+        };
+      "
+      />
+    } @else {
+      <span class="frm-material-unsupported">
+        You must provide a custom component.
+      </span>
+    }
+  }
   @case (ControlType.DATE) {
     <frm-material-date-control
       [config]="config()"
       [control]="control()"
       [isFormReadonly]="isFormReadonly()"
       [syncValueInc]="syncValueInc()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.FILES) {
+    <frm-material-file-upload-input
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
       (fieldInteraction)="fieldInteraction.emit($event)"
     />
   }
@@ -43,6 +77,14 @@
   }
   @case (ControlType.MULTISELECT) {
     <frm-material-multiselect-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.PICKLIST) {
+    <frm-material-picklist-control
       [config]="config()"
       [control]="control()"
       [isFormReadonly]="isFormReadonly()"
@@ -73,8 +115,24 @@
       (fieldInteraction)="fieldInteraction.emit($event)"
     />
   }
+  @case (ControlType.TABLE) {
+    <frm-material-table-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
   @case (ControlType.TEXTAREA) {
     <frm-material-textarea-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.WYSIWYG) {
+    <frm-material-rich-text-editor
       [config]="config()"
       [control]="control()"
       [isFormReadonly]="isFormReadonly()"

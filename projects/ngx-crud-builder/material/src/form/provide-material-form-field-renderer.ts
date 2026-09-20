@@ -4,16 +4,15 @@ import {
   FORM_FIELD_COMPONENT,
   FORM_FIELD_RENDERER,
 } from "@dwtechs/ngx-crud-builder";
-import { MaterialFormFieldComponent } from "./field-renderer/material-form-field.component";
 import { MaterialFormFieldRenderer } from "./field-renderer/material-form-field-renderer";
+import { MaterialFormFieldComponent } from "./field-renderer/material-form-field.component";
 
 /**
  * Provides Angular Material form field controls. Only exported from
  * `@dwtechs/ngx-crud-builder/material`, so `@angular/material` and `@angular/animations`
  * are only ever resolved by apps that import this entry point.
  *
- * Leaves controls with no Material equivalent unsupported (color, files, picklist,
- * table, custom, wysiwyg). Also requires `provideAnimationsAsync()` (or
+ * Covers every control type. Requires `provideAnimationsAsync()` (or
  * `provideNoopAnimations()`) and a date adapter such as `provideNativeDateAdapter()`.
  *
  * @example
