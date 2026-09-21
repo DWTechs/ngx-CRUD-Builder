@@ -7,10 +7,9 @@ import { provideTableRenderer } from "./table/ui/table-renderer/provide-table-re
  * form controls and the table shell stay visually consistent.
  *
  * Equivalent to calling `provideFormFieldRenderer(adapter)` and
- * `provideTableRenderer(adapter)` together. Only accepts `'optimus-ui'` — use
+ * `provideTableRenderer(adapter)` together. Accepts `'optimus-ui'` or `'native'` — use
  * `provideMaterialCrudRenderer()` from `@dwtechs/ngx-crud-builder/material` for the
- * Material adapter, or `provideFormFieldRenderer('native')` directly if you only need
- * to swap the form controls (there is no native table shell yet).
+ * Material adapter.
  *
  * @example
  * // app.config.ts
@@ -18,7 +17,9 @@ import { provideTableRenderer } from "./table/ui/table-renderer/provide-table-re
  *   providers: [...provideCrudRenderer('optimus-ui')]
  * };
  */
-export function provideCrudRenderer(adapter: "optimus-ui"): Provider[] {
+export function provideCrudRenderer(
+  adapter: "optimus-ui" | "native",
+): Provider[] {
   return [
     ...provideFormFieldRenderer(adapter),
     ...provideTableRenderer(adapter),

@@ -113,6 +113,14 @@
       (fieldInteraction)="fieldInteraction.emit($event)"
     />
   }
+  @case (ControlType.TABLE) {
+    <frm-native-table-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
   @case (ControlType.CUSTOM) {
     @let component = config().controlOptions?.customComponent;
     @if (component) {

@@ -1,0 +1,144 @@
+<div class="tbl-native-wrapper">
+  <table class="tbl-native-table" [class.striped]="stripedRows()">
+    <thead>
+      <tr>
+        @if (selectable()) {
+          <th class="select-column">
+            <input
+              type="checkbox"
+              [checked]="isAllSelected()"
+              [indeterminate]="isSomeSelected()"
+              (change)="toggleAll($any($event.target).checked)"
+            />
+          </th>
+        }
+        @for (col of visibleColumns(); track col.key) {
+          <th
+            [class.sortable]="isColSortable(col)"
+            [attr.aria-sort]="sortState().field === col.key ? (sortState().order === -1 ? 'descending' : 'ascending') : null"
+            (click)="onSortClick(col)"
+          >
+            <span class="th-content">
+              {{ col.label }}
+              @if (isColSortable(col)) {
+                <span class="sort-icon">{{ sortIcon(col) }}</span>
+              }
+            </span>
+          </th>
+        }
+        @if (showActionsColumn()) {
+          <th class="actions-column"></th>
+        }
+      </tr>
+      @if (filterable()) {
+        <tr class="filter-row">
+          @if (selectable()) {
+            <th class="select-column"></th>
+          }
+          @for (col of visibleColumns(); track col.key) {
+            <th>
+              @if (col.filterable !== false) {
+                <crd-table-filter-cell-native
+                  [col]="col"
+                  [value]="filters()[col.key]?.value"
+                  (filterChanged)="onFilterChanged(col, $event)"
+                />
+              }
+            </th>
+          }
+          @if (showActionsColumn()) {
+            <th class="actions-column"></th>
+          }
+        </tr>
+      }
+    </thead>
+
+    <tbody>
+      @for (row of pagedData(); track $index) {
+        <tr [ngStyle]="resolvedRowStyles(row)">
+          @if (selectable()) {
+            <td class="select-column">
+              <input
+                type="checkbox"
+                [checked]="isSelected(row)"
+                (click)="$event.stopPropagation()"
+                (change)="toggleRow(row)"
+              />
+            </td>
+          }
+          @for (col of visibleColumns(); track col.key) {
+            <td
+              [class.clickable]="clickableRows()"
+              (click)="onCellClick(row, col)"
+            >
+              <tbl-table-cell [cellValue]="cellValue(row, col.key)" [options]="col" />
+            </td>
+          }
+          @if (showActionsColumn()) {
+            <td class="actions-column">
+              @let customTemplate = customActionsTemplate();
+              @if (customTemplate) {
+                <ng-container
+                  [ngTemplateOutlet]="customTemplate"
+                  [ngTemplateOutletContext]="{ $implicit: row }"
+                />
+              } @else {
+                <tbl-table-actions-cell-native
+                  [features]="features()"
+                  (editClicked)="onActionClick(row, 'write')"
+                  (deleteClicked)="onArchive(row)"
+                />
+              }
+            </td>
+          }
+        </tr>
+      } @empty {
+        <tr class="no-data-row">
+          <td [attr.colspan]="columnCount()">{{ labels.tableControl.noData }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  @if (paginator()) {
+    <div class="tbl-native-paginator">
+      <span class="page-report">{{ pageReport() }}</span>
+      <select
+        class="rows-select"
+        [attr.aria-label]="'Rows per page'"
+        (change)="onPageSizeChange($any($event.target).value)"
+      >
+        @for (option of rowsPerPageOptions(); track option) {
+          <option [value]="option" [selected]="option === pageSize()">{{ option }}</option>
+        }
+      </select>
+      <div class="page-buttons">
+        <button
+          type="button"
+          aria-label="First page"
+          [disabled]="pageIndex() === 0"
+          (click)="goToPage(0)"
+        >&#171;</button>
+        <button
+          type="button"
+          aria-label="Previous page"
+          [disabled]="pageIndex() === 0"
+          (click)="goToPage(pageIndex() - 1)"
+        >&#8249;</button>
+        <span class="page-index">{{ pageIndex() + 1 }} / {{ pageCount() }}</span>
+        <button
+          type="button"
+          aria-label="Next page"
+          [disabled]="pageIndex() >= pageCount() - 1"
+          (click)="goToPage(pageIndex() + 1)"
+        >&#8250;</button>
+        <button
+          type="button"
+          aria-label="Last page"
+          [disabled]="pageIndex() >= pageCount() - 1"
+          (click)="goToPage(pageCount() - 1)"
+        >&#187;</button>
+      </div>
+    </div>
+  }
+</div>

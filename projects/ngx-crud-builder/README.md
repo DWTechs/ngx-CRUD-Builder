@@ -8,7 +8,7 @@ An Angular component library for building dynamic forms and data tables with min
 
 ## UI adapters — Optimus UI, Material or Native?
 
-The library renders two independent things, each with its own adapter: the **form fields** (inputs, selects, dates...) and the **table shell** (rows, sorting, pagination...). Pick **one** adapter and use it for both — don't mix, e.g. an Optimus UI form with a Material table. Use `provideCrudRenderer('optimus-ui')` to provide both at once, or `provideMaterialCrudRenderer()` (from the separate `@dwtechs/ngx-crud-builder/material` entry point) for Material. Use `provideFormFieldRenderer(adapter)` / `provideTableRenderer('optimus-ui')` individually only if you don't render a `<tbl-table>` (e.g. `provideFormFieldRenderer('native')` for a lighter, Optimus UI-free form).
+The library renders two independent things, each with its own adapter: the **form fields** (inputs, selects, dates...) and the **table shell** (rows, sorting, pagination...). Pick **one** adapter and use it for both — don't mix, e.g. an Optimus UI form with a Material table. Use `provideCrudRenderer(adapter)` to provide both at once, or `provideMaterialCrudRenderer()` (from the separate `@dwtechs/ngx-crud-builder/material` entry point) for Material. Use `provideFormFieldRenderer(adapter)` / `provideTableRenderer(adapter)` individually only if you need to provide one of them alone.
 
 > ⚠️ **Optimus UI is always required as a peer dependency today**, whichever adapter you choose for forms or tables. `ConfirmService`, `SnackbarService`, the confirm dialog, toast, and the table toolbar (export, column management, refresh) are still built with Optimus UI components. Choosing `'material'` or `'native'` only changes how form controls and/or table rows are rendered — it does not remove the Optimus UI dependency.
 
@@ -18,9 +18,9 @@ The library renders two independent things, each with its own adapter: the **for
 |---|---|---|
 | `'optimus-ui'` | Full support — float labels, icon fields, all control types | Full-featured: sorting, filtering, lazy loading, column resizing, state persistence |
 | Material (`@dwtechs/ngx-crud-builder/material`) | Full support for all control types (requires `@angular/material` + `@angular/animations`, a date adapter, and `provideAnimationsAsync()`) | Minimal shell — data display, pagination, sorting, basic filtering and lazy loading. No column resizing, state persistence or context menu yet |
-| `'native'` | Plain HTML controls, no extra dependency, lightest bundle. Covers every control type except the `table` control, and is experimental — styling and edge cases are incomplete | **No shell available yet** — using `<tbl-table>` without a table renderer provided throws a `NullInjectorError` at runtime |
+| `'native'` | Plain HTML controls, no extra dependency, lightest bundle. Covers every control type, but is experimental — styling and edge cases are incomplete | Minimal plain HTML shell — data display, selection, pagination, sorting, basic filtering and lazy loading. No column resizing, state persistence or context menu |
 
-Use `provideFormFieldRenderer('native')` on its own only if you don't use `<tbl-table>` — there is currently no `'native'` table shell, so it can't be combined with `provideTableRenderer` or `provideCrudRenderer`.
+`provideCrudRenderer('native')` provides both at once, for an Optimus UI-free form **and** table.
 
 ## Highlights
 
@@ -59,7 +59,7 @@ Every app using this library needs, **regardless of the adapter chosen**:
 |---|---|
 | `provideOptimus({ theme: ... })` | Optimus UI theme, used by the toolbar/dialogs/toast even with Material or `'native'` form fields |
 | `provideFormFieldRenderer(adapter)` | **Required** to render form fields — throws `NullInjectorError` if omitted |
-| `provideTableRenderer('optimus-ui')` | **Required** if you use `<tbl-table>` — throws `NullInjectorError` if omitted (no shell exists for `'native'`, see [UI adapters](#ui-adapters--optimus-ui-material-or-native)) |
+| `provideTableRenderer('optimus-ui')` | **Required** if you use `<tbl-table>` — throws `NullInjectorError` if omitted (also accepts `'native'`, see [UI adapters](#ui-adapters--optimus-ui-material-or-native)) |
 
 `provideCrudRenderer('optimus-ui')` is a shortcut that calls both `provideFormFieldRenderer('optimus-ui')` and `provideTableRenderer('optimus-ui')`, so forms and tables stay visually consistent. For Angular Material, use `provideMaterialCrudRenderer()` from the separate `@dwtechs/ngx-crud-builder/material` entry point instead.
 
@@ -199,6 +199,7 @@ Provides the table shell (rows, columns, sorting, filtering, pagination, column 
 | Value | Description |
 |---|---|
 | `'optimus-ui'` | Full-featured Optimus UI table (`p-table`) — sorting, filtering, lazy loading, column resizing, state persistence |
+| `'native'` | Minimal plain HTML table — pagination, sorting, basic filtering and lazy loading; no column resizing, state persistence or context menu. `filterLevel` is ignored: only the basic filter row is rendered |
 
 > For Angular Material, use `provideMaterialTableRenderer()` from the separate `@dwtechs/ngx-crud-builder/material` entry point instead — a minimal Angular Material table (`mat-table`) with pagination, sorting, basic filtering and lazy loading; no column resizing, state persistence or context menu yet. `filterLevel` is ignored: only the basic filter row is rendered.
 
@@ -215,7 +216,7 @@ export const appConfig: ApplicationConfig = {
 
 ### `provideCrudRenderer(adapter)`
 
-Convenience helper that provides both the form field renderer and the table renderer for the same adapter in one call, so the form controls and the table shell stay visually consistent. Only accepts `'optimus-ui'`, since `provideTableRenderer` has no native shell yet. For Angular Material, use `provideMaterialCrudRenderer()` from `@dwtechs/ngx-crud-builder/material` instead.
+Convenience helper that provides both the form field renderer and the table renderer for the same adapter in one call, so the form controls and the table shell stay visually consistent. Accepts `'optimus-ui'` or `'native'`. For Angular Material, use `provideMaterialCrudRenderer()` from `@dwtechs/ngx-crud-builder/material` instead.
 
 ```typescript
 import { provideCrudRenderer } from '@dwtechs/ngx-crud-builder';

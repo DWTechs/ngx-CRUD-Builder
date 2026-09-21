@@ -3,8 +3,8 @@ import {
   computed,
   signal,
   TemplateRef,
-  viewChild,
   ViewEncapsulation,
+  viewChild,
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CrudItemOptions } from "@crud/core/models/crud-item-options.model";
@@ -53,13 +53,13 @@ export class TableDemo {
     window.location.reload();
   }
 
-  /** Options the Material table shell does not implement yet. */
-  protected readonly isMaterial = computed(
-    () => this.currentAdapter() === "material",
+  /** Options the minimal Material and native table shells do not implement yet. */
+  protected readonly isMinimalShell = computed(
+    () => this.currentAdapter() !== "optimus-ui",
   );
 
   protected readonly unsupportedHint =
-    "Non supporté par le shell de table Material";
+    "Non supporté par les shells de table Material et Native";
 
   // Temporary values for controls (before applying)
   protected tempEntityLabel = "User";
@@ -77,7 +77,7 @@ export class TableDemo {
   protected tempIsExcelExportEnabled = true;
   protected tempExcelExportMode: "local" | "server" = "server";
   protected tempAreColumnsConfigurable = true;
-  protected tempAreColumnsResizable = !this.isMaterial();
+  protected tempAreColumnsResizable = !this.isMinimalShell();
   protected tempSelectable = false;
   protected tempLazy = true;
   protected tempIsContextMenuEnabled = false;
@@ -107,7 +107,7 @@ export class TableDemo {
   protected readonly isExcelExportEnabled = signal(true);
   protected readonly excelExportMode = signal<"local" | "server">("server");
   protected readonly areColumnsConfigurable = signal(true);
-  protected readonly areColumnsResizable = signal(!this.isMaterial());
+  protected readonly areColumnsResizable = signal(!this.isMinimalShell());
   protected readonly selectable = signal(false);
   protected readonly lazy = signal(true);
   protected readonly isContextMenuEnabled = signal(false);

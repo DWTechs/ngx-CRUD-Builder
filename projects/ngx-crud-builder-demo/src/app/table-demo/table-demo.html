@@ -12,7 +12,7 @@
     </div>
   } @else if (currentAdapter() === 'native') {
     <div class="adapter-note">
-      La fonctionnalité table n'existe pas en mode Native pour l'instant — aucun shell de table n'est fourni pour cet adaptateur.
+      L'adaptateur Native est une version simplifiée en HTML pur : affichage des données, pagination, tri et filtrage basique, en mode lazy ou non-lazy. Les options non supportées sont grisées ci-dessous.
     </div>
   }
 
@@ -61,12 +61,12 @@
           placeholder="e.g., 80vh, 600px" />
       </div>
 
-      <div class="demo-control" [class.unsupported]="isMaterial()" [title]="isMaterial() ? unsupportedHint : ''">
+      <div class="demo-control" [class.unsupported]="isMinimalShell()" [title]="isMinimalShell() ? unsupportedHint : ''">
         <label>Filter Level</label>
         <p-select 
           [options]="filterLevelOptions" 
           [(ngModel)]="tempFilterLevel"
-          [disabled]="isMaterial()"
+          [disabled]="isMinimalShell()"
           placeholder="Select filter level" 
         />
       </div>
@@ -80,12 +80,12 @@
         />
       </div>
 
-      <div class="demo-control" [class.unsupported]="isMaterial()" [title]="isMaterial() ? unsupportedHint : ''">
+      <div class="demo-control" [class.unsupported]="isMinimalShell()" [title]="isMinimalShell() ? unsupportedHint : ''">
         <label>State Storage</label>
         <p-select 
           [options]="stateStorageOptions" 
           [(ngModel)]="tempStateStorage"
-          [disabled]="isMaterial()"
+          [disabled]="isMinimalShell()"
           placeholder="Select storage" 
         />
       </div>
@@ -147,10 +147,10 @@
           <label>Configurable Columns</label>
         </div>
 
-        <div class="demo-control" [class.unsupported]="isMaterial()" [title]="isMaterial() ? unsupportedHint : ''">
+        <div class="demo-control" [class.unsupported]="isMinimalShell()" [title]="isMinimalShell() ? unsupportedHint : ''">
           <p-checkbox 
             [(ngModel)]="tempAreColumnsResizable"
-            [disabled]="isMaterial()"
+            [disabled]="isMinimalShell()"
             binary="true" />
           <label>Resizable Columns</label>
         </div>
@@ -169,10 +169,10 @@
           <label>Lazy Loading</label>
         </div>
 
-        <div class="demo-control" [class.unsupported]="isMaterial()" [title]="isMaterial() ? unsupportedHint : ''">
+        <div class="demo-control" [class.unsupported]="isMinimalShell()" [title]="isMinimalShell() ? unsupportedHint : ''">
           <p-checkbox 
             [(ngModel)]="tempIsContextMenuEnabled"
-            [disabled]="isMaterial()"
+            [disabled]="isMinimalShell()"
             binary="true" />
           <label>Context Menu</label>
         </div>
@@ -212,10 +212,10 @@
           <label>Custom Actions Cell Template</label>
         </div>
 
-        <div class="demo-control" [class.unsupported]="isMaterial()" [title]="isMaterial() ? unsupportedHint : ''">
+        <div class="demo-control" [class.unsupported]="isMinimalShell()" [title]="isMinimalShell() ? unsupportedHint : ''">
           <p-checkbox
             [(ngModel)]="tempPersistState"
-            [disabled]="isMaterial()"
+            [disabled]="isMinimalShell()"
             binary="true" />
           <label>Persist State</label>
         </div>
@@ -242,7 +242,7 @@
 
   <div class="live-demo">
     <h3>Preview</h3>
-    @if (tableConfig() && currentAdapter() !== 'native') {
+    @if (tableConfig()) {
       <tbl-table
         [config]="tableConfig()!"
         [entityId]="'demo-user'"

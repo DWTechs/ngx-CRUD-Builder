@@ -117,14 +117,10 @@ export const appConfig: ApplicationConfig = {{ '{' }}
         <thead><tr><th>Value</th><th>Description</th></tr></thead>
         <tbody>
           <tr><td><code>'optimus-ui'</code></td><td>Optimus UI controls with float label, icon field, and full styling support (default)</td></tr>
+          <tr><td><code>'native'</code></td><td>Plain HTML controls and table, no extra dependency. All control types are supported. The table shell handles selection, pagination, sorting, basic filtering and lazy mode, but not column resizing, state persistence or the context menu.</td></tr>
           <tr><td><code>provideMaterialCrudRenderer()</code></td><td>Angular Material controls. Requires <code>&#64;angular/material</code> and <code>&#64;angular/animations</code>. All control types are supported. The table shell handles pagination, sorting, basic filtering and lazy mode, but not column resizing, state persistence or the context menu.</td></tr>
         </tbody>
       </table>
-      <p>
-        There is no <code>'native'</code> table shell yet, so <code>provideCrudRenderer</code> only accepts
-        <code>'optimus-ui'</code>. If you don't use <code>&lt;tbl-table&gt;</code>, you can use
-        <code>provideFormFieldRenderer('native')</code> instead for a lighter, Optimus UI-free form.
-      </p>
       <p>Omitting the adapter provider will throw a <code>NullInjectorError</code> at runtime.</p>
 
       <h3>3. Environment Configuration</h3>

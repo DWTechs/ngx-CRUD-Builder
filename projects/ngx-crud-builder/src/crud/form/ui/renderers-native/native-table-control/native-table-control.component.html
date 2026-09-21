@@ -1,0 +1,156 @@
+@if (tableCtrlConfig().isCreationEnabled || tableCtrlConfig().isDeletionEnabled) {
+  <div class="table-control-toolbar">
+    @if (tableCtrlConfig().isCreationEnabled) {
+      <button
+        type="button"
+        class="toolbar-btn"
+        [disabled]="isReadonly()"
+        (click)="onAddNewRow()"
+      >{{ labels.tableControl.add }}</button>
+    }
+    @if (tableCtrlConfig().isDeletionEnabled) {
+      <button
+        type="button"
+        class="toolbar-btn"
+        [disabled]="isReadonly() || !selectedIds().length"
+        (click)="onDeleteRows()"
+      >{{ labels.tableControl.delete }}</button>
+    }
+  </div>
+}
+
+<table class="table-control">
+  @if (!isHeaderHidden()) {
+    <thead>
+      <tr>
+        @if (isSelectable()) {
+          <th class="select-column">
+            <input
+              type="checkbox"
+              [checked]="isAllSelected()"
+              [indeterminate]="isSomeSelected()"
+              [disabled]="isReadonly()"
+              (change)="toggleAll($any($event.target).checked)"
+            />
+          </th>
+        }
+        @for (col of columns(); track col.key) {
+          <th [class.sortable]="isColSortable(col)" (click)="onSortClick(col)">
+            <span class="th-content">
+              {{ col.label }}
+              @if (isColSortable(col)) {
+                <span class="sort-icon">{{ sortIcon(col) }}</span>
+              }
+            </span>
+          </th>
+        }
+        @if (editionMode() === "row") {
+          <th class="actions-column">{{ labels.tableControl.actionsColumnHeader }}</th>
+        }
+      </tr>
+      @if (tableCtrlConfig().filterable) {
+        <tr class="filter-row">
+          @if (isSelectable()) {
+            <th class="select-column"></th>
+          }
+          @for (col of columns(); track col.key) {
+            <th>
+              @if (col.filterable !== false) {
+                <crd-table-filter-cell-native
+                  [col]="col"
+                  [value]="filters()[col.key]?.value"
+                  (filterChanged)="onFilterChanged(col, $event)"
+                />
+              }
+            </th>
+          }
+          @if (editionMode() === "row") {
+            <th class="actions-column"></th>
+          }
+        </tr>
+      }
+    </thead>
+  }
+
+  <tbody>
+    @for (row of displayRows(); track row.internal_id) {
+      <tr>
+        @if (isSelectable()) {
+          <td class="select-column">
+            <input
+              type="checkbox"
+              [checked]="isSelected(row)"
+              [disabled]="isReadonly()"
+              (click)="$event.stopPropagation()"
+              (change)="toggleRow(row)"
+            />
+          </td>
+        }
+        @for (col of columns(); track col.key) {
+          <td
+            [class.editable]="isCellEditable(col)"
+            (click)="onCellClicked(row, col)"
+          >
+            @if (isCellEditing(row, col)) {
+              @switch (col.controlType) {
+                @case (ControlType.SELECT) {
+                  <select
+                    [required]="isColRequired(col)"
+                    (change)="onCellValueChanged(row, col, optionValue(col, $any($event.target).value))"
+                  >
+                    <option value=""></option>
+                    @for (option of col.options ?? []; track option.value) {
+                      <option [value]="$index" [selected]="row[col.key] === option.value">{{ option.label }}</option>
+                    }
+                  </select>
+                }
+                @case (ControlType.MULTISELECT) {
+                  <select
+                    multiple
+                    size="3"
+                    [required]="isColRequired(col)"
+                    (change)="onCellValueChanged(row, col, pickedOptionValues(col, $event))"
+                  >
+                    @for (option of col.options ?? []; track option.value) {
+                      <option [value]="$index" [selected]="isOptionSelected(row, col, option.value)">{{ option.label }}</option>
+                    }
+                  </select>
+                }
+                @default {
+                  <input
+                    [type]="col.type === 'number' ? 'number' : 'text'"
+                    [value]="row[col.key] ?? ''"
+                    [required]="isColRequired(col)"
+                    (keydown.enter)="onCellValueChanged(row, col, parseCellValue(col, $any($event.target).value))"
+                    (blur)="onCellValueChanged(row, col, parseCellValue(col, $any($event.target).value))"
+                  />
+                }
+              }
+            } @else {
+              <tbl-table-cell [cellValue]="row[col.key]" [options]="col" />
+            }
+          </td>
+        }
+        @if (editionMode() === "row") {
+          <td class="actions-column">
+            @if (editingRowId() === row.internal_id) {
+              <button type="button" class="row-btn" (click)="onRowEditSave()">&#10003;</button>
+              <button type="button" class="row-btn" (click)="onRowEditCancel()">&#10005;</button>
+            } @else {
+              <button
+                type="button"
+                class="row-btn"
+                [disabled]="isReadonly()"
+                (click)="onRowEditInit(row)"
+              >&#9998;</button>
+            }
+          </td>
+        }
+      </tr>
+    } @empty {
+      <tr class="no-data-row">
+        <td [attr.colspan]="columnCount()">{{ labels.tableControl.noData }}</td>
+      </tr>
+    }
+  </tbody>
+</table>

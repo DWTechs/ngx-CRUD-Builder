@@ -1,8 +1,8 @@
 import { LOCALE_ID, makeEnvironmentProviders } from "@angular/core";
 import { provideNativeDateAdapter } from "@angular/material/core";
 import { APP_CONFIG, AppConfig } from "@core/app-config/app-config.token";
-import { HistorizedData } from "@crud/core/ui/history/history.model";
 import { HISTORY_MAPPER } from "@crud/core/ui/history/history-mapper.token";
+import { HistorizedData } from "@crud/core/ui/history/history.model";
 import { ACL_ADAPTER } from "@crud/core/utils/crud-service/acl-adapter";
 import { provideCrudLabels } from "@crud/core/utils/i18n/crud-labels.token";
 import { provideFormFieldRenderer } from "@crud/form/ui/field-renderer/provide-form-field-renderer";
@@ -70,13 +70,9 @@ export function provideCrudBuilderConfig() {
       },
     },
     { provide: ACL_ADAPTER, useExisting: AclService },
-    // table shell only exists for optimus-ui/material; native reproduces the
-    // "no table available" error for the adapter switcher demo
-    ...(adapter === "optimus-ui"
-      ? provideTableRenderer("optimus-ui")
-      : adapter === "material"
-        ? provideMaterialTableRenderer()
-        : []),
+    ...(adapter === "material"
+      ? provideMaterialTableRenderer()
+      : provideTableRenderer(adapter)),
     ...(adapter === "material"
       ? provideMaterialFormFieldRenderer()
       : provideFormFieldRenderer(adapter)),

@@ -1,0 +1,34 @@
+:host {
+  display: block;
+  width: 100%;
+  font-weight: normal;
+}
+
+:host input,
+:host select {
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(var(--nc-height) - 0.35rem);
+  padding: 0 0.35rem;
+  background: var(--nc-bg);
+  color: var(--nc-color);
+  border: 1px solid var(--nc-border);
+  border-radius: var(--nc-radius);
+  font: inherit;
+  font-size: 0.85em;
+
+  &:focus {
+    outline: 2px solid var(--nc-accent);
+    outline-offset: -1px;
+  }
+}
+
+:host select[multiple] {
+  height: auto;
+  padding: 0.1rem;
+}
+
+.date-range {
+  display: flex;
+  gap: 0.25rem;
+}

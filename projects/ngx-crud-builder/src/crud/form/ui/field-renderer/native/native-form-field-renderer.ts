@@ -22,6 +22,7 @@ import { NativeRadiogroupControlComponent } from "../../renderers-native/native-
 import { NativeRichTextEditorComponent } from "../../renderers-native/native-rich-text-editor/native-rich-text-editor.component";
 import { NativeSelectButtonControlComponent } from "../../renderers-native/native-select-button-control/native-select-button-control.component";
 import { NativeSelectControlComponent } from "../../renderers-native/native-select-control/native-select-control.component";
+import { NativeTableControlComponent } from "../../renderers-native/native-table-control/native-table-control.component";
 import { NativeTextareaControlComponent } from "../../renderers-native/native-textarea-control/native-textarea-control.component";
 
 @Component({
@@ -52,6 +53,7 @@ import { NativeTextareaControlComponent } from "../../renderers-native/native-te
     NativeRichTextEditorComponent,
     NativeSelectButtonControlComponent,
     NativeSelectControlComponent,
+    NativeTableControlComponent,
     NativeTextareaControlComponent,
   ],
 })
