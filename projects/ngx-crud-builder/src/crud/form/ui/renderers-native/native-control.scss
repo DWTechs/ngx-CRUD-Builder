@@ -1,0 +1,70 @@
+// Shared look & feel of the dependency-free "native" form controls.
+// Added to the styleUrls of every native renderer, before its own stylesheet.
+// Sizing and colors can be overridden globally through the --frm-native-* custom properties.
+
+:host {
+  --nc-height: var(--frm-native-control-height, 2.25rem);
+  --nc-padding-x: var(--frm-native-control-padding-x, 0.5rem);
+  --nc-radius: var(--frm-native-control-radius, 4px);
+  --nc-border: var(--frm-native-control-border-color, ButtonBorder);
+  --nc-accent: var(--frm-native-control-accent-color, Highlight);
+  --nc-bg: var(--frm-native-control-bg, Field);
+  --nc-color: var(--frm-native-control-color, FieldText);
+  --nc-gap: 0.4rem;
+
+  display: block;
+  width: 100%;
+}
+
+:host > input:not([type="checkbox"]):not([type="radio"]),
+:host > select,
+:host > textarea {
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--nc-height);
+  padding: 0 var(--nc-padding-x);
+  background: var(--nc-bg);
+  color: var(--nc-color);
+  border: 1px solid var(--nc-border);
+  border-radius: var(--nc-radius);
+  font: inherit;
+}
+
+:host > textarea {
+  height: auto;
+  min-height: calc(var(--nc-height) * 2.5);
+  padding: 0.45rem var(--nc-padding-x);
+  resize: vertical;
+}
+
+:host > input:focus,
+:host > select:focus,
+:host > textarea:focus {
+  outline: 2px solid var(--nc-accent);
+  outline-offset: -1px;
+}
+
+:host > input:disabled,
+:host > select:disabled,
+:host > textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+:host ::placeholder {
+  color: GrayText;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+  accent-color: var(--nc-accent);
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}

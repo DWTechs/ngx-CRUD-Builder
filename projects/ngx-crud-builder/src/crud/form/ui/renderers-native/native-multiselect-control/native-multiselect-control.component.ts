@@ -15,7 +15,10 @@ import { FormFieldBaseComponent } from "../../renderers-optimus-ui/form-field-ba
 @Component({
   selector: "frm-native-multiselect-control",
   templateUrl: "./native-multiselect-control.component.html",
-  styleUrls: ["./native-multiselect-control.component.scss"],
+  styleUrls: [
+    "../native-control.scss",
+    "./native-multiselect-control.component.scss",
+  ],
   imports: [ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

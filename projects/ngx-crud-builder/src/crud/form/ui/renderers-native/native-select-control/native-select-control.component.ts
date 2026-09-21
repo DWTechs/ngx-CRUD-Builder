@@ -20,9 +20,7 @@ import { FormFieldBaseComponent } from "../../renderers-optimus-ui/form-field-ba
     </select>
   `,
   imports: [ReactiveFormsModule],
-  styles: [
-    ":host { display: block; } select { width: 100%; box-sizing: border-box; }",
-  ],
+  styleUrls: ["../native-control.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NativeSelectControlComponent extends FormFieldBaseComponent {}

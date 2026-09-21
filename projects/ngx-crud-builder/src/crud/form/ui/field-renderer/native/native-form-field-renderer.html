@@ -97,6 +97,40 @@
       (fieldInteraction)="fieldInteraction.emit($event)"
     />
   }
+  @case (ControlType.PICKLIST) {
+    <frm-native-picklist-control
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.WYSIWYG) {
+    <frm-native-rich-text-editor
+      [config]="config()"
+      [control]="control()"
+      [isFormReadonly]="isFormReadonly()"
+      (fieldInteraction)="fieldInteraction.emit($event)"
+    />
+  }
+  @case (ControlType.CUSTOM) {
+    @let component = config().controlOptions?.customComponent;
+    @if (component) {
+      <ng-container *ngComponentOutlet="
+        component;
+        inputs: {
+          config: config(),
+          control: control(),
+          isFormReadonly: isFormReadonly(),
+        };
+      "
+      />
+    } @else {
+      <span class="frm-native-unsupported">
+        You must provide a custom component.
+      </span>
+    }
+  }
   @default {
     <span class="frm-native-unsupported">
       Native renderer: controlType "{{ config().controlType }}" is not supported.

@@ -14,6 +14,10 @@ import { FormFieldBaseComponent } from "../../renderers-optimus-ui/form-field-ba
     />
   `,
   imports: [ReactiveFormsModule],
+  styleUrls: [
+    "../native-control.scss",
+    "./native-checkbox-control.component.scss",
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NativeCheckboxControlComponent extends FormFieldBaseComponent {}

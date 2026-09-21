@@ -897,7 +897,7 @@ describe("FormSimpleElement — FORM_FIELD_COMPONENT adapter", () => {
     it("should show unsupported placeholder for unhandled control types", () => {
       fixture.componentRef.setInput("config", {
         ...createDefaultConfig(),
-        controlType: CONTROL_TYPES.WYSIWYG,
+        controlType: CONTROL_TYPES.TABLE,
       });
       fixture.detectChanges();
       const el = fixture.nativeElement.querySelector(".frm-native-unsupported");

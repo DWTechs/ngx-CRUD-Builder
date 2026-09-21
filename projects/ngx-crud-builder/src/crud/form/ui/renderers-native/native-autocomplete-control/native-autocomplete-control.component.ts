@@ -2,8 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  ElementRef,
   effect,
+  ElementRef,
   HostListener,
   inject,
   signal,
@@ -17,7 +17,10 @@ import { FormFieldBaseComponent } from "../../renderers-optimus-ui/form-field-ba
 @Component({
   selector: "frm-native-autocomplete-control",
   templateUrl: "./native-autocomplete-control.component.html",
-  styleUrls: ["./native-autocomplete-control.component.scss"],
+  styleUrls: [
+    "../native-control.scss",
+    "./native-autocomplete-control.component.scss",
+  ],
   imports: [ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

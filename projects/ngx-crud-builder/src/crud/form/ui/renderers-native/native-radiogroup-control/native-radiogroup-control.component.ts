@@ -18,6 +18,10 @@ import { FormFieldBaseComponent } from "../../renderers-optimus-ui/form-field-ba
     }
   `,
   imports: [ReactiveFormsModule],
+  styleUrls: [
+    "../native-control.scss",
+    "./native-radiogroup-control.component.scss",
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NativeRadiogroupControlComponent extends FormFieldBaseComponent {}

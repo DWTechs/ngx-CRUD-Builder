@@ -1,0 +1,79 @@
+<div class="native-editor" [class.disabled]="isReadonly()">
+  <div class="editor-toolbar" role="toolbar">
+    <button
+      type="button"
+      class="toolbar-btn"
+      aria-label="Bold"
+      [disabled]="isReadonly() || htmlToggled()"
+      (click)="exec('bold')"
+    ><b>B</b></button>
+    <button
+      type="button"
+      class="toolbar-btn"
+      aria-label="Italic"
+      [disabled]="isReadonly() || htmlToggled()"
+      (click)="exec('italic')"
+    ><i>I</i></button>
+    <button
+      type="button"
+      class="toolbar-btn"
+      aria-label="Underline"
+      [disabled]="isReadonly() || htmlToggled()"
+      (click)="exec('underline')"
+    ><u>U</u></button>
+    <button
+      type="button"
+      class="toolbar-btn"
+      aria-label="Strikethrough"
+      [disabled]="isReadonly() || htmlToggled()"
+      (click)="exec('strikeThrough')"
+    ><s>S</s></button>
+    <button
+      type="button"
+      class="toolbar-btn"
+      aria-label="Ordered list"
+      [disabled]="isReadonly() || htmlToggled()"
+      (click)="exec('insertOrderedList')"
+    >1.</button>
+    <button
+      type="button"
+      class="toolbar-btn"
+      aria-label="Bullet list"
+      [disabled]="isReadonly() || htmlToggled()"
+      (click)="exec('insertUnorderedList')"
+    >&#8226;</button>
+    @if (options().isHtmlToggleable) {
+      <button
+        type="button"
+        class="toolbar-btn"
+        [disabled]="isReadonly()"
+        [title]="labels.richTextEditor.editHtml"
+        (click)="toggleHtml()"
+      >&lt;/&gt;</button>
+    }
+  </div>
+
+  @if (htmlToggled()) {
+    <textarea
+      class="html-editor"
+      [style.height]="editorHeight()"
+      [formControl]="control()"
+      (input)="emitInteractionEvent('keyup')"
+      (focus)="emitInteractionEvent('focus')"
+      (blur)="emitInteractionEvent('blur')"
+    ></textarea>
+  } @else {
+    <div
+      #editor
+      class="editor-content"
+      role="textbox"
+      aria-multiline="true"
+      [attr.aria-label]="label()"
+      [style.height]="editorHeight()"
+      [attr.contenteditable]="!isReadonly()"
+      (input)="onEditorInput()"
+      (focus)="emitInteractionEvent('focus')"
+      (blur)="emitInteractionEvent('blur')"
+    ></div>
+  }
+</div>

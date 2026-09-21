@@ -9,23 +9,25 @@
   }
 
   &.open .multiselect-trigger {
-    outline: 1px solid Highlight;
-    border-color: Highlight;
+    outline: 2px solid var(--nc-accent);
+    outline-offset: -1px;
+    border-color: var(--nc-accent);
   }
 }
 
 .multiselect-trigger {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.2rem 0.4rem;
-  background: Field;
-  color: FieldText;
-  border: 1px solid ButtonBorder;
-  border-radius: 2px;
+  gap: var(--nc-gap);
+  box-sizing: border-box;
+  padding: 0.15rem var(--nc-padding-x);
+  background: var(--nc-bg);
+  color: var(--nc-color);
+  border: 1px solid var(--nc-border);
+  border-radius: var(--nc-radius);
   cursor: pointer;
   user-select: none;
-  min-height: 1.8rem;
+  min-height: var(--nc-height);
   font: inherit;
 }
 
@@ -42,7 +44,7 @@
   align-items: center;
   padding: 0.1rem 0.45rem;
   border-radius: 10px;
-  background-color: Highlight;
+  background-color: var(--nc-accent);
   color: HighlightText;
   font-size: 0.8rem;
   white-space: nowrap;
@@ -81,19 +83,25 @@
   z-index: 100;
   background: Canvas;
   color: CanvasText;
-  border: 1px solid ButtonBorder;
-  border-radius: 2px;
+  border: 1px solid var(--nc-border);
+  border-radius: var(--nc-radius);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   overflow: hidden;
 }
 
 .panel-filter {
-  padding: 0.3rem 0.4rem;
-  border-bottom: 1px solid ButtonBorder;
+  padding: 0.3rem var(--nc-padding-x);
+  border-bottom: 1px solid var(--nc-border);
 
   .filter-input {
     width: 100%;
     box-sizing: border-box;
+    height: calc(var(--nc-height) - 0.5rem);
+    padding: 0 0.4rem;
+    background: var(--nc-bg);
+    color: var(--nc-color);
+    border: 1px solid var(--nc-border);
+    border-radius: var(--nc-radius);
     font: inherit;
   }
 }
@@ -101,7 +109,7 @@
 .divider {
   margin: 0;
   border: none;
-  border-top: 1px solid ButtonBorder;
+  border-top: 1px solid var(--nc-border);
 }
 
 .toggle-all {
@@ -117,13 +125,13 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.25rem 0.5rem;
+  padding: 0.3rem var(--nc-padding-x);
   cursor: pointer;
   user-select: none;
   color: CanvasText;
 
   &:hover {
-    background-color: Highlight;
+    background-color: var(--nc-accent);
     color: HighlightText;
   }
 

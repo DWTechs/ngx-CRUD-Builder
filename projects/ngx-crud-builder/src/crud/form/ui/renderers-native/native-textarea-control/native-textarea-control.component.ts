@@ -15,19 +15,6 @@ import { FormFieldBaseComponent } from "../../renderers-optimus-ui/form-field-ba
   `,
   imports: [ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: [
-    `
-      textarea {
-        width: 100%;
-        min-height: 4rem;
-        padding: 0.5rem;
-        border-radius: 0.25rem;
-        border: 1px solid #ced4da;
-        font-size: 1rem;
-        font-family: inherit;
-        resize: none;
-      }
-    `,
-  ],
+  styleUrls: ["../native-control.scss"],
 })
 export class NativeTextareaControlComponent extends FormFieldBaseComponent {}

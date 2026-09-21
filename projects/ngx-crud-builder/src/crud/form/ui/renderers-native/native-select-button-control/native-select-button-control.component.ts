@@ -7,7 +7,10 @@ import { FormFieldBaseComponent } from "../../renderers-optimus-ui/form-field-ba
 @Component({
   selector: "frm-native-select-button-control",
   templateUrl: "./native-select-button-control.component.html",
-  styleUrls: ["./native-select-button-control.component.scss"],
+  styleUrls: [
+    "../native-control.scss",
+    "./native-select-button-control.component.scss",
+  ],
   imports: [ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -13,7 +13,10 @@ import { FormFieldBaseComponent } from "../../renderers-optimus-ui/form-field-ba
 @Component({
   selector: "frm-native-colorpicker-control",
   templateUrl: "./native-colorpicker-control.component.html",
-  styleUrls: ["./native-colorpicker-control.component.scss"],
+  styleUrls: [
+    "../native-control.scss",
+    "./native-colorpicker-control.component.scss",
+  ],
   imports: [ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -15,7 +15,10 @@ import { FormFieldBaseComponent } from "../../renderers-optimus-ui/form-field-ba
 @Component({
   selector: "frm-native-file-upload-input",
   templateUrl: "./native-file-upload-input.component.html",
-  styleUrls: ["./native-file-upload-input.component.scss"],
+  styleUrls: [
+    "../native-control.scss",
+    "./native-file-upload-input.component.scss",
+  ],
   imports: [FileNamePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

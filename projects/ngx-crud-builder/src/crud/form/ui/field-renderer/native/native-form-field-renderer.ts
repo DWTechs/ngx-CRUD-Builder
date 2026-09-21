@@ -1,3 +1,4 @@
+import { NgComponentOutlet } from "@angular/common";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -16,7 +17,9 @@ import { NativeFileUploadInputComponent } from "../../renderers-native/native-fi
 import { NativeInputNumberControlComponent } from "../../renderers-native/native-inputnumber-control/native-inputnumber-control.component";
 import { NativeInputTextControlComponent } from "../../renderers-native/native-inputtext-control/native-inputtext-control.component";
 import { NativeMultiselectControlComponent } from "../../renderers-native/native-multiselect-control/native-multiselect-control.component";
+import { NativePicklistControlComponent } from "../../renderers-native/native-picklist-control/native-picklist-control.component";
 import { NativeRadiogroupControlComponent } from "../../renderers-native/native-radiogroup-control/native-radiogroup-control.component";
+import { NativeRichTextEditorComponent } from "../../renderers-native/native-rich-text-editor/native-rich-text-editor.component";
 import { NativeSelectButtonControlComponent } from "../../renderers-native/native-select-button-control/native-select-button-control.component";
 import { NativeSelectControlComponent } from "../../renderers-native/native-select-control/native-select-control.component";
 import { NativeTextareaControlComponent } from "../../renderers-native/native-textarea-control/native-textarea-control.component";
@@ -25,7 +28,17 @@ import { NativeTextareaControlComponent } from "../../renderers-native/native-te
   selector: "frm-native-field-renderer",
   templateUrl: "./native-form-field-renderer.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: `
+    :host {
+      display: block;
+    }
+    .frm-native-unsupported {
+      color: GrayText;
+      font-style: italic;
+    }
+  `,
   imports: [
+    NgComponentOutlet,
     NativeAutocompleteControlComponent,
     NativeCheckboxControlComponent,
     NativeColorpickerControlComponent,
@@ -34,7 +47,9 @@ import { NativeTextareaControlComponent } from "../../renderers-native/native-te
     NativeInputNumberControlComponent,
     NativeInputTextControlComponent,
     NativeMultiselectControlComponent,
+    NativePicklistControlComponent,
     NativeRadiogroupControlComponent,
+    NativeRichTextEditorComponent,
     NativeSelectButtonControlComponent,
     NativeSelectControlComponent,
     NativeTextareaControlComponent,

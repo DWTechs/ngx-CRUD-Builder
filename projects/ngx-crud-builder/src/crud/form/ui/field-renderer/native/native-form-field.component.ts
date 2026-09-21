@@ -14,7 +14,7 @@ import { NativeFormFieldRenderer } from "./native-form-field-renderer";
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NativeFormFieldRenderer],
   host: {
-    style: "display: flex; flex-direction: column;",
+    style: "display: flex; flex-direction: column; gap: 0.25rem;",
   },
 })
 export class NativeFormFieldComponent extends FormFieldComponentBase {}

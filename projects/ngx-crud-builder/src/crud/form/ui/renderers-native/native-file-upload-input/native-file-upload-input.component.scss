@@ -14,10 +14,10 @@ input[type="file"] {
   width: 100%;
   box-sizing: border-box;
   padding: 0.75rem;
-  border: 1px solid ButtonBorder;
-  border-radius: 2px;
-  background: Field;
-  color: FieldText;
+  border: 1px solid var(--nc-border);
+  border-radius: var(--nc-radius);
+  background: var(--nc-bg);
+  color: var(--nc-color);
   cursor: pointer;
   text-align: center;
 
@@ -28,7 +28,7 @@ input[type="file"] {
   }
 
   &.dragged-over {
-    outline: 2px dashed Highlight;
+    outline: 2px dashed var(--nc-accent);
     outline-offset: -2px;
     font-weight: bold;
   }
@@ -56,12 +56,12 @@ input[type="file"] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  border: 1px solid ButtonBorder;
+  width: var(--nc-height);
+  height: var(--nc-height);
+  border: 1px solid var(--nc-border);
   border-radius: 50%;
-  background: Field;
-  color: FieldText;
+  background: var(--nc-bg);
+  color: var(--nc-color);
   cursor: pointer;
   font-size: 0.9rem;
   line-height: 1;

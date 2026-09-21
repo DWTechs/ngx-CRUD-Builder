@@ -1,0 +1,64 @@
+<div class="native-picklist" [class.disabled]="isReadonly()">
+  <div class="picklist-panel">
+    <span class="picklist-header">{{ labels.picklist.sourceHeader }}</span>
+    <select
+      #sourceList
+      class="picklist-list"
+      multiple
+      [attr.aria-label]="labels.picklist.sourceHeader"
+      [disabled]="isReadonly()"
+      (dblclick)="moveToTarget()"
+    >
+      @for (option of sources(); track option.value) {
+        <option [value]="$index" [disabled]="!!option.disabled">{{ option.label }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="picklist-controls">
+    <button
+      type="button"
+      class="move-btn"
+      aria-label="Move selected to target"
+      [disabled]="isReadonly() || !sources().length"
+      (click)="moveToTarget()"
+    >&#8250;</button>
+    <button
+      type="button"
+      class="move-btn"
+      aria-label="Move all to target"
+      [disabled]="isReadonly() || !sources().length"
+      (click)="moveAllToTarget()"
+    >&#187;</button>
+    <button
+      type="button"
+      class="move-btn"
+      aria-label="Move selected to source"
+      [disabled]="isReadonly() || !targets().length"
+      (click)="moveToSource()"
+    >&#8249;</button>
+    <button
+      type="button"
+      class="move-btn"
+      aria-label="Move all to source"
+      [disabled]="isReadonly() || !targets().length"
+      (click)="moveAllToSource()"
+    >&#171;</button>
+  </div>
+
+  <div class="picklist-panel">
+    <span class="picklist-header">{{ labels.picklist.targetHeader }}</span>
+    <select
+      #targetList
+      class="picklist-list"
+      multiple
+      [attr.aria-label]="labels.picklist.targetHeader"
+      [disabled]="isReadonly()"
+      (dblclick)="moveToSource()"
+    >
+      @for (option of targets(); track option.value) {
+        <option [value]="$index" [disabled]="!!option.disabled">{{ option.label }}</option>
+      }
+    </select>
+  </div>
+</div>

@@ -18,7 +18,7 @@ The library renders two independent things, each with its own adapter: the **for
 |---|---|---|
 | `'optimus-ui'` | Full support — float labels, icon fields, all control types | Full-featured: sorting, filtering, lazy loading, column resizing, state persistence |
 | Material (`@dwtechs/ngx-crud-builder/material`) | Full support for all control types (requires `@angular/material` + `@angular/animations`, a date adapter, and `provideAnimationsAsync()`) | Minimal shell — data display, pagination, sorting, basic filtering and lazy loading. No column resizing, state persistence or context menu yet |
-| `'native'` | Plain HTML controls, no extra dependency, lightest bundle. Covers all control types but is experimental — styling and edge cases are incomplete | **No shell available yet** — using `<tbl-table>` without a table renderer provided throws a `NullInjectorError` at runtime |
+| `'native'` | Plain HTML controls, no extra dependency, lightest bundle. Covers every control type except the `table` control, and is experimental — styling and edge cases are incomplete | **No shell available yet** — using `<tbl-table>` without a table renderer provided throws a `NullInjectorError` at runtime |
 
 Use `provideFormFieldRenderer('native')` on its own only if you don't use `<tbl-table>` — there is currently no `'native'` table shell, so it can't be combined with `provideTableRenderer` or `provideCrudRenderer`.
 

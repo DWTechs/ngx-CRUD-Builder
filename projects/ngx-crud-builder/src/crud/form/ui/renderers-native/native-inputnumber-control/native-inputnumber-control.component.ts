@@ -15,9 +15,7 @@ import { FormFieldBaseComponent } from "../../renderers-optimus-ui/form-field-ba
     />
   `,
   imports: [ReactiveFormsModule],
-  styles: [
-    ":host { display: block; } input { width: 100%; box-sizing: border-box; }",
-  ],
+  styleUrls: ["../native-control.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NativeInputNumberControlComponent extends FormFieldBaseComponent {}
