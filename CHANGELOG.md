@@ -1,6 +1,7 @@
 # 0.3.1 (Sep 20th 2026)
 - Add Material renderers for the `color`, `custom`, `files`, `picklist`, `table` and `wysiwyg` control types — the Material adapter now covers every control type (the `table` control has no per-column filtering yet)
-- Add sorting and lazy mode to the Material table shell; `provideMaterialTableRenderer()` no longer throws when `lazy: true`
+- Add sorting, basic column filtering and lazy mode to the Material table shell; `provideMaterialTableRenderer()` no longer throws when `lazy: true`
+- Add sorting and basic column filtering to the Material `table` form control
 - Export `crudItemToColumn` and `TableCtrlConfig` from the public API
 
 # 0.3.0 (Aug 23th 2026)

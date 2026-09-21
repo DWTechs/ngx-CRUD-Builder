@@ -7,9 +7,8 @@ import { TableRegularMaterialComponent } from "./table-regular-material/table-re
  * `@dwtechs/ngx-crud-builder/material`, so `@angular/material` and `@angular/animations`
  * are only ever resolved by apps that import this entry point.
  *
- * Supports pagination, sorting and lazy mode (`lazy: true`). No filtering, column
- * resizing, state persistence or context menu yet — in lazy mode this means filters
- * are never sent to the server.
+ * Supports pagination, sorting, basic column filtering and lazy mode (`lazy: true`).
+ * Column resizing, state persistence and the context menu are not implemented yet.
  *
  * @example
  * // app.config.ts

@@ -22,6 +22,9 @@
             (change)="toggleRow(row)" />
         </td>
       </ng-container>
+      <ng-container matColumnDef="select_filter">
+        <th mat-header-cell *matHeaderCellDef></th>
+      </ng-container>
     }
 
     @for (col of visibleColumns(); track trackCol(col)) {
@@ -38,6 +41,16 @@
           (click)="onCellClick(row, col)">
           <tbl-table-cell [cellValue]="row[col.key]" [options]="col" />
         </td>
+      </ng-container>
+      <ng-container [matColumnDef]="col.key + '_filter'">
+        <th mat-header-cell *matHeaderCellDef>
+          @if (col.filterable !== false) {
+            <crd-table-filter-cell-material
+              [col]="col"
+              [value]="filters()[col.key]?.value"
+              (filterChanged)="onFilterChanged(col, $event)" />
+          }
+        </th>
       </ng-container>
     }
 
@@ -60,9 +73,15 @@
           }
         </td>
       </ng-container>
+      <ng-container matColumnDef="actions_filter">
+        <th mat-header-cell *matHeaderCellDef class="actions-column"></th>
+      </ng-container>
     }
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+    @if (filterable()) {
+      <tr mat-header-row class="filter-row" *matHeaderRowDef="filterColumns()"></tr>
+    }
     <tr
       mat-row
       *matRowDef="let row; columns: displayedColumns()"
@@ -76,7 +95,7 @@
 
   @if (paginator()) {
     <mat-paginator
-      [length]="total()"
+      [length]="displayedTotal()"
       [pageSize]="rows()"
       [pageSizeOptions]="rowsPerPageOptions()"
       [pageIndex]="pageIndex()"

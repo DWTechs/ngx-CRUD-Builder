@@ -45,6 +45,9 @@
           (change)="toggleRow(row)" />
       </td>
     </ng-container>
+    <ng-container matColumnDef="select_filter">
+      <th mat-header-cell *matHeaderCellDef></th>
+    </ng-container>
   }
 
   @for (col of columns(); track col.key) {
@@ -106,6 +109,16 @@
         }
       </td>
     </ng-container>
+    <ng-container [matColumnDef]="col.key + '_filter'">
+      <th mat-header-cell *matHeaderCellDef>
+        @if (col.filterable !== false) {
+          <crd-table-filter-cell-material
+            [col]="col"
+            [value]="filters()[col.key]?.value"
+            (filterChanged)="onFilterChanged(col, $event)" />
+        }
+      </th>
+    </ng-container>
   }
 
   @if (editionMode() === "row") {
@@ -135,10 +148,16 @@
         }
       </td>
     </ng-container>
+    <ng-container matColumnDef="actions_filter">
+      <th mat-header-cell *matHeaderCellDef></th>
+    </ng-container>
   }
 
   @if (!isHeaderHidden()) {
     <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+    @if (tableCtrlConfig().filterable) {
+      <tr mat-header-row class="filter-row" *matHeaderRowDef="filterColumns()"></tr>
+    }
   }
   <tr mat-row *matRowDef="let row; columns: displayedColumns()"></tr>
 

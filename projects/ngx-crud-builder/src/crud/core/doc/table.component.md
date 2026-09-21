@@ -98,7 +98,7 @@ lazy: true
 lazy: false
 ```
 
-> With `provideMaterialTableRenderer()` (from `@dwtechs/ngx-crud-builder/material`), `lazy: true` is supported for paging and sorting, but the Material shell has no filtering yet, so filters are never sent to the server.
+> With `provideMaterialTableRenderer()` (from `@dwtechs/ngx-crud-builder/material`), `lazy: true` is supported — paging, sorting and the basic filter row are all sent to the server through the same payload as the Optimus UI shell.
 
 #### `selectable`
 **Type:** `boolean` | **Default:** `false`  

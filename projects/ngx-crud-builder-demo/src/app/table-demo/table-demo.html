@@ -8,7 +8,7 @@
 
   @if (currentAdapter() === 'material') {
     <div class="adapter-note">
-      L'adaptateur Material est une version simplifiée : affichage des données, pagination et tri, en mode lazy ou non-lazy. Le filtrage, le redimensionnement de colonnes, le menu contextuel et la persistance d'état ne sont pas disponibles.
+      L'adaptateur Material est une version simplifiée : affichage des données, pagination, tri et filtrage basique, en mode lazy ou non-lazy. Les options non supportées sont grisées ci-dessous.
     </div>
   } @else if (currentAdapter() === 'native') {
     <div class="adapter-note">
@@ -61,11 +61,12 @@
           placeholder="e.g., 80vh, 600px" />
       </div>
 
-      <div class="demo-control">
+      <div class="demo-control" [class.unsupported]="isMaterial()" [title]="isMaterial() ? unsupportedHint : ''">
         <label>Filter Level</label>
         <p-select 
           [options]="filterLevelOptions" 
           [(ngModel)]="tempFilterLevel"
+          [disabled]="isMaterial()"
           placeholder="Select filter level" 
         />
       </div>
@@ -79,11 +80,12 @@
         />
       </div>
 
-      <div class="demo-control">
+      <div class="demo-control" [class.unsupported]="isMaterial()" [title]="isMaterial() ? unsupportedHint : ''">
         <label>State Storage</label>
         <p-select 
           [options]="stateStorageOptions" 
           [(ngModel)]="tempStateStorage"
+          [disabled]="isMaterial()"
           placeholder="Select storage" 
         />
       </div>
@@ -145,9 +147,10 @@
           <label>Configurable Columns</label>
         </div>
 
-        <div class="demo-control">
+        <div class="demo-control" [class.unsupported]="isMaterial()" [title]="isMaterial() ? unsupportedHint : ''">
           <p-checkbox 
             [(ngModel)]="tempAreColumnsResizable"
+            [disabled]="isMaterial()"
             binary="true" />
           <label>Resizable Columns</label>
         </div>
@@ -166,9 +169,10 @@
           <label>Lazy Loading</label>
         </div>
 
-        <div class="demo-control">
+        <div class="demo-control" [class.unsupported]="isMaterial()" [title]="isMaterial() ? unsupportedHint : ''">
           <p-checkbox 
             [(ngModel)]="tempIsContextMenuEnabled"
+            [disabled]="isMaterial()"
             binary="true" />
           <label>Context Menu</label>
         </div>
@@ -208,9 +212,10 @@
           <label>Custom Actions Cell Template</label>
         </div>
 
-        <div class="demo-control">
+        <div class="demo-control" [class.unsupported]="isMaterial()" [title]="isMaterial() ? unsupportedHint : ''">
           <p-checkbox
             [(ngModel)]="tempPersistState"
+            [disabled]="isMaterial()"
             binary="true" />
           <label>Persist State</label>
         </div>

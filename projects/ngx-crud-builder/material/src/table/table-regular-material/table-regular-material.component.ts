@@ -15,29 +15,47 @@ import { MatPaginatorModule, PageEvent } from "@angular/material/paginator";
 import { MatSortModule, Sort } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import {
-  CONTROL_TYPES,
   ColumnResizeEvent,
+  CONTROL_TYPES,
   CRUD_LABELS,
   CrudFeatures,
   FilterLevel,
   TableCellComponent,
   TableColumn,
 } from "@dwtechs/ngx-crud-builder";
+import { TableFilterCellMaterialComponent } from "../filters/table-filter-cell-material.component";
+import {
+  isEmptyFilterValue,
+  matchesFilters,
+  MaterialFilterMetadata,
+  MaterialTableFilters,
+  normalizeFilters,
+} from "../filters/table-filters.model";
 import { TableActionsCellMaterialComponent } from "../table-actions-cell-material/table-actions-cell-material.component";
 
 /**
  * Minimal Angular Material table shell satisfying the `TABLE_RENDERER` contract.
  *
- * Supports client-side pagination and sorting, plus lazy mode (`lazy = true`) where
- * paging and sorting are delegated to the server through `lazyLoaded`. Filtering,
- * column resizing, state persistence and the context menu are not implemented yet —
- * the matching inputs are accepted (to satisfy the shared contract) but have no effect.
+ * Supports pagination, sorting and basic column filtering, applied client-side or
+ * delegated to the server in lazy mode (`lazy = true`). Column resizing, state
+ * persistence and the context menu are not implemented yet — the matching inputs are
+ * accepted (to satisfy the shared contract) but have no effect.
  *
  * @see TableRegularComponent for the full-featured Optimus UI reference implementation.
  */
 @Component({
   selector: "tbl-table-regular-material",
   templateUrl: "./table-regular-material.component.html",
+  styles: `
+    tr.filter-row {
+      height: auto;
+    }
+    tr.filter-row th {
+      padding-top: 4px;
+      padding-bottom: 4px;
+      vertical-align: middle;
+    }
+  `,
   imports: [
     MatTableModule,
     MatPaginatorModule,
@@ -47,6 +65,7 @@ import { TableActionsCellMaterialComponent } from "../table-actions-cell-materia
     NgTemplateOutlet,
     TableCellComponent,
     TableActionsCellMaterialComponent,
+    TableFilterCellMaterialComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -123,6 +142,14 @@ export class TableRegularMaterialComponent<TData> {
     return keys;
   });
 
+  public readonly filterColumns = computed(() =>
+    this.displayedColumns().map((key) => `${key}_filter`),
+  );
+
+  public readonly filters = linkedSignal<MaterialTableFilters>(() =>
+    normalizeFilters(this.defaultFilters()),
+  );
+
   public readonly pageIndex = linkedSignal(() =>
     this.rows() > 0 ? Math.floor(this.first() / this.rows()) : 0,
   );
@@ -133,9 +160,19 @@ export class TableRegularMaterialComponent<TData> {
     this.sortState().order === -1 ? "desc" : "asc",
   );
 
-  // In lazy mode the server already returns the sorted page, so data() is passed through as-is.
-  private readonly sortedData = computed(() => {
+  // In lazy mode the server already returns the filtered, sorted page, so data() is
+  // passed through as-is.
+  private readonly filteredData = computed(() => {
     const data = this.data();
+    const filters = this.filters();
+    if (this.lazy() || !this.filterable() || !Object.keys(filters).length) {
+      return data;
+    }
+    return data.filter((row) => matchesFilters(row, filters));
+  });
+
+  private readonly sortedData = computed(() => {
+    const data = this.filteredData();
     const { field, order } = this.sortState();
     if (this.lazy() || !this.sortable() || !field) return data;
     return [...data].sort(
@@ -146,6 +183,10 @@ export class TableRegularMaterialComponent<TData> {
         ) * order,
     );
   });
+
+  public readonly displayedTotal = computed(() =>
+    this.lazy() ? this.total() : this.filteredData().length,
+  );
 
   public readonly pagedData = computed(() => {
     const data = this.sortedData();
@@ -161,6 +202,22 @@ export class TableRegularMaterialComponent<TData> {
 
   public isColSortable(col: TableColumn): boolean {
     return this.sortable() && col.sortable !== false;
+  }
+
+  public onFilterChanged(col: TableColumn, meta: MaterialFilterMetadata): void {
+    this.filters.update((current) => {
+      const next = { ...current };
+      if (isEmptyFilterValue(meta.value)) {
+        delete next[col.key];
+      } else {
+        next[col.key] = meta;
+      }
+      return next;
+    });
+    this.pageIndex.set(0);
+    if (this.lazy()) {
+      this.emitLazyLoad(0, this.rows());
+    }
   }
 
   public onSortChange(sort: Sort): void {
@@ -189,7 +246,7 @@ export class TableRegularMaterialComponent<TData> {
       rows,
       sortField: field,
       sortOrder: order,
-      filters: {},
+      filters: this.filters(),
     });
   }
 

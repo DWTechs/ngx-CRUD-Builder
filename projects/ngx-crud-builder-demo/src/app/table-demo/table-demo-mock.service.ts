@@ -34,6 +34,20 @@ export interface DemoUser extends CrudItemBase {
   active?: boolean;
 }
 
+interface FilterMeta {
+  value: unknown;
+  matchMode?: string;
+}
+
+/** Lazy-load payload as it reaches the API layer (`rows` is renamed to `limit` upstream). */
+interface LazyParams {
+  first?: number;
+  limit?: number;
+  sortField?: string;
+  sortOrder?: number;
+  filters?: Record<string, FilterMeta | FilterMeta[]>;
+}
+
 /**
  * Service providing mock data and HTTP calls for the table demo
  */
@@ -140,11 +154,9 @@ export class TableDemoMockService {
    * HTTP calls implementation with mocked data
    */
   public readonly httpCalls: Calls<DemoUser> = {
-    get: () => {
-      return of({
-        rows: this.mockUsers,
-        total: this.mockUsers.length,
-      }).pipe(delay(500));
+    get: (params) => {
+      const { rows, total } = this.query(params as LazyParams);
+      return of({ rows, total }).pipe(delay(500));
     },
     create: (item: DemoUser) => {
       const newItem = {
@@ -263,4 +275,93 @@ export class TableDemoMockService {
       );
     },
   };
+
+  /** Mimics a server honouring the lazy-load payload: filter, then sort, then paginate. */
+  private query(params: LazyParams | undefined): {
+    rows: DemoUser[];
+    total: number;
+  } {
+    const {
+      first = 0,
+      limit,
+      sortField,
+      sortOrder = 1,
+      filters,
+    } = params ?? {};
+
+    let rows = this.mockUsers.filter((row) =>
+      this.matchesFilters(row, filters),
+    );
+
+    if (sortField) {
+      rows = [...rows].sort(
+        (a, b) =>
+          this.compare(this.cellOf(a, sortField), this.cellOf(b, sortField)) *
+          (sortOrder < 0 ? -1 : 1),
+      );
+    }
+
+    const total = rows.length;
+    if (typeof limit === "number") {
+      rows = rows.slice(first, first + limit);
+    }
+    return { rows, total };
+  }
+
+  private matchesFilters(
+    row: DemoUser,
+    filters: LazyParams["filters"],
+  ): boolean {
+    return Object.entries(filters ?? {}).every(([key, meta]) => {
+      const filter = Array.isArray(meta) ? meta[0] : meta;
+      const value = filter?.value;
+      if (value === null || value === undefined || value === "") return true;
+      if (Array.isArray(value) && !value.length) return true;
+
+      const cell = this.cellOf(row, key);
+      switch (filter?.matchMode) {
+        case "in":
+          return (value as unknown[]).some((item) =>
+            Array.isArray(cell) ? cell.includes(item) : cell === item,
+          );
+        case "equals":
+          return String(cell) === String(value);
+        case "dateRange":
+          return this.inDateRange(cell, value as unknown[]);
+        default:
+          return String(cell ?? "")
+            .toLowerCase()
+            .includes(String(value).toLowerCase());
+      }
+    });
+  }
+
+  private inDateRange(cell: unknown, range: unknown[]): boolean {
+    const from = this.midnight(range?.[0]);
+    if (from === null) return true;
+    const value = this.midnight(cell);
+    if (value === null) return false;
+    const to = this.midnight(range?.[1]);
+    return to === null ? value >= from : value >= from && value <= to;
+  }
+
+  private midnight(value: unknown): number | null {
+    if (value === null || value === undefined || value === "") return null;
+    const date = new Date(value as string | number | Date);
+    if (Number.isNaN(date.getTime())) return null;
+    date.setHours(0, 0, 0, 0);
+    return date.getTime();
+  }
+
+  private cellOf(row: DemoUser, key: string): unknown {
+    return (row as unknown as Record<string, unknown>)[key];
+  }
+
+  private compare(a: unknown, b: unknown): number {
+    if (a === b) return 0;
+    if (a === null || a === undefined) return -1;
+    if (b === null || b === undefined) return 1;
+    if (typeof a === "number" && typeof b === "number") return a - b;
+    return String(a).localeCompare(String(b));
+  }
 }

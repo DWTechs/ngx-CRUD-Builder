@@ -53,6 +53,14 @@ export class TableDemo {
     window.location.reload();
   }
 
+  /** Options the Material table shell does not implement yet. */
+  protected readonly isMaterial = computed(
+    () => this.currentAdapter() === "material",
+  );
+
+  protected readonly unsupportedHint =
+    "Non supporté par le shell de table Material";
+
   // Temporary values for controls (before applying)
   protected tempEntityLabel = "User";
   protected tempTableTitle = "Users";
@@ -69,7 +77,7 @@ export class TableDemo {
   protected tempIsExcelExportEnabled = true;
   protected tempExcelExportMode: "local" | "server" = "server";
   protected tempAreColumnsConfigurable = true;
-  protected tempAreColumnsResizable = true;
+  protected tempAreColumnsResizable = !this.isMaterial();
   protected tempSelectable = false;
   protected tempLazy = true;
   protected tempIsContextMenuEnabled = false;
@@ -99,7 +107,7 @@ export class TableDemo {
   protected readonly isExcelExportEnabled = signal(true);
   protected readonly excelExportMode = signal<"local" | "server">("server");
   protected readonly areColumnsConfigurable = signal(true);
-  protected readonly areColumnsResizable = signal(true);
+  protected readonly areColumnsResizable = signal(!this.isMaterial());
   protected readonly selectable = signal(false);
   protected readonly lazy = signal(true);
   protected readonly isContextMenuEnabled = signal(false);

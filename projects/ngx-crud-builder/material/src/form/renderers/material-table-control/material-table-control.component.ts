@@ -23,6 +23,13 @@ import {
   TableCellComponent,
   TableColumn,
 } from "@dwtechs/ngx-crud-builder";
+import { TableFilterCellMaterialComponent } from "../../../table/filters/table-filter-cell-material.component";
+import {
+  isEmptyFilterValue,
+  matchesFilters,
+  MaterialFilterMetadata,
+  MaterialTableFilters,
+} from "../../../table/filters/table-filters.model";
 
 /** Row of the embedded table, tagged with a client-side key so edits survive re-sorting. */
 type TableCtrlRow = Record<string, unknown> & { internal_id: number };
@@ -45,6 +52,14 @@ type TableCtrlRow = Record<string, unknown> & { internal_id: number };
     td mat-form-field {
       width: 100%;
     }
+    tr.filter-row {
+      height: auto;
+    }
+    tr.filter-row th {
+      padding-top: 4px;
+      padding-bottom: 4px;
+      vertical-align: middle;
+    }
     .no-data-row td {
       padding: 16px;
       text-align: center;
@@ -60,6 +75,7 @@ type TableCtrlRow = Record<string, unknown> & { internal_id: number };
     MatInputModule,
     MatSelectModule,
     TableCellComponent,
+    TableFilterCellMaterialComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -117,6 +133,12 @@ export class MaterialTableControlComponent extends FormFieldBaseComponent {
     return keys;
   });
 
+  protected readonly filterColumns = computed(() =>
+    this.displayedColumns().map((key) => `${key}_filter`),
+  );
+
+  protected readonly filters = signal<MaterialTableFilters>({});
+
   protected readonly sortState = signal<{ field: string; order: 1 | -1 }>({
     field: "",
     order: 1,
@@ -127,7 +149,11 @@ export class MaterialTableControlComponent extends FormFieldBaseComponent {
   );
 
   protected readonly displayRows = computed<TableCtrlRow[]>(() => {
-    const rows = this.rows();
+    const filters = this.filters();
+    const rows =
+      this.tableCtrlConfig().filterable && Object.keys(filters).length
+        ? this.rows().filter((row) => matchesFilters(row, filters))
+        : this.rows();
     const { field, order } = this.sortState();
     if (!this.tableCtrlConfig().sortable || !field) return rows;
     return [...rows].sort(
@@ -157,6 +183,21 @@ export class MaterialTableControlComponent extends FormFieldBaseComponent {
     this.sortState.set({
       field: sort.direction ? sort.active : "",
       order: sort.direction === "desc" ? -1 : 1,
+    });
+  }
+
+  protected onFilterChanged(
+    col: TableColumn,
+    meta: MaterialFilterMetadata,
+  ): void {
+    this.filters.update((current) => {
+      const next = { ...current };
+      if (isEmptyFilterValue(meta.value)) {
+        delete next[col.key];
+      } else {
+        next[col.key] = meta;
+      }
+      return next;
     });
   }
 

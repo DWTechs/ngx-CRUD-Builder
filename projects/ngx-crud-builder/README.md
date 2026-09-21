@@ -17,7 +17,7 @@ The library renders two independent things, each with its own adapter: the **for
 | Adapter | Form fields | Table shell |
 |---|---|---|
 | `'optimus-ui'` | Full support — float labels, icon fields, all control types | Full-featured: sorting, filtering, lazy loading, column resizing, state persistence |
-| Material (`@dwtechs/ngx-crud-builder/material`) | Full support for all control types (requires `@angular/material` + `@angular/animations`, a date adapter, and `provideAnimationsAsync()`) | Minimal shell — data display, pagination, sorting and lazy loading. No filtering, column resizing, state persistence or context menu yet |
+| Material (`@dwtechs/ngx-crud-builder/material`) | Full support for all control types (requires `@angular/material` + `@angular/animations`, a date adapter, and `provideAnimationsAsync()`) | Minimal shell — data display, pagination, sorting, basic filtering and lazy loading. No column resizing, state persistence or context menu yet |
 | `'native'` | Plain HTML controls, no extra dependency, lightest bundle. Covers all control types but is experimental — styling and edge cases are incomplete | **No shell available yet** — using `<tbl-table>` without a table renderer provided throws a `NullInjectorError` at runtime |
 
 Use `provideFormFieldRenderer('native')` on its own only if you don't use `<tbl-table>` — there is currently no `'native'` table shell, so it can't be combined with `provideTableRenderer` or `provideCrudRenderer`.
@@ -200,7 +200,7 @@ Provides the table shell (rows, columns, sorting, filtering, pagination, column 
 |---|---|
 | `'optimus-ui'` | Full-featured Optimus UI table (`p-table`) — sorting, filtering, lazy loading, column resizing, state persistence |
 
-> For Angular Material, use `provideMaterialTableRenderer()` from the separate `@dwtechs/ngx-crud-builder/material` entry point instead — a minimal Angular Material table (`mat-table`) with pagination, sorting and lazy loading; no filtering, column resizing, state persistence or context menu yet.
+> For Angular Material, use `provideMaterialTableRenderer()` from the separate `@dwtechs/ngx-crud-builder/material` entry point instead — a minimal Angular Material table (`mat-table`) with pagination, sorting, basic filtering and lazy loading; no column resizing, state persistence or context menu yet. `filterLevel` is ignored: only the basic filter row is rendered.
 
 ```typescript
 import { provideTableRenderer } from '@dwtechs/ngx-crud-builder';
