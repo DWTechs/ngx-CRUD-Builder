@@ -16,12 +16,12 @@ import { HistorizedData } from "./history.model";
  * {
  *   provide: HISTORY_MAPPER,
  *   useValue: (raw: unknown): HistorizedData<unknown> => {
- *     const r = raw as { timestamp: string; action: string; consumerId: number; consumerName: string; data: unknown };
+ *     const r = raw as { timestamp: string; action: string; userId: number; userName: string; data: unknown };
  *     return {
  *       tstamp: r.timestamp,
  *       operation: r.action,
- *       updaterId: r.consumerId,
- *       updaterName: r.consumerName,
+ *       updaterId: r.userId,
+ *       updaterName: r.userName,
  *       val: r.data,
  *       table_name: 'unknown',
  *     };
