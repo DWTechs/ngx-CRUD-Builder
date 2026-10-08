@@ -1,10 +1,8 @@
-# 0.3.2 (Oct 7th 2026)
+# 0.3.1 (Oct 7th 2026)
 - Add native renderers for the `custom`, `picklist`, `table` and `wysiwyg` control types — the native adapter now covers every control type
 - Add a plain HTML table shell: `provideTableRenderer('native')` and `provideCrudRenderer('native')` (selection, pagination, sorting, basic filtering and lazy mode; no column resizing, state persistence or context menu)
 - Harmonize the native form controls (shared height, padding, radius, focus and colors, overridable through the `--frm-native-control-*` CSS custom properties)
 - Update history mapper documentation examples to use `userId` and `userName` instead of `consumerId` and `consumerName`
-
-# 0.3.1 (Sep 20th 2026)
 - Add Material renderers for the `color`, `custom`, `files`, `picklist`, `table` and `wysiwyg` control types — the Material adapter now covers every control type (the `table` control has no per-column filtering yet)
 - Add sorting, basic column filtering and lazy mode to the Material table shell; `provideMaterialTableRenderer()` no longer throws when `lazy: true`
 - Add sorting and basic column filtering to the Material `table` form control
