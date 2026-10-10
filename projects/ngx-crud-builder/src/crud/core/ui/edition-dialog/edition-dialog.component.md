@@ -160,12 +160,12 @@ For app-wide configuration, prefer providing the `HISTORY_MAPPER` injection toke
 ```typescript
 // In the host component
 historyMapper = (raw: unknown): HistorizedData<User> => {
-  const r = raw as { timestamp: string; action: string; consumerId: number; consumerName: string; data: User };
+  const r = raw as { timestamp: string; action: string; userId: number; userName: string; data: User };
   return {
     tstamp: r.timestamp,
     operation: r.action,
-    updaterId: r.consumerId,
-    updaterName: r.consumerName,
+    updaterId: r.userId,
+    updaterName: r.userName,
     val: r.data,
     table_name: 'users',
   };
@@ -188,15 +188,15 @@ export const appConfig: ApplicationConfig = {
         const r = raw as {
           timestamp: string;
           action: string;
-          consumerId: number;
-          consumerName: string;
+          userId: number;
+          userName: string;
           data: unknown;
         };
         return {
           tstamp: r.timestamp,
           operation: r.action,
-          updaterId: r.consumerId,
-          updaterName: r.consumerName,
+          updaterId: r.userId,
+          updaterName: r.userName,
           val: r.data,
           table_name: 'unknown',
         };
