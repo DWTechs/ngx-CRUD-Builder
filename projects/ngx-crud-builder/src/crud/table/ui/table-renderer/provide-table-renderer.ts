@@ -1,6 +1,6 @@
 import { Provider } from "@angular/core";
-import { TableRegularNativeComponent } from "../table-regular-native/table-regular-native.component";
 import { TableRegularComponent } from "../table-regular/table-regular.component";
+import { TableRegularNativeComponent } from "../table-regular-native/table-regular-native.component";
 import { TABLE_RENDERER } from "./table-renderer.token";
 
 /** Adapters supported by `provideTableRenderer`. */

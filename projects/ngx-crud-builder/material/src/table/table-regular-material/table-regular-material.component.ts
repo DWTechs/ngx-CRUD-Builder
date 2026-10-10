@@ -15,8 +15,8 @@ import { MatPaginatorModule, PageEvent } from "@angular/material/paginator";
 import { MatSortModule, Sort } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import {
-  ColumnResizeEvent,
   CONTROL_TYPES,
+  ColumnResizeEvent,
   CRUD_LABELS,
   CrudFeatures,
   FilterLevel,
@@ -26,9 +26,9 @@ import {
 import { TableFilterCellMaterialComponent } from "../filters/table-filter-cell-material.component";
 import {
   isEmptyFilterValue,
-  matchesFilters,
   MaterialFilterMetadata,
   MaterialTableFilters,
+  matchesFilters,
   normalizeFilters,
 } from "../filters/table-filters.model";
 import { TableActionsCellMaterialComponent } from "../table-actions-cell-material/table-actions-cell-material.component";
