@@ -1,3 +1,6 @@
+# 0.3.2 (Oct 10th 2026)
+- Fix table paginator: select options overlay is now attached to body to prevent visual bug #5
+
 # 0.3.1 (Oct 7th 2026)
 - Add native renderers for the `custom`, `picklist`, `table` and `wysiwyg` control types — the native adapter now covers every control type
 - Add a plain HTML table shell: `provideTableRenderer('native')` and `provideCrudRenderer('native')` (selection, pagination, sorting, basic filtering and lazy mode; no column resizing, state persistence or context menu)

@@ -26,9 +26,9 @@ import {
 import { TableFilterCellMaterialComponent } from "../../../table/filters/table-filter-cell-material.component";
 import {
   isEmptyFilterValue,
-  matchesFilters,
   MaterialFilterMetadata,
   MaterialTableFilters,
+  matchesFilters,
 } from "../../../table/filters/table-filters.model";
 
 /** Row of the embedded table, tagged with a client-side key so edits survive re-sorting. */
