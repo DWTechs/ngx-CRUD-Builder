@@ -103,7 +103,9 @@ export class NativeFileUploadInputComponent extends FormFieldBaseComponent {
     const validatedFilesList = await this.validateFilesList(filesList);
     if (!validatedFilesList.length) return;
     if (!this.options().multiple) {
-      this.localFiles().forEach((f) => f.revoke());
+      for (const f of this.localFiles()) {
+        f.revoke();
+      }
     }
     const files = this.options().multiple
       ? this.localFiles().concat(validatedFilesList)
@@ -132,7 +134,9 @@ export class NativeFileUploadInputComponent extends FormFieldBaseComponent {
   }
 
   public clearAll(fileInput: HTMLInputElement): void {
-    this.localFiles().forEach((f) => f.revoke());
+    for (const f of this.localFiles()) {
+      f.revoke();
+    }
     this.localFiles.set([]);
     this.emitInteractionEvent("clearAllFiles");
     fileInput.value = "";
