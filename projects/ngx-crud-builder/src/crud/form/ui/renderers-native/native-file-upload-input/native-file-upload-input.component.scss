@@ -164,3 +164,52 @@ input[type="file"] {
   font-size: 0.9rem;
   text-align: left;
 }
+
+.file-thumbnail {
+  padding: 0;
+  border: 1px solid var(--nc-border);
+  border-radius: var(--nc-radius);
+  background: none;
+  cursor: zoom-in;
+  line-height: 0;
+  flex-shrink: 0;
+
+  img {
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover;
+    border-radius: var(--nc-radius);
+  }
+}
+
+.file-size {
+  margin-left: auto;
+  padding-left: 0.5rem;
+  color: GrayText;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+// Lightbox -------------------------------------------------------
+
+.preview-dialog {
+  padding: 0.5rem;
+  max-width: 90vw;
+  border: none;
+  cursor: zoom-out;
+
+  &::backdrop {
+    background: rgb(0 0 0 / 0.6);
+  }
+}
+
+.preview-image {
+  display: block;
+  max-width: 100%;
+  max-height: 80vh;
+}
+
+.constraints-hint {
+  color: GrayText;
+  font-size: 0.8rem;
+}

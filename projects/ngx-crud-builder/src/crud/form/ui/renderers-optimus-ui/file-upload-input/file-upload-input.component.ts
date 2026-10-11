@@ -4,8 +4,10 @@ import {
   computed,
   inject,
   linkedSignal,
+  signal,
 } from "@angular/core";
 import { ButtonModule } from "@openng/optimus-ui/button";
+import { DialogModule } from "@openng/optimus-ui/dialog";
 import { DividerModule } from "@openng/optimus-ui/divider";
 import { TooltipModule } from "@openng/optimus-ui/tooltip";
 import { SnackbarService } from "../../../../../core/utils/snackbar/snackbar.service";
@@ -19,7 +21,13 @@ import { FileNamePipe } from "./file-name.pipe";
   selector: "frm-file-upload-input",
   templateUrl: "./file-upload-input.component.html",
   styleUrls: ["./file-upload-input.component.scss"],
-  imports: [DividerModule, ButtonModule, TooltipModule, FileNamePipe],
+  imports: [
+    DividerModule,
+    ButtonModule,
+    DialogModule,
+    TooltipModule,
+    FileNamePipe,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FileUploadInputComponent extends FormFieldBaseComponent {
@@ -55,13 +63,39 @@ export class FileUploadInputComponent extends FormFieldBaseComponent {
     return [];
   });
 
+  public readonly constraintsHint = computed(() => {
+    const { maxFileSize, mediaType } = this.options();
+    const parts: string[] = [];
+    if (maxFileSize) {
+      parts.push(`Taille maximum : ${maxFileSize / 1_000_000} Mb`);
+    }
+    if (mediaType) {
+      parts.push(`Type de média : ${mediaType}`);
+    }
+    return parts.join(" · ");
+  });
+
   public isDraggedOver = false;
+
+  public readonly previewedFile = signal<FileInfo | null>(null);
+
+  public canPreview(file: FileInfo): boolean {
+    return (
+      !!this.options().isPreviewEnabled &&
+      (file.isImage || this.options().mediaType === "image")
+    );
+  }
 
   public async onFileUploaded(fileInput: HTMLInputElement) {
     const filesList: FileList | null = fileInput.files;
     const validatedFilesList = await this.validateFilesList(filesList);
     if (!validatedFilesList.length) {
       return;
+    }
+    if (!this.options().multiple) {
+      for (const f of this.localFiles()) {
+        f.revoke();
+      }
     }
     const files = this.options().multiple
       ? this.localFiles().concat(validatedFilesList)
@@ -93,6 +127,9 @@ export class FileUploadInputComponent extends FormFieldBaseComponent {
   }
 
   public clearAll(fileInput: HTMLInputElement) {
+    for (const f of this.localFiles()) {
+      f.revoke();
+    }
     this.localFiles.set([]);
     this.emitInteractionEvent("clearAllFiles");
     fileInput.value = "";
@@ -101,6 +138,7 @@ export class FileUploadInputComponent extends FormFieldBaseComponent {
   }
 
   public clear(index: number, fileInput: HTMLInputElement): void {
+    this.localFiles()[index]?.revoke();
     // Delete locally uploaded file
     this.localFiles.update((f) => f.filter((_, i) => i !== index));
     // Emit event

@@ -66,9 +66,43 @@ input[type="file"] {
     .file-button {
       margin-right: 0.5rem;
     }
+
+    .file-thumbnail {
+      padding: 0;
+      margin-right: 0.5rem;
+      border: 1px solid var(--p-inputtext-border-color);
+      border-radius: 4px;
+      background: none;
+      cursor: zoom-in;
+      line-height: 0;
+
+      img {
+        width: 2.5rem;
+        height: 2.5rem;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+    }
+
+    .file-size {
+      margin-left: auto;
+      padding-left: 0.5rem;
+      opacity: 0.7;
+      white-space: nowrap;
+    }
   }
 
   .no-file {
     text-align: left;
   }
+}
+
+.preview-image {
+  display: block;
+  max-width: 100%;
+  max-height: 80vh;
+  margin: 0 auto;
+}
+.constraints-hint {
+  opacity: 0.7;
 }

@@ -515,6 +515,7 @@ provideCrudLabels({
       'Only one file allowed. Remove the current file to upload a new one.',
     maxFileSizeExceeded: (fileName, maxFileSize) =>
       `"${fileName}" exceeds the ${maxFileSize}-byte limit.`,
+    preview: 'Enlarge',
   },
   autocomplete: { newOption: '(new)' },
   picklist: { sourceHeader: 'Available', targetHeader: 'Selected' },

@@ -1,5 +1,11 @@
 # 0.3.2 (Oct 10th 2026)
 - Fix table paginator: select options overlay is now attached to body to prevent visual bug #5
+- Add file upload preview for the optimus-ui, native and Material renderers: `isPreviewEnabled` now shows a thumbnail next to image files, enlarged in a modal on click
+- Add the file size next to each uploaded file name
+- Simplify the file upload UI when `multiple` is not set: no toolbar or list title, single-file row with a replace button and a size/type hint in the empty state
+- Fix blob URLs not being released when a local file is removed or replaced
+- Add `FileInfo.isImage`, `FileInfo.sizeLabel` and `FileInfo.revoke()`
+- Add the `fileUpload.preview` label to `CrudLabels`
 
 # 0.3.1 (Oct 7th 2026)
 - Add native renderers for the `custom`, `picklist`, `table` and `wysiwyg` control types — the native adapter now covers every control type
