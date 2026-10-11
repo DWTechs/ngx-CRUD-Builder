@@ -17,6 +17,7 @@
   (dragleave)="onDragLeave($event)"
   (dragenter)="prevent($event)">
 
+  @if (options().multiple) {
   <div class="dropbox-toolbar">
     <div class="toolbar-left">
       <button
@@ -42,19 +43,33 @@
       >ℹ</button>
     </div>
   </div>
+  }
 
   <div class="dropbox-container">
     @let hasFiles = localFiles() && localFiles().length > 0;
     @if (!hasFiles) {
       <span class="upload-icon">⬆</span>
       <p>{{ labels.fileUpload.dragDropLabel }}</p>
+      @if (!options().multiple && constraintsHint(); as hint) {
+        <small class="constraints-hint">{{ hint }}</small>
+      }
     } @else {
       <div class="uploaded-files-container">
-        <div class="container-title">
-          {{ labels.fileUpload.uploadedFilesTitle }}
-        </div>
+        @if (options().multiple) {
+          <div class="container-title">
+            {{ labels.fileUpload.uploadedFilesTitle }}
+          </div>
+        }
         @for (file of localFiles(); track file; let i = $index) {
           <div class="file-row">
+            @if (!options().multiple) {
+              <button
+                type="button"
+                class="file-btn"
+                [title]="labels.fileUpload.chooseFile"
+                (click)="fileInput.click()"
+              >↻</button>
+            }
             <button
               type="button"
               class="file-btn danger"
@@ -67,10 +82,34 @@
               title="Télécharger"
               (click)="onDownload(file)"
             >⬇</button>
+            @if (canPreview(file)) {
+              <button
+                type="button"
+                class="file-thumbnail"
+                [title]="labels.fileUpload.preview"
+                (click)="openPreview(file, previewDialog)"
+              >
+                <img [src]="file.src" [alt]="file | fileName" />
+              </button>
+            }
             <span class="file-name">{{ file | fileName }}</span>
+            @if (file.sizeLabel; as size) {
+              <span class="file-size">{{ size }}</span>
+            }
           </div>
         }
       </div>
     }
   </div>
 </label>
+
+<dialog
+  #previewDialog
+  class="preview-dialog"
+  (click)="previewDialog.close()"
+  (close)="previewedFile.set(null)"
+>
+  @if (previewedFile(); as file) {
+    <img class="preview-image" [src]="file.src" [alt]="file | fileName" />
+  }
+</dialog>

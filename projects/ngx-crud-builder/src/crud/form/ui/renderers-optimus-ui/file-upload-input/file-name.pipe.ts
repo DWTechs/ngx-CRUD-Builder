@@ -5,7 +5,10 @@ import { FileInfo } from "./file-info.class";
   name: "fileName",
 })
 export class FileNamePipe implements PipeTransform {
-  transform(value: FileInfo): string {
+  transform(value: FileInfo | null): string {
+    if (!value) {
+      return "";
+    }
     if (value.file) {
       return value.file.name;
     }

@@ -514,6 +514,82 @@ describe("FileUploadInputComponent", () => {
     });
   });
 
+  describe("File Preview", () => {
+    const serverImage = () =>
+      new FileInfo({ type: "server", src: "https://example.com/a.png?v=1" });
+    const serverPdf = () =>
+      new FileInfo({ type: "server", src: "https://example.com/a.pdf" });
+
+    const setOptions = (controlOptions: CrudItemOptions["controlOptions"]) => {
+      fixture.componentRef.setInput("config", {
+        ...createDefaultConfig(),
+        controlOptions,
+      });
+    };
+
+    it("should not preview when isPreviewEnabled is not set", () => {
+      expect(component.canPreview(serverImage())).toBe(false);
+    });
+
+    it("should preview image files when enabled", () => {
+      setOptions({ isPreviewEnabled: true });
+      expect(component.canPreview(serverImage())).toBe(true);
+      expect(component.canPreview(serverPdf())).toBe(false);
+    });
+
+    it("should preview any file when mediaType is image", () => {
+      setOptions({ isPreviewEnabled: true, mediaType: "image" });
+      expect(
+        component.canPreview(
+          new FileInfo({ type: "server", src: "https://example.com/portrait" }),
+        ),
+      ).toBe(true);
+    });
+
+    it("should format file size", () => {
+      vi.spyOn(window.URL, "createObjectURL").mockReturnValue("blob:url");
+      const info = new FileInfo({
+        type: "local",
+        file: new File(["x".repeat(1500)], "a.txt"),
+        src: "",
+      });
+      expect(info.sizeLabel).toBe("1.5 KB");
+    });
+
+    it("should revoke blob URL when clearing a local file", () => {
+      vi.spyOn(window.URL, "createObjectURL").mockReturnValue("blob:url");
+      const revoke = vi.spyOn(window.URL, "revokeObjectURL");
+      const info = new FileInfo({
+        type: "local",
+        file: new File([""], "a.png", { type: "image/png" }),
+        src: "",
+      });
+      component.localFiles.set([info]);
+
+      component.clear(0, document.createElement("input"));
+
+      expect(revoke).toHaveBeenCalledWith("blob:url");
+    });
+
+    it("should revoke the previous file when replacing in single mode", async () => {
+      vi.spyOn(window.URL, "createObjectURL").mockReturnValue("blob:old");
+      const revoke = vi.spyOn(window.URL, "revokeObjectURL");
+      component.localFiles.set([
+        new FileInfo({ type: "local", file: new File([""], "a.png"), src: "" }),
+      ]);
+      const fileInput = document.createElement("input");
+      fileInput.type = "file";
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(new File([""], "b.png"));
+      fileInput.files = dataTransfer.files;
+
+      await component.onFileUploaded(fileInput);
+
+      expect(revoke).toHaveBeenCalledWith("blob:old");
+      expect(component.localFiles().length).toBe(1);
+    });
+  });
+
   /**
    * ========================================
    * SECTION 8: FILE DOWNLOAD

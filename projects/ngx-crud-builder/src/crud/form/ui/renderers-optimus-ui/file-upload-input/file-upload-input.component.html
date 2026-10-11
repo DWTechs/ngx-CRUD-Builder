@@ -16,6 +16,7 @@
   (dragover)="onDragOver($event)"
   (dragleave)="onDragLeave($event)"
   (dragenter)="prevent($event)">
+  @if (options().multiple) {
   <div class="dropbox-toolbar">
     <div class="toolbar-left">
       <p-button
@@ -47,6 +48,7 @@
       />
     </div>
   </div>
+  }
   <div class="dropbox-container">  
     @let hasFiles = localFiles() && localFiles().length > 0;     
     @if (!hasFiles) {
@@ -54,13 +56,30 @@
       <p>
         {{ labels.fileUpload.dragDropLabel }}
       </p>
+      @if (!options().multiple && constraintsHint(); as hint) {
+        <small class="constraints-hint">{{ hint }}</small>
+      }
     } @else {
       <div class="uploaded-files-container">
-        <div class="container-title">
-          {{ labels.fileUpload.uploadedFilesTitle }}
-        </div>
+        @if (options().multiple) {
+          <div class="container-title">
+            {{ labels.fileUpload.uploadedFilesTitle }}
+          </div>
+        }
         @for (file of localFiles(); track file; let i = $index) {
           <div class="file-row">
+            @if (!options().multiple) {
+              <p-button
+                (onClick)="fileInput.click()"
+                icon="pi pi-refresh"
+                rounded
+                text
+                size="small"
+                severity="secondary"
+                [pTooltip]="labels.fileUpload.chooseFile"
+                class="file-button"
+              />
+            }
             <p-button
               (onClick)="clear(i, fileInput)"
               icon="pi pi-times"
@@ -81,13 +100,39 @@
               pTooltip="Télécharger"
               class="file-button"
             />
+            @if (canPreview(file)) {
+              <button
+                type="button"
+                class="file-thumbnail"
+                [pTooltip]="labels.fileUpload.preview"
+                (click)="previewedFile.set(file)"
+              >
+                <img [src]="file.src" [alt]="file | fileName" />
+              </button>
+            }
             <div class="file-name">{{ file | fileName }}</div>
+            @if (file.sizeLabel; as size) {
+              <div class="file-size">{{ size }}</div>
+            }
           </div>
         } 
       </div>
     }
   </div>
 </label>
+
+<p-dialog
+  [visible]="!!previewedFile()"
+  [modal]="true"
+  [dismissableMask]="true"
+  [header]="previewedFile() | fileName"
+  [style]="{ 'max-width': '90vw' }"
+  (visibleChange)="$event ? false : previewedFile.set(null)"
+>
+  @if (previewedFile(); as file) {
+    <img class="preview-image" [src]="file.src" [alt]="file | fileName" />
+  }
+</p-dialog>
 
 
 

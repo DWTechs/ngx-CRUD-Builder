@@ -1,8 +1,8 @@
 import {
   EnvironmentProviders,
   InjectionToken,
-  inject,
   Provider,
+  inject,
   provideAppInitializer,
 } from "@angular/core";
 import { Translation } from "@openng/optimus-ui/api";
@@ -107,6 +107,7 @@ export interface CrudLabels {
     canAddMore: string;
     cannotAddMore: string;
     maxFileSizeExceeded: (fileName: string, maxFileSize: number) => string;
+    preview: string;
   };
   autocomplete: {
     newOption: string;
@@ -263,6 +264,7 @@ export const DEFAULT_CRUD_LABELS: CrudLabels = {
       "Vous ne pouvez ajouter qu'un seul fichier. Veuillez supprimer le fichier actuel pour en ajouter un nouveau.",
     maxFileSizeExceeded: (fileName, maxFileSize) =>
       `Le fichier "${fileName}" dépasse la taille maximale autorisée de ${maxFileSize} octets.`,
+    preview: "Agrandir",
   },
   autocomplete: {
     newOption: "(nouveau)",

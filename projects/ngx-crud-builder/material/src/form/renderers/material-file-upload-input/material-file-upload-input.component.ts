@@ -18,104 +18,8 @@ import {
 
 @Component({
   selector: "frm-material-file-upload-input",
-  template: `
-    <input
-      #fileInput
-      hidden
-      type="file"
-      [id]="'file-upload-' + config().key"
-      [accept]="accept()"
-      [multiple]="!!options().multiple"
-      [disabled]="isReadonly()"
-      (change)="onFileUploaded(fileInput)"
-    />
-
-    <div
-      class="upload-zone"
-      [class.disabled]="isReadonly()"
-      [class.dragged-over]="isDraggedOver()"
-      (drop)="onDrop($event, fileInput)"
-      (dragover)="onDragOver($event)"
-      (dragleave)="onDragLeave($event)"
-      (dragenter)="prevent($event)"
-    >
-      <p class="upload-hint" [title]="infoTitle()">
-        {{ labels.fileUpload.dragDropLabel }}
-      </p>
-      <div class="upload-actions">
-        <button
-          mat-stroked-button
-          type="button"
-          [disabled]="isReadonly() || !canAddMore()"
-          (click)="fileInput.click()"
-        >
-          {{ labels.fileUpload.chooseFile }}
-        </button>
-        <button
-          mat-button
-          type="button"
-          [disabled]="isReadonly() || !localFiles().length"
-          (click)="clearAll(fileInput)"
-        >
-          &#10005;
-        </button>
-      </div>
-    </div>
-
-    @if (localFiles().length) {
-      <mat-list class="uploaded-files">
-        <div mat-subheader>{{ labels.fileUpload.uploadedFilesTitle }}</div>
-        @for (file of localFiles(); track file; let i = $index) {
-          <mat-list-item>
-            <span matListItemTitle>{{ file.file?.name || file.name }}</span>
-            <span matListItemMeta class="file-actions">
-              <button
-                mat-icon-button
-                type="button"
-                [attr.aria-label]="labels.fileUpload.uploadedFilesTitle"
-                (click)="onDownload(file)"
-              >
-                &#11015;
-              </button>
-              <button
-                mat-icon-button
-                type="button"
-                [disabled]="isReadonly()"
-                (click)="clear(i, fileInput)"
-              >
-                &#10005;
-              </button>
-            </span>
-          </mat-list-item>
-        }
-      </mat-list>
-    }
-  `,
-  styles: `
-    .upload-zone {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      padding: 16px;
-      border: 1px dashed var(--mat-sys-outline, rgba(0, 0, 0, 0.38));
-      border-radius: 4px;
-    }
-    .upload-zone.dragged-over {
-      border-color: var(--mat-sys-primary, #3f51b5);
-    }
-    .upload-zone.disabled {
-      opacity: 0.6;
-    }
-    .upload-hint {
-      margin: 0;
-    }
-    .upload-actions,
-    .file-actions {
-      display: flex;
-      gap: 4px;
-    }
-  `,
+  templateUrl: "./material-file-upload-input.component.html",
+  styleUrl: "./material-file-upload-input.component.scss",
   imports: [MatButtonModule, MatListModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -170,11 +74,40 @@ export class MaterialFileUploadInputComponent extends FormFieldBaseComponent {
     return parts.join("\n");
   });
 
+  protected readonly constraintsHint = computed(() => {
+    const { maxFileSize, mediaType } = this.options();
+    const parts: string[] = [];
+    if (maxFileSize) {
+      parts.push(`Taille maximum : ${maxFileSize / 1_000_000} Mb`);
+    }
+    if (mediaType) {
+      parts.push(`Type de média : ${mediaType}`);
+    }
+    return parts.join(" · ");
+  });
+
   protected readonly isDraggedOver = signal(false);
+
+  protected readonly previewedFile = signal<FileInfo | null>(null);
+
+  protected canPreview(file: FileInfo): boolean {
+    return (
+      !!this.options().isPreviewEnabled &&
+      (file.isImage || this.options().mediaType === "image")
+    );
+  }
+
+  protected openPreview(file: FileInfo, dialog: HTMLDialogElement): void {
+    this.previewedFile.set(file);
+    dialog.showModal();
+  }
 
   protected async onFileUploaded(fileInput: HTMLInputElement): Promise<void> {
     const validatedFilesList = await this.validateFilesList(fileInput.files);
     if (!validatedFilesList.length) return;
+    if (!this.options().multiple) {
+      this.localFiles().forEach((f) => f.revoke());
+    }
     const files = this.options().multiple
       ? this.localFiles().concat(validatedFilesList)
       : validatedFilesList;
@@ -202,6 +135,7 @@ export class MaterialFileUploadInputComponent extends FormFieldBaseComponent {
   }
 
   protected clearAll(fileInput: HTMLInputElement): void {
+    this.localFiles().forEach((f) => f.revoke());
     this.localFiles.set([]);
     this.emitInteractionEvent("clearAllFiles");
     fileInput.value = "";
@@ -209,6 +143,7 @@ export class MaterialFileUploadInputComponent extends FormFieldBaseComponent {
   }
 
   protected clear(index: number, fileInput: HTMLInputElement): void {
+    this.localFiles()[index]?.revoke();
     this.localFiles.update((f) => f.filter((_, i) => i !== index));
     this.emitInteractionEvent("clearFile", index);
     fileInput.value = "";
