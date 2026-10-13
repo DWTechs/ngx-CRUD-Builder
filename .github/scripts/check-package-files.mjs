@@ -21,3 +21,5 @@ if (missing.length || extra.length) {
   console.error('Package contents mismatch\nmissing:', missing, '\nunexpected:', extra);
   process.exit(1);
 }
+
+console.log(`Package contents OK: all ${expected.length} expected files are present, nothing unexpected.`);
