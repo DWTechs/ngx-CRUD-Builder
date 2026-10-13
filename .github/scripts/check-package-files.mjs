@@ -13,7 +13,10 @@ const expected = [
   'types/dwtechs-ngx-crud-builder.d.ts',
 ];
 
-const actual = JSON.parse(readFileSync(0, 'utf8'))[0].files.map((f) => f.path);
+// npm <= 11 prints an array, npm >= 12 an object keyed by package name.
+const output = JSON.parse(readFileSync(0, 'utf8'));
+const pkg = Array.isArray(output) ? output[0] : Object.values(output)[0];
+const actual = pkg.files.map((f) => f.path);
 const missing = expected.filter((f) => !actual.includes(f));
 const extra = actual.filter((f) => !expected.includes(f));
 
