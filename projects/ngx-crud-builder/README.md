@@ -516,6 +516,11 @@ provideCrudLabels({
     maxFileSizeExceeded: (fileName, maxFileSize) =>
       `"${fileName}" exceeds the ${maxFileSize}-byte limit.`,
     preview: 'Enlarge',
+    maxFileSize: 'Maximum size',
+    mediaType: 'Media type',
+    clearAll: 'Remove all',
+    remove: 'Remove',
+    download: 'Download',
   },
   autocomplete: { newOption: '(new)' },
   picklist: { sourceHeader: 'Available', targetHeader: 'Selected' },

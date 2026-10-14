@@ -173,6 +173,8 @@ groupValidator: (group: AbstractControl) => &#123;
         <li><strong>maxFileSize</strong>: Maximum file size in bytes</li>
         <li><strong>mediaType</strong>: 'image' for images or 'document' for documents</li>
         <li><strong>isPreviewEnabled</strong>: Show a thumbnail next to each uploaded image and enlarge it in a modal on click</li>
+        <li><strong>showFileName</strong>: Show the file name next to each uploaded file (default true)</li>
+        <li><strong>uploadSize</strong>: 'large' (default) or 'small' (same height as other form inputs, ignored when multiple is true, optimus-ui renderer only)</li>
         <li><strong>filesPathResolver</strong>: Function to resolve file paths from model data</li>
       </ul>
 

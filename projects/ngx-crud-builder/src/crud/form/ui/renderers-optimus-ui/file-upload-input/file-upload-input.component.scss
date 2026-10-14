@@ -45,6 +45,40 @@ input[type="file"] {
       margin-right: 10px;
     }
   }
+
+  // Same height as other form inputs
+  &.small {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 2.5rem;
+    padding-block: 0;
+
+    .dropbox-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .upload-icon {
+      font-size: 1.25rem;
+    }
+
+    .uploaded-files-container {
+      margin-top: 0;
+
+      .file-row {
+        padding-block: 0;
+
+        .file-thumbnail img {
+          width: 1.75rem;
+          height: 1.75rem;
+        }
+      }
+    }
+  }
 }
 
 .uploaded-files-container {

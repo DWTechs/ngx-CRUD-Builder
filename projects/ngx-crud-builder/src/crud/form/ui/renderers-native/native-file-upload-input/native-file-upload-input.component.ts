@@ -56,11 +56,13 @@ export class NativeFileUploadInputComponent extends FormFieldBaseComponent {
     const parts: string[] = [];
     const maxFileSize = this.options().maxFileSize;
     if (maxFileSize) {
-      parts.push(`Taille maximum : ${maxFileSize / 1_000_000} Mb`);
+      parts.push(
+        `${this.labels.fileUpload.maxFileSize} : ${maxFileSize / 1_000_000} Mb`,
+      );
     }
     const mediaType = this.options().mediaType;
     if (mediaType) {
-      parts.push(`Type de média : ${mediaType}`);
+      parts.push(`${this.labels.fileUpload.mediaType} : ${mediaType}`);
     }
     parts.push(
       this.canAddMore()
@@ -74,10 +76,12 @@ export class NativeFileUploadInputComponent extends FormFieldBaseComponent {
     const { maxFileSize, mediaType } = this.options();
     const parts: string[] = [];
     if (maxFileSize) {
-      parts.push(`Taille maximum : ${maxFileSize / 1_000_000} Mb`);
+      parts.push(
+        `${this.labels.fileUpload.maxFileSize} : ${maxFileSize / 1_000_000} Mb`,
+      );
     }
     if (mediaType) {
-      parts.push(`Type de média : ${mediaType}`);
+      parts.push(`${this.labels.fileUpload.mediaType} : ${mediaType}`);
     }
     return parts.join(" · ");
   });

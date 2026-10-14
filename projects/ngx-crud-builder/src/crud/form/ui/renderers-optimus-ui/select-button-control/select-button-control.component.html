@@ -6,4 +6,10 @@
     [multiple]="options().multipleSelectButton ?? false"
     [unselectable]="unselectable()"
     [class.p-disabled]="isDisabled()"
-/>   
+    (onOptionClick)="emitInteractionEvent('click', { option: $event.option, index: $event.index })"
+    (onChange)="emitInteractionEvent('valueChange')"
+>
+    <ng-template #item let-option>
+        <span class="p-togglebutton-label" [pTooltip]="option.label">{{ option.label }}</span>
+    </ng-template>
+</p-selectButton>   

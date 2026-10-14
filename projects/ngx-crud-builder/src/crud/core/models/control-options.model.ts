@@ -360,6 +360,18 @@ export class ControlOptions {
    */
   isPreviewEnabled?: boolean;
   /**
+   * Whether to display the file name next to each uploaded file
+   * @default true
+   * @example `showFileName: false` // Hides the file name
+   */
+  showFileName?: boolean;
+  /**
+   * Size of the file upload control: `large` is the dropbox layout, `small` matches the height of other form inputs (ignored when `multiple` is true)
+   * @default 'large'
+   * @example `uploadSize: 'small'`
+   */
+  uploadSize?: "small" | "large";
+  /**
    * Can the file input control accept multiple files for upload
    * @example `multiple: true` // User can select and upload multiple files at once
    */

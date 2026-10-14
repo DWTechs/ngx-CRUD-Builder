@@ -112,6 +112,24 @@ describe("SelectButtonControlComponent", () => {
    * ========================================
    */
   describe("User Interactions & Events", () => {
+    it("should emit click and valueChange when an option is clicked", () => {
+      fixture.detectChanges();
+      const events: FormFieldInteractionEvent[] = [];
+      component.fieldInteraction.subscribe((e: FormFieldInteractionEvent) =>
+        events.push(e),
+      );
+
+      fixture.nativeElement
+        .querySelector("[role='checkbox'], [role='radio'], .p-togglebutton")
+        .click();
+
+      const types = events.map((e) => e.interactionType);
+      expect(types).toContain("click");
+      expect(types).toContain("valueChange");
+      const click = events.find((e) => e.interactionType === "click");
+      expect(click?.extraData?.index).toBe(0);
+      expect(click?.extraData?.option.value).toBe("opt1");
+    });
     it("should emit fieldInteraction on value change", async () => {
       fixture.detectChanges();
 

@@ -1,8 +1,8 @@
 import {
   EnvironmentProviders,
   InjectionToken,
-  inject,
   Provider,
+  inject,
   provideAppInitializer,
 } from "@angular/core";
 import { Translation } from "@openng/optimus-ui/api";
@@ -108,6 +108,11 @@ export interface CrudLabels {
     cannotAddMore: string;
     maxFileSizeExceeded: (fileName: string, maxFileSize: number) => string;
     preview: string;
+    maxFileSize: string;
+    mediaType: string;
+    clearAll: string;
+    remove: string;
+    download: string;
   };
   autocomplete: {
     newOption: string;
@@ -265,6 +270,11 @@ export const DEFAULT_CRUD_LABELS: CrudLabels = {
     maxFileSizeExceeded: (fileName, maxFileSize) =>
       `Le fichier "${fileName}" dépasse la taille maximale autorisée de ${maxFileSize} octets.`,
     preview: "Agrandir",
+    maxFileSize: "Taille maximum",
+    mediaType: "Type de média",
+    clearAll: "Tout supprimer",
+    remove: "Supprimer",
+    download: "Télécharger",
   },
   autocomplete: {
     newOption: "(nouveau)",

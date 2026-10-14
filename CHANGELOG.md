@@ -1,3 +1,9 @@
+# 0.3.3 (Oct 14th 2026)
+- Add the `fileUpload.maxFileSize`, `mediaType`, `clearAll`, `remove` and `download` labels to `CrudLabels` (previously hardcoded in French)
+- Add the `showFileName` file option to hide the file name
+- Add the `uploadSize` file option (`small` | `large`) to the optimus-ui renderer: `small` matches the height of other form inputs (single-file mode only)
+- Fix the optimus-ui select button control not emitting `fieldInteraction` events (`click` and `valueChange`)
+
 # 0.3.2 (Oct 10th 2026)
 - Fix table paginator: select options overlay is now attached to body to prevent visual bug #5
 - Add file upload preview for the optimus-ui, native and Material renderers: `isPreviewEnabled` now shows a thumbnail next to image files, enlarged in a modal on click

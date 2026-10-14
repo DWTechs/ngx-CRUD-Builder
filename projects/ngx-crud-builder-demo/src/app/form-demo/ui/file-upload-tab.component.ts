@@ -78,6 +78,13 @@ import { SelectModule } from "@openng/optimus-ui/select";
           placeholder="ex: 8000000 pour 8MB" />
       </div>
 
+      <div class="demo-control">
+        <label>Taille du contrôle</label>
+        <p-select
+          [options]="uploadSizeOptions"
+          [(ngModel)]="fileUploadSize" />
+      </div>
+
       <!-- Checkboxes for boolean options -->
       <div class="checkboxes">
         <div class="demo-control">
@@ -113,6 +120,13 @@ import { SelectModule } from "@openng/optimus-ui/select";
             [(ngModel)]="fileUploadIsPreviewEnabled"
             binary="true" />
           <label>Enable preview</label>
+        </div>
+
+        <div class="demo-control">
+          <p-checkbox
+            [(ngModel)]="fileUploadShowFileName"
+            binary="true" />
+          <label>Show file name</label>
         </div>
       </div>
 
@@ -151,6 +165,9 @@ export class FileUploadTabComponent {
   protected readonly fileUploadHidden = signal(false);
   protected readonly fileUploadMultiple = signal(false);
   protected readonly fileUploadIsPreviewEnabled = signal(true);
+  protected readonly fileUploadShowFileName = signal(true);
+  protected readonly fileUploadSize = signal<"small" | "large">("large");
+  protected readonly uploadSizeOptions = ["small", "large"];
   protected readonly fileUploadMediaType = signal<string | undefined>(
     undefined,
   );
@@ -228,6 +245,8 @@ export class FileUploadTabComponent {
         label: this.fileUploadControlLabel(),
         multiple: this.fileUploadMultiple(),
         isPreviewEnabled: this.fileUploadIsPreviewEnabled(),
+        showFileName: this.fileUploadShowFileName(),
+        uploadSize: this.fileUploadSize(),
         mediaType: this.fileUploadMediaType(),
         maxFileSize: this.fileUploadMaxFileSize(),
       },
