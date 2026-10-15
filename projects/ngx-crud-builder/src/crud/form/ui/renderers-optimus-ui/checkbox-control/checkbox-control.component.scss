@@ -1,3 +1,14 @@
 .checkbox-container {
     padding-block: 4px var(--p-inputtext-padding-y);
 }
+
+// Zero-width strut gives the same line height as a text input, so the box height matches other fields
+.p-floatlabel .checkbox-container {
+    display: flex;
+    align-items: center;
+    padding-block: var(--p-inputtext-padding-y);
+
+    &::before {
+        content: "\200b";
+    }
+}

@@ -67,7 +67,6 @@ export class LabelWrapperComponent {
   protected readonly isForcedNormalLabel = computed(() => {
     const normalLabelControls: ControlType[] = [
       // CONTROL_TYPES.CHECKBOX,
-      CONTROL_TYPES.FILES,
       CONTROL_TYPES.PICKLIST,
       CONTROL_TYPES.TABLE,
       CONTROL_TYPES.WYSIWYG,
@@ -77,17 +76,19 @@ export class LabelWrapperComponent {
   });
 
   protected readonly fieldLabelStrategy = computed<LabelStrategy>(() => {
-    const defaultStrategy = this.labelStrategy();
     if (this.isForcedNormalLabel()) {
       return "normal";
     }
-    if (
-      defaultStrategy === "float" &&
-      (this.config().controlType === CONTROL_TYPES.RADIO ||
-        this.config().controlType === CONTROL_TYPES.SELECT_BUTTON)
-    ) {
-      return "normal";
-    }
-    return defaultStrategy;
+    return this.labelStrategy();
+  });
+
+  // No focus/filled state to trigger the float animation: keep the label up
+  protected readonly isAlwaysFloated = computed(() => {
+    const alwaysFloatedControls: ControlType[] = [
+      CONTROL_TYPES.RADIO,
+      CONTROL_TYPES.SELECT_BUTTON,
+      CONTROL_TYPES.FILES,
+    ];
+    return alwaysFloatedControls.includes(this.config().controlType);
   });
 }

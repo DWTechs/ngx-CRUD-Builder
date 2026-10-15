@@ -239,7 +239,7 @@ describe("LabelWrapperComponent", () => {
       expect(floatLabel).toBeFalsy();
     });
 
-    it("should force normal strategy for FILES control", () => {
+    it("should keep the float label always up for FILES control", () => {
       component.labelStrategy.set("float");
       component.config.set({
         key: "field",
@@ -249,10 +249,11 @@ describe("LabelWrapperComponent", () => {
       fixture.detectChanges();
 
       const floatLabel = fixture.nativeElement.querySelector("p-floatlabel");
-      expect(floatLabel).toBeFalsy();
+      expect(floatLabel).toBeTruthy();
+      expect(floatLabel.classList).toContain("float-always");
     });
 
-    it("should force normal strategy for RADIO control", () => {
+    it("should keep the float label always up for RADIO control", () => {
       component.labelStrategy.set("float");
       component.config.set({
         key: "field",
@@ -262,10 +263,11 @@ describe("LabelWrapperComponent", () => {
       fixture.detectChanges();
 
       const floatLabel = fixture.nativeElement.querySelector("p-floatlabel");
-      expect(floatLabel).toBeFalsy();
+      expect(floatLabel).toBeTruthy();
+      expect(floatLabel.classList).toContain("float-always");
     });
 
-    it("should force normal strategy for SELECT_BUTTON control", () => {
+    it("should keep the float label always up for SELECT_BUTTON control", () => {
       component.labelStrategy.set("float");
       component.config.set({
         key: "field",
@@ -275,7 +277,8 @@ describe("LabelWrapperComponent", () => {
       fixture.detectChanges();
 
       const floatLabel = fixture.nativeElement.querySelector("p-floatlabel");
-      expect(floatLabel).toBeFalsy();
+      expect(floatLabel).toBeTruthy();
+      expect(floatLabel.classList).toContain("float-always");
     });
 
     it("should force normal strategy for PICKLIST control", () => {
