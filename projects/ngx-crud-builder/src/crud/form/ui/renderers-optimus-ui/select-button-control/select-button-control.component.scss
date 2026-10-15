@@ -1,13 +1,28 @@
 .p-selectbutton {
+    position: relative;
     width: 100%;
-    border: 1px solid var(--p-inputtext-border-color);
     background: var(--p-inputtext-background);
 
+    // Overlay instead of border: no layout size, so the height has no sub-pixel border rounding
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border: 1px solid var(--p-inputtext-border-color);
+        border-radius: inherit;
+        pointer-events: none;
+    }
+
     .p-togglebutton {
-        padding: 1px var(--p-togglebutton-padding);
+        padding: 0 var(--p-togglebutton-padding);
         flex: 1;
         min-width: 0;
         white-space: nowrap;
+
+        // Total height = input height: 2 * field padding + line + 2 * toggle border
+        .p-togglebutton-content {
+            padding-block: var(--p-form-field-padding-y);
+        }
 
         .p-togglebutton-label {
             overflow: hidden;
@@ -17,5 +32,9 @@
 }
 
 .p-iftalabel .p-selectbutton {
-    padding-top: 20px;
+    padding-top: calc(var(--p-iftalabel-input-padding-top) - var(--p-form-field-padding-y));
+}
+
+.p-floatlabel-in .p-selectbutton {
+    padding-top: calc(var(--p-floatlabel-in-input-padding-top) - var(--p-form-field-padding-y));
 }

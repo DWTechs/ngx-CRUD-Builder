@@ -1,6 +1,18 @@
 .radio-group {
+  padding-block: var(--p-inputtext-padding-y);
 
-  padding-block: 6px;
+  // Zero-width strut gives the same line height as a text input, so the box height matches other fields
+  .radio-option::before {
+    content: "\200b";
+  }
+
+  .p-iftalabel & {
+    padding-block: var(--p-iftalabel-input-padding-top) var(--p-iftalabel-input-padding-bottom);
+  }
+
+  .p-floatlabel-in & {
+    padding-block: var(--p-floatlabel-in-input-padding-top) var(--p-floatlabel-in-input-padding-bottom);
+  }
   
   &.row-direction {
     display: flex;
@@ -14,6 +26,8 @@
 
     label {
       position: unset !important;
+      transform: none;
+      pointer-events: auto;
       margin: 0 0.5rem;
       gap: 0.25rem;
       display: flex;

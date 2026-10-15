@@ -81,6 +81,33 @@ input[type="file"] {
   }
 }
 
+// Undo the ifta/float label positioning that also targets this <label>
+:host-context(p-iftalabel) .custom-file-upload,
+:host-context(p-floatlabel) .custom-file-upload {
+  position: static;
+  inset: auto;
+  z-index: auto;
+  transform: none;
+  pointer-events: auto;
+}
+
+// Leave room for the label inside the box
+:host-context(p-iftalabel) .custom-file-upload {
+  padding-top: var(--p-iftalabel-input-padding-top);
+
+  &.small {
+    padding-block: var(--p-iftalabel-input-padding-top) var(--p-iftalabel-input-padding-bottom);
+  }
+}
+
+:host-context(.p-floatlabel-in) .custom-file-upload {
+  padding-top: var(--p-floatlabel-in-input-padding-top);
+
+  &.small {
+    padding-block: var(--p-floatlabel-in-input-padding-top) var(--p-floatlabel-in-input-padding-bottom);
+  }
+}
+
 .uploaded-files-container {
   margin-top: 1rem;
   width: 100%;

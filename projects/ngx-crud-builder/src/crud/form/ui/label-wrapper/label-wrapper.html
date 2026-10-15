@@ -1,6 +1,6 @@
 @switch (fieldLabelStrategy()) {
     @case ("float") {
-        <p-floatLabel [variant]="labelVariant() ?? 'on'">
+        <p-floatLabel [variant]="labelVariant() ?? 'on'" [class.float-always]="isAlwaysFloated()">
             <ng-container *ngTemplateOutlet="labelContentTemplate" />
         </p-floatLabel>
     }

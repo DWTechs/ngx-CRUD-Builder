@@ -1,3 +1,10 @@
+# 0.3.4 (Oct 15th 2026)
+- Add a real float label (`labelStrategy="float"`, all variants) to the optimus-ui file upload, select button and radio group controls: the label stays up since these controls have no focus/filled state
+- Add the ifta label (`labelStrategy="ifta"`) to the optimus-ui file upload control, the label is now inside the drop zone
+- Fix the optimus-ui select button and radio group heights so they match the other form inputs in every label strategy
+- Fix the optimus-ui select button border not being visible
+- Fix the optimus-ui checkbox height in `float` mode to align it with the other form inputs
+
 # 0.3.3 (Oct 14th 2026)
 - Add the `fileUpload.maxFileSize`, `mediaType`, `clearAll`, `remove` and `download` labels to `CrudLabels` (previously hardcoded in French)
 - Add the `showFileName` file option to hide the file name

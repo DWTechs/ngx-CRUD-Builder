@@ -52,3 +52,24 @@ label {
 .p-floatlabel:has(.has-icon > .p-inputicon:first-child) label {
     inset-inline-start: calc((var(--p-form-field-padding-x) * 2) + var(--p-icon-size));
 }
+
+// Same as the native "active" state, for controls that never get focus/filled
+.p-floatlabel.float-always > label {
+    top: var(--p-floatlabel-over-active-top);
+    transform: translateY(0);
+    font-size: var(--p-floatlabel-active-font-size);
+    font-weight: var(--p-floatlabel-active-font-weight);
+    color: var(--p-floatlabel-active-color);
+}
+
+.p-floatlabel-in.float-always > label {
+    top: var(--p-floatlabel-in-active-top);
+}
+
+.p-floatlabel-on.float-always > label {
+    top: 0;
+    transform: translateY(-50%);
+    border-radius: var(--p-floatlabel-on-border-radius);
+    background: var(--p-floatlabel-on-active-background);
+    padding: var(--p-floatlabel-on-active-padding);
+}
