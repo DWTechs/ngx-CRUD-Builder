@@ -514,6 +514,67 @@ describe("FileUploadInputComponent", () => {
     });
   });
 
+  describe("Display options", () => {
+    const setOptions = (controlOptions: CrudItemOptions["controlOptions"]) => {
+      fixture.componentRef.setInput("config", {
+        ...createDefaultConfig(),
+        controlOptions,
+      });
+    };
+    const withFile = () => {
+      vi.spyOn(window.URL, "createObjectURL").mockReturnValue("blob:url");
+      const file = new FileInfo({
+        type: "local",
+        file: new File(["x"], "a.txt"),
+        src: "",
+      });
+      fixture.componentRef.setInput("control", new FormControl([file]));
+    };
+
+    it("should show file name by default", () => {
+      withFile();
+      fixture.detectChanges();
+      expect(fixture.nativeElement.querySelector(".file-name")).toBeTruthy();
+    });
+
+    it("should hide file name when showFileName is false", () => {
+      withFile();
+      setOptions({ showFileName: false });
+      fixture.detectChanges();
+      expect(fixture.nativeElement.querySelector(".file-name")).toBeNull();
+    });
+
+    it("should apply small class when uploadSize is small", () => {
+      setOptions({ uploadSize: "small" });
+      fixture.detectChanges();
+      expect(
+        fixture.nativeElement.querySelector(".custom-file-upload.small"),
+      ).toBeTruthy();
+    });
+
+    it("should ignore uploadSize small when multiple is true", () => {
+      setOptions({ uploadSize: "small", multiple: true });
+      fixture.detectChanges();
+      expect(
+        fixture.nativeElement.querySelector(".custom-file-upload.small"),
+      ).toBeNull();
+    });
+
+    it("should not apply small class by default", () => {
+      fixture.detectChanges();
+      expect(
+        fixture.nativeElement.querySelector(".custom-file-upload.small"),
+      ).toBeNull();
+    });
+
+    it("should use translated labels in constraints hint", () => {
+      setOptions({ maxFileSize: 2_000_000, mediaType: "image" });
+      expect(component.constraintsHint()).toBe(
+        "Taille maximum : 2 Mb · Type de média : image",
+      );
+    });
+  });
+
   describe("File Preview", () => {
     const serverImage = () =>
       new FileInfo({ type: "server", src: "https://example.com/a.png?v=1" });

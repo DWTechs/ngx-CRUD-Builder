@@ -291,6 +291,8 @@ config: [
 - **`maxFileSize`**: Maximum file size in bytes
 - **`mediaType`**: `'image'` for images or `'document'` for documents
 - **`isPreviewEnabled`**: Show a thumbnail next to each uploaded image (local or server) and enlarge it in a modal on click. Also applies when `mediaType` is `'image'`
+- **`showFileName`**: Show the file name next to each uploaded file (default `true`)
+- **`uploadSize`**: `'large'` (default, dropbox layout) or `'small'` (same height as other form inputs, ignored when `multiple` is true). Optimus-ui renderer only
 - **`filesPathResolver`**: Function to resolve file paths from model data for display and download
 
 ### Number Input Controls
@@ -1371,7 +1373,7 @@ export const appConfig: ApplicationConfig = {
 | `arrayElement` | `delete` | Delete button label in array sub-forms |
 | `dateControl` | `close`, `clear`, `today`, `validate` | Date picker overlay buttons |
 | `richTextEditor` | `editHtml` | Rich text editor action label |
-| `fileUpload` | `chooseFile`, `dragDropLabel`, `uploadedFilesTitle`, `canAddMore`, `cannotAddMore`, `maxFileSizeExceeded(fileName, maxFileSize)`, `preview` | File upload control labels |
+| `fileUpload` | `chooseFile`, `dragDropLabel`, `uploadedFilesTitle`, `canAddMore`, `cannotAddMore`, `maxFileSizeExceeded(fileName, maxFileSize)`, `preview`, `maxFileSize`, `mediaType`, `clearAll`, `remove`, `download` | File upload control labels |
 | `autocomplete` | `newOption` | Label for the "create new option" entry |
 | `picklist` | `sourceHeader`, `targetHeader` | Picklist column headers |
 | `tableControl` | `add`, `delete`, `noData`, `actionsColumnHeader`, `multiselectValidate`, `multiselectUnsavedChanges` | Inline table control inside forms |
@@ -1424,6 +1426,11 @@ provideCrudLabels({
     maxFileSizeExceeded: (fileName, maxFileSize) =>
       `"${fileName}" exceeds the ${maxFileSize}-byte limit.`,
     preview: 'Enlarge',
+    maxFileSize: 'Maximum size',
+    mediaType: 'Media type',
+    clearAll: 'Remove all',
+    remove: 'Remove',
+    download: 'Download',
   },
   autocomplete: { newOption: '(new)' },
   picklist: { sourceHeader: 'Available', targetHeader: 'Selected' },

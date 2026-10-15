@@ -52,6 +52,14 @@ export class FileUploadInputComponent extends FormFieldBaseComponent {
     return `${mediaType}/*`;
   });
 
+  protected readonly showFileName = computed(
+    () => this.options().showFileName !== false,
+  );
+
+  protected readonly isSmall = computed(
+    () => this.options().uploadSize === "small" && !this.options().multiple,
+  );
+
   public readonly canAddMore = computed(() => {
     return this.options().multiple ? true : this.localFiles().length === 0;
   });
@@ -67,10 +75,12 @@ export class FileUploadInputComponent extends FormFieldBaseComponent {
     const { maxFileSize, mediaType } = this.options();
     const parts: string[] = [];
     if (maxFileSize) {
-      parts.push(`Taille maximum : ${maxFileSize / 1_000_000} Mb`);
+      parts.push(
+        `${this.labels.fileUpload.maxFileSize} : ${maxFileSize / 1_000_000} Mb`,
+      );
     }
     if (mediaType) {
-      parts.push(`Type de média : ${mediaType}`);
+      parts.push(`${this.labels.fileUpload.mediaType} : ${mediaType}`);
     }
     return parts.join(" · ");
   });
