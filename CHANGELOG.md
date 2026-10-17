@@ -1,3 +1,6 @@
+# 0.3.5 (Oct 17th 2026)
+- Fix empty table cell tooltips by disabling them when the formatted cell content is empty
+
 # 0.3.4 (Oct 15th 2026)
 - Add a real float label (`labelStrategy="float"`, all variants) to the optimus-ui file upload, select button and radio group controls: the label stays up since these controls have no focus/filled state
 - Add the ifta label (`labelStrategy="ifta"`) to the optimus-ui file upload control, the label is now inside the drop zone
