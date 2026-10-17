@@ -1,0 +1,51 @@
+name: Business need / feature request
+description: Describe a need so it can be refined, then implemented by a human or a coding agent.
+title: "[Need] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / user need
+      description: Who is blocked, and what are they trying to do?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected outcome
+      description: What should be possible once this is done?
+    validations:
+      required: true
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples
+      description: Sample configuration, code, or screenshots (e.g. the `ColumnOptions` / `ControlOptions` fields involved).
+    validations:
+      required: false
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Verifiable statements, one per line.
+      placeholder: "- [ ] Table shows X when Y"
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints and edge cases
+      description: Backward compatibility, public API impact, accessibility, i18n, performance, out-of-scope items.
+    validations:
+      required: false
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Affected area
+      options:
+        - label: TableComponent
+        - label: FormComponent
+        - label: Public API / models
+        - label: Material renderers
+        - label: Demo app / documentation
