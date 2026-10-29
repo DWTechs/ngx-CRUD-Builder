@@ -1,4 +1,5 @@
 # 0.3.5 (Oct 29th 2026)
+- Fix empty table cell tooltips by disabling them when the formatted cell content is empty
 - Fix the modal panel width being capped at 40rem: the width set through `editionDialogWidth` (or `panelStyle`) is now applied, limited to 95vw
 
 # 0.3.4 (Oct 15th 2026)

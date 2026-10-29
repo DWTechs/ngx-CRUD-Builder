@@ -31,6 +31,7 @@ import { CrudFeatures } from "../../../core/utils/table/crud-table-loader.class"
 import { FilterLevel } from "../../../core/utils/table/filter-level.model";
 import { TableColumn } from "../../../core/utils/table/table-column.model";
 import { FirstRowPipe } from "../../utils/pipes/first-row.pipe";
+import { HasTooltipContentPipe } from "../../utils/pipes/has-tooltip-content.pipe";
 import { LastRowPipe } from "../../utils/pipes/last-row.pipe";
 import { ColumnResizeEvent } from "../../utils/views/table-config.model";
 import { TableActionsCellComponent } from "../table-actions-cell/table-actions-cell.component";
@@ -45,6 +46,7 @@ import { buildContextMenu } from "./context-menu.builder";
   imports: [
     TableModule,
     FirstRowPipe,
+    HasTooltipContentPipe,
     LastRowPipe,
     NgStyle,
     TableActionsCellComponent,
