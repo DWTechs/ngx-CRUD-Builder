@@ -1,3 +1,6 @@
+# 0.3.5 (Oct 29th 2026)
+- Fix the modal panel width being capped at 40rem: the width set through `editionDialogWidth` (or `panelStyle`) is now applied, limited to 95vw
+
 # 0.3.4 (Oct 15th 2026)
 - Add a real float label (`labelStrategy="float"`, all variants) to the optimus-ui file upload, select button and radio group controls: the label stays up since these controls have no focus/filled state
 - Add the ifta label (`labelStrategy="ifta"`) to the optimus-ui file upload control, the label is now inside the drop zone
