@@ -121,7 +121,7 @@
         @let value = rowData[col.key];
         <td
           [pTooltip]="tooltip"
-          [tooltipDisabled]="value === null || value === undefined || value === ''"
+          [tooltipDisabled]="!(value | hasTooltipContent: col)"
           [class.clickable]="clickableRows()"
           [style.width]="col.defaultWidth | colWidth"
           [style.max-width]="col.defaultWidth | colWidth"
