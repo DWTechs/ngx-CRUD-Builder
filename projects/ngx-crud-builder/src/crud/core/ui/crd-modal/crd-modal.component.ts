@@ -25,7 +25,8 @@ export class CrdModalComponent {
     if (this.open()) this.closed.emit();
   }
 
-  protected onBackdropClick(): void {
+  protected onBackdropClick(event: MouseEvent): void {
+    if (event.target !== event.currentTarget) return;
     if (this.closeOnBackdrop()) this.closed.emit();
   }
 }
