@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { ConfirmService } from "../../../core/utils/confirm/confirm.service";
+import { CONTROL_TYPES } from "../../core/models/control-type.model";
+import { provideFormFieldRenderer } from "../../form/ui/field-renderer/provide-form-field-renderer";
 import { TableComponent } from "../table.component";
 import {
   createTestEntity,
@@ -15,6 +17,9 @@ describe("TableComponent - archive and restore", () => {
   let confirmService: ConfirmService;
 
   beforeEach(async () => {
+    TestBed.configureTestingModule({
+      providers: [...provideFormFieldRenderer("optimus-ui")],
+    });
     ({ fixture, component } = await setupTableTest());
     fixture.detectChanges();
     await waitForDebounce();
@@ -26,6 +31,39 @@ describe("TableComponent - archive and restore", () => {
 
     expect(confirmService.current()).toBeTruthy();
     expect(fixture.componentInstance.httpCalls.archive).not.toHaveBeenCalled();
+  });
+
+  it("preserves the entry id when archiving from a form without an id field", () => {
+    fixture.componentInstance.config = [
+      { key: "name", label: "Name", controlType: CONTROL_TYPES.INPUT },
+    ];
+    fixture.detectChanges();
+    component.onEdit(createTestEntity({ id: 5 }));
+    fixture.detectChanges();
+
+    const input: HTMLInputElement = fixture.nativeElement.querySelector(
+      "crd-edition-dialog input",
+    );
+    input.value = "Updated name";
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+    fixture.detectChanges();
+
+    const archiveButton: HTMLButtonElement =
+      fixture.nativeElement.querySelector(
+        'crd-edition-dialog button[data-testid="delete-button"]',
+      );
+    archiveButton.click();
+    fixture.detectChanges();
+
+    expect(confirmService.current()).toBeTruthy();
+    expect(
+      fixture.nativeElement.querySelector("crd-confirm [role='dialog']"),
+    ).toBeTruthy();
+    confirmService.accept();
+
+    expect(fixture.componentInstance.httpCalls.archive).toHaveBeenCalledWith([
+      5,
+    ]);
   });
 
   it("calls httpCalls.archive with the row id once the confirmation is accepted", () => {

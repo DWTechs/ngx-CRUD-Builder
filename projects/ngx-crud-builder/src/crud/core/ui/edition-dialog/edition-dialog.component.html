@@ -1,10 +1,12 @@
 <crd-modal
   [open]="isVisible()"
+  [closeOnBackdrop]="false"
+  [draggable]="true"
   [panelStyle]="{ width: calculatedWidth(), height: height() ?? 'auto' }"
   panelClass="p-fluid"
   (closed)="onHide()">
 
-  <div class="edition-dialog-header">
+  <div class="edition-dialog-header" cdkDragHandle>
     <h2>{{ dialogTitle() }}</h2>
   </div>
 

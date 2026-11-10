@@ -1,4 +1,6 @@
+import { CdkDrag, CdkDragHandle } from "@angular/cdk/drag-drop";
 import { ComponentFixture } from "@angular/core/testing";
+import { By } from "@angular/platform-browser";
 import { TableComponent } from "../table.component";
 import {
   createHttpCallsMock,
@@ -15,6 +17,41 @@ describe("TableComponent - creation and edition", () => {
 
   beforeEach(async () => {
     ({ fixture, component } = await setupTableTest());
+  });
+
+  it.each([
+    "creation",
+    "edition",
+  ])("keeps the %s dialog open when its backdrop is clicked", async (mode) => {
+    fixture.detectChanges();
+    await waitForDebounce();
+
+    if (mode === "creation") {
+      component.onNew();
+    } else {
+      component.onEdit(createTestEntity());
+    }
+    fixture.detectChanges();
+    fixture.componentInstance.editionDialogClosed.mockClear();
+
+    const drag = fixture.debugElement.query(By.directive(CdkDrag));
+    const handle = fixture.debugElement.query(By.directive(CdkDragHandle));
+    expect(drag.injector.get(CdkDrag).disabled).toBe(false);
+    expect(
+      handle.nativeElement.classList.contains("edition-dialog-header"),
+    ).toBe(true);
+
+    const backdrop: HTMLElement = fixture.nativeElement.querySelector(
+      ".crd-modal-backdrop",
+    );
+    expect(backdrop).toBeTruthy();
+    backdrop.click();
+    fixture.detectChanges();
+
+    expect(component.isEntryEditionDialogDisplayed()).toBe(true);
+    expect(
+      fixture.componentInstance.editionDialogClosed,
+    ).not.toHaveBeenCalled();
   });
 
   it("emits newClicked and opens the creation dialog on onNew()", async () => {
