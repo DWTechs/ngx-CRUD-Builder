@@ -1,3 +1,4 @@
+import { CdkDragHandle } from "@angular/cdk/drag-drop";
 import { Component, inject } from "@angular/core";
 import { ConfirmService } from "../../../../core/utils/confirm/confirm.service";
 import { CrdButtonComponent } from "../crd-button/crd-button.component";
@@ -11,7 +12,7 @@ import { CrdModalComponent } from "../crd-modal/crd-modal.component";
   selector: "crd-confirm",
   templateUrl: "./crd-confirm.component.html",
   styleUrls: ["./crd-confirm.component.scss"],
-  imports: [CrdModalComponent, CrdButtonComponent],
+  imports: [CrdModalComponent, CrdButtonComponent, CdkDragHandle],
 })
 export class CrdConfirmComponent {
   private readonly confirmService = inject(ConfirmService);

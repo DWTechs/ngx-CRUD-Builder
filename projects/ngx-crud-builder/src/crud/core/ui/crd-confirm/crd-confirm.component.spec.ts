@@ -12,6 +12,7 @@ describe("CrdConfirmComponent", () => {
     });
     confirmService = TestBed.inject(ConfirmService);
     confirmService.confirm({
+      header: "Confirmation",
       message: "Proceed?",
       accept: vi.fn(),
     });
@@ -25,5 +26,12 @@ describe("CrdConfirmComponent", () => {
       .dispatchEvent(new MouseEvent("click"));
 
     expect(confirmService.current()).toBeTruthy();
+  });
+
+  it("allows dragging the dialog by its header", () => {
+    expect(fixture.nativeElement.querySelector(".cdk-drag")).toBeTruthy();
+    expect(
+      fixture.nativeElement.querySelector(".cdk-drag-handle"),
+    ).toBeTruthy();
   });
 });

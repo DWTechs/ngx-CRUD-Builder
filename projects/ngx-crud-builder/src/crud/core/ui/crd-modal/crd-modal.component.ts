@@ -1,4 +1,5 @@
 import { A11yModule } from "@angular/cdk/a11y";
+import { CdkDrag } from "@angular/cdk/drag-drop";
 import { Component, HostListener, input, output } from "@angular/core";
 
 /**
@@ -9,11 +10,12 @@ import { Component, HostListener, input, output } from "@angular/core";
   selector: "crd-modal",
   templateUrl: "./crd-modal.component.html",
   styleUrls: ["./crd-modal.component.scss"],
-  imports: [A11yModule],
+  imports: [A11yModule, CdkDrag],
 })
 export class CrdModalComponent {
   public readonly open = input(false);
   public readonly closeOnBackdrop = input(true);
+  public readonly draggable = input(false);
   public readonly panelClass = input("");
   public readonly panelStyle = input<Record<string, string>>({});
   public readonly closed = output();

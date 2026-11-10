@@ -4,6 +4,9 @@
       class="crd-modal-panel"
       [class]="panelClass()"
       [style]="panelStyle()"
+      cdkDrag
+      [cdkDragDisabled]="!draggable()"
+      cdkDragBoundary=".crd-modal-backdrop"
       role="dialog"
       aria-modal="true"
       cdkTrapFocus
