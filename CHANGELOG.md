@@ -1,3 +1,9 @@
+# 0.3.6 (Nov 10th 2026)
+- Prevent confirmation and creation/edition dialogs from closing when clicking outside them
+- Add header dragging for confirmation and creation/edition dialogs, limited to the screen boundaries
+- Fix select overlays staying open after clicking elsewhere inside a modal
+- Preserve entry properties not configured as form fields, including the ID, so archiving from the edition dialog opens its confirmation
+
 # 0.3.5 (Oct 29th 2026)
 - Fix empty table cell tooltips by disabling them when the formatted cell content is empty
 - Fix the modal panel width being capped at 40rem: the width set through `editionDialogWidth` (or `panelStyle`) is now applied, limited to 95vw
