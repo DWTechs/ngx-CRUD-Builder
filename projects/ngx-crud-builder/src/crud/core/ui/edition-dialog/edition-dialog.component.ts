@@ -1,3 +1,4 @@
+import { CdkDragHandle } from "@angular/cdk/drag-drop";
 import { AsyncPipe } from "@angular/common";
 import {
   Component,
@@ -40,6 +41,7 @@ import { HISTORY_MAPPER } from "../history/history-mapper.token";
   styleUrls: ["./edition-dialog.component.scss"],
   imports: [
     CrdModalComponent,
+    CdkDragHandle,
     FormComponent,
     CardModule,
     HistoryComponent,
@@ -283,7 +285,7 @@ export class EditionDialogComponent<TData extends CrudItemBase> {
    * @param value - The new form values
    */
   public onFormChanged(value: TData): void {
-    this.editedEntry.set(value);
+    this.editedEntry.update((entry) => ({ ...entry, ...value }));
 
     // if (this.canOnlyCloseEditionModal()) {
     //   this.edited.emit(this.editedEntry());

@@ -1,8 +1,12 @@
 @if (current(); as c) {
-  <crd-modal [open]="true" (closed)="onReject()">
+  <crd-modal
+    [open]="true"
+    [closeOnBackdrop]="false"
+    [draggable]="true"
+    (closed)="onReject()">
     <div class="crd-confirm-body">
       @if (c.header) {
-        <h3 class="crd-confirm-header">{{ c.header }}</h3>
+        <h3 class="crd-confirm-header" cdkDragHandle>{{ c.header }}</h3>
       }
       <p class="crd-confirm-message">{{ c.message }}</p>
     </div>

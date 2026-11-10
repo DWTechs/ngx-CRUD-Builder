@@ -189,6 +189,10 @@ isContextMenuEnabled: false
 
 ### Dialog Configuration
 
+The creation/edition dialog stays open when clicking outside it. Use its close button or the Escape key to dismiss it.
+Drag its header to move it within the screen boundaries.
+Properties not configured as form fields, including the entry ID, are preserved when editing.
+
 #### `editionDialogWidth`
 **Type:** `string` | **Default:** `"70vw"`  
 **Description:** Sets the width of the edition/creation dialog modal.

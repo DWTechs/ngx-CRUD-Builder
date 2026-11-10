@@ -1,5 +1,7 @@
 crd-edition-dialog {
     .edition-dialog-header {
+        cursor: move;
+        user-select: none;
         flex-shrink: 0;
         padding: 1rem 1.5rem;
         border-bottom: 1px solid var(--crd-border-color, var(--p-content-border-color, #e5e7eb));
