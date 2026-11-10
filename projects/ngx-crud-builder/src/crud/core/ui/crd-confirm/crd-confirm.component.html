@@ -1,5 +1,5 @@
 @if (current(); as c) {
-  <crd-modal [open]="true" (closed)="onReject()">
+  <crd-modal [open]="true" [closeOnBackdrop]="false" (closed)="onReject()">
     <div class="crd-confirm-body">
       @if (c.header) {
         <h3 class="crd-confirm-header">{{ c.header }}</h3>

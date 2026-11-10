@@ -13,6 +13,7 @@ import { Component, HostListener, input, output } from "@angular/core";
 })
 export class CrdModalComponent {
   public readonly open = input(false);
+  public readonly closeOnBackdrop = input(true);
   public readonly panelClass = input("");
   public readonly panelStyle = input<Record<string, string>>({});
   public readonly closed = output();
@@ -23,6 +24,6 @@ export class CrdModalComponent {
   }
 
   protected onBackdropClick(): void {
-    this.closed.emit();
+    if (this.closeOnBackdrop()) this.closed.emit();
   }
 }
